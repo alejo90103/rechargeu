@@ -9,7 +9,7 @@
 <template>
   <!-- <pre>userStore.authUser</pre> -->
   <!-- <div class="page-header header-filter clear-filter purple-filter" data-parallax="true" style="background-image: url('./assets/img/bg2.jpg');"> -->
-  <div  v-if="userStore.authUser !== null && userStore.authUser.access_token" class="page-header header-filter clear-filter purple-filter" data-parallax="true" :style="{'background-image': 'url(' + require('./../assets/material/img/bg2.jpg') + ')'}">
+  <div  v-if="userStore.authUser !== null && userStore.authUser.access_token" class="page-header header-filter clear-filter purple-filter trans" data-parallax="true" :style="{'background-image': 'url(' + require('./../assets/material/img/bg2.jpg') + ')'}" style="transform: translate3d(0px, 14.3333px, 0px);">
     <div class="container">
       <div class="row">
         <div class="col-md-8 ml-auto mr-auto">
