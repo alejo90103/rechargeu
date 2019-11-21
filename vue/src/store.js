@@ -11,7 +11,6 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 import userStore from './components/user/userStore'
-import routeStore from './components/route/routeStore'
 // import carStore from './components/car/carStore'
 // import galleryStore from './components/gallery/galleryStore'
 // import chatStore from './components/chat/chatStore'
@@ -26,8 +25,7 @@ export default new Vuex.Store({
   //   userStore, chatStore, privateMessageStore, carStore, galleryStore, sellStore
   // },
   modules: {
-    userStore,
-    routeStore
+    userStore
   },
   strict: debug
 })

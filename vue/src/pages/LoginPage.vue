@@ -24,6 +24,10 @@ export default {
     }
   },
 
+  // created () {
+  //   this.$emit('SET_IS_BANNER', false)
+  // },
+
   computed: {
     ...mapState({
       userStore: state => state.userStore
@@ -62,6 +66,10 @@ export default {
         })
     }
   }
+
+  // destroyed () {
+  //   this.$emit('SET_IS_BANNER', true)
+  // }
 }
 </script>
 
@@ -128,7 +136,7 @@ export default {
           </div>
         </div>
       </div>
-      <footer v-if="this.routeStore.name !== '/login'" class="footer">
+      <footer class="footer">
         <div class="container">
           <nav class="float-left">
             <ul>

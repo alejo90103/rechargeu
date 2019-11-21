@@ -16,6 +16,11 @@ import Banner from './components/Banner'
 import Footer from './components/Footer'
 
 export default {
+  // data () {
+  //   return {
+  //     is_banner: true
+  //   }
+  // },
   components: {
     TopMenu,
     Banner,
@@ -38,8 +43,6 @@ export default {
           this.$store.dispatch('setUserList')
         })
     }
-
-    this.$store.dispatch('setRoute', this.$router.currentRoute.name)
 
     console.log(userObj)
 
@@ -70,11 +73,10 @@ export default {
 
 <template>
   <div>
-    <!-- <pre>{{this.routeStore}}</pre> -->
     <Top-Menu></Top-Menu>
-    <Banner></Banner>
+    <Banner v-if='userStore.is_banner === true'></Banner>
     <Router-View></Router-View>
-    <Footer></Footer>
+    <Footer v-if='userStore.is_banner === true'></Footer>
   </div>
 </template>
 

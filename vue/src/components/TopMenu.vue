@@ -25,7 +25,6 @@ export default {
     handleLogout () {
       this.$store.dispatch('clearAuthUser')
       window.localStorage.removeItem('authUser')
-      this.$store.dispatch('setRoute', 'home')
       this.$router.push({name: 'home'})
     }
   }
@@ -125,8 +124,8 @@ export default {
               <i class="material-icons">face</i> Iniciar Sesión
             </a>
             <div class="dropdown-menu dropdown-with-icons">
-              <route-link class="dropdown-item"><i class="material-icons">apps</i>Iniciar Sesión</route-link>
-              <route-link class="dropdown-item"><i class="material-icons">apps</i>Registrarse</route-link>
+              <router-link class="dropdown-item" :to="{name: 'login'}"><i class="material-icons">face</i>Iniciar Sesión</router-link>
+              <router-link class="dropdown-item" :to="{name: 'register-user'}"><i class="material-icons">fingerprint</i>Registrarse</router-link>
             </div>
           </li>
         </ul>

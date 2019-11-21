@@ -4,7 +4,8 @@
 //   // userListUrl
 // } from './../../config'
 const state = {
-  authUser: null
+  authUser: null,
+  is_banner: false
 }
 
 const mutations = {
@@ -13,10 +14,10 @@ const mutations = {
   },
   CLEAR_AUTH_USER (state) {
     state.authUser = null
+  },
+  SET_IS_BANNER (state, status) {
+    state.is_banner = status
   }
-  // SET_USER_LIST (state, users) {
-  //   state.users = users
-  // }
 }
 
 const actions = {
