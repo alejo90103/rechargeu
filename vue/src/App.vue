@@ -40,7 +40,7 @@ export default {
       this.$store.dispatch('setUserObject', userObj)
         .then(() => {
           // set user list on chat
-          this.$store.dispatch('setUserList')
+          // this.$store.dispatch('setUserList')
         })
     }
 

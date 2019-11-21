@@ -59,11 +59,14 @@ export default {
           </li> -->
           <li class="dropdown nav-item">
             <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-              <i class="material-icons">apps</i> Components
+              <i class="material-icons">apps</i> Recarga
             </a>
             <div class="dropdown-menu dropdown-with-icons">
-              <!-- <router-link class="dropdown-item" :to="{name: 'car-list'}"><i class="material-icons">apps</i> Car</router-link>
-              <router-link class="dropdown-item" :to="{name: 'sell-car-list'}"><i class="material-icons">apps</i> Sells</router-link> -->
+              <!-- <router-link class="dropdown-item"><i class="material-icons">apps</i> Recargar ofertas</router-link> -->
+              <router-link :to="{name: 'home'}" class="dropdown-item"><i class="material-icons">apps</i> Recargar contacto</router-link>
+
+              <router-link :to="{name: 'home'}" class="dropdown-item"><i class="material-icons">apps</i> Contactos</router-link>
+              <router-link :to="{name: 'home'}" class="dropdown-item"><i class="material-icons">apps</i> Recargar Realizadas</router-link>
             </div>
           </li>
         </ul>
@@ -73,6 +76,21 @@ export default {
         <ul class="navbar-nav ml-auto">
           <!-- <chat-notification></chat-notification> -->
           <!-- <pm-notification></pm-notification> -->
+          <li class="nav-item">
+            <a class="nav-link" rel="tooltip" title="" data-placement="bottom" href="#" target="_blank" data-original-title="Follow us on Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" rel="tooltip" title="" data-placement="bottom" href="#" target="_blank" data-original-title="Like us on Facebook">
+              <i class="fa fa-facebook-square"></i>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" rel="tooltip" title="" data-placement="bottom" href="#" target="_blank" data-original-title="Follow us on Instagram">
+              <i class="fa fa-instagram"></i>
+            </a>
+          </li>
           <li class="dropdown nav-item">
             <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
               <i class="material-icons">face</i> {{userStore.authUser.name}}
@@ -94,7 +112,7 @@ export default {
     <div class="container">
       <div class="navbar-translate">
         <a class="navbar-brand" href="http://localhost:8080">
-          Self Cars </a>
+          Recharge U </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
           <span class="sr-only">Toggle navigation</span>
           <span class="navbar-toggler-icon"></span>

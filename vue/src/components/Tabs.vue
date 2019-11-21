@@ -93,7 +93,7 @@ export default {
                   </div>
                   <div class="card-body ">
                     <div class="tab-content text-center">
-                      <div  class="tab-pane active">
+                      <div  class="tab-pane active" id="cell">
                         <div class="form-row">
                           <div class="form-group col-md-12">
                             <div class="input-group-prepend">
@@ -114,7 +114,7 @@ export default {
                           </div>
                         </div>
                       </div>
-                      <div class="tab-pane">
+                      <div class="tab-pane" id="nauta">
                         <div class="form-row">
                           <div class="form-group col-md-12">
                             <div class="input-group-prepend">

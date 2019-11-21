@@ -5,7 +5,7 @@
 // } from './../../config'
 const state = {
   authUser: null,
-  is_banner: false
+  is_banner: true
 }
 
 const mutations = {
@@ -26,6 +26,9 @@ const actions = {
   },
   clearAuthUser: ({commit}) => {
     commit('CLEAR_AUTH_USER')
+  },
+  setBanner: ({commit}, status) => {
+    commit('SET_IS_BANNER', status)
   }
   // getUserList: ({commit}) => {
   //   return Vue.http.get(userListUrl, {headers: getHeader()})

@@ -24,9 +24,11 @@ export default {
     }
   },
 
-  // created () {
-  //   this.$emit('SET_IS_BANNER', false)
-  // },
+  created () {
+    //this.$emit('SET_IS_BANNER', false)
+    //userStore.commit('SET_IS_BANNER', { status: false })
+    this.$store.dispatch('setBanner', false)
+  },
 
   computed: {
     ...mapState({
@@ -65,11 +67,13 @@ export default {
           }
         })
     }
-  }
+  },
 
-  // destroyed () {
-  //   this.$emit('SET_IS_BANNER', true)
-  // }
+  destroyed () {
+    //this.$emit('SET_IS_BANNER', true)
+    // this.userStore.commit('SET_IS_BANNER', { status: true })
+    this.$store.dispatch('setBanner', true)
+  }
 }
 </script>
 
