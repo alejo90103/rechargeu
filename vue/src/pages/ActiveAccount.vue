@@ -1,0 +1,57 @@
+<!--
+@Author: Codeals
+@Date:   05-08-2019
+@Email:  ian@codeals.es
+@Last modified by:   Codeals
+@Last modified time: 20-08-2019
+@Copyright: Codeals
+-->
+
+<template>
+  <div class="ResetPassword__Wrapper">
+    <section class="login">
+      <div class="row">
+        <div class="col-md-6 col-md-push-3">
+          <div class="panel panel-default">
+            <div class="panel-heading"><strong>Active</strong></div>
+            <div class="panel-body">
+              <form v-on:submit.prevent="handleActiveSubmit()">
+
+                <h1>Active Account</h1>
+
+                <button class="btn btn-primary">Active</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</template>
+
+<script>
+import {activeUserUrl} from './../config'
+export default {
+  methods: {
+    handleActiveSubmit () {
+      var postData = {
+        token: this.$route.params.token
+      }
+
+      this.$http.post(activeUserUrl, postData).then(response => {
+        // console.log('response', response)
+        this.$toastr.s('Register successfully')
+        this.$router.push({name: 'home'})
+      }).catch(response => {
+        // console.log('response', response)
+        this.$toastr.e(`${response.data}`)
+      })
+    }
+  }
+}
+</script>
+
+<style lang="sass">
+  .ResetPassword__Wrapper
+    margin-top: 50px
+</style>

@@ -1,0 +1,86 @@
+<!--
+@Author: Codeals
+@Date:   05-08-2019
+@Email:  ian@codeals.es
+@Last modified by:   Codeals
+@Last modified time: 21-11-2019
+@Copyright: Codeals
+-->
+
+<script>
+import {mapState} from 'vuex'
+// import {pusherSecret} from './env'
+// import Pusher from 'pusher-js'
+import TopMenu from './components/TopMenu'
+import Banner from './components/Banner'
+import Footer from './components/Footer'
+
+export default {
+  components: {
+    TopMenu,
+    Banner,
+    Footer
+  },
+  computed: {
+    ...mapState({
+      userStore: state => state.userStore,
+      // chatStore: state => state.chatStore
+    })
+  },
+  created () {
+    console.log('Start')
+
+    // set user login
+    const userObj = JSON.parse(window.localStorage.getItem('authUser'))
+
+    if (userObj !== undefined && userObj !== null) {
+      this.$store.dispatch('setUserObject', userObj)
+        .then(() => {
+          // set user list on chat
+          this.$store.dispatch('setUserList')
+        })
+    }
+
+    console.log(userObj)
+
+    // init pusher librery
+    // this.pusher = new Pusher(pusherSecret, {
+    //   cluster: 'eu',
+    //   forceTLS: true
+    // })
+
+    // let that = this
+    // this.channel = this.pusher.subscribe('my-channel')
+    // this.channel.bind('my-event', function (data) {
+    //   that.$emit('notification_chat', data)
+    // })
+    // this.$on('notification_chat', function (chatMessage) {
+    //   this.notification_chat(chatMessage)
+    // })
+  },
+  methods: {
+    // notification_chat (chatMessage) {
+    //   if (this.userStore.authUser.email === chatMessage.msg.receiver.email) {
+    //     this.$store.dispatch('chatRTNotification', chatMessage.msg)
+    //   }
+    // }
+  }
+}
+</script>
+
+<template>
+  <div>
+    <top-menu></top-menu>
+    <banner></banner>
+    <router-view></router-view>
+    <Footer v-if="userStore.authUser !== null && userStore.authUser.access_token"></Footer>
+  </div>
+</template>
+
+<style lang="sass">
+  /* // @import './assets/css/bootstrap.css' */
+  // @import './assets/css/bootstrap.min.css'
+  @import './assets/css/global.scss'
+  @import '~vue-toastr/src/vue-toastr.scss'
+
+</style>
