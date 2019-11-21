@@ -9,6 +9,7 @@
 
 <script>
 export default {
+
 }
 </script>
 
@@ -17,11 +18,10 @@ export default {
     <div class="section section-basic">
       <div class="container">
         <div class="row">
+
           <div class="col-lg-12 col-md-12 center">
             <ul class="nav nav-pills nav-pills-icons" role="tablist">
-              <!--
-                              color-classes: "nav-pills-primary", "nav-pills-info", "nav-pills-success", "nav-pills-warning","nav-pills-danger"
-                          -->
+              <!-- color-classes: "nav-pills-primary", "nav-pills-info", "nav-pills-success", "nav-pills-warning","nav-pills-danger" -->
               <li class="nav-item">
                 <a class="nav-link active" href="#dashboard-1" role="tab" data-toggle="tab">
                   <i class="material-icons">phone_iphone</i> Móvil
@@ -56,7 +56,6 @@ export default {
               </div>
             </div>
           </div>
-
         </div>
       </div>
     </div>

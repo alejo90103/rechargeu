@@ -28,7 +28,6 @@ export default {
     })
   },
   created () {
-
     // set user login
     const userObj = JSON.parse(window.localStorage.getItem('authUser'))
 
@@ -39,6 +38,8 @@ export default {
           this.$store.dispatch('setUserList')
         })
     }
+
+    this.$store.dispatch('setRoute', this.$router.currentRoute.name)
 
     console.log(userObj)
 
@@ -69,10 +70,11 @@ export default {
 
 <template>
   <div>
+    <!-- <pre>{{this.routeStore}}</pre> -->
     <Top-Menu></Top-Menu>
     <Banner></Banner>
     <Router-View></Router-View>
-    <Footer v-if="userStore.authUser !== null && userStore.authUser.access_token"></Footer>
+    <Footer></Footer>
   </div>
 </template>
 

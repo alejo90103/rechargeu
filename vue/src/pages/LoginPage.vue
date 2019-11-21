@@ -56,7 +56,7 @@ export default {
                 authUser.name = response.body.name
                 window.localStorage.setItem('authUser', JSON.stringify(authUser))
                 this.$store.dispatch('setUserObject', authUser)
-                this.$router.push({name: 'dashboard'})
+                this.$router.push({name: 'home'})
               })
           }
         })
@@ -67,39 +67,7 @@ export default {
 
 <template>
   <div class="login-page sidebar-collapse">
-    <nav class="navbar navbar-transparent navbar-color-on-scroll fixed-top navbar-expand-lg" color-on-scroll="100" id="sectionsNav">
-      <div class="container">
-        <div class="navbar-translate">
-          <a class="navbar-brand" href="http://localhost:8080">
-            Self Cars </a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="navbar-toggler-icon"></span>
-            <span class="navbar-toggler-icon"></span>
-            <span class="navbar-toggler-icon"></span>
-          </button>
-        </div>
-        <div class="collapse navbar-collapse">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-              <a class="nav-link" rel="tooltip" title="" data-placement="bottom" href="#" target="_blank" data-original-title="Follow us on Twitter">
-                <i class="fa fa-twitter"></i>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" rel="tooltip" title="" data-placement="bottom" href="#" target="_blank" data-original-title="Like us on Facebook">
-                <i class="fa fa-facebook-square"></i>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" rel="tooltip" title="" data-placement="bottom" href="#" target="_blank" data-original-title="Follow us on Instagram">
-                <i class="fa fa-instagram"></i>
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+
     <!-- <div class="page-header header-filter" style="background-image: url('./../assets/material/img/bg7.jpg'); background-size: cover; background-position: top center;"> -->
     <div class="page-header header-filter" :style="{'background-image': 'url(' + require('./../assets/img/98b20f06654c5e64c8602ddf3f31c6fd.jpg') + ')'}">
       <div class="container">
@@ -160,7 +128,7 @@ export default {
           </div>
         </div>
       </div>
-      <footer class="footer">
+      <footer v-if="this.routeStore.name !== '/login'" class="footer">
         <div class="container">
           <nav class="float-left">
             <ul>
@@ -14431,7 +14399,7 @@ export default {
   .navbar.navbar-transparent {
     background-color: transparent !important;
     box-shadow: none;
-    padding-top: 25px;
+    /* padding-top: 25px; */
     color: #fff;
   }
 
@@ -17528,7 +17496,7 @@ export default {
   }
 
   .index-page .page-header {
-    height: 90vh;
+    height: 100vh;
     overflow: hidden;
   }
 

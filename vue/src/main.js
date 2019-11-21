@@ -56,13 +56,14 @@ Vue.component('app', App)
 
 // routes
 const routes = [
-  {path: '/', component: LoginPage, name: 'home'},
+  {path: '/', component: DashboardPage, name: 'home'},
   // user
+  {path: '/login', component: LoginPage, name: 'login'},
   {path: '/register-user', component: RegisterPage, name: 'register-user'},
   {path: '/active-account/:token', component: ActiveAccount, name: 'active-account'},
   {path: '/forgot-password', component: ForgotPassword, name: 'forgot-password'},
   {path: '/reset-password/:token', component: ResetPassword, name: 'reset-password'},
-  {path: '/dashboard', component: DashboardPage, name: 'dashboard', meta: { requiresAuth: true }}
+  {path: '/dashboard', component: DashboardPage, name: 'dashboard'}
   // chat
   // {path: '/chat', component: ChatPage, name: 'chat', meta: { requiresAuth: true }},
   // {path: '/chat/:userId', component: ChatPage, name: 'chat', meta: { requiresAuth: true }},
