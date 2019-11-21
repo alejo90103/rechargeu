@@ -1,7 +1,7 @@
 {
   "name": "client",
   "version": "1.0.0",
-  "description": "mailing",
+  "description": "recharge",
   "author": "codeals",
   "private": true,
   "scripts": {
