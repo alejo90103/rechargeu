@@ -75,8 +75,7 @@ export default {
           <!-- <pm-notification></pm-notification> -->
           <li class="dropdown nav-item">
             <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-              <i class="material-icons">face</i>
-              <!-- <i class="material-icons">face</i> {{userStore.authUser.name}} -->
+              <i class="material-icons">face</i> {{userStore.authUser.name}}
             </a>
             <div class="dropdown-menu dropdown-with-icons">
               <a href="#" class="dropdown-item">

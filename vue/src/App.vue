@@ -23,12 +23,11 @@ export default {
   },
   computed: {
     ...mapState({
-      userStore: state => state.userStore,
+      userStore: state => state.userStore
       // chatStore: state => state.chatStore
     })
   },
   created () {
-    console.log('Start')
 
     // set user login
     const userObj = JSON.parse(window.localStorage.getItem('authUser'))
@@ -70,9 +69,9 @@ export default {
 
 <template>
   <div>
-    <top-menu></top-menu>
-    <banner></banner>
-    <router-view></router-view>
+    <Top-Menu></Top-Menu>
+    <Banner></Banner>
+    <Router-View></Router-View>
     <Footer v-if="userStore.authUser !== null && userStore.authUser.access_token"></Footer>
   </div>
 </template>
