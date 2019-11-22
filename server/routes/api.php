@@ -3,7 +3,7 @@
 # @Date:   20-10-2019
 # @Email:  ian@codeals.es
 # @Last modified by:   Codeals
-# @Last modified time: 01-11-2019
+# @Last modified time: 22-11-2019
 # @Copyright: Codeals
 
 use Illuminate\Http\Request;
@@ -28,8 +28,7 @@ Route::post('reset-password', 'UserController@resetPassword');
 Route::post('user-register', 'UserController@registerPassword');
 Route::post('user-active', 'UserController@activeUser');
 
-
-Route::post('recharge-cell', 'RechargeController@rechargeCell');
+Route::get('offer-list', 'OfferController@allOffer');
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
 	if ($request->user()->status == 1) {

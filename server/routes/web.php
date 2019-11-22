@@ -3,7 +3,7 @@
 # @Date:   19-10-2019
 # @Email:  ian@codeals.es
 # @Last modified by:   Codeals
-# @Last modified time: 20-10-2019
+# @Last modified time: 22-11-2019
 # @Copyright: Codeals
 
 /*
@@ -20,7 +20,8 @@
 use App\Events\ChatConversation;
 
 Route::get('/', function () {
-    return view('welcome');
+    // return view('welcome');
+    return view('main');
 });
 
 Auth::routes();

@@ -1,4 +1,13 @@
 <!doctype html>
+<!--
+# @Author: Codeals
+# @Date:   21-11-2019
+# @Email:  ian@codeals.es
+# @Last modified by:   Codeals
+# @Last modified time: 22-11-2019
+# @Copyright: Codeals
+-->
+
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         <meta charset="utf-8">
