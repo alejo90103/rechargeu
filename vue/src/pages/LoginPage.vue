@@ -25,8 +25,8 @@ export default {
   },
 
   created () {
-    //this.$emit('SET_IS_BANNER', false)
-    //userStore.commit('SET_IS_BANNER', { status: false })
+    //  this.$emit('SET_IS_BANNER', false)
+    //  userStore.commit('SET_IS_BANNER', { status: false })
     this.$store.dispatch('setBanner', false)
   },
 
@@ -70,8 +70,8 @@ export default {
   },
 
   destroyed () {
-    //this.$emit('SET_IS_BANNER', true)
-    // this.userStore.commit('SET_IS_BANNER', { status: true })
+    //  this.$emit('SET_IS_BANNER', true)
+    //  this.userStore.commit('SET_IS_BANNER', { status: true })
     this.$store.dispatch('setBanner', true)
   }
 }

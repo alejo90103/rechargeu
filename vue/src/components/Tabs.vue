@@ -10,7 +10,7 @@
 <script>
 import {mapState} from 'vuex'
 import {apiDomain} from './../../config'
-import ModalRegister from './ModalRegister'
+// import ModalRegister from './ModalRegister'
 
 export default {
   data () {
@@ -18,21 +18,24 @@ export default {
       type: 'cell',
       cell: {
         number: '',
-        offert: ''
+        offert: '',
+        call: 'rechargeCell'
       },
       nauta: {
         email: '',
-        offert: ''
+        offert: '',
+        call: 'rechargeNauta'
       },
       server: apiDomain
     }
   },
-  components: {
-    ModalRegister
-  },
+  // components: {
+  //   ModalRegister
+  // },
   computed: {
     ...mapState({
-      userStore: state => state.userStore
+      userStore: state => state.userStore,
+      rechargeStore: state => state.rechargeStore
     })
   },
   methods: {
@@ -40,23 +43,59 @@ export default {
       this.type = val
     },
     handleSubmit () {
+      if (this.type === 'cell') {
+        if (!this.cell.number) {
+          this.$toastr.e('Debe ingresar un número')
+          return
+        } else if (!this.cell.offert) {
+          this.$toastr.e('Debe selecionar una oferta')
+          return
+        }
+        if (!this.validateNumber(this.cell.number)) {
+          this.$toastr.e('Número invalido')
+          return
+        }
+        this.$store.dispatch('setRecharge', this.cell)
+      } else {
+        if (!this.nauta.email) {
+          this.$toastr.e('Debe ingresar un correo')
+          return
+        } else if (!this.nauta.offert) {
+          this.$toastr.e('Debe selecionar una oferta')
+          return
+        }
+        if (!this.validateEmail(this.nauta.email)) {
+          this.$toastr.e('Email invalido')
+          return
+        }
+        this.$store.dispatch('setRecharge', this.nauta)
+      }
       if (this.userStore.authUser === null) {
         console.log('no logueado')
         console.log('show popup')
+        $('#exampleModal').modal('show')
+        $('.modal-backdrop').css('opacity', '1')
       } else {
-        console.log('logueado')
-        if (this.type === 'cell') {
-          // recargar cell
-          console.log('Cell')
-          console.log(this.cell.number)
-          console.log(this.cell.offert)
-        } else {
-          // recargar nauta
-          console.log('Nauta')
-          console.log(this.cell.email)
-          console.log(this.cell.offert)
-        }
+        this.$store.dispatch(this.rechargeStore.recharge.call)
+          .then(response => {
+            console.log(response)
+            if (response.status === 201) {
+              this.$toastr.s('Recarga realizada correctamente')
+              this.$router.push({name: 'home'})
+            } else {
+              this.$toastr.e('ERROR en la recarga :( ')
+              this.$router.push({name: 'home'})
+            }
+          })
       }
+    },
+    validateEmail (email) {
+      var regularExp = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+@nauta.(?:com|co).cu$/
+      return regularExp.test(email)
+    },
+    validateNumber (number) {
+      var regularExp = /^([0-9]{8})$/
+      return regularExp.test(number)
     }
   }
 }
@@ -70,7 +109,7 @@ export default {
           <div id="nav-tabs">
             <div class="row">
               <div class="col-md-12">
-                <!-- <pre>{{url}}</pre> -->
+                <!-- <pre>{{rechargeStore}}</pre> -->
                 <!-- Tabs with icons on Card -->
                 <div class="card card-nav-tabs">
                   <div class="card-header card-header-primary center">
@@ -146,6 +185,8 @@ export default {
         </div>
       </div>
     </div>
+    <!-- <ModalRegister v-if="showModal" @close="close"></ModalRegister> -->
+    <!-- <ModalRegister @close="close"></ModalRegister> -->
   </div>
 </template>
 

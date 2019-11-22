@@ -28,6 +28,9 @@ Route::post('reset-password', 'UserController@resetPassword');
 Route::post('user-register', 'UserController@registerPassword');
 Route::post('user-active', 'UserController@activeUser');
 
+
+Route::post('recharge-cell', 'RechargeController@rechargeCell');
+
 Route::middleware('auth:api')->get('/user', function (Request $request) {
 	if ($request->user()->status == 1) {
 		return $request->user();
@@ -40,8 +43,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::group(['prefix' => 'v1', 'middleware' => 'auth:api'], function () {
     // Route::get('user-list', 'UserController@getUserList');
 
-    /*Product url*/
-    // Route::get('list-prod', 'ProductController@getProdList');
-    // Route::post('get-prod', 'ProductController@getProdById');
+    /*recharge url*/
+    Route::post('recharge-cell', 'RechargeController@rechargeCell');
+    Route::post('recharge-nauta', 'RechargeController@rechargeNauta');
 
 });

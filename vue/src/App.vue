@@ -14,6 +14,7 @@ import {mapState} from 'vuex'
 import TopMenu from './components/TopMenu'
 import Banner from './components/Banner'
 import Footer from './components/Footer'
+import ModalRegister from './components/ModalRegister'
 
 export default {
   // data () {
@@ -24,7 +25,8 @@ export default {
   components: {
     TopMenu,
     Banner,
-    Footer
+    Footer,
+    ModalRegister
   },
   computed: {
     ...mapState({
@@ -77,6 +79,7 @@ export default {
     <Banner v-if='userStore.is_banner === true'></Banner>
     <Router-View></Router-View>
     <Footer v-if='userStore.is_banner === true'></Footer>
+    <ModalRegister></ModalRegister>
   </div>
 </template>
 

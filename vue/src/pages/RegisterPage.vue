@@ -281,6 +281,11 @@
 <script>
 import {registerUserUrl} from './../config'
 export default {
+  created () {
+    //  this.$emit('SET_IS_BANNER', false)
+    //  userStore.commit('SET_IS_BANNER', { status: false })
+    this.$store.dispatch('setBanner', false)
+  },
   data () {
     return {
       activeStep: 0,
@@ -324,6 +329,12 @@ export default {
         this.$toastr.e(`${response.data}`)
       })
     }
+  },
+
+  destroyed () {
+    //  this.$emit('SET_IS_BANNER', true)
+    //  this.userStore.commit('SET_IS_BANNER', { status: true })
+    this.$store.dispatch('setBanner', true)
   }
 }
 </script>

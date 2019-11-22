@@ -15,6 +15,10 @@ export const resetPassword = apiDomain + 'api/reset-password'
 export const registerUserUrl = apiDomain + 'api/user-register'
 export const activeUserUrl = apiDomain + 'api/user-active'
 
+// recharge
+export const rechargeCell = apiDomain + 'api/v1/recharge-cell'
+export const rechargeNauta = apiDomain + 'api/v1/recharge-nauta'
+
 // export const getNomenclatorMaker = apiDomain + 'api/v1/get-meker'
 //
 // export const userListUrl = apiDomain + 'api/v1/user-list'
