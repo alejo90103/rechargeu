@@ -22,6 +22,13 @@ export const rechargeNauta = apiDomain + 'api/v1/recharge-nauta'
 // offert
 export const offerList = apiDomain + 'api/offer-list'
 
+// contact
+export const contactListUrl = apiDomain + 'api/v1/contact-list'
+export const getContactById = apiDomain + 'api/v1/contact-get'
+export const addNewContact = apiDomain + 'api/v1/contact-add'
+export const updateContact = apiDomain + 'api/v1/contact-updata'
+export const deleteContact = apiDomain + 'api/v1/contact-delete'
+
 // export const getNomenclatorMaker = apiDomain + 'api/v1/get-meker'
 //
 // export const userListUrl = apiDomain + 'api/v1/user-list'

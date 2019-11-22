@@ -13,6 +13,7 @@ import Vuex from 'vuex'
 import userStore from './components/user/userStore'
 import rechargeStore from './components/recharge/rechargeStore'
 import offerStore from './components/offer/offerStore'
+import contactStore from './components/contact/contactStore'
 // import carStore from './components/car/carStore'
 // import galleryStore from './components/gallery/galleryStore'
 // import chatStore from './components/chat/chatStore'
@@ -29,7 +30,8 @@ export default new Vuex.Store({
   modules: {
     userStore,
     rechargeStore,
-    offerStore
+    offerStore,
+    contactStore
   },
   strict: debug
 })

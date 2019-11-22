@@ -15,7 +15,7 @@ import _ from 'lodash'
 export default {
   data () {
     return {
-      col: 0
+      col: ''
     }
   },
   components: {
@@ -34,8 +34,11 @@ export default {
           count++
         }
       })
-      console.log(count)
-      this.col = parseInt(count)
+      if (count < 3) {
+        this.col = 'margin: 0 auto'
+      } else {
+        this.col = ''
+      }
     }
   }
 }
@@ -62,15 +65,18 @@ export default {
           <div class="tab-pane active" id="cell-info">
             <div class="row">
               <!-- <pre>{{col}}</pre> -->
-              <div class="card text-center" :class="'col-md-4'" v-for="offer in offerStore.offers" v-if="offer.type === 'Cell'" :key="offer.id" style="width: 20rem; float: none; margin-bottom: 10px; box-shadow: none">
-                <div class="card-body">
+              <div class="card text-center col-md-4" :style="col" v-for="offer in offerStore.offers" v-if="offer.type === 'Cell'" :key="offer.id" style="width: 20rem; float: none; margin-bottom: 10px; box-shadow: none">
+                <div class="card-body shadow">
                   <h4 class="card-title">Paga</h4>
-                  <h3 class="card-title" style="color: #9c27b0">{{ offer.price_pay }} €</h3>
+                  <h2 class="card-title" style="color: #9c27b0">{{ offer.price_pay }} €</h2>
                   <hr style="color: #0056b2;" />
                   <h4 class="card-title">Recibe</h4>
-                  <h3 class="card-title" style="color: #9c27b0">{{ offer.receive }}</h3>
+                  <h2 class="card-title" style="color: #9c27b0">{{ offer.receive }}</h2>
                   <hr style="color: #0056b2;" />
-                  <p class="card-title" style="align-text: justify">{{ offer.receive }} de bonificación, a consumir antes del {{ offer.date_expire }}</p>
+                  <div class="row" style="display: -webkit-inline-box;">
+                    <i class="material-icons col-md-1" style="margin-top: 0.625rem; max-width: 0; color:#9c27b0"> check_circle </i>
+                    <p class="card-title col-md-11" style="text-align: left">{{ offer.receive }} de bonificación, a consumir antes del {{ offer.date_expire }}</p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -89,5 +95,10 @@ export default {
     align-items: center;
     flex-direction: column;
     display: flex;
+  }
+  .shadow {
+    box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.14), 0 3px 20px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+    padding: 25px;
+    border-radius: 6px;
   }
 </style>

@@ -65,7 +65,7 @@ export default {
               <!-- <router-link class="dropdown-item"><i class="material-icons">apps</i> Recargar ofertas</router-link> -->
               <router-link :to="{name: 'home'}" class="dropdown-item"><i class="material-icons">apps</i> Recargar contacto</router-link>
 
-              <router-link :to="{name: 'home'}" class="dropdown-item"><i class="material-icons">apps</i> Contactos</router-link>
+              <router-link :to="{name: 'contact'}" class="dropdown-item"><i class="material-icons">perm_contact_calendar</i> Contactos</router-link>
               <router-link :to="{name: 'home'}" class="dropdown-item"><i class="material-icons">apps</i> Recargar Realizadas</router-link>
             </div>
           </li>

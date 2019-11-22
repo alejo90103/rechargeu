@@ -14,6 +14,8 @@ import VueRouter from 'vue-router'
 import VueResource from 'vue-resource'
 import Multiselect from 'vue-multiselect'
 import Toastr from 'vue-toastr'
+import BootstrapVue from 'bootstrap-vue'
+
 // import VueSocketio from 'vue-socketio'
 import store from './store'
 
@@ -25,6 +27,7 @@ import ActiveAccount from './pages/ActiveAccount'
 import ForgotPassword from './pages/ForgotPassword'
 import ResetPassword from './pages/ResetPassword'
 import DashboardPage from './pages/DashboardPage'
+import ContactPage from './pages/ContactPage'
 // import ChatPage from './pages/ChatPage'
 
 // import PrivateMessageInbox from './components/private-message/PrivateMessageInbox'
@@ -48,6 +51,7 @@ Vue.use(VueResource)
 Vue.use(VueRouter)
 Vue.use(Logger, {loggin: true})
 Vue.use(Toastr)
+Vue.use(BootstrapVue)
 Vue.component('multiselect', Multiselect)
 // Vue.use(VueSocketio, 'http://localhost:8890')
 // Vue.use(VueSocketio, 'http://socketserver.com:1923');
@@ -63,7 +67,9 @@ const routes = [
   {path: '/active-account/:token', component: ActiveAccount, name: 'active-account'},
   {path: '/forgot-password', component: ForgotPassword, name: 'forgot-password'},
   {path: '/reset-password/:token', component: ResetPassword, name: 'reset-password'},
-  {path: '/dashboard', component: DashboardPage, name: 'dashboard'}
+  {path: '/dashboard', component: DashboardPage, name: 'dashboard'},
+  {path: '/contact', component: ContactPage, name: 'contact', meta: { requiresAuth: true }}
+
   // chat
   // {path: '/chat', component: ChatPage, name: 'chat', meta: { requiresAuth: true }},
   // {path: '/chat/:userId', component: ChatPage, name: 'chat', meta: { requiresAuth: true }},
@@ -93,7 +99,7 @@ router.beforeEach((to, from, next) => {
     if (authUser && authUser.access_token) {
       next()
     } else {
-      next({name: 'home'})
+      next({name: 'login'})
     }
   }
   next()

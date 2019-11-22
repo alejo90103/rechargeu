@@ -116,13 +116,13 @@ class ContactController extends Controller
     //  Contact list
     public function getContactList(Request $request)
     {
-        return response(['data' => Contact::where('id', $request->input('id'))->get()], 200);
+        return response(['data' => Contact::where('user_id', $request->user()->id)->where('is_deleted', 0)->get()], 200);
 
     }
 
     public function getContactById(Request $request)
     {
-        $contact = Contact::where('id', $request->input('id'))->with('galleries')->first();
+        $contact = Contact::where('id', $request->user()->id)->first();
 
         return response(['data' => $contact], 200);
     }
@@ -156,8 +156,9 @@ class ContactController extends Controller
     {
         $contact = Contact::where('id', $request->input('id'))->first();
 
-        $data = $contact;
-        $contact->delete();
+        //  $data = $contact;
+        $data['is_deleted'] = 1;
+        $contact->update($data);
 
         return response(['data' => $data], 201);
     }
