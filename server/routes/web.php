@@ -27,3 +27,16 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::resource('offers', 'OfferController');
+// Route::get('offers', 'OfferController@index')->name('offers');
+
+// usuarios registrados
+Route::group(['middleware' => 'auth'], function () {
+
+});
+
+// usuarios admin
+Route::group(['middleware' => 'admin'], function () {
+
+});
