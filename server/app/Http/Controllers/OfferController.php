@@ -123,7 +123,7 @@ class OfferController extends Controller
     public function allOffer()
     {
         //  aqui se formo la cosa, redsys y recojo y dingconnect
-        $data = $request->all();
-        return response(['data' => $data], 201);
+        $data = Offer::all();
+        return response(['data' => $data], 200);
     }
 }

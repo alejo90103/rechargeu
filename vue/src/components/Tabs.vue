@@ -18,12 +18,12 @@ export default {
       type: 'cell',
       cell: {
         number: '',
-        offert: '',
+        offer_id: '',
         call: 'rechargeCell'
       },
       nauta: {
         email: '',
-        offert: '',
+        offer_id: '',
         call: 'rechargeNauta'
       },
       server: apiDomain
@@ -35,7 +35,8 @@ export default {
   computed: {
     ...mapState({
       userStore: state => state.userStore,
-      rechargeStore: state => state.rechargeStore
+      rechargeStore: state => state.rechargeStore,
+      offerStore: state => state.offerStore
     })
   },
   methods: {
@@ -47,7 +48,7 @@ export default {
         if (!this.cell.number) {
           this.$toastr.e('Debe ingresar un número')
           return
-        } else if (!this.cell.offert) {
+        } else if (!this.cell.offer_id) {
           this.$toastr.e('Debe selecionar una oferta')
           return
         }
@@ -60,7 +61,7 @@ export default {
         if (!this.nauta.email) {
           this.$toastr.e('Debe ingresar un correo')
           return
-        } else if (!this.nauta.offert) {
+        } else if (!this.nauta.offer_id) {
           this.$toastr.e('Debe selecionar una oferta')
           return
         }
@@ -75,10 +76,17 @@ export default {
         console.log('show popup')
         $('#exampleModal').modal('show')
         $('.modal-backdrop').css('opacity', '1')
+        this.cell.number = ''
+        this.cell.offer_id = ''
+        this.nauta.email = ''
+        this.nauta.offer_id = ''
       } else {
         this.$store.dispatch(this.rechargeStore.recharge.call)
           .then(response => {
-            console.log(response)
+            this.cell.number = ''
+            this.cell.offer_id = ''
+            this.nauta.email = ''
+            this.nauta.offer_id = ''
             if (response.status === 201) {
               this.$toastr.s('Recarga realizada correctamente')
               this.$router.push({name: 'home'})
@@ -143,11 +151,11 @@ export default {
                           <div class="form-group col-md-12">
                             <div class="input-group-prepend">
                               <div class="input-group-text" style="color: #000; font-weight: 200; font-size: 25px; margin-left: 10px; width: 40px">€</div>
-                              <select v-model="cell.offert" style="font-size: 25px; text-align: center; font-weight: 200; height: auto; text-align-last: center" class="form-control">
-                                <option selected>Choose...</option>
-                                <option value="20">De 20 a 40</option>
-                                <option value="40">De 40 a 80</option>
-                                <option value="50">De 50 a 100</option>
+                              <select v-model="cell.offer_id" style="font-size: 25px; text-align: center; font-weight: 200; height: auto; text-align-last: center" class="form-control">
+                                <!-- <option selected>Selecciona una oferta</option> -->
+                                <option v-for="offer in offerStore.offers" v-if="offer.type === 'Cell'" :value="offer.id" :key="offer.id">
+                                  {{ offer.name }}
+                                </option>
                               </select>
                             </div>
                           </div>
@@ -164,7 +172,7 @@ export default {
                           <div class="form-group col-md-12">
                             <div class="input-group-prepend">
                               <div class="input-group-text" style="color: #000; font-weight: 200; font-size: 25px; margin-left: 10px; width: 40px">€</div>
-                              <select v-model="nauta.offert" style="font-size: 25px; text-align: center; font-weight: 200; height: auto; text-align-last: center" class="form-control">
+                              <select v-model="nauta.offer_id" style="font-size: 25px; text-align: center; font-weight: 200; height: auto; text-align-last: center" class="form-control">
                                 <option selected>Choose...</option>
                                 <option value="20">De 20 a 40</option>
                                 <option value="40">De 40 a 80</option>

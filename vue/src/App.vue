@@ -30,8 +30,8 @@ export default {
   },
   computed: {
     ...mapState({
-      userStore: state => state.userStore
-      // chatStore: state => state.chatStore
+      userStore: state => state.userStore,
+      offerStore: state => state.offerStore
     })
   },
   created () {
@@ -45,6 +45,8 @@ export default {
           // this.$store.dispatch('setUserList')
         })
     }
+
+    this.$store.dispatch('getOfferList')
 
     console.log(userObj)
 
@@ -75,6 +77,7 @@ export default {
 
 <template>
   <div>
+    <!-- <pre>{{offerStore.offers}}</pre> -->
     <Top-Menu></Top-Menu>
     <Banner v-if='userStore.is_banner === true'></Banner>
     <Router-View></Router-View>

@@ -25,7 +25,9 @@ class CreateOffersTable extends Migration
             $table->enum('type', ['Cell', 'Nauta'])->defatul('Cell');
             $table->date('date_ini')->nullable();
             $table->date('date_end')->nullable();
+            $table->date('date_expire');
             $table->float('price_pay', 8, 2);
+            $table->string('receive');
             $table->float('recharge_amount', 8, 2);
             $table->boolean('is_deleted')->default(0);
             $table->timestamps();

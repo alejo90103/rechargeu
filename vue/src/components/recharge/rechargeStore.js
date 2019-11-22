@@ -33,6 +33,9 @@ const getters = {
 const mutations = {
   SET_RECHARGE_QUICK (state, recharge) {
     state.recharge = recharge
+  },
+  CLEAR_RECHARGE (state) {
+    state.recharge = {}
   }
 }
 
@@ -58,6 +61,10 @@ const actions = {
         Vue.$logger('info', 'rechargeNauta response', response)
         // commit('SAVE_ADD_CAR', response.body.data)
       })
+  },
+  clearRecharge: ({commit}) => {
+    Vue.$logger('info', 'clearRecharge')
+    commit('CLEAR_RECHARGE')
   }
 }
 

@@ -19,6 +19,9 @@ export const activeUserUrl = apiDomain + 'api/user-active'
 export const rechargeCell = apiDomain + 'api/v1/recharge-cell'
 export const rechargeNauta = apiDomain + 'api/v1/recharge-nauta'
 
+// offert
+export const offerList = apiDomain + 'api/offer-list'
+
 // export const getNomenclatorMaker = apiDomain + 'api/v1/get-meker'
 //
 // export const userListUrl = apiDomain + 'api/v1/user-list'
