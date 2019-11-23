@@ -2,8 +2,8 @@
 @Author: Codeals
 @Date:   05-08-2019
 @Email:  ian@codeals.es
-@Last modified by:   Codeals
-@Last modified time: 07-09-2019
+@Last modified by:   alejandro
+@Last modified time: 2019-11-23T20:31:38+01:00
 @Copyright: Codeals
 -->
 
@@ -12,6 +12,9 @@
 import Info from './../components/dashboard/Info'
 
 export default {
+  created () {
+    this.$store.dispatch('setBanner', true)
+  },
   components: {
     Info
   }

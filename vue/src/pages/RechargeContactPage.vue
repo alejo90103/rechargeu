@@ -4,7 +4,7 @@
 @Email:  alejo901003@hotmail.com
 @Project: Recargame
 @Last modified by:   alejandro
-@Last modified time: 2019-11-23T18:58:58+01:00
+@Last modified time: 2019-11-23T20:29:30+01:00
 -->
 
 <script>
@@ -137,9 +137,9 @@ export default {
     TopMenu,
     Footer
   },
-  destroyed () {
-    this.$store.dispatch('setBanner', true)
-  },
+  // destroyed () {
+  //   this.$store.dispatch('setBanner', true)
+  // },
   methods: {
     changeRecharge (val) {
       this.type = val
@@ -404,7 +404,7 @@ export default {
 
                           <template v-slot:cell(actions)="row">
                             <b-button variant="success" size="sm" @click="showRechargePhoneModal(row.item)" class="mr-1">
-                              Recargar
+                              <i class="material-icons">sentiment_satisfied_alt</i>    Recargame
                             </b-button>
                           </template>
 
@@ -577,7 +577,7 @@ export default {
 
                           <template v-slot:cell(actions)="row">
                             <b-button variant="success" size="sm" @click="showRechargeNautaModal(row.item)" class="mr-1">
-                              Recargar
+                              <i class="material-icons">sentiment_satisfied_alt</i>    Recargame
                             </b-button>
                           </template>
 
@@ -657,7 +657,7 @@ export default {
               <pre>{{ cell }}</pre>
               <pre>{{ nauta }}</pre>
 
-              <b-button class="mt-2" variant="success" style="float: right;" @click="handleRecharge">Recargar</b-button>
+              <b-button class="mt-2" variant="success" style="float: right;" @click="handleRecharge"><i class="material-icons">sentiment_satisfied_alt</i>    Recargame</b-button>
             </b-container>
 
           </b-modal>

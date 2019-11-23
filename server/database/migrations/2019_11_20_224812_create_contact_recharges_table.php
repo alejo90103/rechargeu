@@ -2,8 +2,8 @@
 # @Author: Codeals
 # @Date:   20-11-2019
 # @Email:  ian@codeals.es
-# @Last modified by:   Codeals
-# @Last modified time: 21-11-2019
+# @Last modified by:   alejandro
+# @Last modified time: 2019-11-23T20:01:16+01:00
 # @Copyright: Codeals
 
 use Illuminate\Support\Facades\Schema;

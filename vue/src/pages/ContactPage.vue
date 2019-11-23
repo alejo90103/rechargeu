@@ -4,7 +4,7 @@
 @Email:  alejo901003@hotmail.com
 @Project: Recargame
 @Last modified by:   alejandro
-@Last modified time: 2019-11-23T18:27:24+01:00
+@Last modified time: 2019-11-23T20:29:45+01:00
 -->
 
 <script>
@@ -90,9 +90,9 @@ export default {
     TopMenu,
     Footer
   },
-  destroyed () {
-    this.$store.dispatch('setBanner', true)
-  },
+  // destroyed () {
+  //   this.$store.dispatch('setBanner', true)
+  // },
   methods: {
     validateEmail (email) {
       var regularExp = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+@nauta.(?:com|co).cu$/

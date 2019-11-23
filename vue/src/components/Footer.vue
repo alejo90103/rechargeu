@@ -2,8 +2,8 @@
 @Author: Codeals
 @Date:   07-09-2019
 @Email:  ian@codeals.es
-@Last modified by:   Codeals
-@Last modified time: 21-11-2019
+@Last modified by:   alejandro
+@Last modified time: 2019-11-23T19:34:40+01:00
 @Copyright: Codeals
 -->
 <template>
@@ -41,4 +41,14 @@ export default {
 </script>
 
 <style lang="css" scoped>
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+  }
+
+  input[type=number] {
+    -moz-appearance:textfield; /* Firefox */
+  }
 </style>

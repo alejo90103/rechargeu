@@ -3,7 +3,7 @@
 @Date:   05-08-2019
 @Email:  ian@codeals.es
 @Last modified by:   alejandro
-@Last modified time: 2019-11-23T18:04:42+01:00
+@Last modified time: 2019-11-23T20:44:02+01:00
 @Copyright: Codeals
 -->
 
@@ -35,6 +35,12 @@ export default {
   },
 
   methods: {
+    isLogin () {
+      if (this.userStore.authUser !== null) {
+        this.$router.push({name: 'home'})
+      }
+    },
+
     handleLoginFormSubmit () {
       const postData = {
         grant_type: 'password',
@@ -67,16 +73,16 @@ export default {
     }
   },
 
-  destroyed () {
-    //  this.$emit('SET_IS_BANNER', true)
-    //  this.userStore.commit('SET_IS_BANNER', { status: true })
-    this.$store.dispatch('setBanner', true)
-  }
+  // destroyed () {
+  //   //  this.$emit('SET_IS_BANNER', true)
+  //   //  this.userStore.commit('SET_IS_BANNER', { status: true })
+  //   this.$store.dispatch('setBanner', true)
+  // }
 }
 </script>
 
 <template>
-  <div class="login-page sidebar-collapse">
+  <div v-bind="isLogin()" class="login-page sidebar-collapse">
 
     <!-- <div class="page-header header-filter" style="background-image: url('./../assets/material/img/bg7.jpg'); background-size: cover; background-position: top center;"> -->
     <div class="page-header header-filter" :style="{'background-image': 'url(' + require('./../assets/img/98b20f06654c5e64c8602ddf3f31c6fd.jpg') + ')'}">

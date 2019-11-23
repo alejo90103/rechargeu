@@ -17,6 +17,19 @@
     <!-- <link rel="stylesheet" href="/static/template/wizard/assets/css/font-awesome.min.css"> -->
     <link href="/static/template/material/assets/demo/demo.css" rel="stylesheet" />
 
+    <style lang="css" scoped>
+      input::-webkit-outer-spin-button,
+      input::-webkit-inner-spin-button {
+        /* display: none; <- Crashes Chrome on hover */
+        -webkit-appearance: none;
+        margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+      }
+
+      input[type=number] {
+        -moz-appearance:textfield; /* Firefox */
+      }
+    </style>
+
   </head>
   <body>
     <div id="app" class="index-page sidebar-collapse">

@@ -2,8 +2,8 @@
 # @Author: Codeals
 # @Date:   22-11-2019
 # @Email:  ian@codeals.es
-# @Last modified by:   Codeals
-# @Last modified time: 23-11-2019
+# @Last modified by:   alejandro
+# @Last modified time: 2019-11-23T20:03:21+01:00
 # @Copyright: Codeals
 
 
@@ -107,8 +107,8 @@ class RechargeController extends Controller
                  ->where('phone', $request->input('phone'))
                  ->first();
 
-        if($exist) {
-            if($exist->is_deleted == 1) {
+        if($contact) {
+            if($contact->is_deleted == 1) {
               $data['is_deleted'] = 0;
               $contact->update($data);
             }
@@ -135,8 +135,8 @@ class RechargeController extends Controller
                  ->where('email', $request->input('email'))
                  ->first();
 
-        if($exist) {
-            if($exist->is_deleted == 1) {
+        if($contact) {
+            if($contact->is_deleted == 1) {
               $data['is_deleted'] = 0;
               $contact->update($data);
             }

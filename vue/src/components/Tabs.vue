@@ -4,7 +4,7 @@
 @Email:  alejo901003@hotmail.com
 @Project: Recargame
 @Last modified by:   alejandro
-@Last modified time: 2019-11-23T16:27:40+01:00
+@Last modified time: 2019-11-23T20:15:03+01:00
 -->
 
 <script>
@@ -17,11 +17,13 @@ export default {
     return {
       type: 'cell',
       cell: {
-        number: '',
+        name: '',
+        phone: '',
         offer_id: '',
         call: 'rechargeCell'
       },
       nauta: {
+        name: '',
         email: '',
         offer_id: '',
         call: 'rechargeNauta'
@@ -45,20 +47,26 @@ export default {
     },
     handleSubmit () {
       if (this.type === 'cell') {
-        if (!this.cell.number) {
+        if (!this.cell.name) {
+          this.$toastr.e('Debe ingresar un nombre')
+          return
+        } else if (!this.cell.phone) {
           this.$toastr.e('Debe ingresar un número')
           return
         } else if (!this.cell.offer_id) {
           this.$toastr.e('Debe selecionar una oferta')
           return
         }
-        if (!this.validateNumber(this.cell.number)) {
+        if (!this.validateNumber(this.cell.phone)) {
           this.$toastr.e('Número invalido')
           return
         }
         this.$store.dispatch('setRecharge', this.cell)
       } else {
-        if (!this.nauta.email) {
+        if (!this.nauta.name) {
+          this.$toastr.e('Debe ingresar un nombre')
+          return
+        } else if (!this.nauta.email) {
           this.$toastr.e('Debe ingresar un correo')
           return
         } else if (!this.nauta.offer_id) {
@@ -76,15 +84,19 @@ export default {
         console.log('show popup')
         $('#exampleModal').modal('show')
         $('.modal-backdrop').css('opacity', '1')
-        this.cell.number = ''
+        this.cell.name = ''
+        this.cell.phone = ''
         this.cell.offer_id = ''
+        this.nauta.name = ''
         this.nauta.email = ''
         this.nauta.offer_id = ''
       } else {
         this.$store.dispatch(this.rechargeStore.recharge.call)
           .then(response => {
-            this.cell.number = ''
+            this.cell.name = ''
+            this.cell.phone = ''
             this.cell.offer_id = ''
+            this.nauta.name = ''
             this.nauta.email = ''
             this.nauta.offer_id = ''
             if (response.status === 201) {
@@ -101,9 +113,9 @@ export default {
       var regularExp = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+@nauta.(?:com|co).cu$/
       return regularExp.test(email)
     },
-    validateNumber (number) {
+    validateNumber (phone) {
       var regularExp = /^([0-9]{8})$/
-      return regularExp.test(number)
+      return regularExp.test(phone)
     }
   }
 }
@@ -142,17 +154,23 @@ export default {
                     <div class="tab-content text-center">
                       <div  class="tab-pane active" id="cell">
                         <div class="form-row">
-                          <div class="form-group col-md-12">
+                          <div class="form-group col-md-12" style="padding-top: 0px;">
                             <div class="input-group-prepend">
-                              <div class="input-group-text" style="color: #000; font-weight: 200; font-size: 25px;">+53</div>
-                              <input type="number" v-model="cell.number" style="font-size: 25px; text-align: center; font-weight: 200; height: auto;" class="form-control" placeholder="">
+                              <div class="input-group-text col-md-2" style="color: #000; font-weight: 200; font-size: 25px;">ABC</div>
+                              <input type="text" v-model="cell.name" style="font-size: 25px; text-align: center; font-weight: 200; height: auto;" class="form-control" placeholder="Nombre">
+                            </div>
+                          </div>
+                          <div class="form-group col-md-12" style="padding-top: 0px;">
+                            <div class="input-group-prepend">
+                              <div class="input-group-text col-md-2" style="color: #000; font-weight: 200; font-size: 25px;">+53</div>
+                              <input type="number" v-model="cell.phone" style="font-size: 25px; text-align: center; font-weight: 200; height: auto;" class="form-control" placeholder="Teléfono">
                             </div>
                           </div>
                           <div class="form-group col-md-12">
                             <div class="input-group-prepend">
-                              <div class="input-group-text" style="color: #000; font-weight: 200; font-size: 25px; margin-left: 10px; width: 40px">€</div>
+                              <div class="input-group-text col-md-2" style="color: #000; font-weight: 200; font-size: 25px; padding-left: 10px">€</div>
                               <select v-model="cell.offer_id" style="font-size: 25px; text-align: center; font-weight: 200; height: auto; text-align-last: center" class="form-control">
-                                <!-- <option selected>Selecciona una oferta</option> -->
+                                <!-- <option selected>Oferta</option> -->
                                 <option v-for="offer in offerStore.offers" v-if="offer.type === 'Cell'" :value="offer.id" :key="offer.id">
                                   {{ offer.name }}
                                 </option>
@@ -163,16 +181,23 @@ export default {
                       </div>
                       <div class="tab-pane" id="nauta">
                         <div class="form-row">
-                          <div class="form-group col-md-12">
+                          <div class="form-group col-md-12" style="padding-top: 0px;">
                             <div class="input-group-prepend">
-                              <div class="input-group-text" style="color: #000; font-weight: 200; font-size: 25px; margin-left: 10px; width: 40px">@</div>
-                              <input type="email" v-model="nauta.email" style="font-size: 25px; text-align: center; font-weight: 200; height: auto;" class="form-control" placeholder="">
+                              <div class="input-group-text col-md-2" style="color: #000; font-weight: 200; font-size: 25px;">ABC</div>
+                              <input type="text" v-model="nauta.name" style="font-size: 25px; text-align: center; font-weight: 200; height: auto;" class="form-control" placeholder="Nombre">
+                            </div>
+                          </div>
+                          <div class="form-group col-md-12" style="padding-top: 0px;">
+                            <div class="input-group-prepend">
+                              <div class="input-group-text col-md-2" style="color: #000; font-weight: 200; font-size: 25px; padding-left: 10px">@</div>
+                              <input type="email" v-model="nauta.email" style="font-size: 25px; text-align: center; font-weight: 200; height: auto;" class="form-control" placeholder="Nauta">
                             </div>
                           </div>
                           <div class="form-group col-md-12">
                             <div class="input-group-prepend">
-                              <div class="input-group-text" style="color: #000; font-weight: 200; font-size: 25px; margin-left: 10px; width: 40px">€</div>
+                              <div class="input-group-text col-md-2" style="color: #000; font-weight: 200; font-size: 25px; padding-left: 10px">€</div>
                               <select v-model="nauta.offer_id" style="font-size: 25px; text-align: center; font-weight: 200; height: auto; text-align-last: center" class="form-control">
+                                <!-- <option selected>Oferta</option> -->
                                 <option v-for="offer in offerStore.offers" v-if="offer.type === 'Nauta'" :value="offer.id" :key="offer.id">
                                   {{ offer.name }}
                                 </option>
@@ -181,7 +206,7 @@ export default {
                           </div>
                         </div>
                       </div>
-                      <button type="button" v-on:click="handleSubmit()" class="btn btn-success btn-lg">Success</button>
+                      <button type="button" v-on:click="handleSubmit()" class="btn btn-success btn-lg"><i class="material-icons">sentiment_satisfied_alt</i>    Recargame</button>
                     </div>
                   </div>
                 </div>
