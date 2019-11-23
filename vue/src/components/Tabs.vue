@@ -1,10 +1,10 @@
 <!--
-@Author: Codeals
-@Date:   05-08-2019
-@Email:  ian@codeals.es
-@Last modified by:   Codeals
-@Last modified time: 07-09-2019
-@Copyright: Codeals
+@Author: alejandro
+@Date:   2019-11-21T13:50:24+01:00
+@Email:  alejo901003@hotmail.com
+@Project: Recargame
+@Last modified by:   alejandro
+@Last modified time: 2019-11-23T16:27:40+01:00
 -->
 
 <script>
@@ -173,10 +173,9 @@ export default {
                             <div class="input-group-prepend">
                               <div class="input-group-text" style="color: #000; font-weight: 200; font-size: 25px; margin-left: 10px; width: 40px">€</div>
                               <select v-model="nauta.offer_id" style="font-size: 25px; text-align: center; font-weight: 200; height: auto; text-align-last: center" class="form-control">
-                                <option selected>Choose...</option>
-                                <option value="20">De 20 a 40</option>
-                                <option value="40">De 40 a 80</option>
-                                <option value="50">De 50 a 100</option>
+                                <option v-for="offer in offerStore.offers" v-if="offer.type === 'Nauta'" :value="offer.id" :key="offer.id">
+                                  {{ offer.name }}
+                                </option>
                               </select>
                             </div>
                           </div>

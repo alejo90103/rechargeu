@@ -1,15 +1,14 @@
 <!--
-@Author: Codeals
-@Date:   22-11-2019
-@Email:  ale@codeals.es
-@Last modified by:   Codeals
-@Last modified time: 22-11-2019
-@Copyright: Codeals
+@Author: alejandro
+@Date:   2019-11-22T21:43:11+01:00
+@Email:  alejo901003@hotmail.com
+@Project: Recargame
+@Last modified by:   alejandro
+@Last modified time: 2019-11-23T18:27:24+01:00
 -->
 
 <script>
 
-// import Info from './../components/dashboard/Info'
 import Footer from './../components/Footer'
 import TopMenu from './../components/TopMenu'
 import {mapState} from 'vuex'
@@ -21,7 +20,6 @@ export default {
   },
   data () {
     return {
-      contacts: [],
       fields: [
         { key: 'name', label: 'Nombre', sortable: true, sortDirection: 'desc' },
         { key: 'phone', label: 'Teléfono', sortable: true, class: 'text-center' },
@@ -39,6 +37,9 @@ export default {
         // },
         { key: 'actions', label: 'Actions' }
       ],
+      transProps: {
+        name: 'flip-list'
+      },
       totalRows: 1,
       currentPage: 1,
       perPage: 10,
@@ -48,12 +49,16 @@ export default {
       sortDirection: 'asc',
       filter: null,
       filterOn: [],
+      selected: [],
+      hover: true,
+      bordered: true,
+      headVariant: 'light',
       infoModal: {
         id: 'info-modal',
         title: '',
         content: ''
       },
-      newContact: {
+      contact: {
         name: '',
         phone: '',
         email: '',
@@ -64,7 +69,9 @@ export default {
   },
   computed: {
     ...mapState({
-      contactStore: state => state.contactStore
+      contactStore: state => state.contactStore,
+      rechargeStore: state => state.rechargeStore,
+      offerStore: state => state.offerStore
     }),
     sortOptions () {
       // Create an options list from our fields
@@ -95,12 +102,12 @@ export default {
       var regularExp = /^([0-9]{8})$/
       return regularExp.test(number)
     },
-    showEditMode (item) {
+    showEditModal (item) {
       this.mode = 'edit'
-      this.newContact.name = item.name
-      this.newContact.phone = item.phone
-      this.newContact.email = item.email
-      this.newContact.id = item.id
+      this.contact.name = item.name
+      this.contact.phone = item.phone
+      this.contact.email = item.email
+      this.contact.id = item.id
       this.$refs['addModal'].show()
     },
     handleDelete (item, index, button) {
@@ -108,56 +115,70 @@ export default {
       this.$store.dispatch('deleteContact', item.id)
     },
     handleAdd (button) {
-      if (!this.newContact.name) {
+      if (!this.contact.name) {
         this.$toastr.e('Debe ingresar un nombre')
         return
-      } else if (!this.newContact.phone) {
+      } else if (!this.contact.phone) {
         this.$toastr.e('Debe ingresar un teléfono')
         return
-      } else if (!this.validateNumber(this.newContact.phone)) {
+      } else if (!this.validateNumber(this.contact.phone)) {
         this.$toastr.e('Número invalido')
         return
-      } else if (this.newContact.email) {
-        if (!this.validateEmail(this.newContact.email)) {
+      } else if (this.contact.email) {
+        if (!this.validateEmail(this.contact.email)) {
           this.$toastr.e('Correo invalido')
           return
         }
       }
-      this.newContact.id = ''
-      this.$store.dispatch('addContact', this.newContact)
+      this.contact.id = ''
+      this.$store.dispatch('addContact', this.contact)
       this.$refs['addModal'].hide()
     },
     handleEdit (button) {
       // this.infoModal.title = `Row index: ${index}`
       // this.infoModal.content = JSON.stringify(item, null, 2)
-      if (!this.newContact.name) {
+      if (!this.contact.name) {
         this.$toastr.e('Debe ingresar un nombre')
         return
-      } else if (!this.newContact.phone) {
+      } else if (!this.contact.phone) {
         this.$toastr.e('Debe ingresar un teléfono')
         return
-      } else if (!this.validateNumber(this.newContact.phone)) {
+      } else if (!this.validateNumber(this.contact.phone)) {
         this.$toastr.e('Número invalido')
         return
-      } else if (this.newContact.email) {
-        if (!this.validateEmail(this.newContact.email)) {
+      } else if (this.contact.email) {
+        if (!this.validateEmail(this.contact.email)) {
           this.$toastr.e('Correo invalido')
           return
         }
       }
-      this.$store.dispatch('updateContact', this.newContact)
+      this.$store.dispatch('updateContact', this.contact)
       this.$refs['addModal'].hide()
     },
     resetInfoModal () {
-      this.newContact.name = ''
-      this.newContact.phone = ''
-      this.newContact.email = ''
+      this.contact.name = ''
+      this.contact.phone = ''
+      this.contact.email = ''
       this.mode = 'add'
     },
     onFiltered (filteredContacts) {
       // Trigger pagination to update the number of buttons/pages due to filtering
       this.totalRows = filteredContacts.length
       this.currentPage = 1
+    },
+    onRowSelected (items) {
+      this.selected = items
+    },
+    selectAllRows () {
+      if (this.selected.length === 0) {
+        this.$refs.selectableTable.selectAllRows()
+      } else {
+        this.selected = []
+        this.$refs.selectableTable.clearSelected()
+      }
+    },
+    clearSelected () {
+      this.$refs.selectableTable.clearSelected()
     }
   }
 }
@@ -269,12 +290,14 @@ export default {
 
           <!-- Main table element -->
           <b-table
-            ref="table"
-            id="my-table"
+            id = "table-transition-example"
+            ref="selectableTable"
             show-empty
-            small
             striped
             stacked="md"
+            :hover="hover"
+            :bordered = "bordered"
+            :head-variant="headVariant"
             :items="contactStore.contacts"
             :fields="fields"
             :current-page="currentPage"
@@ -284,14 +307,17 @@ export default {
             :sort-by.sync="sortBy"
             :sort-desc.sync="sortDesc"
             :sort-direction="sortDirection"
+            sort-icon-left
+            :tbody-transition-props="transProps"
+            primary-key="nonmbre"
             @filtered="onFiltered"
           >
-            <!-- <template v-slot:cell(name)="row">
-              {{ row.name }}
-            </template> -->
 
             <template v-slot:cell(actions)="row">
-              <b-button size="sm" @click="showEditMode(row.item)" variant="info" >
+              <!-- <b-button variant="success" size="sm" @click="showRechargeModal(row.item)" class="mr-1">
+                Recargar
+              </b-button> -->
+              <b-button size="sm" @click="showEditModal(row.item)" variant="info" >
                 Editar
               </b-button>
               <b-button variant="danger" size="sm" @click="handleDelete(row.item)" class="mr-1">
@@ -306,7 +332,11 @@ export default {
                 </ul>
               </b-card>
             </template>
+
           </b-table>
+
+          <!-- <b-button size="sm" @click="selectAllRows">Marcar Todos</b-button>
+          <b-button size="sm" @click="clearSelected">Desmarcar</b-button> -->
 
           <b-row>
             <b-col sm="12" md="12" class="my-1 center">
@@ -337,7 +367,7 @@ export default {
               >
                 <b-form-input
                   id="name-input"
-                  v-model="newContact.name"
+                  v-model="contact.name"
                   type="text"
                   required
                 ></b-form-input>
@@ -350,7 +380,7 @@ export default {
               >
                 <b-form-input
                   id="phone-input"
-                  v-model="newContact.phone"
+                  v-model="contact.phone"
                   type="number"
                   required
                 ></b-form-input>
@@ -363,7 +393,7 @@ export default {
               >
                 <b-form-input
                   id="email-input"
-                  v-model="newContact.email"
+                  v-model="contact.email"
                   type="email"
                   required
                 ></b-form-input>
@@ -373,6 +403,7 @@ export default {
             </b-container>
 
           </b-modal>
+
         </b-container>
       </div>
     </div>
@@ -387,7 +418,8 @@ export default {
     flex-direction: column;
     display: flex;
   }
-  .morado {
-    color: #7d2eb973
+
+  table#table-transition-example .flip-list-move {
+    transition: transform 1s;
   }
 </style>

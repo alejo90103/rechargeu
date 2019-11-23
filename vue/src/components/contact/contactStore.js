@@ -1,13 +1,14 @@
 /**
- * @Author: Codeals
- * @Date:   14-08-2019
- * @Email:  ian@codeals.es
- * @Last modified by:   Codeals
- * @Last modified time: 28-08-2019
- * @Copyright: Codeals
+ * @Author: alejandro
+ * @Date:   2019-11-22T23:25:27+01:00
+ * @Email:  alejo901003@hotmail.com
+ * @Project: Recargame
+ * @Last modified by:   alejandro
+ * @Last modified time: 2019-11-23T17:39:46+01:00
  */
 
 import Vue from 'vue'
+import _ from 'lodash'
 import {
   getHeader,
   contactListUrl,
@@ -18,7 +19,8 @@ import {
 } from './../../config'
 
 const state = {
-  contacts: []
+  contacts: [],
+  contactsEmail: []
 }
 
 const getters = {
@@ -31,6 +33,13 @@ const getters = {
 const mutations = {
   SET_CONTACT_LIST (state, data) {
     state.contacts = data
+  },
+  SET_EMAIL_CONTACT_LIST (state, data) {
+    _.find(data, function (item) {
+      if (item.email !== null) {
+        state.contactsEmail.push(item)
+      }
+    })
   },
   DELETE_CONTACT (state, data) {
     _.forEach(state.contacts, function (contact, key) {
@@ -62,6 +71,16 @@ const actions = {
         Vue.$logger('info', 'contactListUrl response', response)
         if (response.status === 200) {
           commit('SET_CONTACT_LIST', response.body.data)
+          return response.body.data
+        }
+      })
+  },
+  getEmailContactList: ({commit}) => {
+    return Vue.http.get(contactListUrl, {headers: getHeader()})
+      .then(response => {
+        Vue.$logger('info', 'contactListUrl response', response)
+        if (response.status === 200) {
+          commit('SET_EMAIL_CONTACT_LIST', response.body.data)
           return response.body.data
         }
       })

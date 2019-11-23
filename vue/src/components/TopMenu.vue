@@ -2,8 +2,8 @@
 @Author: Codeals
 @Date:   11-08-2019
 @Email:  ian@codeals.es
-@Last modified by:   Codeals
-@Last modified time: 21-11-2019
+@Last modified by:   alejandro
+@Last modified time: 2019-11-23T16:45:53+01:00
 @Copyright: Codeals
 -->
 
@@ -51,10 +51,10 @@ export default {
           <li class="nav-item">
             <router-link class="nav-link" :to="{name: 'dashboard'}"><i class="material-icons">dashboard</i> Home</router-link>
           </li>
-          <!-- <li class="nav-item">
-            <router-link class="nav-link" :to="{name: 'chat'}"><i class="material-icons">chat</i> Chat</router-link>
-          </li>
           <li class="nav-item">
+            <router-link class="nav-link" :to="{name: 'contact'}"><i class="material-icons">perm_contact_calendar</i> Contactos</router-link>
+          </li>
+          <!-- <li class="nav-item">
             <router-link class="nav-link" :to="{name: 'my-pms'}"><i class="material-icons">email</i> Private Messages</router-link>
           </li> -->
           <li class="dropdown nav-item">
@@ -63,9 +63,7 @@ export default {
             </a>
             <div class="dropdown-menu dropdown-with-icons">
               <!-- <router-link class="dropdown-item"><i class="material-icons">apps</i> Recargar ofertas</router-link> -->
-              <router-link :to="{name: 'home'}" class="dropdown-item"><i class="material-icons">apps</i> Recargar contacto</router-link>
-
-              <router-link :to="{name: 'contact'}" class="dropdown-item"><i class="material-icons">perm_contact_calendar</i> Contactos</router-link>
+              <router-link :to="{name: 'recharge-contact'}" class="dropdown-item"><i class="material-icons">apps</i> Recargar Contactos</router-link>
               <router-link :to="{name: 'home'}" class="dropdown-item"><i class="material-icons">apps</i> Recargar Realizadas</router-link>
             </div>
           </li>

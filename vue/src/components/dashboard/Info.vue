@@ -1,10 +1,10 @@
 <!--
-@Author: Codeals
-@Date:   05-08-2019
-@Email:  ian@codeals.es
-@Last modified by:   Codeals
-@Last modified time: 07-09-2019
-@Copyright: Codeals
+@Author: alejandro
+@Date:   2019-11-22T15:55:19+01:00
+@Email:  alejo901003@hotmail.com
+@Project: Recargame
+@Last modified by:   alejandro
+@Last modified time: 2019-11-23T14:17:31+01:00
 -->
 
 <script>

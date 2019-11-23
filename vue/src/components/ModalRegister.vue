@@ -1,3 +1,12 @@
+<!--
+@Author: alejandro
+@Date:   2019-11-21T17:41:21+01:00
+@Email:  alejo901003@hotmail.com
+@Project: Recargame
+@Last modified by:   alejandro
+@Last modified time: 2019-11-23T14:18:37+01:00
+-->
+
 <script>
 
 import {loginUrl, userUrl, getHeader} from './../config'
