@@ -3,7 +3,7 @@
 # @Date:   20-06-2019
 # @Email:  ian@codeals.es
 # @Last modified by:   Codeals
-# @Last modified time: 22-11-2019
+# @Last modified time: 23-11-2019
 # @Copyright: Codeals
 -->
 
@@ -18,6 +18,22 @@
 
 						<!-- begin:: Content -->
 						<div class="kt-content  kt-grid__item kt-grid__item--fluid" id="kt_content">
+
+							@if ($errors->any())
+                  <div class="alert alert-danger fade show" role="alert">
+        						<div class="alert-icon"><i class="flaticon2-cross"></i></div>
+        						<div class="alert-text">
+                      @foreach ($errors->all() as $err)
+              				 {{ $err }} </br>
+              				@endforeach
+                    </div>
+        						<div class="alert-close">
+        							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        								<span aria-hidden="true"><i class="la la-close"></i></span>
+        							</button>
+        						</div>
+        					</div>
+              @endif
 
               @if ($errors->any())
                   <div class="alert alert-danger fade show" role="alert">
@@ -74,87 +90,64 @@
 															</div> -->
 														</div>
 														<div class="form-group row">
-															<label for="example-text-input" class="col-2 col-form-label">Text</label>
+															<label for="example-text-input" class="col-2 col-form-label">Nombre Oferta</label>
 															<div class="col-10">
-																<input class="form-control" type="text" value="Artisanal kale" id="example-text-input">
+																<input class="form-control" name="name" type="text" value="{{ old('name') }}" id="example-text-input">
 															</div>
 														</div>
 														<div class="form-group row">
-															<label for="example-search-input" class="col-2 col-form-label">Search</label>
+															<label for="example-search-input" class="col-2 col-form-label">Tipo</label>
 															<div class="col-10">
-																<input class="form-control" type="search" value="How do I shoot web" id="example-search-input">
+																 {!! Form::select('type', $types, null, ['class' => 'form-control', 'id' => 'example-search-input']) !!}
+																<!-- <input class="form-control" type="search" value="How do I shoot web" id="example-search-input"> -->
+															</div>
+														</div>
+														<!-- <div class="form-group row">
+															<label for="example-tel-input" class="col-2 col-form-label">Celular</label>
+															<div class="col-10">
+																<input class="form-control" name="phone" type="tel" value="{{ old('phone') }}" id="example-tel-input">
 															</div>
 														</div>
 														<div class="form-group row">
 															<label for="example-email-input" class="col-2 col-form-label">Email</label>
 															<div class="col-10">
-																<input class="form-control" type="email" value="bootstrap@example.com" id="example-email-input">
+																<input class="form-control" name="phone" type="email" value="{{ old('email') }}" id="example-email-input">
+															</div>
+														</div> -->
+														<div class="form-group row">
+															<label for="example-datetime-local-input" class="col-2 col-form-label">Fecha Inicio</label>
+															<div class="col-10">
+																<input class="form-control" name="date_ini" type="date" value="{{ old('date_ini') }}" id="example-datetime-local-input">
 															</div>
 														</div>
 														<div class="form-group row">
-															<label for="example-url-input" class="col-2 col-form-label">URL</label>
+															<label for="example-date-input" class="col-2 col-form-label">Fecha Fin</label>
 															<div class="col-10">
-																<input class="form-control" type="url" value="https://getbootstrap.com" id="example-url-input">
+																<input class="form-control" name="date_end" type="date" value="{{ old('date_end') }}" id="example-date-input">
 															</div>
 														</div>
 														<div class="form-group row">
-															<label for="example-tel-input" class="col-2 col-form-label">Telephone</label>
+															<label for="example-date-input" class="col-2 col-form-label">Fecha Explira</label>
 															<div class="col-10">
-																<input class="form-control" type="tel" value="1-(555)-555-5555" id="example-tel-input">
+																<input class="form-control" name="date_expire" type="date" value="{{ old('date_expire') }}" id="example-date-input">
 															</div>
 														</div>
 														<div class="form-group row">
-															<label for="example-password-input" class="col-2 col-form-label">Password</label>
+															<label for="example-date-input" class="col-2 col-form-label">Precio a Pagar</label>
 															<div class="col-10">
-																<input class="form-control" type="password" value="hunter2" id="example-password-input">
+																<input class="form-control" name="price_pay" type="text" value="{{ old('price_pay') }}" id="example-date-input">
 															</div>
 														</div>
 														<div class="form-group row">
-															<label for="example-number-input" class="col-2 col-form-label">Number</label>
+															<label for="example-date-input" class="col-2 col-form-label">Monto a Recargar</label>
 															<div class="col-10">
-																<input class="form-control" type="number" value="42" id="example-number-input">
+																<input class="form-control" name="recharge_amount" type="text" value="{{ old('recharge_amount') }}" id="example-date-input">
 															</div>
 														</div>
 														<div class="form-group row">
-															<label for="example-datetime-local-input" class="col-2 col-form-label">Date and time</label>
+															<label for="example-date-input" class="col-2 col-form-label">Descripción de Oferta</label>
 															<div class="col-10">
-																<input class="form-control" type="datetime-local" value="2011-08-19T13:45:00" id="example-datetime-local-input">
-															</div>
-														</div>
-														<div class="form-group row">
-															<label for="example-date-input" class="col-2 col-form-label">Date</label>
-															<div class="col-10">
-																<input class="form-control" type="date" value="2011-08-19" id="example-date-input">
-															</div>
-														</div>
-														<div class="form-group row">
-															<label for="example-month-input" class="col-2 col-form-label">Month</label>
-															<div class="col-10">
-																<input class="form-control" type="month" value="2011-08" id="example-month-input">
-															</div>
-														</div>
-														<div class="form-group row">
-															<label for="example-week-input" class="col-2 col-form-label">Week</label>
-															<div class="col-10">
-																<input class="form-control" type="week" value="2011-W33" id="example-week-input">
-															</div>
-														</div>
-														<div class="form-group row">
-															<label for="example-time-input" class="col-2 col-form-label">Time</label>
-															<div class="col-10">
-																<input class="form-control" type="time" value="13:45:00" id="example-time-input">
-															</div>
-														</div>
-														<div class="form-group row">
-															<label for="example-color-input" class="col-2 col-form-label">Color</label>
-															<div class="col-10">
-																<input class="form-control" type="color" value="#563d7c" id="example-color-input">
-															</div>
-														</div>
-														<div class="form-group row">
-															<label for="example-email-input" class="col-2 col-form-label">Range</label>
-															<div class="col-10">
-																<input class="form-control" type="range">
+																<input class="form-control" name="receive" type="text" value="{{ old('receive') }}" id="example-date-input">
 															</div>
 														</div>
 													</div>
@@ -164,7 +157,7 @@
 																<div class="col-2">
 																</div>
 																<div class="col-10">
-																	<button type="reset" class="btn btn-success">Submit</button>
+																	<button type="submit" class="btn btn-success">Submit</button>
 																	<!-- <button type="reset" class="btn btn-secondary">Cancel</button> -->
 																</div>
 															</div>

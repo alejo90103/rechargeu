@@ -3,7 +3,7 @@
 # @Date:   20-11-2019
 # @Email:  ian@codeals.es
 # @Last modified by:   Codeals
-# @Last modified time: 21-11-2019
+# @Last modified time: 23-11-2019
 # @Copyright: Codeals
 
 namespace App;
@@ -49,21 +49,21 @@ class Offer extends Model
      * @param $value
      * @return mixed
      */
-    public function getDateExpireAttribute($value)
-    {
-        // setlocale(LC_TIME, 'es_ES');
-        // Carbon::setLocale('es');
-        // $date = Carbon::createFromFormat('Y-m-d H:i:s', Carbon::parse($value))->format('l jS \\of F Y');
-        // return $date;
-        // return Carbon::createFromDate($value, 'Europe/Madrid')->toDayDateTimeString();
-        // return Carbon::parse($value)->toDayDateTimeString();
-
-        date_default_timezone_set('Europe/Madrid');
-        setlocale(LC_TIME, 'es_ES');
-        $data1 = date_create_from_format("Y-m-d", $value);
-		$data1 = date_format($data1, 'j \d\e F Y');
-        return $data1;
-    }
+    // public function getDateExpireAttribute($value)
+    // {
+    //     // setlocale(LC_TIME, 'es_ES');
+    //     // Carbon::setLocale('es');
+    //     // $date = Carbon::createFromFormat('Y-m-d H:i:s', Carbon::parse($value))->format('l jS \\of F Y');
+    //     // return $date;
+    //     // return Carbon::createFromDate($value, 'Europe/Madrid')->toDayDateTimeString();
+    //     // return Carbon::parse($value)->toDayDateTimeString();
+    //
+    //     date_default_timezone_set('Europe/Madrid');
+    //     setlocale(LC_TIME, 'es_ES');
+    //     $data1 = date_create_from_format("Y-m-d", $value);
+		// $data1 = date_format($data1, 'j \d\e F Y');
+    //     return $data1;
+    // }
 
     /*
     |------------------------------------------------------------------------------------

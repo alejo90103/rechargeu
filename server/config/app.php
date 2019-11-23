@@ -3,7 +3,7 @@
 # @Date:   04-08-2019
 # @Email:  ian@codeals.es
 # @Last modified by:   Codeals
-# @Last modified time: 14-08-2019
+# @Last modified time: 23-11-2019
 # @Copyright: Codeals
 
 return [
@@ -171,7 +171,7 @@ return [
         /*
          * Package Service Providers...
          */
-
+         Collective\Html\HtmlServiceProvider::class,
          Laravel\Passport\PassportServiceProvider::class,
          // Vinkla\Pusher\PusherServiceProvider::class,
          // Pusher\Laravel\PusherServiceProvider::class,
@@ -235,6 +235,8 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        'Form' => Collective\Html\FormFacade::class,
+        'Html' => Collective\Html\HtmlFacade::class,
         // 'LaravelPusher' => Vinkla\Pusher\Facades\Pusher::class,
         // 'Pusher' => Pusher\Laravel\Facades\Pusher::class,
 

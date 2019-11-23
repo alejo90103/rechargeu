@@ -3,12 +3,13 @@
 # @Date:   22-11-2019
 # @Email:  ian@codeals.es
 # @Last modified by:   Codeals
-# @Last modified time: 22-11-2019
+# @Last modified time: 23-11-2019
 # @Copyright: Codeals
 
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Offer;
 
 class OfferController extends Controller
@@ -20,7 +21,7 @@ class OfferController extends Controller
      */
     public function index()
     {
-        $offers = Offer::all();
+        $offers = Offer::where('is_deleted', 0)->get();
 
         return view('offers.index', compact('offers'));
     }
@@ -32,7 +33,8 @@ class OfferController extends Controller
      */
     public function create()
     {
-        return view('offers.create');
+        $types = array('Cell' => 'Cell', 'Nauta' => 'Nauta');
+        return view('offers.create', compact('types'));
     }
 
     /**
@@ -75,7 +77,8 @@ class OfferController extends Controller
     {
         $offer = Offer::findOrFail($id);
 
-        return view('offers.edit');
+        $types = array('Cell' => 'Cell', 'Nauta' => 'Nauta');
+        return view('offers.edit', compact('offer', 'types'));
     }
 
     /**
@@ -109,7 +112,9 @@ class OfferController extends Controller
     {
         $offer = Offer::findOrFail($id);
 
-        $offer->delete();
+        $data['is_deleted'] = 1;
+        $offer->update($data);
+        //$offer->delete();
 
         return back()->with('msg', 'Successfull');
         // return redirect()->route('offers.index')->with('msg' , trans('offer.controller.successfull_delete'));
