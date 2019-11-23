@@ -30,7 +30,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
 		<!--end::Base Path -->
 		<meta charset="utf-8" />
-		<title>Metronic | Login Page 4</title>
+		<title>Recharge | Admin</title>
 		<meta name="description" content="Login page example">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -50,21 +50,21 @@ License: You must have a valid license purchased only from themeforest(the above
 		<!--end::Fonts -->
 
 		<!--begin::Page Custom Styles(used by this page) -->
-		<link href="{{ asset('assets/css/demo1/pages/general/login/login-4.css') }}" rel="stylesheet" type="text/css" />
+		<link href="{{ asset('assets/css/demo2/pages/general/login/login-4.css') }}" rel="stylesheet" type="text/css" />
 
 		<!--end::Page Custom Styles -->
 
 		<!--begin::Global Theme Styles(used by all pages) -->
 		<link href="{{ asset('assets/vendors/global/vendors.bundle.css') }}" rel="stylesheet" type="text/css" />
-		<link href="{{ asset('assets/css/demo1/style.bundle.css') }}" rel="stylesheet" type="text/css" />
+		<link href="{{ asset('assets/css/demo2/style.bundle.css') }}" rel="stylesheet" type="text/css" />
 
 		<!--end::Global Theme Styles -->
 
 		<!--begin::Layout Skins(used by all pages) -->
-		<link href="{{ asset('assets/css/demo1/skins/header/base/light.css') }}" rel="stylesheet" type="text/css" />
-		<link href="{{ asset('assets/css/demo1/skins/header/menu/light.css') }}" rel="stylesheet" type="text/css" />
-		<link href="{{ asset('assets/css/demo1/skins/brand/dark.css') }}" rel="stylesheet" type="text/css" />
-		<link href="{{ asset('assets/css/demo1/skins/aside/dark.css') }}" rel="stylesheet" type="text/css" />
+		<link href="{{ asset('assets/css/demo2/skins/header/base/light.css') }}" rel="stylesheet" type="text/css" />
+		<link href="{{ asset('assets/css/demo2/skins/header/menu/light.css') }}" rel="stylesheet" type="text/css" />
+		<link href="{{ asset('assets/css/demo2/skins/brand/dark.css') }}" rel="stylesheet" type="text/css" />
+		<link href="{{ asset('assets/css/demo2/skins/aside/dark.css') }}" rel="stylesheet" type="text/css" />
 
 		<!--end::Layout Skins -->
 		<link rel="shortcut icon" href="{{ asset('assets/media/logos/favicon.ico') }}" />
@@ -88,19 +88,54 @@ License: You must have a valid license purchased only from themeforest(the above
 							</div>
 							<div class="kt-login__signin">
 								<div class="kt-login__head">
-									<h3 class="kt-login__title">Sign In To Admin</h3>
+									<h3 class="kt-login__title">Panel Admin</h3>
 								</div>
-								<form class="kt-form" action="">
+
+
+								<!-- NOTIFICACION -->
+                                @if(Session::has('msg'))
+                                    <div class="alert alert-success fade show" role="alert">
+                          						<div class="alert-icon"><i class="flaticon-user-ok"></i></div>
+                          						<div class="alert-text">{{ Session::get('msg') }}</div>
+                          						<div class="alert-close">
+                          							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                          								<span aria-hidden="true"><i class="la la-close"></i></span>
+                          							</button>
+                          						</div>
+                          					</div>
+                                @endif
+
+                                @if(Session::has('err'))
+                                    <div class="alert alert-danger fade show" role="alert">
+                          						<div class="alert-icon"><i class="flaticon2-cross"></i></div>
+                          						<div class="alert-text">{{ Session::get('err') }}</div>
+                          						<div class="alert-close">
+                          							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                          								<span aria-hidden="true"><i class="la la-close"></i></span>
+                          							</button>
+                          						</div>
+                          					</div>
+                                @endif
+                @if (session('status'))
+                    <div class="alert alert-success" role="alert">
+                        {{ session('status') }}
+                    </div>
+                @endif
+
+								<form class="kt-form" method="POST" action="{{ route('login') }}">
+                  @csrf
 									<div class="input-group">
-										<input class="form-control" type="text" placeholder="Email" name="email" autocomplete="off">
+										<!-- <input class="form-control" type="text" placeholder="Email" name="email" autocomplete="off"> -->
+										<input class="form-control" type="text" placeholder="{{ __('E-Mail Address') }}" name="email" value="{{ old('email') }}" autocomplete="off">
 									</div>
 									<div class="input-group">
-										<input class="form-control" type="password" placeholder="Password" name="password">
+										<!-- <input class="form-control" type="password" placeholder="Password" name="password"> -->
+										<input class="form-control" type="password" placeholder="{{ __('Password') }}" name="password">
 									</div>
 									<div class="row kt-login__extra">
 										<div class="col">
 											<label class="kt-checkbox">
-												<input type="checkbox" name="remember"> Remember me
+												<input type="checkbox" name="remember"> Recordar
 												<span></span>
 											</label>
 										</div>
@@ -109,7 +144,7 @@ License: You must have a valid license purchased only from themeforest(the above
 										</div>
 									</div>
 									<div class="kt-login__actions">
-										<button id="kt_login_signin_submit" class="btn btn-brand btn-pill kt-login__btn-primary">Sign In</button>
+										<button id="kt_login_signin_submit" type="submit" class="btn btn-brand btn-pill kt-login__btn-primary">Login</button>
 									</div>
 								</form>
 							</div>
@@ -156,18 +191,19 @@ License: You must have a valid license purchased only from themeforest(the above
 										<input class="form-control" type="text" placeholder="Email" name="email" id="kt_email" autocomplete="off">
 									</div>
 									<div class="kt-login__actions">
-										<button id="kt_login_forgot_submit" class="btn btn-brand btn-pill kt-login__btn-primary">Request</button>&nbsp;&nbsp;
-										<button id="kt_login_forgot_cancel" class="btn btn-secondary btn-pill kt-login__btn-secondary">Cancel</button>
+										<button id="kt_login_signin_submit" type="submit" class="btn btn-pill kt-login__btn-primary">{{ __('Login') }}</button>
+										<!-- <button id="kt_login_forgot_submit" class="btn btn-brand btn-pill kt-login__btn-primary">Request</button>&nbsp;&nbsp;
+										<button id="kt_login_forgot_cancel" class="btn btn-secondary btn-pill kt-login__btn-secondary">Cancel</button> -->
 									</div>
 								</form>
 							</div>
-							<div class="kt-login__account">
+							<!-- <div class="kt-login__account">
 								<span class="kt-login__account-msg">
 									Don't have an account yet ?
 								</span>
 								&nbsp;&nbsp;
 								<a href="javascript:;" id="kt_login_signup" class="kt-login__account-link">Sign Up!</a>
-							</div>
+							</div> -->
 						</div>
 					</div>
 				</div>
@@ -202,12 +238,12 @@ License: You must have a valid license purchased only from themeforest(the above
 
 		<!--begin::Global Theme Bundle(used by all pages) -->
 		<script src="{{ asset('assets/vendors/global/vendors.bundle.js') }}" type="text/javascript"></script>
-		<script src="{{ asset('assets/js/demo1/scripts.bundle.js') }}" type="text/javascript"></script>
+		<script src="{{ asset('assets/js/demo2/scripts.bundle.js') }}" type="text/javascript"></script>
 
 		<!--end::Global Theme Bundle -->
 
 		<!--begin::Page Scripts(used by this page) -->
-		<script src="{{ asset('assets/js/demo1/pages/login/login-general.js') }}" type="text/javascript"></script>
+		<script src="{{ asset('assets/js/demo2/pages/login/login-general.js') }}" type="text/javascript"></script>
 
 		<!--end::Page Scripts -->
 	</body>

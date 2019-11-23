@@ -1,3 +1,14 @@
+/**
+ * @Author: Codeals
+ * @Date:   22-11-2019
+ * @Email:  ian@codeals.es
+ * @Last modified by:   Codeals
+ * @Last modified time: 23-11-2019
+ * @Copyright: Codeals
+ */
+
+
+
 "use strict";
 
 // Class Definition
@@ -72,7 +83,8 @@ var KTLoginGeneral = function() {
         $('#kt_login_signin_submit').click(function(e) {
             e.preventDefault();
             var btn = $(this);
-            var form = $(this).closest('form');           
+            var form = $(this).closest('form');
+            var url = form.attr('action');
 
             form.validate({
                 rules: {
@@ -87,21 +99,15 @@ var KTLoginGeneral = function() {
             });
 
             if (!form.valid()) {
+                showErrorMsg(form, 'danger', 'Incorrect username or password. Please try again.');
                 return;
             }
 
             btn.addClass('kt-spinner kt-spinner--right kt-spinner--sm kt-spinner--light').attr('disabled', true);
-
-            form.ajaxSubmit({
-                url: '',
-                success: function(response, status, xhr, $form) {
-                	// similate 2s delay
-                	setTimeout(function() {
-	                    btn.removeClass('kt-spinner kt-spinner--right kt-spinner--sm kt-spinner--light').attr('disabled', false);
-	                    showErrorMsg(form, 'danger', 'Incorrect username or password. Please try again.');
-                    }, 2000);
-                }
-            });
+            setTimeout(function() {
+                btn.removeClass('kt-spinner kt-spinner--right kt-spinner--sm kt-spinner--light').attr('disabled', false);
+                form.submit();
+            }, 2000);
         });
     }
 
@@ -185,7 +191,7 @@ var KTLoginGeneral = function() {
 
             form.ajaxSubmit({
                 url: '',
-                success: function(response, status, xhr, $form) { 
+                success: function(response, status, xhr, $form) {
                 	// similate 2s delay
                 	setTimeout(function() {
                 		btn.removeClass('kt-spinner kt-spinner--right kt-spinner--sm kt-spinner--light').attr('disabled', false); // remove

@@ -32,13 +32,17 @@ Route::group(['middleware' => 'auth'], function () {
 // usuarios admin
 Route::group(['middleware' => 'admin'], function () {
 
+  Route::get('users/change', 'UserController@changePassword')->name('users.change');
+
   Route::get('/', function () {
       // return view('welcome');
       return view('main');
-  });
+  })->name('/');
 
   Route::get('/home', 'HomeController@index')->name('home');
 
   Route::resource('offers', 'OfferController');
+
+  Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
 });
