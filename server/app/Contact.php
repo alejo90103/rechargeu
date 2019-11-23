@@ -52,7 +52,6 @@ class Contact extends Model
         $commun = [
             'name'      => "required",
             'phone'      => "required",
-            'user_id'      => "required",
         ];
 
         if ($update) {
@@ -62,7 +61,6 @@ class Contact extends Model
         return array_merge($commun, [
             'name'      => "required",
             'phone'      => "required",
-            'user_id'      => "required",
         ]);
     }
 

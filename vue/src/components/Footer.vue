@@ -30,7 +30,7 @@
       </nav>
       <div class="copyright float-right">
         &copy;
-        Made by <i class="fa fa-heart heart"></i> by <a href="http://codeals.es">Codeals</a>. SelfCars <router-link :to="{name: 'home'}">here.</router-link>
+        Hecho con <i class="fa fa-heart heart"></i> por <a href="http://codeals.es">Codeals</a>. <router-link :to="{name: 'home'}">Recargame.</router-link>
       </div>
     </div>
   </footer>

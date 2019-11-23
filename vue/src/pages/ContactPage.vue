@@ -21,7 +21,7 @@ export default {
   },
   data () {
     return {
-      // contacts: [],
+      contacts: [],
       fields: [
         { key: 'name', label: 'Nombre', sortable: true, sortDirection: 'desc' },
         { key: 'phone', label: 'Teléfono', sortable: true, class: 'text-center' },
@@ -52,7 +52,14 @@ export default {
         id: 'info-modal',
         title: '',
         content: ''
-      }
+      },
+      newContact: {
+        name: '',
+        phone: '',
+        email: '',
+        id: ''
+      },
+      mode: 'add'
     }
   },
   computed: {
@@ -70,24 +77,84 @@ export default {
   },
   mounted () {
     // Set the initial number of contacts
-    this.totalRows = this.contactStore.contacts.length
+    this.totalRows = this.contactStore.length
   },
   components: {
     TopMenu,
     Footer
   },
   destroyed () {
-    //  this.$emit('SET_IS_BANNER', true)
-    //  this.userStore.commit('SET_IS_BANNER', { status: true })
     this.$store.dispatch('setBanner', true)
   },
   methods: {
+    validateEmail (email) {
+      var regularExp = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+@nauta.(?:com|co).cu$/
+      return regularExp.test(email)
+    },
+    validateNumber (number) {
+      var regularExp = /^([0-9]{8})$/
+      return regularExp.test(number)
+    },
+    showEditMode (item) {
+      this.mode = 'edit'
+      this.newContact.name = item.name
+      this.newContact.phone = item.phone
+      this.newContact.email = item.email
+      this.newContact.id = item.id
+      this.$refs['addModal'].show()
+    },
     handleDelete (item, index, button) {
+      console.log('ID SEND'+item.id);
       this.$store.dispatch('deleteContact', item.id)
     },
+    handleAdd (button) {
+      if (!this.newContact.name) {
+        this.$toastr.e('Debe ingresar un nombre')
+        return
+      } else if (!this.newContact.phone) {
+        this.$toastr.e('Debe ingresar un teléfono')
+        return
+      } else if (!this.validateNumber(this.newContact.phone)) {
+        this.$toastr.e('Número invalido')
+        return
+      } else if (this.newContact.email) {
+        if (!this.validateEmail(this.newContact.email)) {
+          this.$toastr.e('Correo invalido')
+          return
+        }
+      }
+      // this.newContact.id = ''
+      this.$store.dispatch('addContact', this.newContact)
+      this.$refs['addModal'].hide()
+    },
+    handleEdit (button) {
+      // this.infoModal.title = `Row index: ${index}`
+      // this.infoModal.content = JSON.stringify(item, null, 2)
+      if (!this.newContact.name) {
+        this.$toastr.e('Debe ingresar un nombre')
+        return
+      } else if (!this.newContact.phone) {
+        this.$toastr.e('Debe ingresar un teléfono')
+        return
+      } else if (!this.validateNumber(this.newContact.phone)) {
+        this.$toastr.e('Número invalido')
+        return
+      } else if (this.newContact.email) {
+        if (!this.validateEmail(this.newContact.email)) {
+          this.$toastr.e('Correo invalido')
+          return
+        }
+      }
+      this.$store.dispatch('updateContact', this.newContact)
+      this.$refs['addModal'].hide()
+      this.$root.$emit('bv::refresh::table', 'my-table')
+      this.$refs.table.refresh();
+    },
     resetInfoModal () {
-      this.infoModal.title = ''
-      this.infoModal.content = ''
+      this.newContact.name = ''
+      this.newContact.phone = ''
+      this.newContact.email = ''
+      this.mode = 'add'
     },
     onFiltered (filteredContacts) {
       // Trigger pagination to update the number of buttons/pages due to filtering
@@ -106,7 +173,9 @@ export default {
     <div class="main main-raised" id="dashboard-wrapper">
       <div class="section section-basic">
         <b-container fluid>
+          <pre>{{ contactStore }}</pre>
           <!-- User Interface controls -->
+          <b-button variant="primary" v-b-modal.addModal style="float: right; margin-bottom: 25px;">Agregar</b-button>
           <b-row>
             <!-- <b-col lg="6" class="my-1">
               <b-form-group
@@ -170,7 +239,7 @@ export default {
                 label="Mostrar"
                 label-cols-sm="6"
                 label-cols-md="4"
-                label-cols-lg="3"
+                label-cols-lg="4"
                 label-align-sm="right"
                 label-size="sm"
                 label-for="perPageSelect"
@@ -186,7 +255,6 @@ export default {
             </b-col>
 
             <b-col lg="6" sm="6" md="6" class="my-1">
-
                 <b-input-group size="sm">
                   <b-form-input
                     v-model="filter"
@@ -199,11 +267,12 @@ export default {
                   </b-input-group-append>
                 </b-input-group>
             </b-col>
-
           </b-row>
 
           <!-- Main table element -->
           <b-table
+            ref="table"
+            id="my-table"
             show-empty
             small
             striped
@@ -224,11 +293,10 @@ export default {
             </template> -->
 
             <template v-slot:cell(actions)="row">
-              <b-button size="sm" @click="row.toggleDetails" variant="primary" >
-                <!-- {{ row.detailsShowing ? 'Hide' : 'Show' }} Editar -->
+              <b-button size="sm" @click="showEditMode(row.item)" variant="info" >
                 Editar
               </b-button>
-              <b-button variant="danger" size="sm" @click="handleDelete(row.item, row.index, $event.target)" class="mr-1">
+              <b-button variant="danger" size="sm" @click="handleDelete($event.target)" class="mr-1">
                 Eliminar
               </b-button>
             </template>
@@ -256,9 +324,57 @@ export default {
           </b-row>
 
           <!-- Info modal -->
-          <!-- <b-modal :id="infoModal.id" :title="infoModal.title" ok-only @hide="resetInfoModal">
-            <pre>{{ infoModal.content }}</pre>
-          </b-modal> -->
+          <b-modal id="addModal" ref="addModal" ok-only @hide="resetInfoModal" hide-footer hide-header>
+            <!-- <template v-slot:modal-title >
+            </template> -->
+            <div class="card-header card-header-primary text-center mb-5" style="background-color: #9c27b0; border-radius: 3px;">
+              <h4 class="card-title" style="color: white">Nuevo Contacto</h4>
+            </div>
+
+            <b-container fluid>
+              <b-form-group
+                label="Nombre"
+                label-for="name-input"
+                invalid-feedback="Name is required"
+              >
+                <b-form-input
+                  id="name-input"
+                  v-model="newContact.name"
+                  type="text"
+                  required
+                ></b-form-input>
+              </b-form-group>
+
+              <b-form-group
+                label="Teléfono"
+                label-for="phone-input"
+                invalid-feedback="Name is required"
+              >
+                <b-form-input
+                  id="phone-input"
+                  v-model="newContact.phone"
+                  type="number"
+                  required
+                ></b-form-input>
+              </b-form-group>
+
+              <b-form-group
+                label="Correo"
+                label-for="email-input"
+                invalid-feedback="Name is required"
+              >
+                <b-form-input
+                  id="email-input"
+                  v-model="newContact.email"
+                  type="email"
+                  required
+                ></b-form-input>
+              </b-form-group>
+              <b-button class="mt-2" v-if='this.mode === "add"' variant="success" style="float: right;" @click="handleAdd">Agregar</b-button>
+              <b-button class="mt-2" v-if='this.mode === "edit"' variant="info" style="float: right;" @click="handleEdit">Modificar</b-button>
+            </b-container>
+
+          </b-modal>
         </b-container>
       </div>
     </div>

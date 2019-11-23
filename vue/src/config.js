@@ -26,7 +26,7 @@ export const offerList = apiDomain + 'api/offer-list'
 export const contactListUrl = apiDomain + 'api/v1/contact-list'
 export const getContactById = apiDomain + 'api/v1/contact-get'
 export const addNewContact = apiDomain + 'api/v1/contact-add'
-export const updateContact = apiDomain + 'api/v1/contact-updata'
+export const updateContact = apiDomain + 'api/v1/contact-update'
 export const deleteContact = apiDomain + 'api/v1/contact-delete'
 
 // export const getNomenclatorMaker = apiDomain + 'api/v1/get-meker'

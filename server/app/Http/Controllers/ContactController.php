@@ -156,11 +156,11 @@ class ContactController extends Controller
     {
         $contact = Contact::where('id', $request->input('id'))->first();
 
-        //  $data = $contact;
+        $response = $contact;
         $data['is_deleted'] = 1;
         $contact->update($data);
 
-        return response(['data' => $data], 201);
+        return response(['data' => $response], 201);
     }
 
 }

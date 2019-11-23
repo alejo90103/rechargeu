@@ -50,7 +50,7 @@ Route::group(['prefix' => 'v1', 'middleware' => 'auth:api'], function () {
     Route::get('contact-list', 'ContactController@getContactList');
     Route::post('contact-get', 'ContactController@getContactById');
     Route::post('contact-add', 'ContactController@saveAddContact');
-    Route::put('contact-updata', 'ContactController@saveUpdateContact');
+    Route::put('contact-update', 'ContactController@saveUpdateContact');
     Route::post('contact-delete', 'ContactController@deleteContact');
 
 });
