@@ -104,7 +104,7 @@ export default {
       this.$refs['addModal'].show()
     },
     handleDelete (item, index, button) {
-      console.log('ID SEND'+item.id);
+      console.log(item)
       this.$store.dispatch('deleteContact', item.id)
     },
     handleAdd (button) {
@@ -123,7 +123,7 @@ export default {
           return
         }
       }
-      // this.newContact.id = ''
+      this.newContact.id = ''
       this.$store.dispatch('addContact', this.newContact)
       this.$refs['addModal'].hide()
     },
@@ -147,8 +147,6 @@ export default {
       }
       this.$store.dispatch('updateContact', this.newContact)
       this.$refs['addModal'].hide()
-      this.$root.$emit('bv::refresh::table', 'my-table')
-      this.$refs.table.refresh();
     },
     resetInfoModal () {
       this.newContact.name = ''
@@ -173,7 +171,7 @@ export default {
     <div class="main main-raised" id="dashboard-wrapper">
       <div class="section section-basic">
         <b-container fluid>
-          <pre>{{ contactStore }}</pre>
+          <!-- <pre>{{ contactStore }}</pre> -->
           <!-- User Interface controls -->
           <b-button variant="primary" v-b-modal.addModal style="float: right; margin-bottom: 25px;">Agregar</b-button>
           <b-row>
@@ -296,7 +294,7 @@ export default {
               <b-button size="sm" @click="showEditMode(row.item)" variant="info" >
                 Editar
               </b-button>
-              <b-button variant="danger" size="sm" @click="handleDelete($event.target)" class="mr-1">
+              <b-button variant="danger" size="sm" @click="handleDelete(row.item)" class="mr-1">
                 Eliminar
               </b-button>
             </template>

@@ -33,7 +33,6 @@ const mutations = {
     state.contacts = data
   },
   DELETE_CONTACT (state, data) {
-    console.log('ID RECEIVE'+data.id);
     _.forEach(state.contacts, function (contact, key) {
       if (contact.id === data.id) {
         state.contacts.splice(key, 1)
@@ -46,9 +45,8 @@ const mutations = {
   SAVE_UPDATE_CONTACT (state, data) {
     _.forEach(state.contacts, function (contact, key) {
       if (contact.id === data.id) {
-        // state.contacts[state.contacts.indexOf(contact)] = data
         state.contacts.splice(key, 1)
-        state.contacts.splice(key, 0, data);
+        state.contacts.splice(key, 0, data)
       }
     })
   },
@@ -77,7 +75,8 @@ const actions = {
       })
   },
   addContact: ({commit}, contact) => {
-    let postData = {name: contact.name, phone: contact.phone, email: contact.email}
+    // let postData = {name: contact.name, phone: contact.phone, email: contact.email}
+    let postData = contact
     return Vue.http.post(addNewContact, postData, {headers: getHeader()})
       .then(response => {
         Vue.$logger('info', 'addContact response', response)
