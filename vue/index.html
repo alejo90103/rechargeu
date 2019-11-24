@@ -24,9 +24,21 @@
         -webkit-appearance: none;
         margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
       }
-
       input[type=number] {
         -moz-appearance:textfield; /* Firefox */
+      }
+      .center {
+        align-items: center;
+        flex-direction: column;
+        display: flex;
+      }
+      .bold {
+        font-weight: bold;
+      }
+      .shadow-none {
+        -webkit-box-shadow: none !important;
+        box-shadow: none !important;
+        background: transparent
       }
     </style>
 

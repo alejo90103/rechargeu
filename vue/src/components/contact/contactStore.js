@@ -4,7 +4,7 @@
  * @Email:  alejo901003@hotmail.com
  * @Project: Recargame
  * @Last modified by:   alejandro
- * @Last modified time: 2019-11-23T17:39:46+01:00
+ * @Last modified time: 2019-11-23T23:50:11+01:00
  */
 
 import Vue from 'vue'
@@ -19,27 +19,27 @@ import {
 } from './../../config'
 
 const state = {
-  contacts: [],
-  contactsEmail: []
+  contacts: []
 }
 
 const getters = {
   currentContact (state) {
     let contact = state.contact
     return contact
+  },
+  getEmailList (state) {
+    let list = state.contacts
+    return list.filter(list => list.email !== null)
+  },
+  getPhoneList (state) {
+    let list = state.contacts
+    return list.filter(list => list.phone !== null)
   }
 }
 
 const mutations = {
   SET_CONTACT_LIST (state, data) {
     state.contacts = data
-  },
-  SET_EMAIL_CONTACT_LIST (state, data) {
-    _.find(data, function (item) {
-      if (item.email !== null) {
-        state.contactsEmail.push(item)
-      }
-    })
   },
   DELETE_CONTACT (state, data) {
     _.forEach(state.contacts, function (contact, key) {
@@ -71,16 +71,6 @@ const actions = {
         Vue.$logger('info', 'contactListUrl response', response)
         if (response.status === 200) {
           commit('SET_CONTACT_LIST', response.body.data)
-          return response.body.data
-        }
-      })
-  },
-  getEmailContactList: ({commit}) => {
-    return Vue.http.get(contactListUrl, {headers: getHeader()})
-      .then(response => {
-        Vue.$logger('info', 'contactListUrl response', response)
-        if (response.status === 200) {
-          commit('SET_EMAIL_CONTACT_LIST', response.body.data)
           return response.body.data
         }
       })

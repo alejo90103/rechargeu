@@ -3,7 +3,7 @@
 @Date:   05-08-2019
 @Email:  ian@codeals.es
 @Last modified by:   alejandro
-@Last modified time: 2019-11-23T20:44:02+01:00
+@Last modified time: 2019-11-23T23:16:20+01:00
 @Copyright: Codeals
 -->
 
@@ -71,7 +71,7 @@ export default {
           }
         })
     }
-  },
+  }
 
   // destroyed () {
   //   //  this.$emit('SET_IS_BANNER', true)

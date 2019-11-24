@@ -4,14 +4,16 @@
  * @Email:  alejo901003@hotmail.com
  * @Project: Recargame
  * @Last modified by:   alejandro
- * @Last modified time: 2019-11-23T18:55:10+01:00
+ * @Last modified time: 2019-11-24T02:06:40+01:00
  */
 
 import Vue from 'vue'
 import {
   getHeader,
   rechargeCell,
-  rechargeNauta
+  rechargeNauta,
+  multiRechargeCell,
+  multiRechargeNauta
 } from './../../config'
 
 const state = {
@@ -60,6 +62,24 @@ const actions = {
     return Vue.http.post(rechargeNauta, postData, {headers: getHeader()})
       .then(response => {
         Vue.$logger('info', 'rechargeNauta response', response)
+        // commit('SAVE_ADD_CAR', response.body.data)
+        return response
+      })
+  },
+  multiRechargeCell: ({commit}, contacts) => {
+    let postData = contacts
+    return Vue.http.post(multiRechargeCell, postData, {headers: getHeader()})
+      .then(response => {
+        Vue.$logger('info', 'multiRechargeCell response', response)
+        // commit('SAVE_ADD_CAR', response.body.data)
+        return response
+      })
+  },
+  multiRechargeNauta: ({commit}, contacts) => {
+    let postData = contacts
+    return Vue.http.post(multiRechargeNauta, postData, {headers: getHeader()})
+      .then(response => {
+        Vue.$logger('info', 'multiRechargeNauta response', response)
         // commit('SAVE_ADD_CAR', response.body.data)
         return response
       })

@@ -4,7 +4,7 @@
 @Email:  alejo901003@hotmail.com
 @Project: Recargame
 @Last modified by:   alejandro
-@Last modified time: 2019-11-23T20:15:03+01:00
+@Last modified time: 2019-11-24T01:03:48+01:00
 -->
 
 <script>
@@ -206,7 +206,7 @@ export default {
                           </div>
                         </div>
                       </div>
-                      <button type="button" v-on:click="handleSubmit()" class="btn btn-success btn-lg"><i class="material-icons">sentiment_satisfied_alt</i>    Recargame</button>
+                      <button type="button" v-on:click="handleSubmit()" class="btn btn-success btn-lg bold"><i class="material-icons bold">sentiment_satisfied_alt</i>    Recargame</button>
                     </div>
                   </div>
                 </div>

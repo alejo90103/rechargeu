@@ -4,20 +4,19 @@
 @Email:  alejo901003@hotmail.com
 @Project: Recargame
 @Last modified by:   alejandro
-@Last modified time: 2019-11-23T20:29:30+01:00
+@Last modified time: 2019-11-24T02:10:10+01:00
 -->
 
 <script>
 
 import Footer from './../components/Footer'
 import TopMenu from './../components/TopMenu'
-import {mapState} from 'vuex'
+import {mapState, mapGetters} from 'vuex'
 
 export default {
   created () {
     this.$store.dispatch('setBanner', false)
     this.$store.dispatch('getContactList')
-    this.$store.dispatch('getEmailContactList')
   },
   data () {
     return {
@@ -102,7 +101,8 @@ export default {
         email: '',
         offer_id: '',
         call: 'rechargeNauta'
-      }
+      },
+      multiRechargeOffer: ''
     }
   },
   computed: {
@@ -110,6 +110,10 @@ export default {
       contactStore: state => state.contactStore,
       rechargeStore: state => state.rechargeStore,
       offerStore: state => state.offerStore
+    }),
+    ...mapGetters({
+      listEmail: 'getEmailList',
+      listPhone: 'getPhoneList'
     }),
     sortOptionsEmail () {
       // Create an options list from our fields
@@ -130,8 +134,8 @@ export default {
   },
   mounted () {
     // Set the initial number of contacts
-    this.totalPhoneRows = this.contactStore.contacts.length
-    this.totalEmailRows = this.contactStore.contactsEmail.length
+    this.totalPhoneRows = this.listPhone.length
+    this.totalEmailRows = this.listEmail.length
   },
   components: {
     TopMenu,
@@ -149,15 +153,30 @@ export default {
       this.cell.phone = item.phone
       this.$refs['rechargeModal'].show()
     },
+    showMultiRechargePhoneModal () {
+      this.$refs['rechargeMultiModal'].show()
+    },
     showRechargeNautaModal (item) {
       this.nauta.name = item.name
       this.nauta.email = item.email
       this.$refs['rechargeModal'].show()
     },
+    showMultiRechargeEmailModal () {
+      this.$refs['rechargeMultiModal'].show()
+    },
     handleRecharge () {
+
       if (this.type === 'cell') {
+        if (!this.cell.offer_id) {
+          this.$toastr.e('Debe selecionar una oferta')
+          return
+        }
         this.$store.dispatch('setRecharge', this.cell)
       } else {
+        if (!this.nauta.offer_id) {
+          this.$toastr.e('Debe selecionar una oferta')
+          return
+        }
         this.$store.dispatch('setRecharge', this.nauta)
       }
       this.$store.dispatch(this.rechargeStore.recharge.call)
@@ -171,7 +190,33 @@ export default {
             // this.$router.push({name: 'home'})
           }
         })
-
+    },
+    handleMultiRecharge () {
+      let call = ''
+      let contacts = []
+      if (!this.multiRechargeOffer) {
+        this.$toastr.e('Debe selecionar una oferta')
+        return
+      }
+      if (this.type === 'cell') {
+        call = 'multiRechargeCell'
+        contacts = this.selectedPhone
+      } else {
+        call = 'multiRechargeNauta'
+        contacts = this.selectedEmail
+      }
+      let data = {contacts: contacts, offer: this.multiRechargeOffer}
+      this.$store.dispatch(call, data)
+        .then(response => {
+          if (response.status === 201) {
+            this.$refs['rechargeMultiModal'].hide()
+            this.$toastr.s('Recarga realizada correctamente')
+            // this.$router.push({name: 'home'})
+          } else {
+            this.$toastr.e('ERROR en la recarga :( ')
+            // this.$router.push({name: 'home'})
+          }
+        })
     },
     resetInfoModal () {
       // this.cell.name = ''
@@ -180,6 +225,9 @@ export default {
       // this.nauta.name = ''
       // this.nauta.email = ''
       // this.nauta.offer_id = ''
+    },
+    resetMultiModal () {
+      this.multiRechargeOffer = ''
     },
     onFilteredPhone (filteredContacts) {
       // Trigger pagination to update the number of buttons/pages due to filtering
@@ -365,7 +413,7 @@ export default {
                           :hover="hoverPhone"
                           :bordered = "borderedPhone"
                           :head-variant="headVariantPhone"
-                          :items="contactStore.contacts"
+                          :items="listPhone"
                           :fields="fieldsPhone"
                           :current-page="currentPagePhone"
                           :per-page="perPagePhone"
@@ -403,8 +451,8 @@ export default {
                           </template>
 
                           <template v-slot:cell(actions)="row">
-                            <b-button variant="success" size="sm" @click="showRechargePhoneModal(row.item)" class="mr-1">
-                              <i class="material-icons">sentiment_satisfied_alt</i>    Recargame
+                            <b-button variant="success" size="md" @click="showRechargePhoneModal(row.item)" class="mr-1 bold">
+                              <i class="material-icons bold">sentiment_satisfied_alt</i>    Recargame
                             </b-button>
                           </template>
 
@@ -418,8 +466,9 @@ export default {
 
                         </b-table>
 
-                        <!-- <b-button size="sm" @click="selectAllRows">Marcar Todos</b-button>
-                        <b-button size="sm" @click="clearSelected">Desmarcar</b-button> -->
+                        <p class="row ml-1">
+                          <b-button v-if='selectedPhone.length > 0' @click="showMultiRechargePhoneModal()" class="btn btn-success btn-lg bold" ><i class="material-icons bold">sentiment_satisfied_alt</i>    Recargame</b-button>
+                        </p>
 
                         <b-row>
                           <b-col sm="12" md="12" class="my-1 center">
@@ -538,7 +587,7 @@ export default {
                           :hover="hoverEmail"
                           :bordered = "borderedEmail"
                           :head-variant="headVariantEmail"
-                          :items="contactStore.contactsEmail"
+                          :items="listEmail"
                           :fields="fieldsEmail"
                           :current-page="currentPageEmail"
                           :per-page="perPageEmail"
@@ -576,8 +625,8 @@ export default {
                           </template>
 
                           <template v-slot:cell(actions)="row">
-                            <b-button variant="success" size="sm" @click="showRechargeNautaModal(row.item)" class="mr-1">
-                              <i class="material-icons">sentiment_satisfied_alt</i>    Recargame
+                            <b-button variant="success" size="md" @click="showRechargeNautaModal(row.item)" class="mr-1 bold">
+                              <i class="material-icons bold">sentiment_satisfied_alt</i>    Recargame
                             </b-button>
                           </template>
 
@@ -591,11 +640,13 @@ export default {
 
                         </b-table>
 
-                        <!-- <b-button size="sm" @click="selectAllRows">Marcar Todos</b-button>
-                        <b-button size="sm" @click="clearSelected">Desmarcar</b-button> -->
+                        <p class="row ml-1">
+                          <b-button v-if='selectedEmail.length > 0' @click="showMultiRechargeEmailModal()" class="btn btn-success btn-lg bold" ><i class="material-icons bold">sentiment_satisfied_alt</i>    Recargame</b-button>
+                        </p>
 
                         <b-row>
                           <b-col sm="12" md="12" class="my-1 center">
+                            <!-- <button type="button" v-on:click="handleSubmit()" class="btn btn-success btn-lg">Success</button> -->
                             <b-pagination
                               v-model="currentPageEmail"
                               :total-rows="totalEmailRows"
@@ -607,7 +658,6 @@ export default {
                           </b-col>
                         </b-row>
                       </div>
-                      <!-- <button type="button" v-on:click="handleSubmit()" class="btn btn-success btn-lg">Success</button> -->
                     </div>
                   </div>
                 </div>
@@ -654,10 +704,52 @@ export default {
                   </div>
                 </div>
               </div>
-              <pre>{{ cell }}</pre>
-              <pre>{{ nauta }}</pre>
 
-              <b-button class="mt-2" variant="success" style="float: right;" @click="handleRecharge"><i class="material-icons">sentiment_satisfied_alt</i>    Recargame</b-button>
+              <b-button class="mt-2 bold" variant="success" style="float: right;" @click="handleRecharge"><i class="material-icons bold">sentiment_satisfied_alt</i>    Recargame</b-button>
+            </b-container>
+
+          </b-modal>
+
+          <!-- Multi Recharge Modal -->
+          <b-modal id="rechargeMultiModal" ref="rechargeMultiModal" ok-only @hide="resetMultiModal" hide-footer hide-header>
+            <!-- <template v-slot:modal-title >
+            </template> -->
+            <div class="card-header card-header-primary text-center mb-5" style="background-color: #9c27b0; border-radius: 3px;">
+              <h4 class="card-title" style="color: white">Selecione una Oferta</h4>
+            </div>
+            <b-container fluid>
+              <div id="nav-tabs">
+                <div class="row">
+                  <div class="col-md-12">
+                    <!-- <pre>{{rechargeStore}}</pre> -->
+                    <!-- Tabs with icons on Card -->
+                    <div class="card-body ">
+                      <div class="tab-content text-center">
+                        <div class="form-row">
+                          <div class="form-group col-md-12">
+                            <div class="input-group-prepend">
+                              <div class="input-group-text" style="color: #000; font-weight: 200; font-size: 25px; margin-left: 10px; width: 40px">€</div>
+                              <select v-if="type === 'cell'" v-model="multiRechargeOffer" style="font-size: 25px; text-align: center; font-weight: 200; height: auto; text-align-last: center" class="form-control">
+                                <option v-for="offer in offerStore.offers" v-if="offer.type === 'Cell'" :value="offer.id" :key="offer.id">
+                                  {{ offer.name }}
+                                </option>
+                              </select>
+                              <select v-if="type === 'nauta'" v-model="multiRechargeOffer" style="font-size: 25px; text-align: center; font-weight: 200; height: auto; text-align-last: center" class="form-control">
+                                <option v-for="offer in offerStore.offers" v-if="offer.type === 'Nauta'" :value="offer.id" :key="offer.id">
+                                  {{ offer.name }}
+                                </option>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- End Tabs with icons on Card -->
+                  </div>
+                </div>
+              </div>
+
+              <b-button class="mt-2 price_pay bold" variant="success" style="float: right;" @click="handleMultiRecharge"><i class="material-icons bold">sentiment_satisfied_alt</i>    Recargame</b-button>
             </b-container>
 
           </b-modal>
@@ -670,11 +762,6 @@ export default {
 </template>
 
 <style lang="css" scoped>
-  .center {
-    align-items: center;
-    flex-direction: column;
-    display: flex;
-  }
 
   table#table-transition-example .flip-list-move {
     transition: transform 1s;
