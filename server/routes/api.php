@@ -3,7 +3,7 @@
 # @Date:   20-10-2019
 # @Email:  ian@codeals.es
 # @Last modified by:   Codeals
-# @Last modified time: 22-11-2019
+# @Last modified time: 24-11-2019
 # @Copyright: Codeals
 
 use Illuminate\Http\Request;
@@ -45,6 +45,8 @@ Route::group(['prefix' => 'v1', 'middleware' => 'auth:api'], function () {
     /*recharge url*/
     Route::post('recharge-cell', 'RechargeController@rechargeCell');
     Route::post('recharge-nauta', 'RechargeController@rechargeNauta');
+    Route::post('multi-recharge-cell', 'RechargeController@multiRechargeCell');
+    Route::post('multi-recharge-nauta', 'RechargeController@multiRechargeNauta');
 
     /*contact url*/
     Route::get('contact-list', 'ContactController@getContactList');

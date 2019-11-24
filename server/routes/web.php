@@ -3,7 +3,7 @@
 # @Date:   19-10-2019
 # @Email:  ian@codeals.es
 # @Last modified by:   Codeals
-# @Last modified time: 23-11-2019
+# @Last modified time: 24-11-2019
 # @Copyright: Codeals
 
 /*
@@ -18,6 +18,7 @@
 */
 
 use App\Events\ChatConversation;
+use Illuminate\Support\Facades\Auth;
 
 
 Auth::routes();
@@ -42,6 +43,7 @@ Route::group(['middleware' => 'admin'], function () {
   Route::get('/home', 'HomeController@index')->name('home');
 
   Route::resource('offers', 'OfferController');
+  Route::resource('users', 'UserController');
 
   Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 

@@ -23,7 +23,7 @@
 		<!-- <div class="kt-subheader   kt-grid__item" id="kt_subheader">
 			<div class="kt-subheader__main">
 				<h3 class="kt-subheader__title">
-					{!! trans('offer.views.offer') !!} </h3>
+					{!! trans('user.views.user') !!} </h3>
 				<span class="kt-subheader__separator kt-hidden"></span>
 				<div class="kt-subheader__breadcrumbs">
 					<a href="{{ route('/') }}" class="kt-subheader__breadcrumbs-home"><i class="flaticon-home-2"></i></a>
@@ -31,7 +31,7 @@
 					<a href="{{ route('/') }}" class="kt-subheader__breadcrumbs-link">
 						{!! trans('share.layouts.home') !!} </a>
 					<span class="kt-subheader__breadcrumbs-separator"></span>
-					<span class="kt-subheader__breadcrumbs-link kt-subheader__breadcrumbs-link--active">{!! trans('offer.views.offers') !!}</span>
+					<span class="kt-subheader__breadcrumbs-link kt-subheader__breadcrumbs-link--active">{!! trans('user.views.users') !!}</span>
 				</div>
 			</div>
 
@@ -45,7 +45,7 @@
       <!-- NOTIFICACION -->
       @if(Session::has('msg'))
           <div class="alert alert-success fade show" role="alert">
-						<div class="alert-icon"><i class="flaticon2-bell"></i></div>
+						<div class="alert-icon"><i class="flaticon-user-ok"></i></div>
 						<div class="alert-text">{{ Session::get('msg') }}</div>
 						<div class="alert-close">
 							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -77,10 +77,10 @@
 					<div class="kt-portlet__head kt-portlet__head--lg">
 						<div class="kt-portlet__head-label">
 							<span class="kt-portlet__head-icon">
-								<i class="kt-font-brand flaticon2-bell"></i>
+								<i class="kt-font-brand flaticon-users"></i>
 							</span>
 							<h3 class="kt-portlet__head-title">
-								Ofertas
+								Usuarios
 							</h3>
 						</div>
 
@@ -91,37 +91,33 @@
 						<table class="table table-striped- table-bordered table-hover table-checkable" id="kt_table_1">
 							<thead>
 								<tr>
-									<th>Oferta</th>
-									<th>Tipo</th>
-									<th>Fecha Inicio</th>
-									<th>Fecha Fin</th>
-									<th>Expira</th>
-									<th>A Pagar</th>
-									<th>A Recargar</th>
-									<th>Descripción</th>
+									<th>Usuario</th>
+									<th>Correo</th>
+									<th>Rol</th>
+									<th>Registrado</th>
 									<th>Actions</th>
 								</tr>
 							</thead>
 							<tbody>
-                @foreach($offers as $offer)
+                @foreach($users as $user)
 								<tr>
-									<td>{{$offer->name}}</td>
-                  <td>{{$offer->type}}</td>
-                  <td>{{$offer->date_ini}}</td>
-                  <td>{{$offer->date_end}}</td>
-                  <td>{{$offer->date_expire}}</td>
-                  <td>{{$offer->price_pay}}</td>
-                  <td>{{$offer->recharge_amount}}</td>
-                  <td>{{$offer->receive}}</td>
+									<td>{{$user->name}}</td>
+                  <td>{{$user->email}}</td>
+                  @if($user->admin == 1)
+                    <td>Admin</td>
+                  @else
+                    <td>Cliente</td>
+                  @endif
+                  <td>{{$user->created_at}}</td>
 									<td>
 
-                      <a href="{{ route('offers.edit', $offer->id) }}" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="{!! trans('share.views.edit') !!}">
+                      <a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="{!! trans('share.views.edit') !!}">
                         <i class="la la-edit"></i>
                       </a>
 
-                        {!! Form::open(['route' => ['offers.destroy', $offer->id], 'id' => 'form_offer_'.$offer->id, 'style' => 'display: inline']) !!}
+                        {!! Form::open(['route' => ['users.destroy', $user->id], 'id' => 'form_user_'.$user->id, 'style' => 'display: inline']) !!}
                             <input type="hidden" name="_method" value="DELETE">
-                            <button type="submit" form-id="form_offer_{{$offer->id}}" data-dialog="delete_dialog" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="{!! trans('offer.views.delete') !!}">
+                            <button type="submit" form-id="form_user_{{$user->id}}" data-dialog="delete_dialog" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="{!! trans('user.views.delete') !!}">
                                 <i class="la la-trash"></i>
                             </button>
                         {!! Form::close() !!}

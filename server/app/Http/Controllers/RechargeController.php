@@ -2,8 +2,8 @@
 # @Author: Codeals
 # @Date:   22-11-2019
 # @Email:  ian@codeals.es
-# @Last modified by:   alejandro
-# @Last modified time: 2019-11-23T20:03:21+01:00
+# @Last modified by:   Codeals
+# @Last modified time: 24-11-2019
 # @Copyright: Codeals
 
 
@@ -151,5 +151,21 @@ class RechargeController extends Controller
         }
 
         return response(['data' => $contact], 201);
+    }
+
+    public function multiRechargeCell(Request $request)
+    {
+        $contacts = $request->input('contacts');
+        $offer_id = $request->input('offer');
+
+        return response(['data' => $contacts], 201);
+    }
+
+    public function multiRechargeNauta(Request $request)
+    {
+        $contacts = $request->input('contacts');
+        $offer_id = $request->input('offer');
+
+        return response(['data' => $contacts], 201);
     }
 }
