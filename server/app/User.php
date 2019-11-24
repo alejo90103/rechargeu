@@ -3,7 +3,7 @@
 # @Date:   19-10-2019
 # @Email:  ian@codeals.es
 # @Last modified by:   Codeals
-# @Last modified time: 21-11-2019
+# @Last modified time: 24-11-2019
 # @Copyright: Codeals
 
 namespace App;
@@ -33,6 +33,28 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /*
+    |------------------------------------------------------------------------------------
+    | Validations
+    |------------------------------------------------------------------------------------
+    */
+    public static function rules($update = false, $id = null)
+    {
+        $commun = [
+            'name' => "required",
+            'email' => "required",
+        ];
+
+        if ($update) {
+            return $commun;
+        }
+
+        return array_merge($commun, [
+            'name' => "required",
+            'email' => "required",
+        ]);
+    }
 
     /**
      * Relation with Token and User

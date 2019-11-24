@@ -3,7 +3,7 @@
 # @Date:   05-08-2019
 # @Email:  ian@codeals.es
 # @Last modified by:   Codeals
-# @Last modified time: 23-11-2019
+# @Last modified time: 24-11-2019
 # @Copyright: Codeals
 
 namespace App\Http\Controllers;
@@ -18,6 +18,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -59,7 +60,6 @@ class UserController extends Controller
 
         $passw = mb_split('@', $data["email"]);
         $data["password"] = Hash::make($passw[0]);
-        $data["id"] = $this->generateTokenID();
 
         $user = User::create($data);
 

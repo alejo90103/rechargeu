@@ -2,8 +2,8 @@
 # @Author: Codeals
 # @Date:   22-11-2019
 # @Email:  ian@codeals.es
-# @Last modified by:   alejandro
-# @Last modified time: 2019-11-24T01:58:30+01:00
+# @Last modified by:   Codeals
+# @Last modified time: 24-11-2019
 # @Copyright: Codeals
 
 
@@ -155,7 +155,7 @@ class RechargeController extends Controller
 
     public function multiRechargeCell(Request $request)
     {
-        $contacts = $request->contacts;
+        $contacts = $request->input('contacts');
         $offer_id = $request->input('offer');
 
         return response(['data' => $contacts], 201);
