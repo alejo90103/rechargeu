@@ -4,7 +4,7 @@
 @Email:  alejo901003@hotmail.com
 @Project: Recargame
 @Last modified by:   alejandro
-@Last modified time: 2019-11-24T01:03:48+01:00
+@Last modified time: 2019-11-24T03:10:23+01:00
 -->
 
 <script>
@@ -155,21 +155,21 @@ export default {
                       <div  class="tab-pane active" id="cell">
                         <div class="form-row">
                           <div class="form-group col-md-12" style="padding-top: 0px;">
-                            <div class="input-group-prepend">
+                            <div class="input-group-prepend row">
                               <div class="input-group-text col-md-2" style="color: #000; font-weight: 200; font-size: 25px;">ABC</div>
-                              <input type="text" v-model="cell.name" style="font-size: 25px; text-align: center; font-weight: 200; height: auto;" class="form-control" placeholder="Nombre">
+                              <input type="text" v-model="cell.name" style="font-size: 25px; text-align: center; font-weight: 200; height: auto;" class="form-control col-md-10" placeholder="Nombre">
                             </div>
                           </div>
                           <div class="form-group col-md-12" style="padding-top: 0px;">
-                            <div class="input-group-prepend">
+                            <div class="input-group-prepend row">
                               <div class="input-group-text col-md-2" style="color: #000; font-weight: 200; font-size: 25px;">+53</div>
-                              <input type="number" v-model="cell.phone" style="font-size: 25px; text-align: center; font-weight: 200; height: auto;" class="form-control" placeholder="Teléfono">
+                              <input type="number" v-model="cell.phone" style="font-size: 25px; text-align: center; font-weight: 200; height: auto;" class="form-control col-md-10" placeholder="Teléfono">
                             </div>
                           </div>
                           <div class="form-group col-md-12">
-                            <div class="input-group-prepend">
+                            <div class="input-group-prepend row">
                               <div class="input-group-text col-md-2" style="color: #000; font-weight: 200; font-size: 25px; padding-left: 10px">€</div>
-                              <select v-model="cell.offer_id" style="font-size: 25px; text-align: center; font-weight: 200; height: auto; text-align-last: center" class="form-control">
+                              <select v-model="cell.offer_id" style="font-size: 25px; text-align: center; font-weight: 200; height: auto; text-align-last: center" class="form-control col-md-10">
                                 <!-- <option selected>Oferta</option> -->
                                 <option v-for="offer in offerStore.offers" v-if="offer.type === 'Cell'" :value="offer.id" :key="offer.id">
                                   {{ offer.name }}
@@ -182,21 +182,21 @@ export default {
                       <div class="tab-pane" id="nauta">
                         <div class="form-row">
                           <div class="form-group col-md-12" style="padding-top: 0px;">
-                            <div class="input-group-prepend">
+                            <div class="input-group-prepend row">
                               <div class="input-group-text col-md-2" style="color: #000; font-weight: 200; font-size: 25px;">ABC</div>
-                              <input type="text" v-model="nauta.name" style="font-size: 25px; text-align: center; font-weight: 200; height: auto;" class="form-control" placeholder="Nombre">
+                              <input type="text" v-model="nauta.name" style="font-size: 25px; text-align: center; font-weight: 200; height: auto;" class="form-control col-md-10" placeholder="Nombre">
                             </div>
                           </div>
                           <div class="form-group col-md-12" style="padding-top: 0px;">
-                            <div class="input-group-prepend">
+                            <div class="input-group-prepend row">
                               <div class="input-group-text col-md-2" style="color: #000; font-weight: 200; font-size: 25px; padding-left: 10px">@</div>
-                              <input type="email" v-model="nauta.email" style="font-size: 25px; text-align: center; font-weight: 200; height: auto;" class="form-control" placeholder="Nauta">
+                              <input type="email" v-model="nauta.email" style="font-size: 25px; text-align: center; font-weight: 200; height: auto;" class="form-control col-md-10" placeholder="Nauta">
                             </div>
                           </div>
                           <div class="form-group col-md-12">
-                            <div class="input-group-prepend">
+                            <div class="input-group-prepend row">
                               <div class="input-group-text col-md-2" style="color: #000; font-weight: 200; font-size: 25px; padding-left: 10px">€</div>
-                              <select v-model="nauta.offer_id" style="font-size: 25px; text-align: center; font-weight: 200; height: auto; text-align-last: center" class="form-control">
+                              <select v-model="nauta.offer_id" style="font-size: 25px; text-align: center; font-weight: 200; height: auto; text-align-last: center" class="form-control col-md-10">
                                 <!-- <option selected>Oferta</option> -->
                                 <option v-for="offer in offerStore.offers" v-if="offer.type === 'Nauta'" :value="offer.id" :key="offer.id">
                                   {{ offer.name }}

@@ -4,7 +4,7 @@
 @Email:  alejo901003@hotmail.com
 @Project: Recargame
 @Last modified by:   alejandro
-@Last modified time: 2019-11-23T14:17:31+01:00
+@Last modified time: 2019-11-24T03:28:45+01:00
 -->
 
 <script>
@@ -64,18 +64,21 @@ export default {
         <div class="tab-content tab-space col-lg-12">
           <div class="tab-pane active" id="cell-info">
             <div class="row">
-              <!-- <pre>{{col}}</pre> -->
-              <div class="card text-center col-md-4" :style="col" v-for="offer in offerStore.offers" v-if="offer.type === 'Cell'" :key="offer.id" style="width: 20rem; float: none; margin-bottom: 10px; box-shadow: none">
+              <div class="card text-center col-md-4" :style="col" v-for="offer in offerStore.offers" v-if="offer.type === 'Cell'" :key="offer.id" style="float: none; margin-bottom: 10px; box-shadow: none">
                 <div class="card-body shadow">
                   <h4 class="card-title">Paga</h4>
-                  <h2 class="card-title" style="color: #9c27b0">{{ offer.price_pay }} €</h2>
+                  <h2 class="card-title" style="color: #9c27b0; font-size: 28px">{{ offer.price_pay }} €</h2>
                   <hr style="color: #0056b2;" />
                   <h4 class="card-title">Recibe</h4>
-                  <h2 class="card-title" style="color: #9c27b0">{{ offer.receive }}</h2>
+                  <h2 class="card-title" style="color: #9c27b0; font-size: 28px">{{ offer.receive }}</h2>
                   <hr style="color: #0056b2;" />
                   <div class="row" style="display: -webkit-inline-box;">
-                    <i class="material-icons col-md-1" style="margin-top: 0.625rem; max-width: 0; color:#9c27b0"> check_circle </i>
-                    <p class="card-title col-md-11" style="text-align: left">{{ offer.receive }} de bonificación, a consumir antes del {{ offer.date_expire }}</p>
+                    <div class="col-sm-1" style="display: contents;">
+                      <i class="material-icons col-md-1" style="margin-top: 0.625rem; max-width: 0; color:#9c27b0"> check_circle </i>
+                    </div>
+                    <div class="col-sm-12">
+                      <h6  class="card-title col-md-11" style="text-align: left">{{ offer.receive }} de bonificación, a consumir antes del {{ offer.date_expire }}</h6>
+                    </div>
                   </div>
                 </div>
               </div>

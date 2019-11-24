@@ -3,7 +3,7 @@
 @Date:   11-08-2019
 @Email:  ian@codeals.es
 @Last modified by:   alejandro
-@Last modified time: 2019-11-23T16:45:53+01:00
+@Last modified time: 2019-11-24T03:02:26+01:00
 @Copyright: Codeals
 -->
 
@@ -34,22 +34,22 @@ export default {
 <template>
   <nav v-if="userStore.authUser !== null && userStore.authUser.access_token" class="navbar navbar-transparent navbar-color-on-scroll fixed-top navbar-expand-lg" color-on-scroll="100" id="sectionsNav">
     <div class="container">
-      <div class="navbar-translate">
+      <div class="navbar-translate" style="margin-left: 12%">
         <a class="navbar-brand" href="http://localhost:8080/dashboard">
-          Recharge U
+          Recargame
         </a>
-        <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
           <span class="sr-only">Toggle navigation</span>
           <span class="navbar-toggler-icon"></span>
           <span class="navbar-toggler-icon"></span>
           <span class="navbar-toggler-icon"></span>
-        </button> -->
+        </button>
       </div>
 
       <div class="collapse navbar-collapse">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <router-link class="nav-link" :to="{name: 'dashboard'}"><i class="material-icons">dashboard</i> Home</router-link>
+            <router-link class="nav-link" :to="{name: 'dashboard'}"><i class="material-icons">home</i> Inicio</router-link>
           </li>
           <li class="nav-item">
             <router-link class="nav-link" :to="{name: 'contact'}"><i class="material-icons">perm_contact_calendar</i> Contactos</router-link>
@@ -59,18 +59,15 @@ export default {
           </li> -->
           <li class="dropdown nav-item">
             <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-              <i class="material-icons">apps</i> Recarga
+              <i class="material-icons">attach_money</i> Recarga
             </a>
             <div class="dropdown-menu dropdown-with-icons">
               <!-- <router-link class="dropdown-item"><i class="material-icons">apps</i> Recargar ofertas</router-link> -->
-              <router-link :to="{name: 'recharge-contact'}" class="dropdown-item"><i class="material-icons">apps</i> Recargar Contactos</router-link>
-              <router-link :to="{name: 'home'}" class="dropdown-item"><i class="material-icons">apps</i> Recargar Realizadas</router-link>
+              <router-link :to="{name: 'recharge-contact'}" class="dropdown-item"><i class="material-icons">account_box</i> Recargar Contactos</router-link>
+              <router-link :to="{name: 'home'}" class="dropdown-item"><i class="material-icons">format_list_bulleted</i> Recargas Realizadas</router-link>
             </div>
           </li>
         </ul>
-      </div>
-
-      <div class="collapse navbar-collapse">
         <ul class="navbar-nav ml-auto">
           <!-- <chat-notification></chat-notification> -->
           <!-- <pm-notification></pm-notification> -->
@@ -104,6 +101,7 @@ export default {
           </li>
         </ul>
       </div>
+
     </div>
   </nav>
   <nav v-else='' class="navbar navbar-transparent navbar-color-on-scroll fixed-top navbar-expand-lg" color-on-scroll="100" id="sectionsNav">
