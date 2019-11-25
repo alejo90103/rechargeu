@@ -3,7 +3,7 @@
 @Date:   11-08-2019
 @Email:  ian@codeals.es
 @Last modified by:   alejandro
-@Last modified time: 2019-11-24T03:02:26+01:00
+@Last modified time: 2019-11-25T01:40:16+01:00
 @Copyright: Codeals
 -->
 
@@ -108,7 +108,7 @@ export default {
     <div class="container">
       <div class="navbar-translate">
         <a class="navbar-brand" href="http://localhost:8080">
-          Recharge U </a>
+          Recargame </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
           <span class="sr-only">Toggle navigation</span>
           <span class="navbar-toggler-icon"></span>

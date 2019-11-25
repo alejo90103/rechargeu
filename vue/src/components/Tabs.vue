@@ -4,13 +4,13 @@
 @Email:  alejo901003@hotmail.com
 @Project: Recargame
 @Last modified by:   alejandro
-@Last modified time: 2019-11-24T03:10:23+01:00
+@Last modified time: 2019-11-25T03:02:21+01:00
 -->
 
 <script>
 import {mapState} from 'vuex'
 import {apiDomain} from './../../config'
-// import ModalRegister from './ModalRegister'
+import moment from 'moment'
 
 export default {
   data () {
@@ -28,7 +28,9 @@ export default {
         offer_id: '',
         call: 'rechargeNauta'
       },
-      server: apiDomain
+      server: apiDomain,
+      now: moment(new Date()).format('YYYY/MM/DD'),
+      moment
     }
   },
   // components: {
@@ -171,7 +173,7 @@ export default {
                               <div class="input-group-text col-md-2" style="color: #000; font-weight: 200; font-size: 25px; padding-left: 10px">€</div>
                               <select v-model="cell.offer_id" style="font-size: 25px; text-align: center; font-weight: 200; height: auto; text-align-last: center" class="form-control col-md-10">
                                 <!-- <option selected>Oferta</option> -->
-                                <option v-for="offer in offerStore.offers" v-if="offer.type === 'Cell'" :value="offer.id" :key="offer.id">
+                                <option v-for="offer in offerStore.offers" v-if="offer.type === 'Cell' && moment(now).isBetween(offer.date_ini, offer.date_end, null, '[]')" :value="offer.id" :key="offer.id">
                                   {{ offer.name }}
                                 </option>
                               </select>

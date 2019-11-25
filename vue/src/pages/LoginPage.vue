@@ -3,7 +3,7 @@
 @Date:   05-08-2019
 @Email:  ian@codeals.es
 @Last modified by:   alejandro
-@Last modified time: 2019-11-23T23:16:20+01:00
+@Last modified time: 2019-11-25T01:34:28+01:00
 @Copyright: Codeals
 -->
 
@@ -19,7 +19,7 @@ export default {
     return {
       login: {
         email: 'iankamisama@gmail.com',
-        password: '123123'
+        password: '123456'
       }
     }
   },
@@ -105,7 +105,7 @@ export default {
                     </a>
                   </div>
                 </div>
-                <p class="description text-center">Or Be Classical</p>
+                <!-- <p class="description text-center">Or Be Classical</p> -->
                 <div class="card-body">
                   <!-- <div class="input-group">
                     <div class="input-group-prepend">
@@ -121,7 +121,7 @@ export default {
                         <i class="material-icons">mail</i>
                       </span>
                     </div>
-                    <input type="email" v-model="login.email" class="form-control" placeholder="Email...">
+                    <input type="email" v-model="login.email" class="form-control" placeholder="Correo">
                   </div>
                   <div class="input-group">
                     <div class="input-group-prepend">
@@ -129,15 +129,15 @@ export default {
                         <i class="material-icons">lock_outline</i>
                       </span>
                     </div>
-                    <input type="password" v-model="login.password" class="form-control" placeholder="Password...">
+                    <input type="password" v-model="login.password" class="form-control" placeholder="Contraseña">
                   </div>
                 </div>
                 <div class="">
-                   <router-link :to="{name: 'forgot-password'}" class="forgot-password">Forgot password</router-link>
-                   <router-link :to="{name: 'register-user'}" class="register">Register</router-link>
+                   <router-link :to="{name: 'forgot-password'}" class="forgot-password">¿Olvidaste tu contraseña?</router-link>
+                   <router-link :to="{name: 'register-user'}" class="register">Registrarte</router-link>
                 </div>
                 <div class="footer text-center">
-                  <div @click="handleLoginFormSubmit" class="btn btn-primary btn-link btn-wd btn-lg">Get Started</div>
+                  <div @click="handleLoginFormSubmit" class="btn btn-primary btn-link btn-wd btn-lg">Iniciar</div>
                 </div>
               </form>
             </div>

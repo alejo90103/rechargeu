@@ -2,8 +2,8 @@
 # @Author: Codeals
 # @Date:   20-11-2019
 # @Email:  ian@codeals.es
-# @Last modified by:   Codeals
-# @Last modified time: 23-11-2019
+# @Last modified by:   alejandro
+# @Last modified time: 2019-11-25T02:07:04+01:00
 # @Copyright: Codeals
 
 namespace App;
@@ -36,6 +36,7 @@ class Offer extends Model
         'id',
         'name',
         'type',
+        'ads',
         'date_ini',
         'date_end',
         'date_expire',

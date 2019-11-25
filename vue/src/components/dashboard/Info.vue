@@ -4,18 +4,21 @@
 @Email:  alejo901003@hotmail.com
 @Project: Recargame
 @Last modified by:   alejandro
-@Last modified time: 2019-11-24T03:28:45+01:00
+@Last modified time: 2019-11-25T02:53:30+01:00
 -->
 
 <script>
 
 import {mapState} from 'vuex'
 import _ from 'lodash'
+import moment from 'moment'
 
 export default {
   data () {
     return {
-      col: ''
+      col: '',
+      now: moment(new Date()).format('YYYY/MM/DD'),
+      moment
     }
   },
   components: {
@@ -64,7 +67,8 @@ export default {
         <div class="tab-content tab-space col-lg-12">
           <div class="tab-pane active" id="cell-info">
             <div class="row">
-              <div class="card text-center col-md-4" :style="col" v-for="offer in offerStore.offers" v-if="offer.type === 'Cell'" :key="offer.id" style="float: none; margin-bottom: 10px; box-shadow: none">
+
+              <div class="card text-center col-md-4" :style="col" v-for="offer in offerStore.offers" v-if="offer.type === 'Cell' && offer.ads === 1" :key="offer.id" style="float: none; margin-bottom: 10px; box-shadow: none">
                 <div class="card-body shadow">
                   <h4 class="card-title">Paga</h4>
                   <h2 class="card-title" style="color: #9c27b0; font-size: 28px">{{ offer.price_pay }} €</h2>
@@ -79,6 +83,12 @@ export default {
                     <div class="col-sm-12">
                       <h6  class="card-title col-md-11" style="text-align: left">{{ offer.receive }} de bonificación, a consumir antes del {{ offer.date_expire }}</h6>
                     </div>
+                  </div>
+                  <div v-if="moment(now).isBetween(offer.date_ini, offer.date_end, null, '[]')" class="col-sm-12 mt-3">
+                    <button type="button" class="btn btn-success btn-lg bold"><i class="material-icons bold">sentiment_satisfied_alt</i>    Recargame</button>
+                  </div>
+                  <div v-else class="col-sm-12 mt-3">
+                    <button type="button" class="btn btn-warning btn-lg bold" style="opacity: 1" disabled><i class="material-icons bold">sentiment_dissatisfied</i>    Proximamente</button>
                   </div>
                 </div>
               </div>
