@@ -4,7 +4,7 @@
 @Email:  alejo901003@hotmail.com
 @Project: Recargame
 @Last modified by:   alejandro
-@Last modified time: 2019-11-24T02:10:10+01:00
+@Last modified time: 2019-11-25T19:53:17+01:00
 -->
 
 <script>
@@ -165,7 +165,6 @@ export default {
       this.$refs['rechargeMultiModal'].show()
     },
     handleRecharge () {
-
       if (this.type === 'cell') {
         if (!this.cell.offer_id) {
           this.$toastr.e('Debe selecionar una oferta')

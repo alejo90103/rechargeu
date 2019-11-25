@@ -3,7 +3,7 @@
 @Date:   05-08-2019
 @Email:  ian@codeals.es
 @Last modified by:   alejandro
-@Last modified time: 2019-11-25T01:34:28+01:00
+@Last modified time: 2019-11-25T22:24:12+01:00
 @Copyright: Codeals
 -->
 
@@ -61,13 +61,28 @@ export default {
             window.localStorage.setItem('authUser', JSON.stringify(authUser))
             this.$http.get(userUrl, {headers: getHeader()})
               .then(response => {
-                console.log('user object', response)
-                authUser.email = response.body.email
-                authUser.name = response.body.name
-                window.localStorage.setItem('authUser', JSON.stringify(authUser))
-                this.$store.dispatch('setUserObject', authUser)
-                this.$router.push({name: 'home'})
+                if (response.status === 200) {
+                  console.log('user object', response)
+                  authUser.email = response.body.email
+                  authUser.name = response.body.name
+                  window.localStorage.setItem('authUser', JSON.stringify(authUser))
+                  this.$store.dispatch('setUserObject', authUser)
+                  this.$router.push({name: 'home'})
+                }
               })
+              .catch(response => {
+                debugger
+                window.localStorage.removeItem('authUser')
+                if (response.status === 404) {
+                  this.$toastr.e('Active la cuenta en su correo')
+                }
+              })
+          }
+        })
+        .catch(response => {
+          debugger
+          if (response.status === 401) {
+            this.$toastr.e('Usuario o contraseña incorrecto')
           }
         })
     }

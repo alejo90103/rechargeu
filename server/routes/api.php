@@ -2,8 +2,8 @@
 # @Author: Codeals
 # @Date:   20-10-2019
 # @Email:  ian@codeals.es
-# @Last modified by:   Codeals
-# @Last modified time: 24-11-2019
+# @Last modified by:   alejandro
+# @Last modified time: 2019-11-25T22:20:43+01:00
 # @Copyright: Codeals
 
 use Illuminate\Http\Request;
@@ -40,7 +40,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::group(['prefix' => 'v1', 'middleware' => 'auth:api'], function () {
-    // Route::get('user-list', 'UserController@getUserList');
+    Route::post('change-password', 'UserController@changePasswordApi');
 
     /*recharge url*/
     Route::post('recharge-cell', 'RechargeController@rechargeCell');

@@ -2,8 +2,8 @@
 # @Author: Codeals
 # @Date:   05-08-2019
 # @Email:  ian@codeals.es
-# @Last modified by:   Codeals
-# @Last modified time: 24-11-2019
+# @Last modified by:   alejandro
+# @Last modified time: 2019-11-25T22:31:29+01:00
 # @Copyright: Codeals
 
 namespace App\Http\Controllers;
@@ -256,7 +256,7 @@ class UserController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'password' => 'required|min:6',
-            'confirm_password' => 'required|same:password',
+            'confirm_password' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -290,6 +290,6 @@ class UserController extends Controller
         $data['password'] = Hash::make($request->input('password'));
         $user->update($data);
 
-        return response(['data' => $user], 201);
+        return response(['data' => $user], 200);
     }
 }

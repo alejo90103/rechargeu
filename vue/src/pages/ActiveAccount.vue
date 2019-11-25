@@ -2,13 +2,13 @@
 @Author: Codeals
 @Date:   05-08-2019
 @Email:  ian@codeals.es
-@Last modified by:   Codeals
-@Last modified time: 20-08-2019
+@Last modified by:   alejandro
+@Last modified time: 2019-11-25T21:51:29+01:00
 @Copyright: Codeals
 -->
 
 <template>
-  <div class="ResetPassword__Wrapper">
+  <!-- <div class="ResetPassword__Wrapper">
     <section class="login">
       <div class="row">
         <div class="col-md-6 col-md-push-3">
@@ -26,12 +26,16 @@
         </div>
       </div>
     </section>
-  </div>
+  </div> -->
 </template>
 
 <script>
 import {activeUserUrl} from './../config'
 export default {
+  created () {
+    this.$store.dispatch('setBanner', false)
+    this.handleActiveSubmit()
+  },
   methods: {
     handleActiveSubmit () {
       var postData = {
@@ -40,8 +44,8 @@ export default {
 
       this.$http.post(activeUserUrl, postData).then(response => {
         // console.log('response', response)
-        this.$toastr.s('Register successfully')
-        this.$router.push({name: 'home'})
+        this.$toastr.s('Has sido registrado!!!')
+        this.$router.push({name: 'login'})
       }).catch(response => {
         // console.log('response', response)
         this.$toastr.e(`${response.data}`)

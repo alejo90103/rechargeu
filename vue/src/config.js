@@ -3,10 +3,11 @@
  * @Date:   05-08-2019
  * @Email:  ian@codeals.es
  * @Last modified by:   alejandro
- * @Last modified time: 2019-11-24T01:19:35+01:00
+ * @Last modified time: 2019-11-25T22:19:56+01:00
  * @Copyright: Codeals
  */
 
+export const apiClient = 'http://localhost:8080/'
 export const apiDomain = 'http://localhost:8000/'
 export const loginUrl = apiDomain + 'oauth/token'
 export const userUrl = apiDomain + 'api/user'
@@ -14,6 +15,7 @@ export const forgotPassword = apiDomain + 'api/forgot-password'
 export const resetPassword = apiDomain + 'api/reset-password'
 export const registerUserUrl = apiDomain + 'api/user-register'
 export const activeUserUrl = apiDomain + 'api/user-active'
+export const changePassword = apiDomain + 'api/v1/change-password'
 
 // recharge
 export const rechargeCell = apiDomain + 'api/v1/recharge-cell'

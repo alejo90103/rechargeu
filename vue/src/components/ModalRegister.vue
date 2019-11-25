@@ -4,7 +4,7 @@
 @Email:  alejo901003@hotmail.com
 @Project: Recargame
 @Last modified by:   alejandro
-@Last modified time: 2019-11-23T14:18:37+01:00
+@Last modified time: 2019-11-25T19:27:40+01:00
 -->
 
 <script>
@@ -19,6 +19,12 @@ export default {
       login: {
         email: 'iankamisama@gmail.com',
         password: '123123'
+      },
+      register: {
+        name: 'Alejandro',
+        email: 'alejo901003@hotmail.com',
+        password: '123456',
+        confirm: '123456'
       }
     }
   },
@@ -72,6 +78,9 @@ export default {
               })
           }
         })
+    },
+    handleRegisterFormSubmit () {
+
     }
   }
 }
@@ -165,27 +174,28 @@ export default {
                 <div class="row">
                   <div class="col-lg-12 col-md-12 ml-auto mr-auto">
                     <div class="card card-login" style="margin-bottom: 0px">
-                      <form class="form" v-on:submit.prevent="handleLoginFormSubmit()" style="background-color: transparent">
+                      <form class="form" v-on:submit.prevent="handleRegisterFormSubmit()">
                         <div class="card-header card-header-primary text-center">
-                          <h4 class="card-title">Registrarse</h4>
+                          <h4 class="card-title">Register</h4>
                         </div>
                         <!-- <p class="description text-center">Or Be Classical</p> -->
                         <div class="card-body">
-                          <div class="input-group">
-                            <div class="input-group-prepend">
-                              <span class="input-group-text">
-                                <i class="material-icons">mail</i>
-                              </span>
-                            </div>
-                            <input type="email" v-model="login.email" class="form-control" placeholder="Email...">
-                          </div>
+                          <!-- <p class="description text-center">Or Be Classical</p> -->
                           <div class="input-group">
                             <div class="input-group-prepend">
                               <span class="input-group-text">
                                 <i class="material-icons">face</i>
                               </span>
                             </div>
-                            <input type="text" class="form-control" placeholder="Teléfono">
+                            <input type="email" v-model="register.name" class="form-control" placeholder="Nombre">
+                          </div>
+                          <div class="input-group">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text">
+                                <i class="material-icons">mail</i>
+                              </span>
+                            </div>
+                            <input type="email" v-model="register.email" class="form-control" placeholder="Correo">
                           </div>
                           <div class="input-group">
                             <div class="input-group-prepend">
@@ -193,7 +203,7 @@ export default {
                                 <i class="material-icons">lock_outline</i>
                               </span>
                             </div>
-                            <input type="password" v-model="login.password" class="form-control" placeholder="Password...">
+                            <input type="password" v-model="register.password" class="form-control" placeholder="Contraseña">
                           </div>
                           <div class="input-group">
                             <div class="input-group-prepend">
@@ -201,15 +211,11 @@ export default {
                                 <i class="material-icons">lock_outline</i>
                               </span>
                             </div>
-                            <input type="password" v-model="login.password" class="form-control" placeholder="Password...">
+                            <input type="password" v-model="register.confirm" class="form-control" placeholder="Confirmar Contraseña">
                           </div>
                         </div>
-                        <!-- <div class="">
-                           <router-link :to="{name: 'forgot-password'}" class="forgot-password">Forgot password</router-link>
-                           <router-link :to="{name: 'register-user'}" class="register">Register</router-link>
-                        </div> -->
                         <div class="footer text-center">
-                          <div @click="handleLoginFormSubmit" class="btn btn-primary  btn-lg">Iniciar Sesión</div>
+                          <div @click="handleRegisterFormSubmit" class="btn btn-primary btn-link btn-wd btn-lg">Registrarse</div>
                         </div>
                       </form>
                     </div>

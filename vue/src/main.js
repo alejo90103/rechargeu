@@ -3,7 +3,7 @@
  * @Date:   05-08-2019
  * @Email:  ian@codeals.es
  * @Last modified by:   alejandro
- * @Last modified time: 2019-11-23T16:45:09+01:00
+ * @Last modified time: 2019-11-25T22:10:49+01:00
  * @Copyright: Codeals
  */
 
@@ -29,6 +29,7 @@ import ResetPassword from './pages/ResetPassword'
 import DashboardPage from './pages/DashboardPage'
 import ContactPage from './pages/ContactPage'
 import RechargeContactPage from './pages/RechargeContactPage'
+
 // import ChatPage from './pages/ChatPage'
 
 // import PrivateMessageInbox from './components/private-message/PrivateMessageInbox'
@@ -68,6 +69,7 @@ const routes = [
   {path: '/active-account/:token', component: ActiveAccount, name: 'active-account'},
   {path: '/forgot-password', component: ForgotPassword, name: 'forgot-password'},
   {path: '/reset-password/:token', component: ResetPassword, name: 'reset-password'},
+  {path: '/reset-password', component: ResetPassword, name: 'reset-password'},
   {path: '/dashboard', component: DashboardPage, name: 'dashboard'},
   {path: '/contact', component: ContactPage, name: 'contact', meta: { requiresAuth: true }},
   {path: '/recharge-contact', component: RechargeContactPage, name: 'recharge-contact', meta: { requiresAuth: true }}

@@ -3,7 +3,7 @@
 @Date:   11-08-2019
 @Email:  ian@codeals.es
 @Last modified by:   alejandro
-@Last modified time: 2019-11-25T01:40:16+01:00
+@Last modified time: 2019-11-25T20:31:23+01:00
 @Copyright: Codeals
 -->
 
@@ -91,10 +91,10 @@ export default {
               <i class="material-icons">face</i> {{userStore.authUser.name}}
             </a>
             <div class="dropdown-menu dropdown-with-icons">
-              <a href="#" class="dropdown-item">
-                <i class="material-icons">settings</i> Perfil
+              <a href="/reset-password" class="dropdown-item">
+                <i class="material-icons">vpn_key</i> Cambiar Contraseña
               </a>
-              <a v-on:click="handleLogout()" class="dropdown-item">
+              <a v-on:click="handleLogout()" class="dropdown-item logout">
                 <i class="material-icons"> logout </i> Logout
               </a>
             </div>
@@ -148,3 +148,9 @@ export default {
     </div>
   </nav>
 </template>
+
+<style media="screen">
+  .logout:hover{
+    color: white !important
+  }
+</style>
