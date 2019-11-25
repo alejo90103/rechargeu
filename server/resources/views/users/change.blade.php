@@ -104,9 +104,9 @@
 											<!--begin::Widget -->
 											<div class="kt-widget kt-widget--user-profile-1">
 												<div class="kt-widget__head">
-													<div class="kt-widget__media">
+													<!-- <div class="kt-widget__media">
 														<img src="{{ asset('uploads/users/'.$user->imagen) }}" alt="image">
-													</div>
+													</div> -->
 													<div class="kt-widget__content">
 														<div class="kt-widget__section">
 															<a href="#" class="kt-widget__username">
@@ -117,9 +117,9 @@
 																{{$user->role}}
 															</span>
 														</div>
-                            @if($user->role == 'Super Admin' || $user->role == 'Admin')
+                            @if($user->admin == 1)
 														<div class="kt-widget__action">
-															<a href="{{ route('users.edit', $user->id) }}" class="btn btn-info btn-sm">{!! trans('farm.views.edit') !!}</a>&nbsp;
+															<a href="{{ route('users.edit', $user->id) }}" class="btn btn-info btn-sm">Editar</a>&nbsp;
 														</div>
                             @endif
 													</div>
@@ -149,7 +149,7 @@
 										<div class="kt-portlet__head">
 											<div class="kt-portlet__head-label">
 												<h3 class="kt-portlet__head-title">
-													{!! trans('user.views.change') !!} {!! trans('user.views.password') !!}
+													Cambiar password
 												</h3>
 											</div>
 										</div>
@@ -160,7 +160,7 @@
 											<div class="kt-portlet__body">
 												<div class="kt-section">
 													<h3 class="kt-section__title">
-														{!! trans('user.views.user') !!}
+														Nueva contraseña
 													</h3>
 
 		                			<input type="hidden" name="password" value="">
@@ -168,12 +168,12 @@
 													<div class="kt-section__content">
 														<div class="form-group form-group-last row">
 															<div class="col-lg-6">
-																<label class="form-control-label">* {!! trans('user.views.password') !!}:</label>
-																<input type="password" name="password" class="form-control" placeholder="" value="{{ old('name') }}">
+																<label class="form-control-label">* Nueva contraseña:</label>
+																<input type="password" name="password" class="form-control" placeholder="" value="{{ old('password') }}">
 															</div>
 
                               <div class="col-lg-6">
-																<label class="form-control-label">* {!! trans('user.views.confirm') !!}:</label>
+																<label class="form-control-label">* Confirmar contraseña:</label>
 																<input type="password" name="password_confirmation" class="form-control" placeholder="" value="{{ old('email') }}">
 															</div>
 
@@ -188,8 +188,8 @@
 												<div class="kt-form__actions">
 													<div class="row">
 														<div class="col-lg-12">
-															<button type="submit" class="btn btn-brand">{!! trans('share.views.accept') !!}</button>
-															<button type="reset" class="btn btn-secondary">{!! trans('share.views.cancel') !!}</button>
+															<button type="submit" class="btn btn-brand">Aceptar</button>
+															<!-- <button type="reset" class="btn btn-secondary">{!! trans('share.views.cancel') !!}</button> -->
 														</div>
 													</div>
 												</div>

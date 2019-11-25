@@ -3244,6 +3244,57 @@
 
           <!--End::Section-->
 
+          <!--Begin::Section-->
+            <div class="row">
+              <div class="col-xl-12 col-md-12">
+
+                <!--begin:: Widgets/Order Statistics-->
+                <div id="kt_blockui_2_1" class="kt-portlet kt-portlet--height-fluid">
+                  <div class="kt-portlet__head">
+                    <div class="kt-portlet__head-label">
+                      <h3 class="kt-portlet__head-title">
+                        Recargas por mes
+                      </h3>
+                    </div>
+                    <div class="kt-portlet__head-toolbar">
+                        <div class="input-group date">
+                            <div style="margin-left: 5px; display: inline-block;">
+                                  <div class="fg-line">
+                                      <div class="select">
+                                        <select id="statistics" class="selectpicker" style="text-align: center">
+                                            <option value="<?php echo date('Y'); ?>"><?php echo date('Y'); ?></option>
+                                            <option value="<?php echo date ( 'Y' , strtotime ( '-1 year' , strtotime ( date('Y') ) ) ); ?>"><?php echo date ( 'Y' , strtotime ( '-1 year' , strtotime ( date('Y') ) ) ); ?></option>
+                                            <option value="<?php echo date ( 'Y' , strtotime ( '-2 year' , strtotime ( date('Y') ) ) ); ?>"><?php echo date ( 'Y' , strtotime ( '-2 year' , strtotime ( date('Y') ) ) ) ?></option>
+                                            <option value="<?php echo date ( 'Y' , strtotime ( '-3 year' , strtotime ( date('Y') ) ) ); ?>"><?php echo date ( 'Y' , strtotime ( '-3 year' , strtotime ( date('Y') ) ) ) ?></option>
+                                        </select>
+                                      </div>
+                                  </div>
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="kt-portlet__body kt-portlet__body--fluid">
+                    <div class="kt-widget12">
+                      <div class="kt-widget12__content">
+
+
+                      </div>
+                      <div class="kt-widget12__chart" style="height:250px;">
+                          <!-- <canvas id="kt_chart_order_statistics"></canvas> -->
+                        <canvas id="kt_chart_order_statistics_here"></canvas>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!--end:: Widgets/Order Statistics-->
+              </div>
+
+
+            </div>
+
+            <!--End::Section-->
+
           <!--End::Dashboard 2-->
         </div>
 
@@ -3251,5 +3302,9 @@
       </div>
     </div>
   </div>
+
+@endsection
+
+@section('js')
 
 @endsection

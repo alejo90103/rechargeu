@@ -150,6 +150,19 @@
 																<input class="form-control" name="receive" type="text" value="{{ old('receive') }}" id="example-date-input">
 															</div>
 														</div>
+
+														<div class="form-group row">
+															<label for="example-date-input" class="col-2 col-form-label">Ads Oferta</label>
+															<div class="col-10">
+																<span class="kt-switch kt-switch--icon">
+																	<label>
+																		<input type="checkbox" name="ads">
+																		<span></span>
+																	</label>
+																</span>
+															</div>
+														</div>
+
 													</div>
 													<div class="kt-portlet__foot">
 														<div class="kt-form__actions">

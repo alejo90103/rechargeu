@@ -181,6 +181,8 @@ class UserController extends Controller
         $data = $request->all();
 
         $data['password'] = Hash::make($request->input('password'));
+        $data['admin'] = 0;
+        $data['status'] = 0;
 
         $user = User::create($data);
         $newUser = User::where('id', $user->id)->first();
@@ -278,5 +280,16 @@ class UserController extends Controller
         DB::table('tokens')->where('id', $dBToken->id)->delete();
 
         return response(['data' => 'Password changed.'], 200);
+    }
+
+    //  change password
+    public function changePasswordApi(Request $request)
+    {
+        $user = User::where('id', $request->user()->id)->first();
+
+        $data['password'] = Hash::make($request->input('password'));
+        $user->update($data);
+
+        return response(['data' => $user], 201);
     }
 }

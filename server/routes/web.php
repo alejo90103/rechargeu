@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\Auth;
 
 
 Auth::routes();
+Auth::routes(['register' => false]);
 
 // Route::get('offers', 'OfferController@index')->name('offers');
 
@@ -45,6 +46,7 @@ Route::group(['middleware' => 'admin'], function () {
   Route::resource('offers', 'OfferController');
   Route::resource('users', 'UserController');
 
+  Route::post('users/store-password', 'UserController@storePassword')->name('users.store-password');
   Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
 });

@@ -3,7 +3,7 @@
 # @Date:   20-11-2019
 # @Email:  ian@codeals.es
 # @Last modified by:   Codeals
-# @Last modified time: 21-11-2019
+# @Last modified time: 24-11-2019
 # @Copyright: Codeals
 
 use Illuminate\Support\Facades\Schema;
@@ -23,6 +23,7 @@ class CreateOffersTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->enum('type', ['Cell', 'Nauta'])->defatul('Cell');
+            $table->boolean('ads')->default(0);
             $table->date('date_ini')->nullable();
             $table->date('date_end')->nullable();
             $table->date('date_expire');

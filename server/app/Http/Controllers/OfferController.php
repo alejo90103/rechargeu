@@ -45,9 +45,14 @@ class OfferController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, Offer::rules());
+        // $this->validate($request, Offer::rules());
 
         $data = $request->all();
+        if (isset($request->ads) && $request->ads == 'on') {
+          $data['ads'] = 1;
+        } else {
+          $data['ads'] = 0;
+        }
         $data["is_deleted"] = 0;
 
         $offer = Offer::create($data);
