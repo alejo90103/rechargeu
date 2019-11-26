@@ -2,8 +2,8 @@
 # @Author: Codeals
 # @Date:   20-10-2019
 # @Email:  ian@codeals.es
-# @Last modified by:   alejandro
-# @Last modified time: 2019-11-25T22:20:43+01:00
+# @Last modified by:   Codeals
+# @Last modified time: 26-11-2019
 # @Copyright: Codeals
 
 use Illuminate\Http\Request;
@@ -54,5 +54,9 @@ Route::group(['prefix' => 'v1', 'middleware' => 'auth:api'], function () {
     Route::post('contact-add', 'ContactController@saveAddContact');
     Route::put('contact-update', 'ContactController@saveUpdateContact');
     Route::post('contact-delete', 'ContactController@deleteContact');
+
+    /*paymant url*/
+    Route::post('pay-paypal', 'PaypalController@index');
+    Route::post('pay-redsys', 'RedsysController@index');
 
 });
