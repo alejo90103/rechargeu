@@ -49,4 +49,6 @@ Route::group(['middleware' => 'admin'], function () {
   Route::post('users/store-password', 'UserController@storePassword')->name('users.store-password');
   Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
+  Route::get('home/dashboardChart/{year}', 'HomeController@dashboardChart')->name('home.dashboardChart');
+
 });

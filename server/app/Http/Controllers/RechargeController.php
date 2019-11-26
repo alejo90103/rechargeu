@@ -3,7 +3,7 @@
 # @Date:   22-11-2019
 # @Email:  ian@codeals.es
 # @Last modified by:   Codeals
-# @Last modified time: 24-11-2019
+# @Last modified time: 26-11-2019
 # @Copyright: Codeals
 
 
@@ -12,8 +12,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Offer;
 use App\Recharge;
 use App\Contact;
+use App\ContactRecharge;
 
 class RechargeController extends Controller
 {
@@ -100,7 +102,6 @@ class RechargeController extends Controller
     //  Recharge cell
     public function rechargeCell(Request $request)
     {
-        //  aqui se formo la cosa, redsys y recojo y dingconnect
         $data = $request->all();
 
         $contact = Contact::where('user_id', $request->user()->id)
@@ -122,7 +123,34 @@ class RechargeController extends Controller
           $contact = Contact::create($data);
         }
 
-        return response(['data' => $contact], 201);
+        // take offer
+        $offer = Offer::findOrFail($request->input('offer_id'));
+
+        // create recharge
+        $dataRecharge['type'] = "Cell";
+        $dataRecharge['offer_id'] = $offer->id;
+        $dataRecharge['user_id'] = $request->user()->id;
+        $dataRecharge['date_recharge'] = date("Y-m-d");
+        $dataRecharge['price_pay'] = $offer->price_pay;
+        $dataRecharge['recharge_amount'] = $offer->recharge_amount;
+        $dataRecharge['status'] = "Waiting";
+        $dataRecharge['is_deleted'] = 0;
+        $recharge = Recharge::create($dataRecharge);
+
+        //  aqui se formo la cosa, redsys y recojo y dingconnect
+        $contactRecharge = new ContactRecharge();
+        $contactRecharge->recharge_id = $recharge->id;
+        $contactRecharge->contact_id = $contact->id;
+        $contactRecharge->user_id = $request->user()->id;
+        $contactRecharge->phone = $contact->phone;
+        $contactRecharge->is_deleted = 0;
+        $contactRecharge->save();
+
+        // pay and ding type of pay
+        $response["recharge_id"] = $recharge->id;
+        $response["amount"] = $offer->price_pay;
+
+        return response(['data' => $response], 201);
     }
 
     //  Recharge nauta
@@ -150,7 +178,34 @@ class RechargeController extends Controller
           $contact = Contact::create($data);
         }
 
-        return response(['data' => $contact], 201);
+        // take offer
+        $offer = Offer::findOrFail($request->input('offer_id'));
+
+        // create recharge
+        $dataRecharge['type'] = "Nauta";
+        $dataRecharge['offer_id'] = $offer->id;
+        $dataRecharge['user_id'] = $request->user()->id;
+        $dataRecharge['date_recharge'] = date("Y-m-d");
+        $dataRecharge['price_pay'] = $offer->price_pay;
+        $dataRecharge['recharge_amount'] = $offer->recharge_amount;
+        $dataRecharge['status'] = "Waiting";
+        $dataRecharge['is_deleted'] = 0;
+        $recharge = Recharge::create($dataRecharge);
+
+        //  aqui se formo la cosa, redsys y recojo y dingconnect
+        $contactRecharge = new ContactRecharge();
+        $contactRecharge->recharge_id = $recharge->id;
+        $contactRecharge->contact_id = $contact->id;
+        $contactRecharge->user_id = $request->user()->id;
+        $contactRecharge->phone = $contact->phone;
+        $contactRecharge->is_deleted = 0;
+        $contactRecharge->save();
+
+        // pay and ding type of pay
+        $response["recharge_id"] = $recharge->id;
+        $response["amount"] = $offer->price_pay;
+
+        return response(['data' => $response], 201);
     }
 
     public function multiRechargeCell(Request $request)

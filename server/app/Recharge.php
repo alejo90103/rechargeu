@@ -94,6 +94,11 @@ class Recharge extends Model
           return $this->hasMany(ContactRecharge::class);
       }
 
+      // n:m
+      public function contacts(){
+          return $this->belongsToMany(Contact::class);
+      }
+
       /*
       |------------------------------------------------------------------------------------
       | functions

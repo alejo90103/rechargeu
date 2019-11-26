@@ -81,11 +81,10 @@ class Contact extends Model
         return $this->hasMany(ContactRecharge::class);
     }
 
-    // // 1:m
-    // public function recharge()
-    // {
-    //     return $this->hasMany(Recharge::class);
-    // }
+    // m:n
+    public function recharges(){
+        return $this->belongsToMany(Recharge::class);
+    }
 
     /*
     |------------------------------------------------------------------------------------

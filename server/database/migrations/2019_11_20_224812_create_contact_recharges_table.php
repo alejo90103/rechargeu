@@ -26,12 +26,17 @@ class CreateContactRechargesTable extends Migration
                   ->references('id')
                   ->on('recharges')
                   ->onDelete('cascade');
+            $table->bigInteger('contact_id')->unsigned();
+            $table->foreign('contact_id')
+                  ->references('id')
+                  ->on('contacts')
+                  ->onDelete('cascade');
             $table->bigInteger('user_id')->unsigned();
             $table->foreign('user_id')
                   ->references('id')
                   ->on('users')
                   ->onDelete('cascade');
-            $table->bigInteger('contact_id')->nullable();
+            // $table->bigInteger('contact_id')->nullable();
             $table->string('message');
             $table->string('email')->nullable();
             $table->string('phone')->nullable();

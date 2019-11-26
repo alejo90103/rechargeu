@@ -3,7 +3,7 @@
 # @Date:   20-11-2019
 # @Email:  ian@codeals.es
 # @Last modified by:   Codeals
-# @Last modified time: 21-11-2019
+# @Last modified time: 26-11-2019
 # @Copyright: Codeals
 
 use Illuminate\Support\Facades\Schema;
@@ -31,7 +31,7 @@ class CreateRechargesTable extends Migration
             $table->date('date_recharge');
             $table->float('price_pay', 8, 2);
             $table->float('recharge_amount', 8, 2);
-            $table->enum('status', ['Cancel', 'Accepted', 'Denied'])->defatul('Cancel');
+            $table->enum('status', ['Waiting', 'Cancel', 'Accepted', 'Denied'])->defatul('Waiting');
             $table->boolean('is_deleted')->default(0);
             $table->timestamps();
         });
