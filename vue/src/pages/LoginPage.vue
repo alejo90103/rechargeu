@@ -3,7 +3,7 @@
 @Date:   05-08-2019
 @Email:  ian@codeals.es
 @Last modified by:   alejandro
-@Last modified time: 2019-11-26T03:12:56+01:00
+@Last modified time: 2019-11-26T17:57:47+01:00
 @Copyright: Codeals
 -->
 
@@ -81,7 +81,7 @@ export default {
                   authUser.name = response.body.name
                   window.localStorage.setItem('authUser', JSON.stringify(authUser))
                   this.$store.dispatch('setUserObject', authUser)
-                  this.$router.push({name: 'home'})
+                  this.$router.push({name: 'dashboard'})
                 }
               })
               .catch(response => {

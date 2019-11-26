@@ -4,7 +4,7 @@
 @Email:  alejo901003@hotmail.com
 @Project: Recargame
 @Last modified by:   alejandro
-@Last modified time: 2019-11-25T19:53:17+01:00
+@Last modified time: 2019-11-26T16:49:30+01:00
 -->
 
 <script>
@@ -182,8 +182,8 @@ export default {
         .then(response => {
           if (response.status === 201) {
             this.$refs['rechargeModal'].hide()
-            this.$toastr.s('Recarga realizada correctamente')
-            // this.$router.push({name: 'home'})
+            // this.$toastr.s('Recarga realizada correctamente')
+            this.$router.push({name: 'payment'})
           } else {
             this.$toastr.e('ERROR en la recarga :( ')
             // this.$router.push({name: 'home'})
@@ -209,8 +209,8 @@ export default {
         .then(response => {
           if (response.status === 201) {
             this.$refs['rechargeMultiModal'].hide()
-            this.$toastr.s('Recarga realizada correctamente')
-            // this.$router.push({name: 'home'})
+            // this.$toastr.s('Recarga realizada correctamente')
+            this.$router.push({name: 'payment'})
           } else {
             this.$toastr.e('ERROR en la recarga :( ')
             // this.$router.push({name: 'home'})

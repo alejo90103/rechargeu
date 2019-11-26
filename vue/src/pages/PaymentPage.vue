@@ -3,38 +3,46 @@
 @Date:   2019-11-26T03:35:13+01:00
 @Email:  alejo901003@hotmail.com
 @Last modified by:   alejandro
-@Last modified time: 2019-11-26T04:29:51+01:00
+@Last modified time: 2019-11-26T18:03:37+01:00
 -->
 
 <script type="text/javascript">
 
-  import {mapState} from 'vuex'
+import {mapState} from 'vuex'
 
-  export default {
-    name: 'App',
-    data() {
-      return {
+export default {
+  name: 'App',
+  data () {
+    return {
 
-      };
-    },
-    created () {
-      this.$store.dispatch('setTopMenu', false)
-      this.$store.dispatch('setBanner', false)
-    },
-    computed: {
-      ...mapState({
-        userStore: state => state.userStore,
-        rechargeStore: state => state.rechargeStore
-      })
-    },
-    destroy () {
-      this.$store.dispatch('setTopMenu', true)
     }
+  },
+  created () {
+    this.$store.dispatch('setTopMenu', false)
+    this.$store.dispatch('setBanner', false)
+  },
+  computed: {
+    ...mapState({
+      userStore: state => state.userStore,
+      rechargeStore: state => state.rechargeStore
+    })
+  },
+  methods: {
+    start () {
+      if (this.rechargeStore.purchaseInfo.amount === undefined) {
+        this.$store.dispatch('setTopMenu', true)
+        this.$router.push({name: 'dashboard'})
+      }
+    }
+  },
+  destroy () {
+    this.$store.dispatch('setTopMenu', true)
   }
+}
 </script>
 
 <template>
-  <div class="login-page sidebar-collapse">
+  <div v-bind='start()' class="login-page sidebar-collapse">
     <!-- <div class="page-header header-filter" style="background-image: url('./../assets/material/img/bg7.jpg'); background-size: cover; background-position: top center;"> -->
     <div class="page-header header-filter clear-filter purple-filter trans" :style="{'background-image': 'url(' + require('./../assets/material/img/bg2.jpg') + ')'}" style="transform: translate3d(0px, 0px, 0px);">
       <div class="container">
@@ -42,13 +50,42 @@
           <div class="col-lg-8 col-md-8 ml-auto mr-auto">
             <div class="card card-login">
               <div class="card-header card-header-primary text-center">
-                <h4 class="card-title">Métodos de Pago</h4>
+                <h4 class="card-title">Resumen de Pago</h4>
               </div>
               <!-- <p class="description text-center">Or Be Classical</p> -->
-              <div class="card-body">
-                <pre>{{rechargeStore.purchaseInfo}}</pre>
-                <div class="btn btn-primary btn-link btn-wd btn-lg">Tarjeta</div>
-                <div class="btn btn-primary btn-link btn-wd btn-lg">PayPal</div>
+              <div class="card-body" style="padding: 0.9375rem 1.875rem;">
+                <div>
+                  <b-jumbotron style="padding: 1rem;">
+                    <template v-slot:header>Hola {{ userStore.authUser.name }}</template>
+
+                    <template v-slot:lead>
+                      Vas a realizar una recarga de tipo <strong> {{rechargeStore.purchaseInfo.type === 'Cell' ? 'Movil' : 'Nauta'}} </strong>
+                      <br>
+                      <b-badge><h2> Total: {{ rechargeStore.purchaseInfo.amount }} € </h2></b-badge>
+                    </template>
+
+                    <hr class="my-4">
+
+                    <p>
+                      It uses utility classes for typography and spacing to space content out within the larger
+                      container.
+                    </p>
+                    <div class="row center" style="display: -webkit-box">
+                      <b-button variant="primary" href="#">Tarjeta</b-button>
+                      <b-button variant="success" href="#">PayPal</b-button>
+                    </div>
+                  </b-jumbotron>
+                </div>
+                  <!-- <b-button variant="success" href="#">PayPal</b-button>
+                </b-jumbotron> -->
+                <!-- <pre>{{userStore.authUser.name}}</pre>
+                <pre>{{userStore.authUser.email}}</pre>
+                <pre>{{rechargeStore.purchaseInfo.type}}</pre>
+                <pre>{{rechargeStore.purchaseInfo.recharge_id}}</pre>
+                <pre>{{rechargeStore.purchaseInfo.amount}}</pre>
+                <pre>{{rechargeStore.purchaseInfo.count}}</pre> -->
+                <!-- <div class="btn btn-primary btn-link btn-wd btn-lg">Tarjeta</div>
+                <div class="btn btn-primary btn-link btn-wd btn-lg">PayPal</div> -->
               </div>
             </div>
           </div>

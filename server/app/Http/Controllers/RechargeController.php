@@ -2,8 +2,8 @@
 # @Author: Codeals
 # @Date:   22-11-2019
 # @Email:  ian@codeals.es
-# @Last modified by:   Codeals
-# @Last modified time: 26-11-2019
+# @Last modified by:   alejandro
+# @Last modified time: 2019-11-26T18:07:03+01:00
 # @Copyright: Codeals
 
 
@@ -96,7 +96,7 @@ class RechargeController extends Controller
     }
 
     /******************************+
-    *   APi                        *
+    *             API               *
     ********************************/
 
     //  Recharge cell
@@ -122,7 +122,10 @@ class RechargeController extends Controller
           $contact = Contact::create($data);
         }
 
-        $response = rechargeContact($contact, $request->input('offer_id'), $request->user()->id, 'Cell');
+        $contacts = array();
+        array_push($contacts ,$contact->toArray());
+
+        $response = $this->rechargeContact($contacts, $request->input('offer_id'), $request->user()->id, 'Cell');
         return response(['data' => $response], 201);
     }
 
@@ -150,7 +153,10 @@ class RechargeController extends Controller
             $contact = Contact::create($data);
         }
 
-        $response = rechargeContact($contact, $request->input('offer_id'), $request->user()->id, 'Nauta');
+        $contacts = array();
+        array_push($contacts ,$contact->toArray());
+
+        $response = $this->rechargeContact($contacts, $request->input('offer_id'), $request->user()->id, 'Nauta');
 
         return response(['data' => $response], 201);
     }
@@ -160,7 +166,7 @@ class RechargeController extends Controller
         $contacts = $request->input('contacts');
         $offer_id = $request->input('offer');
 
-        $response = rechargeContact($contacts, $offer_id, $request->user()->id, 'Cell');
+        $response = $this->rechargeContact($contacts, $offer_id, $request->user()->id, 'Cell');
 
         return response(['data' => $response], 201);
     }
@@ -170,9 +176,9 @@ class RechargeController extends Controller
         $contacts = $request->input('contacts');
         $offer_id = $request->input('offer');
 
-        $response = rechargeContact($contacts, $offer_id, $request->user()->id, 'Nauta');
+        $response = $this->rechargeContact($contacts, $offer_id, $request->user()->id, 'Nauta');
 
-        return response(['data' => $contacts], 201);
+        return response(['data' => $response], 201);
     }
 
     public function rechargeContact($contacts, $offer_id, $user_id, $type)
@@ -191,15 +197,15 @@ class RechargeController extends Controller
         $dataRecharge['is_deleted'] = 0;
         $recharge = Recharge::create($dataRecharge);
 
-        //  recharge $contacts
         $response["amount"] = 0;
         $response["count"] = 0;
         foreach ($contacts as $key => $contact) {
+
             $contactRecharge = new ContactRecharge();
             $contactRecharge->recharge_id = $recharge->id;
-            $contactRecharge->contact_id = $contact->id;
+            $contactRecharge->contact_id = $contact['id'];
             $contactRecharge->user_id = $user_id;
-            $type == 'Cell'? $contactRecharge->phone = $contact->phone : $contactRecharge->email = $contact->email;
+            $type == 'Cell'? $contactRecharge->phone = $contact['phone'] : $contactRecharge->email = $contact['email'];
             $contactRecharge->message = '';
             $contactRecharge->is_deleted = 0;
             $contactRecharge->save();
