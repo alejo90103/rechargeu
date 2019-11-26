@@ -3,7 +3,7 @@
 # @Date:   19-10-2019
 # @Email:  ian@codeals.es
 # @Last modified by:   Codeals
-# @Last modified time: 24-11-2019
+# @Last modified time: 26-11-2019
 # @Copyright: Codeals
 
 namespace App;
@@ -72,7 +72,7 @@ class User extends Authenticatable
     // 1:m
     public function contacts()
     {
-        return $this->hasMany(Contacts::class);
+        return $this->hasMany(Contact::class);
     }
 
     // 1:m
@@ -85,6 +85,12 @@ class User extends Authenticatable
     public function recharges()
     {
         return $this->hasMany(Recharge::class);
+    }
+
+    // 1:m
+    public function payments()
+    {
+        return $this->hasMany(Paymant::class);
     }
 
 }

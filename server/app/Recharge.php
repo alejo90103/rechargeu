@@ -3,7 +3,7 @@
 # @Date:   20-11-2019
 # @Email:  ian@codeals.es
 # @Last modified by:   Codeals
-# @Last modified time: 21-11-2019
+# @Last modified time: 26-11-2019
 # @Copyright: Codeals
 
 namespace App;
@@ -92,6 +92,12 @@ class Recharge extends Model
       public function contact_recharges()
       {
           return $this->hasMany(ContactRecharge::class);
+      }
+
+      // 1:m
+      public function payments()
+      {
+          return $this->hasMany(Paymant::class);
       }
 
       // n:m

@@ -30,6 +30,12 @@ Route::post('user-active', 'UserController@activeUser');
 
 Route::get('offer-list', 'OfferController@allOffer');
 
+/*paymant return*/
+Route::post('response-paypal', 'PaypalController@index');
+Route::post('response-redsys/response/{token}', 'RedsysController@response');
+Route::post('response-redsys/ok/{token}', 'RedsysController@responseOk');
+Route::post('response-redsys/ko/{token}', 'RedsysController@responseKo');
+
 Route::middleware('auth:api')->get('/user', function (Request $request) {
 	if ($request->user()->status == 1) {
 		return $request->user();

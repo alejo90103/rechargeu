@@ -1,6 +1,6 @@
 <?php
 # @Author: Codeals
-# @Date:   20-11-2019
+# @Date:   26-11-2019
 # @Email:  ian@codeals.es
 # @Last modified by:   Codeals
 # @Last modified time: 26-11-2019
@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRechargesTable extends Migration
+class CreatePaymentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -19,24 +19,22 @@ class CreateRechargesTable extends Migration
      */
     public function up()
     {
-        Schema::create('recharges', function (Blueprint $table) {
+        Schema::create('payments', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->enum('type', ['Cell', 'Nauta'])->defatul('Cell');
-            $table->bigInteger('offer_id')->unsigned();
-            $table->foreign('offer_id')
+            $table->bigInteger('recharge_id')->unsigned();
+            $table->foreign('recharge_id')
                   ->references('id')
-                  ->on('offers')
+                  ->on('recharges')
                   ->onDelete('cascade');
             $table->bigInteger('user_id')->unsigned();
             $table->foreign('user_id')
                   ->references('id')
                   ->on('users')
                   ->onDelete('cascade');
-            $table->date('date_recharge');
-            $table->float('price_pay', 8, 2);
-            $table->float('recharge_amount', 8, 2);
-            $table->enum('status', ['Waiting', 'Cancel', 'Accepted', 'Denied'])->defatul('Waiting');
-            $table->boolean('is_deleted')->default(0);
+            $table->string('token');
+            $table->enum('method', ['Redsys', 'Paypal'])->defatul('Redsys');
+            $table->float('amount', 8, 2);
+            $table->boolean('is_payment')->default(0);
             $table->timestamps();
         });
     }
@@ -48,6 +46,6 @@ class CreateRechargesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('recharges');
+        Schema::dropIfExists('payments');
     }
 }
