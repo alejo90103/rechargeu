@@ -1,3 +1,13 @@
+/**
+ * @Author: alejandro
+ * @Date:   2019-11-21T19:08:21+01:00
+ * @Email:  alejo901003@hotmail.com
+ * @Last modified by:   alejandro
+ * @Last modified time: 2019-11-26T04:12:13+01:00
+ */
+
+
+
 // import Vue from 'vue'
 // import {
 //   // getHeader,
@@ -5,7 +15,8 @@
 // } from './../../config'
 const state = {
   authUser: null,
-  is_banner: true
+  is_banner: true,
+  topMenu: true
 }
 
 const mutations = {
@@ -17,6 +28,9 @@ const mutations = {
   },
   SET_IS_BANNER (state, status) {
     state.is_banner = status
+  },
+  SET_IS_TOP (state, status) {
+    state.topMenu = status
   }
 }
 
@@ -29,6 +43,9 @@ const actions = {
   },
   setBanner: ({commit}, status) => {
     commit('SET_IS_BANNER', status)
+  },
+  setTopMenu: ({commit}, status) => {
+    commit('SET_IS_TOP', status)
   }
   // getUserList: ({commit}) => {
   //   return Vue.http.get(userListUrl, {headers: getHeader()})

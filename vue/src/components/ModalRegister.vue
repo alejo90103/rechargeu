@@ -4,7 +4,7 @@
 @Email:  alejo901003@hotmail.com
 @Project: Recargame
 @Last modified by:   alejandro
-@Last modified time: 2019-11-25T19:27:40+01:00
+@Last modified time: 2019-11-26T04:49:58+01:00
 -->
 
 <script>
@@ -67,11 +67,11 @@ export default {
                 this.$store.dispatch(this.rechargeStore.recharge.call)
                   .then(response => {
                     if (response.status === 201) {
-                      this.$toastr.s('Recarga realizada correctamente')
-                      this.$router.push({name: 'home'})
+                      // this.$toastr.s('Recarga realizada correctamente')
+                      this.$router.push({name: 'payment'})
                     } else {
                       this.$toastr.e('ERROR en la recarga :( ')
-                      this.$router.push({name: 'home'})
+                      this.$router.push({name: 'dashboard'})
                     }
                   })
                 // this.$router.push({name: 'home'})

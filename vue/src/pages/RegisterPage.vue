@@ -3,7 +3,7 @@
 @Date:   05-08-2019
 @Email:  ian@codeals.es
 @Last modified by:   alejandro
-@Last modified time: 2019-11-25T22:33:44+01:00
+@Last modified time: 2019-11-25T22:46:43+01:00
 @Copyright: Codeals
 -->
 
@@ -25,12 +25,18 @@ export default {
   },
   methods: {
     handleFormSubmit () {
+      if (this.user.password !== this.user.confirm_password) {
+        this.$toastr.e('Contraseñas no coinciden')
+        return
+      }
+
       var postData = {
         name: this.user.name,
         email: this.user.email,
         password: this.user.password,
         url: apiClient
       }
+
       this.$http.post(registerUserUrl, postData).then(response => {
         console.log('response', response)
         this.$toastr.s('Le enviamos un correo para que active su cuenta')

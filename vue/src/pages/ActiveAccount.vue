@@ -3,11 +3,12 @@
 @Date:   05-08-2019
 @Email:  ian@codeals.es
 @Last modified by:   alejandro
-@Last modified time: 2019-11-25T21:51:29+01:00
+@Last modified time: 2019-11-26T02:36:09+01:00
 @Copyright: Codeals
 -->
 
 <template>
+  <div></div>
   <!-- <div class="ResetPassword__Wrapper">
     <section class="login">
       <div class="row">

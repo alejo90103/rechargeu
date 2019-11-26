@@ -4,7 +4,7 @@
  * @Email:  alejo901003@hotmail.com
  * @Project: Recargame
  * @Last modified by:   alejandro
- * @Last modified time: 2019-11-24T02:06:40+01:00
+ * @Last modified time: 2019-11-26T04:26:12+01:00
  */
 
 import Vue from 'vue'
@@ -17,7 +17,8 @@ import {
 } from './../../config'
 
 const state = {
-  recharge: {}
+  recharge: {},
+  purchaseInfo: {}
   // recharge: {
   //   id: '',
   //   type: '',
@@ -36,6 +37,9 @@ const mutations = {
   SET_RECHARGE_QUICK (state, recharge) {
     state.recharge = recharge
   },
+  SET_PURCHASE_INFO (state, purchase) {
+    state.purchaseInfo = purchase
+  },
   CLEAR_RECHARGE (state) {
     state.recharge = {}
   }
@@ -52,17 +56,21 @@ const actions = {
     return Vue.http.post(rechargeCell, postData, {headers: getHeader()})
       .then(response => {
         Vue.$logger('info', 'rechargecell response', response)
-        // commit('SAVE_ADD_CAR', response.body.data)
+        if (response.status === 201) {
+          commit('SET_PURCHASE_INFO', response.body.data)
+        }
         return response
       })
   },
   rechargeNauta: ({commit}) => {
-    debugger
     let postData = state.recharge
     return Vue.http.post(rechargeNauta, postData, {headers: getHeader()})
       .then(response => {
         Vue.$logger('info', 'rechargeNauta response', response)
-        // commit('SAVE_ADD_CAR', response.body.data)
+        commit('SET_PURCHASE_INFO', response.body.data)
+        if (response.status === 201) {
+          commit('SET_PURCHASE_INFO', response.body.data)
+        }
         return response
       })
   },
@@ -71,7 +79,9 @@ const actions = {
     return Vue.http.post(multiRechargeCell, postData, {headers: getHeader()})
       .then(response => {
         Vue.$logger('info', 'multiRechargeCell response', response)
-        // commit('SAVE_ADD_CAR', response.body.data)
+        if (response.status === 201) {
+          commit('SET_PURCHASE_INFO', response.body.data)
+        }
         return response
       })
   },
@@ -80,7 +90,9 @@ const actions = {
     return Vue.http.post(multiRechargeNauta, postData, {headers: getHeader()})
       .then(response => {
         Vue.$logger('info', 'multiRechargeNauta response', response)
-        // commit('SAVE_ADD_CAR', response.body.data)
+        if (response.status === 201) {
+          commit('SET_PURCHASE_INFO', response.body.data)
+        }
         return response
       })
   },

@@ -2,8 +2,8 @@
 # @Author: Codeals
 # @Date:   22-11-2019
 # @Email:  ian@codeals.es
-# @Last modified by:   Codeals
-# @Last modified time: 26-11-2019
+# @Last modified by:   alejandro
+# @Last modified time: 2019-11-26T04:53:05+01:00
 # @Copyright: Codeals
 
 
@@ -109,10 +109,9 @@ class RechargeController extends Controller
                  ->first();
 
         if($contact) {
-            if($contact->is_deleted == 1) {
-              $data['is_deleted'] = 0;
-              $contact->update($data);
-            }
+            $data['is_deleted'] = 0;
+            $data['name'] = $request->input('name');
+            $contact->update($data);
         } else {
 
           $data['phone'] = $request->input('phone');
@@ -143,6 +142,7 @@ class RechargeController extends Controller
         $contactRecharge->contact_id = $contact->id;
         $contactRecharge->user_id = $request->user()->id;
         $contactRecharge->phone = $contact->phone;
+        $contactRecharge->message = '';
         $contactRecharge->is_deleted = 0;
         $contactRecharge->save();
 
@@ -164,10 +164,9 @@ class RechargeController extends Controller
                  ->first();
 
         if($contact) {
-            if($contact->is_deleted == 1) {
-              $data['is_deleted'] = 0;
-              $contact->update($data);
-            }
+            $data['is_deleted'] = 0;
+            $data['name'] = $request->input('name');
+            $contact->update($data);
         } else {
 
           $data['email'] = $request->input('email');
@@ -198,6 +197,7 @@ class RechargeController extends Controller
         $contactRecharge->contact_id = $contact->id;
         $contactRecharge->user_id = $request->user()->id;
         $contactRecharge->phone = $contact->phone;
+        $contactRecharge->message = '';
         $contactRecharge->is_deleted = 0;
         $contactRecharge->save();
 

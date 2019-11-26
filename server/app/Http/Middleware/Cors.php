@@ -2,8 +2,8 @@
 # @Author: Codeals
 # @Date:   04-08-2019
 # @Email:  ian@codeals.es
-# @Last modified by:   Codeals
-# @Last modified time: 21-10-2019
+# @Last modified by:   alejandro
+# @Last modified time: 2019-11-26T00:07:47+01:00
 # @Copyright: Codeals
 
 namespace App\Http\Middleware;

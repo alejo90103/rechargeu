@@ -3,7 +3,7 @@
 @Date:   05-08-2019
 @Email:  ian@codeals.es
 @Last modified by:   alejandro
-@Last modified time: 2019-11-24T02:48:24+01:00
+@Last modified time: 2019-11-26T04:11:14+01:00
 @Copyright: Codeals
 -->
 
@@ -76,7 +76,7 @@ export default {
 <template>
   <div>
     <!-- <pre>{{offerStore.offers}}</pre> -->
-    <Top-Menu></Top-Menu>
+    <Top-Menu v-if='userStore.topMenu === true'></Top-Menu>
     <Banner v-if='userStore.is_banner === true'></Banner>
     <Router-View></Router-View>
     <Footer v-if='userStore.is_banner === true'></Footer>

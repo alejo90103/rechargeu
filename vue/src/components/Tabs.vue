@@ -4,7 +4,7 @@
 @Email:  alejo901003@hotmail.com
 @Project: Recargame
 @Last modified by:   alejandro
-@Last modified time: 2019-11-25T03:02:21+01:00
+@Last modified time: 2019-11-26T04:50:21+01:00
 -->
 
 <script>
@@ -86,27 +86,15 @@ export default {
         console.log('show popup')
         $('#exampleModal').modal('show')
         $('.modal-backdrop').css('opacity', '1')
-        this.cell.name = ''
-        this.cell.phone = ''
-        this.cell.offer_id = ''
-        this.nauta.name = ''
-        this.nauta.email = ''
-        this.nauta.offer_id = ''
       } else {
         this.$store.dispatch(this.rechargeStore.recharge.call)
           .then(response => {
-            this.cell.name = ''
-            this.cell.phone = ''
-            this.cell.offer_id = ''
-            this.nauta.name = ''
-            this.nauta.email = ''
-            this.nauta.offer_id = ''
             if (response.status === 201) {
-              this.$toastr.s('Recarga realizada correctamente')
-              this.$router.push({name: 'home'})
+              // this.$toastr.s('Recarga realizada correctamente')
+              this.$router.push({name: 'payment'})
             } else {
               this.$toastr.e('ERROR en la recarga :( ')
-              this.$router.push({name: 'home'})
+              this.$router.push({name: 'dashboard'})
             }
           })
       }

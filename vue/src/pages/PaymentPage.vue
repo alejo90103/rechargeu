@@ -1,250 +1,93 @@
 <!--
-@Author: Codeals
-@Date:   05-08-2019
-@Email:  ian@codeals.es
+@Author: alejandro
+@Date:   2019-11-26T03:35:13+01:00
+@Email:  alejo901003@hotmail.com
 @Last modified by:   alejandro
-@Last modified time: 2019-11-26T03:12:56+01:00
-@Copyright: Codeals
+@Last modified time: 2019-11-26T04:29:51+01:00
 -->
 
-<script>
+<script type="text/javascript">
 
-import {loginUrl, userUrl, getHeader} from './../config'
-import {clientId, clientSecret, clientGoogle, clientFacebook} from './../env'
-import {mapState} from 'vuex'
-import FacebookLogin from 'facebook-login-vuejs'
-import GoogleLogin from 'vue-google-login'
+  import {mapState} from 'vuex'
 
-export default {
-  name: 'App',
-  data () {
-    return {
-      isConnected: false,
-      FB: undefined,
-      clientFacebook: clientFacebook,
-      login: {
-        name: '',
-        email: 'iankamisama@gmail.com',
-        password: '123456'
-      },
-      params: {
-        client_id: clientGoogle
-      },
-      renderParams: {
-        width: 250,
-        height: 34,
-        longtitle: true
-      }
-    }
-  },
-  components: {
-    FacebookLogin,
-    GoogleLogin
-  },
-  created () {
-    this.$store.dispatch('setBanner', false)
-  },
-  computed: {
-    ...mapState({
-      userStore: state => state.userStore
-    })
-  },
-  methods: {
-    isLogin () {
-      if (this.userStore.authUser !== null) {
-        this.$router.push({name: 'home'})
-      }
+  export default {
+    name: 'App',
+    data() {
+      return {
+
+      };
     },
-    handleLoginFormSubmit () {
-      const postData = {
-        grant_type: 'password',
-        client_id: clientId,
-        client_secret: clientSecret,
-        username: this.login.email,
-        password: this.login.password,
-        scope: ''
-      }
-
-      const authUser = {}
-      this.$http.post(loginUrl, postData)
-        .then(response => {
-          if (response.status === 200) {
-            console.log('Oauth token', response)
-            authUser.access_token = response.data.access_token
-            authUser.refresh_token = response.data.refresh_token
-            window.localStorage.setItem('authUser', JSON.stringify(authUser))
-            this.$http.get(userUrl, {headers: getHeader()})
-              .then(response => {
-                if (response.status === 200) {
-                  console.log('user object', response)
-                  authUser.email = response.body.email
-                  authUser.name = response.body.name
-                  window.localStorage.setItem('authUser', JSON.stringify(authUser))
-                  this.$store.dispatch('setUserObject', authUser)
-                  this.$router.push({name: 'home'})
-                }
-              })
-              .catch(response => {
-                debugger
-                window.localStorage.removeItem('authUser')
-                if (response.status === 404) {
-                  this.$toastr.e('Active la cuenta en su correo')
-                }
-              })
-          }
-        })
-        .catch(response => {
-          debugger
-          if (response.status === 401) {
-            this.$toastr.e('Usuario o contraseña incorrecto')
-          }
-        })
+    created () {
+      this.$store.dispatch('setTopMenu', false)
+      this.$store.dispatch('setBanner', false)
     },
-    getUserData () {
-      this.FB.api('/me', 'GET', { fields: 'name,email' }, userInformation => {
-        console.log('user api', userInformation)
-        this.name = userInformation.name
-        this.email = userInformation.email
+    computed: {
+      ...mapState({
+        userStore: state => state.userStore,
+        rechargeStore: state => state.rechargeStore
       })
     },
-    sdkLoaded (playload) {
-      this.isConnected = playload.isConnected
-      this.FB = playload.FB
-      if (this.isConnected) {
-        this.getUserData()
-      }
-    },
-    onLogin () {
-      this.isConnected = true
-      this.getUserData()
-    },
-    onLogout () {
-      this.isConnected = false
-    },
-    onSuccess (googleUser) {
-      // This only gets the user information: id, name, imageUrl and email
-      console.log(googleUser.getBasicProfile())
-      // let name = googleUser.getBasicProfile().ofa
-      // let email = googleUser.getBasicProfile().U3
-    },
-    onError (error) {
-      // `error` contains any error occurred.
-      console.log('OH NOES', error)
+    destroy () {
+      this.$store.dispatch('setTopMenu', true)
     }
   }
-
-  // destroyed () {
-  //   //  this.$emit('SET_IS_BANNER', true)
-  //   //  this.userStore.commit('SET_IS_BANNER', { status: true })
-  //   this.$store.dispatch('setBanner', true)
-  // }
-}
 </script>
 
 <template>
-  <div v-bind="isLogin()" class="login-page sidebar-collapse">
-
+  <div class="login-page sidebar-collapse">
     <!-- <div class="page-header header-filter" style="background-image: url('./../assets/material/img/bg7.jpg'); background-size: cover; background-position: top center;"> -->
-    <div class="page-header header-filter" :style="{'background-image': 'url(' + require('./../assets/img/98b20f06654c5e64c8602ddf3f31c6fd.jpg') + ')'}">
+    <div class="page-header header-filter clear-filter purple-filter trans" :style="{'background-image': 'url(' + require('./../assets/material/img/bg2.jpg') + ')'}" style="transform: translate3d(0px, 0px, 0px);">
       <div class="container">
         <div class="row">
-          <div class="col-lg-4 col-md-6 ml-auto mr-auto">
+          <div class="col-lg-8 col-md-8 ml-auto mr-auto">
             <div class="card card-login">
-              <form class="form" >
-                <div class="card-header card-header-primary text-center">
-                  <h4 class="card-title">Login</h4>
-                  <pre>{{isConnected}}</pre>
-                  <div class="social-line">
-                    <!-- <a href="#pablo" class="btn btn-just-icon btn-link">
-                      <i class="fa fa-facebook-square"></i>
-                    </a>
-                    <a href="#pablo" class="btn btn-just-icon btn-link">
-                      <i class="fa fa-google-plus"></i>
-                    </a> -->
-                    <Facebook-Login class="button"
-                      :appId="clientFacebook"
-                      @login="onLogin"
-                      @logout="onLogout"
-                      @get-initial-status="getUserData"
-                      @sdk-loaded="sdkLoaded">
-                    </Facebook-Login>
-                    <Google-Login :params="params" :renderParams="renderParams" :onSuccess="onSuccess"></Google-Login>
-                    <GoogleLogin :params="params" :logoutButton="true">Logout</GoogleLogin>
-                  </div>
-                </div>
-                <!-- <p class="description text-center">Or Be Classical</p> -->
-                <div class="card-body">
-                  <!-- <div class="input-group">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text">
-                        <i class="material-icons">face</i>
-                      </span>
-                    </div>
-                    <input type="text" class="form-control" placeholder="First Name...">
-                  </div> -->
-                  <div class="input-group">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text">
-                        <i class="material-icons">mail</i>
-                      </span>
-                    </div>
-                    <input type="email" v-model="login.email" class="form-control" placeholder="Correo">
-                  </div>
-                  <div class="input-group">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text">
-                        <i class="material-icons">lock_outline</i>
-                      </span>
-                    </div>
-                    <input type="password" v-model="login.password" class="form-control" placeholder="Contraseña">
-                  </div>
-                </div>
-                <div class="">
-                   <router-link :to="{name: 'forgot-password'}" class="forgot-password">¿Olvidaste tu contraseña?</router-link>
-                   <router-link :to="{name: 'register-user'}" class="register">Registrarte</router-link>
-                </div>
-                <div class="footer text-center">
-                  <div @click="handleLoginFormSubmit" class="btn btn-primary btn-link btn-wd btn-lg">Iniciar</div>
-                </div>
-              </form>
+              <div class="card-header card-header-primary text-center">
+                <h4 class="card-title">Métodos de Pago</h4>
+              </div>
+              <!-- <p class="description text-center">Or Be Classical</p> -->
+              <div class="card-body">
+                <pre>{{rechargeStore.purchaseInfo}}</pre>
+                <div class="btn btn-primary btn-link btn-wd btn-lg">Tarjeta</div>
+                <div class="btn btn-primary btn-link btn-wd btn-lg">PayPal</div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-      <footer class="footer">
-        <div class="container">
-          <nav class="float-left">
-            <ul>
-              <li>
-                <a href="http://codeals.es">
-                  Codeals
-                </a>
-              </li>
-              <li>
-                <a href="http://codeals.es/#about">
-                  About Us
-                </a>
-              </li>
-              <li>
-                <a href="http://blog.codeals.es">
-                  Blog
-                </a>
-              </li>
-              <!-- <li>
-                <a href="https://www.creative-tim.com/license">
-                  Licenses
-                </a>
-              </li> -->
-            </ul>
-          </nav>
-          <div class="copyright float-right">
-            &copy;
-            2019, made with <i class="material-icons">favorite</i> by
-            <a href="http://codeals,es" target="_blank">Codeals</a> We put your idea in the cloud.
-          </div>
-        </div>
-      </footer>
     </div>
+    <footer class="footer">
+      <div class="container">
+        <nav class="float-left">
+          <ul>
+            <li>
+              <a href="http://codeals.es">
+                Codeals
+              </a>
+            </li>
+            <li>
+              <a href="http://codeals.es/#about">
+                About Us
+              </a>
+            </li>
+            <li>
+              <a href="http://blog.codeals.es">
+                Blog
+              </a>
+            </li>
+            <!-- <li>
+              <a href="https://www.creative-tim.com/license">
+                Licenses
+              </a>
+            </li> -->
+          </ul>
+        </nav>
+        <div class="copyright float-right">
+          &copy;
+          2019, made with <i class="material-icons">favorite</i> by
+          <a href="https://codeals.es" target="_blank">Codeals</a> We put your idea in the cloud.
+        </div>
+      </div>
+    </footer>
   </div>
 </template>
 

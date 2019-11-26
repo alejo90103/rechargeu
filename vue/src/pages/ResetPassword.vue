@@ -3,7 +3,7 @@
 @Date:   05-08-2019
 @Email:  ian@codeals.es
 @Last modified by:   alejandro
-@Last modified time: 2019-11-25T22:32:24+01:00
+@Last modified time: 2019-11-26T04:08:26+01:00
 @Copyright: Codeals
 -->
 
@@ -87,7 +87,7 @@
 
 <script>
 import {resetPassword, changePassword, getHeader} from './../config'
-import {mapState} from 'vuex'
+
 export default {
   data () {
     return {
@@ -101,6 +101,11 @@ export default {
   },
   methods: {
     handleResetPasswordSubmit () {
+      if (this.password !== this.confirmPassword) {
+        this.$toastr.e('Contraseñas no coinciden')
+        return
+      }
+
       var postData = {
         password: this.password,
         confirm_password: this.confirmPassword,
@@ -108,36 +113,43 @@ export default {
       }
 
       this.$http.post(resetPassword, postData)
-      .then(response => {
-        console.log('response', response)
-        if (response.status === 200) {
-          this.$toastr.s('Su contraseña se ha sido cambiada')
-          this.$router.push({name: 'login'})
-        }
-      }).catch(response => {
-        if (response.status === 433) {
-          this.$toastr.e('La cocontraseña debe tener un mínimo de 6 caracteres')
-        } else if (response.status === 403) {
-          this.$toastr.e('Token incorrecto')
-        }
-        console.log('response', response)
-      })
+        .then(response => {
+          console.log('response', response)
+          if (response.status === 200) {
+            this.$toastr.s('Su contraseña se ha sido cambiada')
+            this.$router.push({name: 'login'})
+          }
+        })
+        .catch(response => {
+          if (response.status === 433) {
+            this.$toastr.e('La cocontraseña debe tener un mínimo de 6 caracteres')
+          } else if (response.status === 403) {
+            this.$toastr.e('Token incorrecto')
+          }
+          console.log('response', response)
+        })
     },
     handleChangePasswordSubmit () {
+      if (this.password !== this.confirmPassword) {
+        this.$toastr.e('Contraseñas no coinciden')
+        return
+      }
+
       var postData = {
         password: this.password
       }
 
       this.$http.post(changePassword, postData, {headers: getHeader()})
-      .then(response => {
-        console.log('response', response)
-        if (response.status === 200) {
-          this.$toastr.s('Su contraseña se ha sido cambiada')
-          this.$router.push({name: 'dashboard'})
-        }
-      }).catch(response => {
-        console.log('response', response)
-      })
+        .then(response => {
+          console.log('response', response)
+          if (response.status === 200) {
+            this.$toastr.s('Su contraseña se ha sido cambiada')
+            this.$router.push({name: 'dashboard'})
+          }
+        })
+        .catch(response => {
+          console.log('response', response)
+        })
     }
   }
 }
