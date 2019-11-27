@@ -3,7 +3,7 @@
 @Date:   05-08-2019
 @Email:  ian@codeals.es
 @Last modified by:   alejandro
-@Last modified time: 2019-11-26T04:08:26+01:00
+@Last modified time: 2019-11-27T04:43:31+01:00
 @Copyright: Codeals
 -->
 
@@ -39,8 +39,8 @@
                     <input type="password" v-model="confirmPassword" class="form-control" placeholder="Confirmar Contraseña">
                   </div>
                   <div class="footer text-center">
-                    <div v-if="token !== undefined" @click="handleResetPasswordSubmit" class="btn btn-primary btn-link btn-wd btn-lg">Confirmar</div>
-                    <div v-if="token === undefined" @click="handleChangePasswordSubmit" class="btn btn-primary btn-link btn-wd btn-lg">Cambiar</div>
+                    <div v-if="token !== undefined" @click="handleResetPasswordSubmit" class="btn btn-primary btn-link btn-wd btn-lg"><i v-show="loadingConfirm" class="fa fa-circle-o-notch mr-1" style="font-size: inherit; vertical-align: unset;"></i>Confirmar</div>
+                    <div v-if="token === undefined" @click="handleChangePasswordSubmit" class="btn btn-primary btn-link btn-wd btn-lg"><i v-show="loadingChange" class="fa fa-circle-o-notch mr-1" style="font-size: inherit; vertical-align: unset;"></i>Cambiar</div>
                   </div>
                 </div>
               </form>
@@ -93,7 +93,9 @@ export default {
     return {
       password: '',
       confirmPassword: '',
-      token: this.$route.params.token
+      token: this.$route.params.token,
+      loadingConfirm: false,
+      loadingChange: false
     }
   },
   created () {
@@ -112,15 +114,18 @@ export default {
         token: this.token
       }
 
+      this.loadingConfirm = true
       this.$http.post(resetPassword, postData)
         .then(response => {
           console.log('response', response)
           if (response.status === 200) {
+            this.loadingConfirm = false
             this.$toastr.s('Su contraseña se ha sido cambiada')
             this.$router.push({name: 'login'})
           }
         })
         .catch(response => {
+          this.loadingConfirm = false
           if (response.status === 433) {
             this.$toastr.e('La cocontraseña debe tener un mínimo de 6 caracteres')
           } else if (response.status === 403) {
@@ -139,15 +144,18 @@ export default {
         password: this.password
       }
 
+      this.loadingChange = true
       this.$http.post(changePassword, postData, {headers: getHeader()})
         .then(response => {
           console.log('response', response)
           if (response.status === 200) {
+            this.loadingChange = false
             this.$toastr.s('Su contraseña se ha sido cambiada')
             this.$router.push({name: 'dashboard'})
           }
         })
         .catch(response => {
+          this.loadingChange = false
           console.log('response', response)
         })
     }

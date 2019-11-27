@@ -3,7 +3,7 @@
 @Date:   05-08-2019
 @Email:  ian@codeals.es
 @Last modified by:   alejandro
-@Last modified time: 2019-11-25T22:46:43+01:00
+@Last modified time: 2019-11-27T04:37:24+01:00
 @Copyright: Codeals
 -->
 
@@ -20,7 +20,8 @@ export default {
         email: 'alejo901003@hotmail.com',
         password: '123123',
         confirm_password: '123123'
-      }
+      },
+      loading: false
     }
   },
   methods: {
@@ -37,11 +38,14 @@ export default {
         url: apiClient
       }
 
+      this.loading = true
       this.$http.post(registerUserUrl, postData).then(response => {
         console.log('response', response)
+        this.loading = false
         this.$toastr.s('Le enviamos un correo para que active su cuenta')
         this.$router.push({name: 'login'})
       }).catch(response => {
+        this.loading = false
         console.log('response', response)
         this.$toastr.e(`${response.data}`)
       })
@@ -100,7 +104,7 @@ export default {
                   </div>
                 </div>
                 <div class="footer text-center">
-                  <div @click="handleFormSubmit" class="btn btn-primary btn-link btn-wd btn-lg">Registrarse</div>
+                  <div @click="handleFormSubmit" class="btn btn-primary btn-link btn-wd btn-lg"><i v-show="loading" class="fa fa-circle-o-notch mr-1" style="font-size: inherit; vertical-align: unset;"></i>Registrarse</div>
                 </div>
               </form>
             </div>

@@ -3,7 +3,7 @@
 @Date:   05-08-2019
 @Email:  ian@codeals.es
 @Last modified by:   alejandro
-@Last modified time: 2019-11-25T21:57:01+01:00
+@Last modified time: 2019-11-27T04:39:32+01:00
 @Copyright: Codeals
 -->
 
@@ -33,7 +33,7 @@
                   </div>
                 </div>
                 <div class="footer text-center">
-                  <div @click="handleForgotPasswordSubmit" class="btn btn-primary btn-link btn-wd btn-lg">Enviar Correo</div>
+                  <div @click="handleForgotPasswordSubmit" class="btn btn-primary btn-link btn-wd btn-lg"><i v-show="loading" class="fa fa-circle-o-notch mr-1" style="font-size: inherit; vertical-align: unset;"></i>Enviar Correo</div>
                 </div>
               </form>
             </div>
@@ -83,7 +83,8 @@ import {mapState} from 'vuex'
 export default {
   data () {
     return {
-      email: ''
+      email: '',
+      loading: false
     }
   },
   created () {
@@ -105,11 +106,14 @@ export default {
         email: this.email,
         url: apiClient
       }
+      this.loading = true
       this.$http.post(forgotPassword, postData).then(response => {
         console.log('response', response)
+        this.loading = false
         this.$toastr.s('Le enviamos un correo para cambiar su contraseña')
         this.$router.push({name: 'login'})
       }).catch(response => {
+        this.loading = false
         console.log('response', response)
       })
     }

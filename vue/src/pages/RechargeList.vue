@@ -3,7 +3,7 @@
 @Date:   2019-11-26T23:07:43+01:00
 @Email:  alejo901003@hotmail.com
 @Last modified by:   alejandro
-@Last modified time: 2019-11-26T23:24:18+01:00
+@Last modified time: 2019-11-27T04:50:41+01:00
 -->
 
 <script>
@@ -15,7 +15,7 @@ import {mapState} from 'vuex'
 export default {
   created () {
     this.$store.dispatch('setBanner', false)
-    this.$store.dispatch('getContactList')
+    this.$store.dispatch('setRechargeList')
   },
   data () {
     return {

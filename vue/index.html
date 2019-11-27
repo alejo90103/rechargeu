@@ -20,6 +20,15 @@
     <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" rel="stylesheet" /> -->
 
     <style lang="css" scoped>
+      /* Define an animation behavior */
+      @keyframes spinner {
+        to { transform: rotate(360deg); }
+      }
+      /* This is the class name given by the Font Awesome component when icon contains 'spinner' */
+      .fa-circle-o-notch {
+        /* Apply 'spinner' keyframes looping once every second (1s)  */
+        animation: spinner 1s linear infinite;
+      }
       input::-webkit-outer-spin-button,
       input::-webkit-inner-spin-button {
         /* display: none; <- Crashes Chrome on hover */

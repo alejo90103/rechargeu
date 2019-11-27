@@ -3,7 +3,7 @@
 @Date:   2019-11-26T03:35:13+01:00
 @Email:  alejo901003@hotmail.com
 @Last modified by:   alejandro
-@Last modified time: 2019-11-27T02:22:08+01:00
+@Last modified time: 2019-11-27T03:09:52+01:00
 -->
 
 <script type="text/javascript">
@@ -20,6 +20,7 @@ export default {
       ds_MerchantParameters: '',
       ds_Signature: '',
       formClass: 'hidden',
+      okOnly: true,
       redsys
     }
   },
@@ -48,22 +49,12 @@ export default {
       this.$store.dispatch('setRedsysPayment', this.rechargeStore.purchaseInfo.recharge_id)
         .then(response => {
           if (response.status === 200) {
-            this.$toastr.s('Recarga realizada correctamente CARD')
             this.ds_SignatureVersion = response.body.data.version
             this.ds_MerchantParameters = response.body.data.params
             this.ds_Signature = response.body.data.signature
             setTimeout(() => {
               this.$refs.form.submit()
             }, 1000)
-
-            // this.$http.post(this.redsys, postData)
-            //   .then(response => {
-            //     Vue.$logger('info', 'redsys response', response)
-            //     if (response.status === 201) {
-            //       this.$toastr.s('Redsys')
-            //     }
-            //   })
-            // this.$router.push({name: 'payment'})
           } else {
             this.$toastr.e('ERROR en la recarga :( ')
           }
@@ -158,7 +149,7 @@ export default {
       <b-modal
         id="modal-scrollable"
         title="BootstrapVue"
-        ok-only="true"
+        :ok-only="okOnly"
         ok-title="Cerrar"
       >
         <template v-slot:modal-header="">

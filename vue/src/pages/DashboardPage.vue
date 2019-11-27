@@ -3,7 +3,7 @@
 @Date:   05-08-2019
 @Email:  ian@codeals.es
 @Last modified by:   alejandro
-@Last modified time: 2019-11-27T02:49:27+01:00
+@Last modified time: 2019-11-27T04:08:25+01:00
 @Copyright: Codeals
 -->
 
@@ -32,6 +32,8 @@ export default {
           this.$toastr.s('Pago completado con éxito')
         } else if (this.$route.params.paymentResult === 'failed') {
           this.$toastr.e('No se realizó el pago')
+        } else if (this.$route.params.paymentResult === 'failedDing') {
+          this.$toastr.e('Falló el proveedor de recargas')
         }
       }
     }

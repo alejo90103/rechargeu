@@ -3,7 +3,7 @@
 @Date:   05-08-2019
 @Email:  ian@codeals.es
 @Last modified by:   alejandro
-@Last modified time: 2019-11-26T23:38:55+01:00
+@Last modified time: 2019-11-27T04:39:06+01:00
 @Copyright: Codeals
 -->
 
@@ -34,7 +34,8 @@ export default {
         width: 250,
         height: 34,
         longtitle: true
-      }
+      },
+      loading: false
     }
   },
   components: {
@@ -66,6 +67,7 @@ export default {
       }
 
       const authUser = {}
+      this.loading = true
       this.$http.post(loginUrl, postData)
         .then(response => {
           if (response.status === 200) {
@@ -81,20 +83,21 @@ export default {
                   authUser.name = response.body.name
                   window.localStorage.setItem('authUser', JSON.stringify(authUser))
                   this.$store.dispatch('setUserObject', authUser)
+                  this.loading = false
                   this.$router.push({name: 'dashboard'})
                 }
               })
               .catch(response => {
-                debugger
                 window.localStorage.removeItem('authUser')
                 if (response.status === 404) {
+                  this.loading = false
                   this.$toastr.e('Active la cuenta en su correo')
                 }
               })
           }
         })
         .catch(response => {
-          debugger
+          this.loading = false
           if (response.status === 401) {
             this.$toastr.e('Usuario o contraseña incorrecto')
           }
@@ -206,7 +209,7 @@ export default {
                 <div class="footer text-center">
                   <b-spinner style="width: 3rem; height: 3rem;" label="Large Spinner"></b-spinner>
                   <b-spinner style="width: 3rem; height: 3rem;" label="Large Spinner" type="grow"></b-spinner>
-                  <div @click="handleLoginFormSubmit" class="btn btn-primary btn-link btn-wd btn-lg">Iniciar</div>
+                  <div @click="handleLoginFormSubmit" class="btn btn-primary btn-link btn-wd btn-lg"><i v-show="loading" class="fa fa-circle-o-notch mr-1" style="font-size: inherit; vertical-align: unset;"></i>Iniciar</div>
                 </div>
               </form>
             </div>
