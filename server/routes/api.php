@@ -53,6 +53,7 @@ Route::group(['prefix' => 'v1', 'middleware' => 'auth:api'], function () {
     Route::post('recharge-nauta', 'RechargeController@rechargeNauta');
     Route::post('multi-recharge-cell', 'RechargeController@multiRechargeCell');
     Route::post('multi-recharge-nauta', 'RechargeController@multiRechargeNauta');
+    Route::get('recharge-list', 'RechargeController@getRechargeList');
 
     /*contact url*/
     Route::get('contact-list', 'ContactController@getContactList');

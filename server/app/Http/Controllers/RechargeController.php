@@ -99,6 +99,13 @@ class RechargeController extends Controller
     *             API               *
     ********************************/
 
+    //  Recharge list
+    public function getRechargeList(Request $request)
+    {
+        return response(['data' => Recharge::where('user_id', $request->user()->id)->where('is_deleted', 0)->get()], 200);
+
+    }
+
     //  Recharge cell
     public function rechargeCell(Request $request)
     {
