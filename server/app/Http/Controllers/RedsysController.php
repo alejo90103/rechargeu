@@ -88,19 +88,46 @@ class RedsysController extends Controller
 
     public function response()
     {
-        // code...
+
         return response(['data' => 'response'], 201);
     }
 
-    public function responseOk()
+    public function responseOk($token)
     {
-        // code...
-        return response(['data' => 'ok'], 201);
+        $payment = Payment::where('token', $token)->first();
+
+        $recharge = Recharge::where('recharge_id', $payment->recharge_id)->first();
+        $contactRecharges = ContactRecharge::where('recharge_id', $payment->recharge_id)->get();
+
+        $recharge->status = "Accepted";
+        $recharge->save();
+
+        // call ding
+        foreach ($contactRecharges as $contactRecharge) {
+            if ($recharge->type == "Cell") {
+
+            } else {
+
+            }
+        }
+
+        header("Location: http://localhost:8080/dashboard/success");
+
+        // return response(['data' => 'ok'], 201);
     }
 
-    public function responseKo()
+    public function responseKo($token)
     {
-        // code...
-        return response(['data' => 'ko'], 201);
+        $payment = Payment::where('token', $token)->first();
+
+        $recharge = Recharge::where('recharge_id', $payment->recharge_id)->first();
+        // $contactRecharges = ContactRecharge::where('recharge_id', $payment->recharge_id)->get();
+
+        $recharge->status = "Cancel";
+        $recharge->save();
+
+        header("Location: http://localhost:8080/dashboard/failed");
+
+        // return response(['data' => 'ko'], 201);
     }
 }
