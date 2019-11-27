@@ -3,7 +3,7 @@
 @Date:   2019-11-26T03:35:13+01:00
 @Email:  alejo901003@hotmail.com
 @Last modified by:   alejandro
-@Last modified time: 2019-11-27T01:06:03+01:00
+@Last modified time: 2019-11-27T02:22:08+01:00
 -->
 
 <script type="text/javascript">
@@ -16,11 +16,11 @@ export default {
   data () {
     return {
       status: 'not_accepted',
-      ds_SignatureVersion: '12',
-      ds_MerchantParameters: '123',
-      ds_Signature: '1234',
+      ds_SignatureVersion: '',
+      ds_MerchantParameters: '',
+      ds_Signature: '',
+      formClass: 'hidden',
       redsys
-
     }
   },
   created () {
@@ -52,7 +52,9 @@ export default {
             this.ds_SignatureVersion = response.body.data.version
             this.ds_MerchantParameters = response.body.data.params
             this.ds_Signature = response.body.data.signature
-            setTimeout(() => { this.$refs.form.submit() }, 2000);
+            setTimeout(() => {
+              this.$refs.form.submit()
+            }, 1000)
 
             // this.$http.post(this.redsys, postData)
             //   .then(response => {
@@ -101,11 +103,13 @@ export default {
               @value="ds_SignatureVersion"
             ></b-form-input>
           </b-form> -->
-          <form ref="form" :action="redsys" method="post">
-            <input name="Ds_SignatureVersion" v-model="ds_SignatureVersion">
-            <input name="Ds_MerchantParameters" v-model="ds_MerchantParameters">
-            <input name="Ds_Signature" v-model="ds_Signature">
-          </form>
+          <div hidden>
+            <form ref="form" :action="redsys" method="post">
+              <input name="Ds_SignatureVersion" v-model="ds_SignatureVersion">
+              <input name="Ds_MerchantParameters" v-model="ds_MerchantParameters">
+              <input name="Ds_Signature" v-model="ds_Signature">
+            </form>
+          </div>
           <div class="col-lg-8 col-md-8 ml-auto mr-auto">
             <div class="card card-login">
               <div class="card-header card-header-primary text-center">
@@ -142,7 +146,7 @@ export default {
 
                     <div class="row center" style="display: -webkit-box">
                       <b-button variant="primary" @click="handleCard" href="#"><i class="fa fa-credit-card" style="margin-right: 5px;"></i><strong>Tarjeta</strong></b-button>
-                      <b-button variant="primary" @click="handlePayPal" href="#"><i class="fa fa-paypal" style="margin-right: 5px;"></i><strong>PayPal</strong></b-button>
+                      <!-- <b-button variant="primary" @click="handlePayPal" href="#"><i class="fa fa-paypal" style="margin-right: 5px;"></i><strong>PayPal</strong></b-button> -->
                     </div>
                   </b-jumbotron>
                 </div>
@@ -154,7 +158,7 @@ export default {
       <b-modal
         id="modal-scrollable"
         title="BootstrapVue"
-        ok-only=true
+        ok-only="true"
         ok-title="Cerrar"
       >
         <template v-slot:modal-header="">

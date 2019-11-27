@@ -3,7 +3,7 @@
 @Date:   05-08-2019
 @Email:  ian@codeals.es
 @Last modified by:   alejandro
-@Last modified time: 2019-11-23T20:31:38+01:00
+@Last modified time: 2019-11-27T02:49:27+01:00
 @Copyright: Codeals
 -->
 
@@ -12,11 +12,29 @@
 import Info from './../components/dashboard/Info'
 
 export default {
+  data () {
+    return {
+      paymentResult: ''
+    }
+  },
   created () {
+    this.paymentResult = this.$route.params.paymentResult
     this.$store.dispatch('setBanner', true)
+    this.checkPaymentStatus()
   },
   components: {
     Info
+  },
+  methods: {
+    checkPaymentStatus () {
+      if (this.$route.params.paymentResult !== undefined) {
+        if (this.$route.params.paymentResult === 'success') {
+          this.$toastr.s('Pago completado con éxito')
+        } else if (this.$route.params.paymentResult === 'failed') {
+          this.$toastr.e('No se realizó el pago')
+        }
+      }
+    }
   }
 }
 </script>

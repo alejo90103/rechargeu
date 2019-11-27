@@ -3,7 +3,7 @@
  * @Date:   05-08-2019
  * @Email:  ian@codeals.es
  * @Last modified by:   alejandro
- * @Last modified time: 2019-11-26T23:10:34+01:00
+ * @Last modified time: 2019-11-27T02:39:25+01:00
  * @Copyright: Codeals
  */
 
@@ -30,6 +30,7 @@ import DashboardPage from './pages/DashboardPage'
 import ContactPage from './pages/ContactPage'
 import RechargeContactPage from './pages/RechargeContactPage'
 import PaymentPage from './pages/PaymentPage'
+// import PaymentResultPage from './pages/PaymentResultPage'
 import RechargeList from './pages/RechargeList'
 
 // import ChatPage from './pages/ChatPage'
@@ -80,7 +81,10 @@ const routes = [
   {path: '/contact', component: ContactPage, name: 'contact', meta: { requiresAuth: true }},
   {path: '/recharge-contact', component: RechargeContactPage, name: 'recharge-contact', meta: { requiresAuth: true }},
   {path: '/payment', component: PaymentPage, name: 'payment', meta: { requiresAuth: true }},
-  {path: '/recharge-list', component: RechargeList, name: 'recharge-list', meta: { requiresAuth: true }}
+  {path: '/recharge-list', component: RechargeList, name: 'recharge-list', meta: { requiresAuth: true }},
+
+  // payment
+  {path: '/dashboard/:paymentResult', component: DashboardPage, name: 'dashboard', meta: { requiresAuth: true }}
 
   // chat
   // {path: '/chat', component: ChatPage, name: 'chat', meta: { requiresAuth: true }},

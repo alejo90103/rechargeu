@@ -3,7 +3,7 @@
 # @Date:   26-11-2019
 # @Email:  ian@codeals.es
 # @Last modified by:   alejandro
-# @Last modified time: 2019-11-27T01:34:12+01:00
+# @Last modified time: 2019-11-27T03:05:45+01:00
 # @Copyright: Codeals
 
 namespace App\Http\Controllers;
@@ -14,6 +14,7 @@ use App\Payment;
 use App\Recharge;
 use App\ContactRecharge;
 use App\Http\Controllers\RedsysAPI;
+use Illuminate\Support\Facades\Redirect;
 
 class RedsysController extends Controller
 {
@@ -96,7 +97,7 @@ class RedsysController extends Controller
     {
         $payment = Payment::where('token', $token)->first();
 
-        $recharge = Recharge::where('recharge_id', $payment->recharge_id)->first();
+        $recharge = Recharge::where('id', $payment->recharge_id)->first();
         $contactRecharges = ContactRecharge::where('recharge_id', $payment->recharge_id)->get();
 
         $recharge->status = "Accepted";
@@ -111,23 +112,22 @@ class RedsysController extends Controller
             }
         }
 
-        header("Location: http://localhost:8080/dashboard/success");
+        $payment->is_payment = 1;
+        $payment->save();
 
-        // return response(['data' => 'ok'], 201);
+        return Redirect::to("http://localhost:8080/dashboard/success");
     }
 
     public function responseKo($token)
     {
         $payment = Payment::where('token', $token)->first();
 
-        $recharge = Recharge::where('recharge_id', $payment->recharge_id)->first();
+        $recharge = Recharge::where('id', $payment->recharge_id)->first();
         // $contactRecharges = ContactRecharge::where('recharge_id', $payment->recharge_id)->get();
 
         $recharge->status = "Cancel";
         $recharge->save();
 
-        header("Location: http://localhost:8080/dashboard/failed");
-
-        // return response(['data' => 'ko'], 201);
+        return Redirect::to("http://localhost:8080/dashboard/failed");
     }
 }
