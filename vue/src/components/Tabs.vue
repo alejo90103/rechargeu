@@ -4,7 +4,7 @@
 @Email:  alejo901003@hotmail.com
 @Project: Recargame
 @Last modified by:   alejandro
-@Last modified time: 2019-11-26T04:50:21+01:00
+@Last modified time: 2019-11-27T01:07:53+01:00
 -->
 
 <script>
@@ -17,8 +17,8 @@ export default {
     return {
       type: 'cell',
       cell: {
-        name: '',
-        phone: '',
+        name: 'Alejandro',
+        phone: '52709490',
         offer_id: '',
         call: 'rechargeCell'
       },
@@ -188,7 +188,7 @@ export default {
                               <div class="input-group-text col-md-2" style="color: #000; font-weight: 200; font-size: 25px; padding-left: 10px">€</div>
                               <select v-model="nauta.offer_id" style="font-size: 25px; text-align: center; font-weight: 200; height: auto; text-align-last: center" class="form-control col-md-10">
                                 <!-- <option selected>Oferta</option> -->
-                                <option v-for="offer in offerStore.offers" v-if="offer.type === 'Nauta'" :value="offer.id" :key="offer.id">
+                                <option v-for="offer in offerStore.offers" v-if="offer.type === 'Nauta' && moment(now).isBetween(offer.date_ini, offer.date_end, null, '[]')" :value="offer.id" :key="offer.id">
                                   {{ offer.name }}
                                 </option>
                               </select>

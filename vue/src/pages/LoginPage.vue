@@ -3,7 +3,7 @@
 @Date:   05-08-2019
 @Email:  ian@codeals.es
 @Last modified by:   alejandro
-@Last modified time: 2019-11-26T17:57:47+01:00
+@Last modified time: 2019-11-26T23:38:55+01:00
 @Copyright: Codeals
 -->
 
@@ -155,13 +155,13 @@ export default {
                   <h4 class="card-title">Login</h4>
                   <pre>{{isConnected}}</pre>
                   <div class="social-line">
-                    <!-- <a href="#pablo" class="btn btn-just-icon btn-link">
+                    <a href="#pablo" class="btn btn-just-icon btn-link">
                       <i class="fa fa-facebook-square"></i>
                     </a>
                     <a href="#pablo" class="btn btn-just-icon btn-link">
                       <i class="fa fa-google-plus"></i>
-                    </a> -->
-                    <Facebook-Login class="button"
+                    </a>
+                    <!-- <Facebook-Login class="button"
                       :appId="clientFacebook"
                       @login="onLogin"
                       @logout="onLogout"
@@ -169,7 +169,7 @@ export default {
                       @sdk-loaded="sdkLoaded">
                     </Facebook-Login>
                     <Google-Login :params="params" :renderParams="renderParams" :onSuccess="onSuccess"></Google-Login>
-                    <GoogleLogin :params="params" :logoutButton="true">Logout</GoogleLogin>
+                    <GoogleLogin :params="params" :logoutButton="true">Logout</GoogleLogin> -->
                   </div>
                 </div>
                 <!-- <p class="description text-center">Or Be Classical</p> -->
@@ -204,6 +204,8 @@ export default {
                    <router-link :to="{name: 'register-user'}" class="register">Registrarte</router-link>
                 </div>
                 <div class="footer text-center">
+                  <b-spinner style="width: 3rem; height: 3rem;" label="Large Spinner"></b-spinner>
+                  <b-spinner style="width: 3rem; height: 3rem;" label="Large Spinner" type="grow"></b-spinner>
                   <div @click="handleLoginFormSubmit" class="btn btn-primary btn-link btn-wd btn-lg">Iniciar</div>
                 </div>
               </form>

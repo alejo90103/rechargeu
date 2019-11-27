@@ -3,7 +3,7 @@
  * @Date:   05-08-2019
  * @Email:  ian@codeals.es
  * @Last modified by:   alejandro
- * @Last modified time: 2019-11-25T22:19:56+01:00
+ * @Last modified time: 2019-11-27T01:31:55+01:00
  * @Copyright: Codeals
  */
 
@@ -22,6 +22,7 @@ export const rechargeCell = apiDomain + 'api/v1/recharge-cell'
 export const rechargeNauta = apiDomain + 'api/v1/recharge-nauta'
 export const multiRechargeCell = apiDomain + 'api/v1/multi-recharge-cell'
 export const multiRechargeNauta = apiDomain + 'api/v1/multi-recharge-nauta'
+export const rechargeList = apiDomain + 'api/v1/recharge-list'
 
 // offert
 export const offerList = apiDomain + 'api/offer-list'
@@ -32,6 +33,11 @@ export const getContactById = apiDomain + 'api/v1/contact-get'
 export const addNewContact = apiDomain + 'api/v1/contact-add'
 export const updateContact = apiDomain + 'api/v1/contact-update'
 export const deleteContact = apiDomain + 'api/v1/contact-delete'
+
+// paymemt
+export const paymentRedsys = apiDomain + 'api/v1/pay-redsys'
+export const paymentPayPal = apiDomain + 'api/v1/pay-paypal'
+export const redsys = 'https://sis.redsys.es/sis/realizarPago'
 
 // export const getNomenclatorMaker = apiDomain + 'api/v1/get-meker'
 //

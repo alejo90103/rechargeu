@@ -3,7 +3,7 @@
 @Date:   11-08-2019
 @Email:  ian@codeals.es
 @Last modified by:   alejandro
-@Last modified time: 2019-11-25T20:31:23+01:00
+@Last modified time: 2019-11-26T23:20:00+01:00
 @Copyright: Codeals
 -->
 
@@ -64,7 +64,7 @@ export default {
             <div class="dropdown-menu dropdown-with-icons">
               <!-- <router-link class="dropdown-item"><i class="material-icons">apps</i> Recargar ofertas</router-link> -->
               <router-link :to="{name: 'recharge-contact'}" class="dropdown-item"><i class="material-icons">account_box</i> Recargar Contactos</router-link>
-              <router-link :to="{name: 'home'}" class="dropdown-item"><i class="material-icons">format_list_bulleted</i> Recargas Realizadas</router-link>
+              <router-link :to="{name: 'recharge-list'}" class="dropdown-item"><i class="material-icons">format_list_bulleted</i> Recargas Realizadas</router-link>
             </div>
           </li>
         </ul>

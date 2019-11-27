@@ -1,204 +1,343 @@
 <!--
 @Author: alejandro
-@Date:   2019-11-26T03:35:13+01:00
+@Date:   2019-11-26T23:07:43+01:00
 @Email:  alejo901003@hotmail.com
 @Last modified by:   alejandro
-@Last modified time: 2019-11-27T01:06:03+01:00
+@Last modified time: 2019-11-26T23:24:18+01:00
 -->
 
-<script type="text/javascript">
+<script>
 
+import Footer from './../components/Footer'
+import TopMenu from './../components/TopMenu'
 import {mapState} from 'vuex'
-import { redsys } from './../config'
 
 export default {
-  name: 'App',
+  created () {
+    this.$store.dispatch('setBanner', false)
+    this.$store.dispatch('getContactList')
+  },
   data () {
     return {
-      status: 'not_accepted',
-      ds_SignatureVersion: '12',
-      ds_MerchantParameters: '123',
-      ds_Signature: '1234',
-      redsys
-
+      fields: [
+        { key: 'name', label: 'Nombre', sortable: true, sortDirection: 'desc' },
+        { key: 'phone', label: 'Teléfono', sortable: true, class: 'text-center' },
+        { key: 'email', label: 'Correo', sortable: true, class: 'text-center' },
+        { key: 'created_at', label: 'Creado', sortable: true, class: 'text-center' },
+        // {
+        //   key: 'isActive',
+        //   label: 'is Active',
+        //   formatter: (value, key, item) => {
+        //     return value ? 'Yes' : 'No'
+        //   },
+        //   sortable: true,
+        //   sortByFormatted: true,
+        //   filterByFormatted: true
+        // },
+        { key: 'actions', label: 'Actions' }
+      ],
+      transProps: {
+        name: 'flip-list'
+      },
+      totalRows: 1,
+      currentPage: 1,
+      perPage: 10,
+      pageOptions: [10, 15, 20],
+      sortBy: '',
+      sortDesc: false,
+      sortDirection: 'asc',
+      filter: null,
+      filterOn: [],
+      selected: [],
+      hover: true,
+      bordered: true,
+      headVariant: 'light',
+      infoModal: {
+        id: 'info-modal',
+        title: '',
+        content: ''
+      },
+      contact: {
+        name: '',
+        phone: '',
+        email: '',
+        id: ''
+      },
+      mode: 'add'
     }
-  },
-  created () {
-    this.$store.dispatch('setTopMenu', false)
-    this.$store.dispatch('setBanner', false)
   },
   computed: {
     ...mapState({
-      userStore: state => state.userStore,
       rechargeStore: state => state.rechargeStore
-    })
-  },
-  methods: {
-    start () {
-      if (this.rechargeStore.purchaseInfo.amount === undefined) {
-        this.$store.dispatch('setTopMenu', true)
-        this.$router.push({name: 'dashboard'})
-      }
-    },
-    handleCard () {
-      if (this.status === 'not_accepted') {
-        this.$toastr.e('Debes aceptar los términos y condiciones')
-        return
-      }
-      this.$store.dispatch('setRedsysPayment', this.rechargeStore.purchaseInfo.recharge_id)
-        .then(response => {
-          if (response.status === 200) {
-            this.$toastr.s('Recarga realizada correctamente CARD')
-            this.ds_SignatureVersion = response.body.data.version
-            this.ds_MerchantParameters = response.body.data.params
-            this.ds_Signature = response.body.data.signature
-            setTimeout(() => { this.$refs.form.submit() }, 2000);
-
-            // this.$http.post(this.redsys, postData)
-            //   .then(response => {
-            //     Vue.$logger('info', 'redsys response', response)
-            //     if (response.status === 201) {
-            //       this.$toastr.s('Redsys')
-            //     }
-            //   })
-            // this.$router.push({name: 'payment'})
-          } else {
-            this.$toastr.e('ERROR en la recarga :( ')
-          }
-        })
-    },
-    handlePayPal () {
-      if (this.status === 'not_accepted') {
-        this.$toastr.e('Debes aceptar los términos y condiciones')
-        return
-      }
-      this.$store.dispatch('setPayPalPayment', this.rechargeStore.purchaseInfo.recharge_id)
-        .then(response => {
-          if (response.status === 200) {
-            this.$toastr.s('Recarga realizada correctamente PAYPAL')
-            // this.$router.push({name: 'payment'})
-          } else {
-            this.$toastr.e('ERROR en la recarga :( ')
-          }
+    }),
+    sortOptions () {
+      // Create an options list from our fields
+      return this.fields
+        .filter(f => f.sortable)
+        .map(f => {
+          return { text: f.label, value: f.key }
         })
     }
   },
-  destroy () {
-    this.$store.dispatch('setTopMenu', true)
+  mounted () {
+    // Set the initial number of contacts
+    this.totalRows = this.rechargeStore.rechargeList.length
+  },
+  components: {
+    TopMenu,
+    Footer
+  },
+  // destroyed () {
+  //   this.$store.dispatch('setBanner', true)
+  // },
+  methods: {
+    validateEmail (email) {
+      var regularExp = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+@nauta.(?:com|co).cu$/
+      return regularExp.test(email)
+    },
+    validateNumber (number) {
+      var regularExp = /^([0-9]{8})$/
+      return regularExp.test(number)
+    },
+    showEditModal (item) {
+      this.mode = 'edit'
+      this.contact.name = item.name
+      this.contact.phone = item.phone
+      this.contact.email = item.email
+      this.contact.id = item.id
+      this.$refs['addModal'].show()
+    },
+    handleDelete (item, index, button) {
+      console.log(item)
+      this.$store.dispatch('deleteContact', item.id)
+    },
+    handleAdd (button) {
+      if (!this.contact.name) {
+        this.$toastr.e('Debe ingresar un nombre')
+        return
+      } else if (!this.contact.phone) {
+        this.$toastr.e('Debe ingresar un teléfono')
+        return
+      } else if (!this.validateNumber(this.contact.phone)) {
+        this.$toastr.e('Número invalido')
+        return
+      } else if (this.contact.email) {
+        if (!this.validateEmail(this.contact.email)) {
+          this.$toastr.e('Correo invalido')
+          return
+        }
+      }
+      this.contact.id = ''
+      this.$store.dispatch('addContact', this.contact)
+      this.$refs['addModal'].hide()
+    },
+    handleEdit (button) {
+      // this.infoModal.title = `Row index: ${index}`
+      // this.infoModal.content = JSON.stringify(item, null, 2)
+      if (!this.contact.name) {
+        this.$toastr.e('Debe ingresar un nombre')
+        return
+      } else if (!this.contact.phone) {
+        this.$toastr.e('Debe ingresar un teléfono')
+        return
+      } else if (!this.validateNumber(this.contact.phone)) {
+        this.$toastr.e('Número invalido')
+        return
+      } else if (this.contact.email) {
+        if (!this.validateEmail(this.contact.email)) {
+          this.$toastr.e('Correo invalido')
+          return
+        }
+      }
+      this.$store.dispatch('updateContact', this.contact)
+      this.$refs['addModal'].hide()
+    },
+    resetInfoModal () {
+      this.contact.name = ''
+      this.contact.phone = ''
+      this.contact.email = ''
+      this.mode = 'add'
+    },
+    onFiltered (filteredRecharge) {
+      // Trigger pagination to update the number of buttons/pages due to filtering
+      this.totalRows = filteredRecharge.length
+      this.currentPage = 1
+    },
+    onRowSelected (items) {
+      this.selected = items
+    },
+    selectAllRows () {
+      if (this.selected.length === 0) {
+        this.$refs.selectableTable.selectAllRows()
+      } else {
+        this.selected = []
+        this.$refs.selectableTable.clearSelected()
+      }
+    },
+    clearSelected () {
+      this.$refs.selectableTable.clearSelected()
+    }
   }
 }
 </script>
+
 <template>
-  <div v-bind='start()' class="login-page sidebar-collapse">
-    <!-- <div class="page-header header-filter" style="background-image: url('./../assets/material/img/bg7.jpg'); background-size: cover; background-position: top center;"> -->
-    <div class="page-header header-filter clear-filter purple-filter trans" :style="{'background-image': 'url(' + require('./../assets/material/img/bg2.jpg') + ')'}" style="transform: translate3d(0px, 0px, 0px);">
-      <div class="container">
-        <div class="row">
-          <!-- <b-form>
-            <b-form-input
-              id="input"
-              type="text"
-              @value="ds_SignatureVersion"
-            ></b-form-input>
-          </b-form> -->
-          <form ref="form" :action="redsys" method="post">
-            <input name="Ds_SignatureVersion" v-model="ds_SignatureVersion">
-            <input name="Ds_MerchantParameters" v-model="ds_MerchantParameters">
-            <input name="Ds_Signature" v-model="ds_Signature">
-          </form>
-          <div class="col-lg-8 col-md-8 ml-auto mr-auto">
-            <div class="card card-login">
-              <div class="card-header card-header-primary text-center">
-                <h4 class="card-title">Resumen de Pago</h4>
-              </div>
-              <!-- <p class="description text-center">Or Be Classical</p> -->
-              <div class="card-body" style="padding: 0.9375rem 1.875rem;">
-                <div>
-                  <b-jumbotron style="padding: 1rem;">
-                    <template v-slot:header>Hola {{ userStore.authUser.name }}</template>
-
-                    <template v-slot:lead>
-                      Vas a realizar <strong> {{rechargeStore.purchaseInfo.count}} </strong>  {{ parseInt(rechargeStore.purchaseInfo.count) > 1 ? 'recargas' : 'recarga'}} de tipo <strong> {{rechargeStore.purchaseInfo.type === 'Cell' ? 'Móvil' : 'Nauta'}} </strong>.
-                      <br>
-                    </template>
-
-                    <hr class="my-4">
-
-                    <div class="row center" style="display: -webkit-box">
-                      <b-badge variant="success"><h2 style="margin-top: 10px;"> <strong> Total: {{ rechargeStore.purchaseInfo.amount }} € </strong> </h2></b-badge>
-                    </div>
-
-                    <hr class="my-4">
-
-                    <b-form-checkbox
-                      id="checkbox-1"
-                      v-model="status"
-                      name="checkbox-1"
-                      value='accepted'
-                      unchecked-value='not_accepted'
-                    >
-                      <p style="color: rgba(0, 0, 0, 0.87);">Acepta los <a href="#" v-b-modal.modal-scrollable >términos y condiciones</a></p>
-                    </b-form-checkbox>
-
-                    <div class="row center" style="display: -webkit-box">
-                      <b-button variant="primary" @click="handleCard" href="#"><i class="fa fa-credit-card" style="margin-right: 5px;"></i><strong>Tarjeta</strong></b-button>
-                      <b-button variant="primary" @click="handlePayPal" href="#"><i class="fa fa-paypal" style="margin-right: 5px;"></i><strong>PayPal</strong></b-button>
-                    </div>
-                  </b-jumbotron>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <b-modal
-        id="modal-scrollable"
-        title="BootstrapVue"
-        ok-only=true
-        ok-title="Cerrar"
-      >
-        <template v-slot:modal-header="">
-          <h5>Términos y Condiciones</h5>
-        </template>
-
-        <template v-slot:default="">
-          <div class="" style="max-height: 350px; overflow: scroll;">
-            <p class="my-4" v-for="i in 20" :key="i">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </p>
-          </div>
-        </template>
-      </b-modal>
+  <div>
+    <Top-Menu></Top-Menu>
+    <div class="page-header header-filter clear-filter purple-filter trans" data-parallax="true" :style="{'background-image': 'url(' + require('./../assets/material/img/bg2.jpg') + ')'}" style="transform: translate3d(0px, 0px, 0px); height: 20vh;">
     </div>
-    <footer class="footer">
-      <div class="container">
-        <nav class="float-left">
-          <ul>
-            <li>
-              <a href="https://codeals.es">
-                Codeals
-              </a>
-            </li>
-            <li>
-              <a href="https://codeals.es/#about">
-                About Us
-              </a>
-            </li>
-            <li>
-              <a href="https://blog.codeals.es">
-                Blog
-              </a>
-            </li>
-          </ul>
-        </nav>
-        <div class="copyright float-right">
-          &copy;
-          2019, made with <i class="material-icons">favorite</i> by
-          <a href="https://codeals.es" target="_blank">Codeals</a> We put your idea in the cloud.
-        </div>
+    <div class="main main-raised" id="dashboard-wrapper">
+      <div class="section section-basic">
+        <b-container fluid>
+          <b-row>
+
+            <b-col sm="6" md="2" class="my-1">
+              <b-form-group
+                label="Mostrar"
+                label-cols-sm="6"
+                label-cols-md="4"
+                label-cols-lg="4"
+                label-align-sm="right"
+                label-size="sm"
+                label-for="perPageSelect"
+                class="mb-0"
+              >
+                <b-form-select
+                  v-model="perPage"
+                  id="perPageSelect"
+                  size="sm"
+                  :options="pageOptions"
+                ></b-form-select>
+              </b-form-group>
+            </b-col>
+
+            <b-col lg="6" sm="6" md="6" class="my-1">
+                <b-input-group size="sm">
+                  <b-form-input
+                    v-model="filter"
+                    type="search"
+                    id="filterInput"
+                    placeholder="Buscar"
+                  ></b-form-input>
+                  <b-input-group-append>
+                    <b-button :disabled="!filter" @click="filter = ''">Limpiar</b-button>
+                  </b-input-group-append>
+                </b-input-group>
+            </b-col>
+          </b-row>
+
+          <!-- Main table element -->
+          <b-table
+            id = "table-transition-example"
+            ref="selectableTable"
+            show-empty
+            striped
+            stacked="md"
+            :hover="hover"
+            :bordered = "bordered"
+            :head-variant="headVariant"
+            :items="rechargeStore.rechargeList"
+            :fields="fields"
+            :current-page="currentPage"
+            :per-page="perPage"
+            :filter="filter"
+            :filterIncludedFields="filterOn"
+            :sort-by.sync="sortBy"
+            :sort-desc.sync="sortDesc"
+            :sort-direction="sortDirection"
+            sort-icon-left
+            :tbody-transition-props="transProps"
+            primary-key="nonmbre"
+            @filtered="onFiltered"
+          >
+
+            <template v-slot:cell(actions)="row">
+              <b-button size="sm" @click="showEditModal(row.item)" variant="info" >
+                Editar
+              </b-button>
+              <b-button variant="danger" size="sm" @click="handleDelete(row.item)" class="mr-1">
+                Eliminar
+              </b-button>
+            </template>
+
+            <template v-slot:row-details="row">
+              <b-card>
+                <ul>
+                  <li v-for="(value, key) in row.item" :key="key">{{ key }}: {{ value }}</li>
+                </ul>
+              </b-card>
+            </template>
+
+          </b-table>
+
+          <b-row>
+            <b-col sm="12" md="12" class="my-1 center">
+              <b-pagination
+                v-model="currentPage"
+                :total-rows="totalRows"
+                :per-page="perPage"
+                align="fill"
+                size="sm"
+                class="my-0"
+              ></b-pagination>
+            </b-col>
+          </b-row>
+
+          <!-- Add/Edit modal -->
+          <b-modal id="addModal" ref="addModal" ok-only @hide="resetInfoModal" hide-footer hide-header>
+            <div class="card-header card-header-primary text-center mb-5" style="background-color: #9c27b0; border-radius: 3px;">
+              <h4 class="card-title" style="color: white">Nuevo Contacto</h4>
+            </div>
+
+            <b-container fluid>
+              <b-form-group
+                label="Nombre"
+                label-for="name-input"
+                invalid-feedback="Name is required"
+              >
+                <b-form-input
+                  id="name-input"
+                  v-model="contact.name"
+                  type="text"
+                  required
+                ></b-form-input>
+              </b-form-group>
+
+              <b-form-group
+                label="Teléfono"
+                label-for="phone-input"
+                invalid-feedback="Name is required"
+              >
+                <b-form-input
+                  id="phone-input"
+                  v-model="contact.phone"
+                  type="number"
+                  required
+                ></b-form-input>
+              </b-form-group>
+
+              <b-form-group
+                label="Correo"
+                label-for="email-input"
+                invalid-feedback="Name is required"
+              >
+                <b-form-input
+                  id="email-input"
+                  v-model="contact.email"
+                  type="email"
+                  required
+                ></b-form-input>
+              </b-form-group>
+              <b-button class="mt-2" v-if='this.mode === "add"' variant="success" style="float: right;" @click="handleAdd">Agregar</b-button>
+              <b-button class="mt-2" v-if='this.mode === "edit"' variant="info" style="float: right;" @click="handleEdit">Modificar</b-button>
+            </b-container>
+          </b-modal>
+        </b-container>
       </div>
-    </footer>
+    </div>
+    <Footer></Footer>
   </div>
+
 </template>
 
 <style lang="css">

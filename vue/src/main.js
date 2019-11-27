@@ -3,7 +3,7 @@
  * @Date:   05-08-2019
  * @Email:  ian@codeals.es
  * @Last modified by:   alejandro
- * @Last modified time: 2019-11-26T03:37:01+01:00
+ * @Last modified time: 2019-11-26T23:10:34+01:00
  * @Copyright: Codeals
  */
 
@@ -30,6 +30,7 @@ import DashboardPage from './pages/DashboardPage'
 import ContactPage from './pages/ContactPage'
 import RechargeContactPage from './pages/RechargeContactPage'
 import PaymentPage from './pages/PaymentPage'
+import RechargeList from './pages/RechargeList'
 
 // import ChatPage from './pages/ChatPage'
 
@@ -65,6 +66,7 @@ Vue.component('app', App)
 // routes
 const routes = [
   {path: '/', component: DashboardPage, name: 'home'},
+
   // user
   {path: '/login', component: LoginPage, name: 'login'},
   {path: '/register-user', component: RegisterPage, name: 'register-user'},
@@ -72,10 +74,13 @@ const routes = [
   {path: '/forgot-password', component: ForgotPassword, name: 'forgot-password'},
   {path: '/reset-password/:token', component: ResetPassword, name: 'reset-password'},
   {path: '/reset-password', component: ResetPassword, name: 'reset-password'},
+
+  // app
   {path: '/dashboard', component: DashboardPage, name: 'dashboard'},
   {path: '/contact', component: ContactPage, name: 'contact', meta: { requiresAuth: true }},
   {path: '/recharge-contact', component: RechargeContactPage, name: 'recharge-contact', meta: { requiresAuth: true }},
-  {path: '/payment', component: PaymentPage, name: 'payment', meta: { requiresAuth: true }}
+  {path: '/payment', component: PaymentPage, name: 'payment', meta: { requiresAuth: true }},
+  {path: '/recharge-list', component: RechargeList, name: 'recharge-list', meta: { requiresAuth: true }}
 
   // chat
   // {path: '/chat', component: ChatPage, name: 'chat', meta: { requiresAuth: true }},

@@ -4,7 +4,7 @@
 @Email:  alejo901003@hotmail.com
 @Project: Recargame
 @Last modified by:   alejandro
-@Last modified time: 2019-11-26T16:49:30+01:00
+@Last modified time: 2019-11-26T21:58:05+01:00
 -->
 
 <script>
@@ -12,6 +12,7 @@
 import Footer from './../components/Footer'
 import TopMenu from './../components/TopMenu'
 import {mapState, mapGetters} from 'vuex'
+import moment from 'moment'
 
 export default {
   created () {
@@ -21,6 +22,8 @@ export default {
   data () {
     return {
       type: 'cell',
+      now: moment(new Date()).format('YYYY/MM/DD'),
+      moment,
       fieldsPhone: [
         { key: 'selectedPhone', label: '✓' },
         { key: 'name', label: 'Nombre', sortable: true, sortDirection: 'desc' },
@@ -685,12 +688,12 @@ export default {
                             <div class="input-group-prepend">
                               <div class="input-group-text" style="color: #000; font-weight: 200; font-size: 25px; margin-left: 10px; width: 40px">€</div>
                               <select v-if="type === 'cell'" v-model="cell.offer_id" style="font-size: 25px; text-align: center; font-weight: 200; height: auto; text-align-last: center" class="form-control">
-                                <option v-for="offer in offerStore.offers" v-if="offer.type === 'Cell'" :value="offer.id" :key="offer.id">
+                                <option v-for="offer in offerStore.offers" v-if="offer.type === 'Cell' && moment(now).isBetween(offer.date_ini, offer.date_end, null, '[]')" :value="offer.id" :key="offer.id">
                                   {{ offer.name }}
                                 </option>
                               </select>
                               <select v-if="type === 'nauta'" v-model="nauta.offer_id" style="font-size: 25px; text-align: center; font-weight: 200; height: auto; text-align-last: center" class="form-control">
-                                <option v-for="offer in offerStore.offers" v-if="offer.type === 'Nauta'" :value="offer.id" :key="offer.id">
+                                <option v-for="offer in offerStore.offers" v-if="offer.type === 'Nauta' && moment(now).isBetween(offer.date_ini, offer.date_end, null, '[]')" :value="offer.id" :key="offer.id">
                                   {{ offer.name }}
                                 </option>
                               </select>
@@ -729,12 +732,12 @@ export default {
                             <div class="input-group-prepend">
                               <div class="input-group-text" style="color: #000; font-weight: 200; font-size: 25px; margin-left: 10px; width: 40px">€</div>
                               <select v-if="type === 'cell'" v-model="multiRechargeOffer" style="font-size: 25px; text-align: center; font-weight: 200; height: auto; text-align-last: center" class="form-control">
-                                <option v-for="offer in offerStore.offers" v-if="offer.type === 'Cell'" :value="offer.id" :key="offer.id">
+                                <option v-for="offer in offerStore.offers" v-if="offer.type === 'Cell' && moment(now).isBetween(offer.date_ini, offer.date_end, null, '[]')" :value="offer.id" :key="offer.id">
                                   {{ offer.name }}
                                 </option>
                               </select>
                               <select v-if="type === 'nauta'" v-model="multiRechargeOffer" style="font-size: 25px; text-align: center; font-weight: 200; height: auto; text-align-last: center" class="form-control">
-                                <option v-for="offer in offerStore.offers" v-if="offer.type === 'Nauta'" :value="offer.id" :key="offer.id">
+                                <option v-for="offer in offerStore.offers" v-if="offer.type === 'Nauta' && moment(now).isBetween(offer.date_ini, offer.date_end, null, '[]')" :value="offer.id" :key="offer.id">
                                   {{ offer.name }}
                                 </option>
                               </select>

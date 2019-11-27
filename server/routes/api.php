@@ -2,8 +2,8 @@
 # @Author: Codeals
 # @Date:   20-10-2019
 # @Email:  ian@codeals.es
-# @Last modified by:   Codeals
-# @Last modified time: 26-11-2019
+# @Last modified by:   alejandro
+# @Last modified time: 2019-11-27T01:26:20+01:00
 # @Copyright: Codeals
 
 use Illuminate\Http\Request;
@@ -34,7 +34,7 @@ Route::get('offer-list', 'OfferController@allOffer');
 Route::post('response-paypal', 'PaypalController@index');
 Route::post('response-redsys/response/{token}', 'RedsysController@response');
 Route::post('response-redsys/ok/{token}', 'RedsysController@responseOk');
-Route::post('response-redsys/ko/{token}', 'RedsysController@responseKo');
+Route::get('response-redsys/ko/{token}', 'RedsysController@responseKo');
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
 	if ($request->user()->status == 1) {
