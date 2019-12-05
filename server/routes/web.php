@@ -51,4 +51,6 @@ Route::group(['middleware' => 'admin'], function () {
 
   Route::get('home/dashboardChart/{year}', 'HomeController@dashboardChart')->name('home.dashboardChart');
 
+  Route::get('reports/users', 'ReportController@userRechange')->name('reports.users');
+
 });
