@@ -79,7 +79,7 @@ class HomeController extends Controller
         // $year[1][10] = count(DB::table('recharges')->where('created_at', 'like', $date_year.'-11-'.'%')->where('is_engine', '=', 1)->get());
         // $year[1][11] = count(DB::table('recharges')->where('created_at', 'like', $date_year.'-12-'.'%')->where('is_engine', '=', 1)->get());
 
-        $year[1] = count(DB::table('recharges')->get());
+        $year[1] = count(DB::table('recharges')->where('created_at', 'like', $date_year.'-'.'%')->get());
 
         // $total_engine = count(DB::table('recharges')->where('created_at', 'like', $date_year.'%')->where('is_engine', '=', 1)->get());
         // $total_out = count(DB::table('recharges')->where('created_at', 'like', $date_year.'%')->get());
