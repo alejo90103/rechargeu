@@ -120,9 +120,9 @@
 
           <!--Begin::Dashboard 2-->
 
-          <!--Begin::Section-->
+          <!--Begin::Section::Primera Fila-->
           <div class="row">
-            <div class="col-xl-4">
+            <div class="col-xl-8">
 
               <!--begin:: Widgets/Daily Sales-->
               <div class="kt-portlet kt-portlet--height-fluid">
@@ -181,9 +181,7 @@
 
               <!--end:: Widgets/Profit Share-->
             </div>
-            <div class="col-xl-4">
-
-              <!--begin:: Widgets/Revenue Change-->
+            <!-- <div class="col-xl-4">
               <div class="kt-portlet kt-portlet--height-fluid">
                 <div class="kt-widget14">
                   <div class="kt-widget14__header">
@@ -215,12 +213,66 @@
                   </div>
                 </div>
               </div>
-
-              <!--end:: Widgets/Revenue Change-->
-            </div>
+            </div> -->
           </div>
 
           <!--End::Section-->
+
+          <!--Begin::Section::Segunda Fila-->
+            <div class="row">
+              <div class="col-xl-12 col-md-12">
+
+                <!--begin:: Widgets/Order Statistics-->
+                <div id="kt_blockui_2_1" class="kt-portlet kt-portlet--height-fluid">
+                  <div class="kt-portlet__head kt-widget14">
+                    <!-- <div class="kt-portlet__head-label">
+                      <h3 class="kt-portlet__head-title">
+                        Recargas por mes
+                      </h3>
+                    </div> -->
+                    <div class="kt-widget14__header">
+                      <h3 class="kt-widget14__title">
+                        Recargas Mensual
+                      </h3>
+                    </div>
+                    <div class="kt-portlet__head-toolbar">
+                        <div class="input-group date">
+                            <div style="margin-left: 5px; display: inline-block;">
+                                  <div class="fg-line">
+                                      <div class="select">
+                                        <select id="statistics" class="selectpicker" style="text-align: center">
+                                            <option value="<?php echo date('Y'); ?>"><?php echo date('Y'); ?></option>
+                                            <option value="<?php echo date ( 'Y' , strtotime ( '-1 year' , strtotime ( date('Y') ) ) ); ?>"><?php echo date ( 'Y' , strtotime ( '-1 year' , strtotime ( date('Y') ) ) ); ?></option>
+                                            <option value="<?php echo date ( 'Y' , strtotime ( '-2 year' , strtotime ( date('Y') ) ) ); ?>"><?php echo date ( 'Y' , strtotime ( '-2 year' , strtotime ( date('Y') ) ) ) ?></option>
+                                            <option value="<?php echo date ( 'Y' , strtotime ( '-3 year' , strtotime ( date('Y') ) ) ); ?>"><?php echo date ( 'Y' , strtotime ( '-3 year' , strtotime ( date('Y') ) ) ) ?></option>
+                                        </select>
+                                      </div>
+                                  </div>
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="kt-portlet__body kt-portlet__body--fluid">
+                    <div class="kt-widget12">
+                      <div class="kt-widget12__content">
+
+
+                      </div>
+                      <div class="kt-widget12__chart" style="height:250px;">
+                          <!-- <canvas id="kt_chart_order_statistics"></canvas> -->
+                        <canvas id="kt_chart_order_statistics_here"></canvas>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!--end:: Widgets/Order Statistics-->
+              </div>
+
+
+            </div>
+
+            <!--End::Section-->
 
           <!--Begin::Section-->
           <div class="row">
@@ -3252,56 +3304,7 @@
 
           <!--End::Section-->
 
-          <!--Begin::Section-->
-            <div class="row">
-              <div class="col-xl-12 col-md-12">
 
-                <!--begin:: Widgets/Order Statistics-->
-                <div id="kt_blockui_2_1" class="kt-portlet kt-portlet--height-fluid">
-                  <div class="kt-portlet__head">
-                    <div class="kt-portlet__head-label">
-                      <h3 class="kt-portlet__head-title">
-                        Recargas por mes
-                      </h3>
-                    </div>
-                    <div class="kt-portlet__head-toolbar">
-                        <div class="input-group date">
-                            <div style="margin-left: 5px; display: inline-block;">
-                                  <div class="fg-line">
-                                      <div class="select">
-                                        <select id="statistics" class="selectpicker" style="text-align: center">
-                                            <option value="<?php echo date('Y'); ?>"><?php echo date('Y'); ?></option>
-                                            <option value="<?php echo date ( 'Y' , strtotime ( '-1 year' , strtotime ( date('Y') ) ) ); ?>"><?php echo date ( 'Y' , strtotime ( '-1 year' , strtotime ( date('Y') ) ) ); ?></option>
-                                            <option value="<?php echo date ( 'Y' , strtotime ( '-2 year' , strtotime ( date('Y') ) ) ); ?>"><?php echo date ( 'Y' , strtotime ( '-2 year' , strtotime ( date('Y') ) ) ) ?></option>
-                                            <option value="<?php echo date ( 'Y' , strtotime ( '-3 year' , strtotime ( date('Y') ) ) ); ?>"><?php echo date ( 'Y' , strtotime ( '-3 year' , strtotime ( date('Y') ) ) ) ?></option>
-                                        </select>
-                                      </div>
-                                  </div>
-                            </div>
-                        </div>
-                    </div>
-                  </div>
-                  <div class="kt-portlet__body kt-portlet__body--fluid">
-                    <div class="kt-widget12">
-                      <div class="kt-widget12__content">
-
-
-                      </div>
-                      <div class="kt-widget12__chart" style="height:250px;">
-                          <!-- <canvas id="kt_chart_order_statistics"></canvas> -->
-                        <canvas id="kt_chart_order_statistics_here"></canvas>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <!--end:: Widgets/Order Statistics-->
-              </div>
-
-
-            </div>
-
-            <!--End::Section-->
 
           <!--End::Dashboard 2-->
         </div>
@@ -3348,16 +3351,16 @@
                         if (!container) {
                             return;
                         }
-
+                        debugger;
                         var withOutEngine = [];
                         for (var i = 0; i < result[0].length; i++) {
                             withOutEngine.push(result[0][i]);
                         }
 
-                        var withEngine = [];
-                        for (var i = 0; i < result[1].length; i++) {
-                            withEngine.push(result[1][i]);
-                        }
+                        // var withEngine = [];
+                        // for (var i = 0; i < result[1].length; i++) {
+                        //     withEngine.push(result[1][i]);
+                        // }
 
                         var color = Chart.helpers.color;
                         var barChartData = {
@@ -3377,21 +3380,6 @@
                                     pointHoverBorderColor: Chart.helpers.color('#000000').alpha(0.1).rgbString(),
 
                                     data: withOutEngine,
-                                },
-                                {
-                                    fill: true,
-                                    borderWidth: 2,
-                                    backgroundColor : color(KTApp.getStateColor('success')).alpha(0.5).rgbString(),
-                                    borderColor : color(KTApp.getStateColor('success')).alpha(1).rgbString(),
-
-                                    pointHoverRadius: 4,
-                                    pointHoverBorderWidth: 12,
-                                    pointBackgroundColor: Chart.helpers.color('#000000').alpha(0).rgbString(),
-                                    pointBorderColor: Chart.helpers.color('#000000').alpha(0).rgbString(),
-                                    pointHoverBackgroundColor: KTApp.getStateColor('success'),
-                                    pointHoverBorderColor: Chart.helpers.color('#000000').alpha(0.1).rgbString(),
-
-                                    data: withEngine,
                                 }
                             ]
                         };
@@ -3441,8 +3429,8 @@
                                             zeroLineBorderDash: [3, 4]
                                         },
                                         ticks: {
-                                            max: {{$dash_chart[2]}},
-                                            stepSize: {{$dash_chart[2] / 5}},
+                                            max: {{$dash_chart[1]}},
+                                            stepSize: {{$dash_chart[1] / 5}},
                                             display: true,
                                             beginAtZero: true,
                                             fontColor: KTApp.getBaseColor('shape', 3),
@@ -3530,152 +3518,131 @@
     		// 	],
     		// });
 
-            // var orderStatistics = function() {
-            //     var container = KTUtil.getByID('kt_chart_order_statistics_here');
-            //
-            //
-            //     if (!container) {
-            //         return;
-            //     }
-            //
-            //     var color = Chart.helpers.color;
-            //     var barChartData = {
-            //         labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
-            //         datasets : [
-            //             {
-            //                 fill: true,
-            //                 borderWidth: 2,
-            //                 backgroundColor: color(KTApp.getStateColor('danger')).alpha(0.5).rgbString(),
-            //                 borderColor : color(KTApp.getStateColor('danger')).alpha(1).rgbString(),
-            //
-            //                 pointHoverRadius: 4,
-            //                 pointHoverBorderWidth: 12,
-            //                 pointBackgroundColor: Chart.helpers.color('#000000').alpha(0).rgbString(),
-            //                 pointBorderColor: Chart.helpers.color('#000000').alpha(0).rgbString(),
-            //                 pointHoverBackgroundColor: KTApp.getStateColor('danger'),
-            //                 pointHoverBorderColor: Chart.helpers.color('#000000').alpha(0.1).rgbString(),
-            //
-            //                 data: [
-            //                     <?php
-            //                         foreach ($dash_chart[0] as $key => $year) {
-            //                             echo $year.',';
-            //                         }
-            //                     ?>
-            //                 ]
-            //             },
-            //             {
-            //                 fill: true,
-            //                 borderWidth: 2,
-            //                 backgroundColor : color(KTApp.getStateColor('success')).alpha(0.5).rgbString(),
-            //                 borderColor : color(KTApp.getStateColor('success')).alpha(1).rgbString(),
-            //
-            //                 pointHoverRadius: 4,
-            //                 pointHoverBorderWidth: 12,
-            //                 pointBackgroundColor: Chart.helpers.color('#000000').alpha(0).rgbString(),
-            //                 pointBorderColor: Chart.helpers.color('#000000').alpha(0).rgbString(),
-            //                 pointHoverBackgroundColor: KTApp.getStateColor('success'),
-            //                 pointHoverBorderColor: Chart.helpers.color('#000000').alpha(0.1).rgbString(),
-            //
-            //                 data: [
-            //                     <?php
-            //                         foreach ($dash_chart[1] as $key => $year) {
-            //                             echo $year.',';
-            //                         }
-            //                     ?>
-            //                 ]
-            //             }
-            //         ]
-            //     };
-            //
-            //     var ctx = container.getContext('2d');
-            //     var chart = new Chart(ctx, {
-            //         type: 'line',
-            //         data: barChartData,
-            //         options: {
-            //             responsive: true,
-            //             maintainAspectRatio: false,
-            //             legend: false,
-            //             scales: {
-            //                 xAxes: [{
-            //                     categoryPercentage: 0.35,
-            //                     barPercentage: 0.70,
-            //                     display: true,
-            //                     scaleLabel: {
-            //                         display: false,
-            //                         labelString: 'Month'
-            //                     },
-            //                     gridLines: false,
-            //                     ticks: {
-            //                         display: true,
-            //                         beginAtZero: true,
-            //                         fontColor: KTApp.getBaseColor('shape', 3),
-            //                         fontSize: 13,
-            //                         padding: 10
-            //                     }
-            //                 }],
-            //                 yAxes: [{
-            //                     categoryPercentage: 0.35,
-            //                     barPercentage: 0.70,
-            //                     display: true,
-            //                     scaleLabel: {
-            //                         display: false,
-            //                         labelString: 'Value'
-            //                     },
-            //                     gridLines: {
-            //                         color: KTApp.getBaseColor('shape', 2),
-            //                         drawBorder: false,
-            //                         offsetGridLines: false,
-            //                         drawTicks: false,
-            //                         borderDash: [3, 4],
-            //                         zeroLineWidth: 1,
-            //                         zeroLineColor: KTApp.getBaseColor('shape', 2),
-            //                         zeroLineBorderDash: [3, 4]
-            //                     },
-            //                     ticks: {
-            //                         max: {{$dash_chart[2]}},
-            //                         stepSize: {{$dash_chart[2] / 5}},
-            //                         display: true,
-            //                         beginAtZero: true,
-            //                         fontColor: KTApp.getBaseColor('shape', 3),
-            //                         fontSize: 13,
-            //                         padding: 10
-            //                     }
-            //                 }]
-            //             },
-            //             title: {
-            //                 display: false
-            //             },
-            //             hover: {
-            //                 mode: 'index'
-            //             },
-            //             tooltips: {
-            //                 enabled: true,
-            //                 intersect: false,
-            //                 mode: 'nearest',
-            //                 bodySpacing: 5,
-            //                 yPadding: 10,
-            //                 xPadding: 10,
-            //                 caretPadding: 0,
-            //                 displayColors: false,
-            //                 backgroundColor: KTApp.getStateColor('brand'),
-            //                 titleFontColor: '#ffffff',
-            //                 cornerRadius: 4,
-            //                 footerSpacing: 0,
-            //                 titleSpacing: 0
-            //             },
-            //             layout: {
-            //                 padding: {
-            //                     left: 0,
-            //                     right: 0,
-            //                     top: 5,
-            //                     bottom: 5
-            //                 }
-            //             }
-            //         }
-            //     });
-            // }
-            //
-            // orderStatistics();
+            var orderStatistics = function() {
+                var container = KTUtil.getByID('kt_chart_order_statistics_here');
+
+
+                if (!container) {
+                    return;
+                }
+
+                var color = Chart.helpers.color;
+                var barChartData = {
+                    labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+                    datasets : [
+                        {
+                            fill: true,
+                            borderWidth: 2,
+                            backgroundColor: color(KTApp.getStateColor('danger')).alpha(0.5).rgbString(),
+                            borderColor : color(KTApp.getStateColor('danger')).alpha(1).rgbString(),
+
+                            pointHoverRadius: 4,
+                            pointHoverBorderWidth: 12,
+                            pointBackgroundColor: Chart.helpers.color('#000000').alpha(0).rgbString(),
+                            pointBorderColor: Chart.helpers.color('#000000').alpha(0).rgbString(),
+                            pointHoverBackgroundColor: KTApp.getStateColor('danger'),
+                            pointHoverBorderColor: Chart.helpers.color('#000000').alpha(0.1).rgbString(),
+
+                            data: [
+                                <?php
+                                    foreach ($dash_chart[0] as $key => $year) {
+                                        echo $year.',';
+                                    }
+                                ?>
+                            ]
+                        }
+                    ]
+                };
+
+                var ctx = container.getContext('2d');
+                var chart = new Chart(ctx, {
+                    type: 'line',
+                    data: barChartData,
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        legend: false,
+                        scales: {
+                            xAxes: [{
+                                categoryPercentage: 0.35,
+                                barPercentage: 0.70,
+                                display: true,
+                                scaleLabel: {
+                                    display: false,
+                                    labelString: 'Month'
+                                },
+                                gridLines: false,
+                                ticks: {
+                                    display: true,
+                                    beginAtZero: true,
+                                    fontColor: KTApp.getBaseColor('shape', 3),
+                                    fontSize: 13,
+                                    padding: 10
+                                }
+                            }],
+                            yAxes: [{
+                                categoryPercentage: 0.35,
+                                barPercentage: 0.70,
+                                display: true,
+                                scaleLabel: {
+                                    display: false,
+                                    labelString: 'Value'
+                                },
+                                gridLines: {
+                                    color: KTApp.getBaseColor('shape', 2),
+                                    drawBorder: false,
+                                    offsetGridLines: false,
+                                    drawTicks: false,
+                                    borderDash: [3, 4],
+                                    zeroLineWidth: 1,
+                                    zeroLineColor: KTApp.getBaseColor('shape', 2),
+                                    zeroLineBorderDash: [3, 4]
+                                },
+                                ticks: {
+                                    max: {{$dash_chart[1]}},
+                                    stepSize: {{$dash_chart[1] / 5}},
+                                    display: true,
+                                    beginAtZero: true,
+                                    fontColor: KTApp.getBaseColor('shape', 3),
+                                    fontSize: 13,
+                                    padding: 10
+                                }
+                            }]
+                        },
+                        title: {
+                            display: false
+                        },
+                        hover: {
+                            mode: 'index'
+                        },
+                        tooltips: {
+                            enabled: true,
+                            intersect: false,
+                            mode: 'nearest',
+                            bodySpacing: 5,
+                            yPadding: 10,
+                            xPadding: 10,
+                            caretPadding: 0,
+                            displayColors: false,
+                            backgroundColor: KTApp.getStateColor('brand'),
+                            titleFontColor: '#ffffff',
+                            cornerRadius: 4,
+                            footerSpacing: 0,
+                            titleSpacing: 0
+                        },
+                        layout: {
+                            padding: {
+                                left: 0,
+                                right: 0,
+                                top: 5,
+                                bottom: 5
+                            }
+                        }
+                    }
+                });
+            }
+
+            orderStatistics();
         });
 
     </script>
