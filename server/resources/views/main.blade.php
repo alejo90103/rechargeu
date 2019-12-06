@@ -4,7 +4,7 @@
 # @Date:   22-11-2019
 # @Email:  ian@codeals.es
 # @Last modified by:   Codeals
-# @Last modified time: 22-11-2019
+# @Last modified time: 06-12-2019
 # @Copyright: Codeals
 -->
 
@@ -13,6 +13,7 @@
     $current_year = date('Y');
     $dashboard = \App\Http\Controllers\HomeController::dashboard();
     $dash_chart = \App\Http\Controllers\HomeController::dashboardChart($current_year);
+    $getRecharges = \App\Http\Controllers\HomeController::getRecharge();
 
 @endphp
 
@@ -129,23 +130,22 @@
                 <div class="kt-widget14">
                   <div class="kt-widget14__header kt-margin-b-30">
                     <h3 class="kt-widget14__title">
-                      Daily Sales
+                      Recargas por mes
                     </h3>
                     <span class="kt-widget14__desc">
-                      Check out each collumn for more details
+                      Recargas con y sin ofertas
                     </span>
                   </div>
                   <div class="kt-widget14__chart" style="height:120px;">
-                    <canvas id="kt_chart_daily_sales"></canvas>
+                    <canvas id="kt_chart_daily_sales_dash"></canvas>
                   </div>
                 </div>
               </div>
 
               <!--end:: Widgets/Daily Sales-->
             </div>
-            <div class="col-xl-4">
+            <!-- <div class="col-xl-4">
 
-              <!--begin:: Widgets/Profit Share-->
               <div class="kt-portlet kt-portlet--height-fluid">
                 <div class="kt-widget14">
                   <div class="kt-widget14__header">
@@ -179,9 +179,10 @@
                 </div>
               </div>
 
-              <!--end:: Widgets/Profit Share-->
-            </div>
-            <!-- <div class="col-xl-4">
+            </div> -->
+
+
+            <div class="col-xl-4">
               <div class="kt-portlet kt-portlet--height-fluid">
                 <div class="kt-widget14">
                   <div class="kt-widget14__header">
@@ -194,7 +195,7 @@
                   </div>
                   <div class="kt-widget14__content">
                     <div class="kt-widget14__chart">
-                      <div id="kt_chart_revenue_change" style="height: 150px; width: 150px;"></div>
+                      <div id="kt_chart_revenue_change_dash" style="height: 150px; width: 150px;"></div>
                     </div>
                     <div class="kt-widget14__legends">
                       <div class="kt-widget14__legend">
@@ -213,7 +214,7 @@
                   </div>
                 </div>
               </div>
-            </div> -->
+            </div>
           </div>
 
           <!--End::Section-->
@@ -3479,6 +3480,122 @@
             }
 
             chartRechargePerMonth();
+
+            //  cantidad de recargas con y sin offertas por mes
+
+            // Based on Chartjs plugin - http://www.chartjs.org/
+            var dailySales = function() {
+                var chartContainer = KTUtil.getByID('kt_chart_daily_sales_dash');
+
+                if (!chartContainer) {
+                    return;
+                }
+
+                var chartData = {
+                    labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+                    datasets: [{
+                        //label: 'Dataset 1',
+                        backgroundColor: KTApp.getStateColor('success'),
+                        data: [
+                            <?php
+                                foreach ($getRecharges[0] as $key => $recharge) {
+                                    echo $recharge.',';
+                                }
+                            ?>
+                        ]
+                    }, {
+                        //label: 'Dataset 2',
+                        backgroundColor: '#f3f3fb',
+                        data: [
+                            <?php
+                                foreach ($getRecharges[1] as $key => $recharge) {
+                                    echo $recharge.',';
+                                }
+                            ?>
+                        ]
+                    }]
+                };
+
+                var chart = new Chart(chartContainer, {
+                    type: 'bar',
+                    data: chartData,
+                    options: {
+                        title: {
+                            display: false,
+                        },
+                        tooltips: {
+                            intersect: false,
+                            mode: 'nearest',
+                            xPadding: 10,
+                            yPadding: 10,
+                            caretPadding: 10
+                        },
+                        legend: {
+                            display: false
+                        },
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        barRadius: 4,
+                        scales: {
+                            xAxes: [{
+                                display: false,
+                                gridLines: false,
+                                stacked: true
+                            }],
+                            yAxes: [{
+                                display: false,
+                                stacked: true,
+                                gridLines: false
+                            }]
+                        },
+                        layout: {
+                            padding: {
+                                left: 0,
+                                right: 0,
+                                top: 0,
+                                bottom: 0
+                            }
+                        }
+                    }
+                });
+            }
+
+            dailySales();
+
+            var revenueChange = function() {
+                if ($('#kt_chart_revenue_change_dash').length == 0) {
+                    return;
+                }
+
+                Morris.Donut({
+                    element: 'kt_chart_revenue_change_dash',
+                    data: [{
+                            label: "Accepted",
+                            value: <?php echo $getRecharges[3]["accepted"]; ?>
+                        },
+                        {
+                            label: "Denied",
+                            value: <?php echo $getRecharges[3]["denied"]; ?>
+                        },
+                        {
+                            label: "Cancel",
+                            value: <?php echo $getRecharges[3]["cancel"]; ?>
+                        },
+                        {
+                            label: "Pending",
+                            value: <?php echo $getRecharges[3]["waiting"]; ?>
+                        }
+                    ],
+                    colors: [
+                        KTApp.getStateColor('success'),
+                        KTApp.getStateColor('danger'),
+                        KTApp.getStateColor('brand'),
+                        KTApp.getStateColor('warning')
+                    ],
+                });
+            }
+
+            revenueChange();
         });
 
     </script>
