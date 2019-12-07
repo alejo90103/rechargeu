@@ -3,7 +3,7 @@
 # @Date:   19-10-2019
 # @Email:  ian@codeals.es
 # @Last modified by:   Codeals
-# @Last modified time: 24-11-2019
+# @Last modified time: 07-12-2019
 # @Copyright: Codeals
 
 /*
@@ -52,5 +52,9 @@ Route::group(['middleware' => 'admin'], function () {
   Route::get('home/dashboardChart/{year}', 'HomeController@dashboardChart')->name('home.dashboardChart');
 
   Route::get('reports/users', 'ReportController@userRechange')->name('reports.users');
+
+  Route::get('settings/edit', 'SettingController@edit')->name('settings.eddit');
+  Route::put('settings/update', 'SettingController@update')->name('settings.update');
+
 
 });
