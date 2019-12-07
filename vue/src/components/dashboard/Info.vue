@@ -12,6 +12,8 @@
 import {mapState} from 'vuex'
 import _ from 'lodash'
 import moment from 'moment'
+import Timeline from './Timeline'
+import Testimony from './Testimony'
 
 export default {
   data () {
@@ -22,7 +24,8 @@ export default {
     }
   },
   components: {
-
+    Timeline,
+    Testimony
   },
   computed: {
     ...mapState({
@@ -66,8 +69,7 @@ export default {
         </ul>
         <div class="tab-content tab-space col-lg-12">
           <div class="tab-pane active" id="cell-info">
-            <div class="row">
-
+            <div v-if="offerStore.offers.length > 0" class="row">
               <div class="card text-center col-md-4" :style="col" v-for="offer in offerStore.offers" v-if="offer.type === 'Cell' && offer.ads === 1" :key="offer.id" style="float: none; margin-bottom: 10px; box-shadow: none">
                 <div class="card-body shadow">
                   <h4 class="card-title">Paga</h4>
@@ -97,6 +99,8 @@ export default {
           <div class="tab-pane" id="nauta-info">
 
           </div>
+          <Timeline></Timeline>
+          <Testimony></Testimony>
         </div>
       </div>
     </div>
