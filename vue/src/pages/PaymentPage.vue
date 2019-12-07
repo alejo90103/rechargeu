@@ -21,6 +21,7 @@ export default {
       ds_Signature: '',
       formClass: 'hidden',
       okOnly: true,
+      loading: false,
       redsys
     }
   },
@@ -46,6 +47,7 @@ export default {
         this.$toastr.e('Debes aceptar los términos y condiciones')
         return
       }
+      this.loading = true
       this.$store.dispatch('setRedsysPayment', this.rechargeStore.purchaseInfo.recharge_id)
         .then(response => {
           if (response.status === 200) {
@@ -56,6 +58,7 @@ export default {
               this.$refs.form.submit()
             }, 1000)
           } else {
+            this.loading = false
             this.$toastr.e('ERROR en la recarga :( ')
           }
         })
@@ -136,7 +139,13 @@ export default {
                     </b-form-checkbox>
 
                     <div class="row center" style="display: -webkit-box">
-                      <b-button variant="primary" @click="handleCard" href="#"><i class="fa fa-credit-card" style="margin-right: 5px;"></i><strong>Tarjeta</strong></b-button>
+                      <div v-if="loading">
+                        <b-button variant="primary" disabled @click="handleCard" href="#"><i v-show="loading" class="fa fa-circle-o-notch mr-1" style="font-size: inherit; vertical-align: unset;"></i><i class="fa fa-credit-card" style="margin-right: 5px;"></i><strong>Tarjeta</strong></b-button>
+                      </div>
+                      <div v-else>
+                        <b-button variant="primary" @click="handleCard" href="#"><i v-show="loading" class="fa fa-circle-o-notch mr-1" style="font-size: inherit; vertical-align: unset;"></i><i class="fa fa-credit-card" style="margin-right: 5px;"></i><strong>Tarjeta</strong></b-button>
+                      </div>
+
                       <!-- <b-button variant="primary" @click="handlePayPal" href="#"><i class="fa fa-paypal" style="margin-right: 5px;"></i><strong>PayPal</strong></b-button> -->
                     </div>
                   </b-jumbotron>
