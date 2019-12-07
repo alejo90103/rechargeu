@@ -61,10 +61,10 @@ class SettingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit()
     {
         $setting = Setting::first();
-    
+
         return view('settings.edit', compact('setting'));
     }
 

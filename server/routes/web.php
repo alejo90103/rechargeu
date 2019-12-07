@@ -53,8 +53,8 @@ Route::group(['middleware' => 'admin'], function () {
 
   Route::get('reports/users', 'ReportController@userRechange')->name('reports.users');
 
-  Route::get('settings/edit', 'SettingController@edit')->name('settings.eddit');
-  Route::put('settings/update', 'SettingController@update')->name('settings.update');
+  Route::get('settings/edit', 'SettingController@edit')->name('settings.edit');
+  Route::put('settings/update/{id}', 'SettingController@update')->name('settings.update');
 
 
 });

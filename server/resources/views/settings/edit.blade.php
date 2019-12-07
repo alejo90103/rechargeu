@@ -65,15 +65,14 @@
 												<h3 class="kt-subheader__title">
 													Editar Configuración </h3>
 											</div>
-                      
+
                   </div>
               </div>
               <div class="kt-container  kt-grid__item kt-grid__item--fluid">
                   <div class="alert alert-light alert-elevate" role="alert">
                       <div class="alert-icon"><i class="flaticon-warning kt-font-brand"></i></div>
                       <div class="alert-text">
-                          RowGroup adds this ability to DataTables with the ability to customise the start and end grouping rows displayed in the DataTable, letting you integrate the summarised data to fit perfectly in with your site.
-                          See official documentation <a class="kt-link kt-font-bold" href="https://datatables.net/extensions/rowgroup/" target="_blank">here</a>.
+                          Configuraciones para el correcto funcionamiento del sistema. <a class="kt-link kt-font-bold" href="https://codeals.es" target="_blank">here</a>.
                       </div>
                   </div>
                   <div class="kt-portlet kt-portlet--mobile">
@@ -83,7 +82,7 @@
                                   <i class="kt-font-brand flaticon2-bell"></i>
                               </span>
                               <h3 class="kt-portlet__head-title">
-                                  Modificar Oferta
+                                  Modificar Configuración
                               </h3>
                           </div>
 
@@ -111,83 +110,35 @@
 												<div class="kt-portlet__head">
 													<div class="kt-portlet__head-label">
 														<h3 class="kt-portlet__head-title">
-															Editar Oferta
+															Editar Configuración
 														</h3>
 													</div>
 												</div>
 												<!--begin::Form-->
-												<form class="kt-form kt-form--label-right" action="{{ route('offers.update', $offer->id) }}" method="post">
+												<form class="kt-form kt-form--label-right" action="{{ route('settings.update', $setting->id) }}" method="post">
 													<input type="hidden" name="_method" value="PUT">
                       		@csrf
-													<input type="hidden" name="id" value="{{$offer->id}}">
+													<input type="hidden" name="id" value="{{$setting->id}}">
 													<div class="kt-portlet__body">
 														<div class="form-group form-group-last">
-															<!-- <div class="alert alert-secondary" role="alert">
-																<div class="alert-icon"><i class="flaticon-warning kt-font-brand"></i></div>
-																<div class="alert-text">
-																	Here are examples of <code>.form-control</code> applied to each textual HTML5 input type:
-																</div>
-															</div> -->
+
 														</div>
 														<div class="form-group row">
-															<label for="example-text-input" class="col-2 col-form-label">Nombre Oferta</label>
+															<label for="example-text-input" class="col-2 col-form-label">Email App</label>
 															<div class="col-10">
-																<input class="form-control" name="name" type="text" value="{{$offer->name}}" id="example-text-input">
+																<input class="form-control" name="email" required type="text" value="{{$setting->email}}" id="example-text-input">
 															</div>
 														</div>
 														<div class="form-group row">
-															<label for="example-search-input" class="col-2 col-form-label">Tipo</label>
+															<label for="example-server_client" class="col-2 col-form-label">Dominio Cliente App</label>
 															<div class="col-10">
-																 {!! Form::select('type', $types, $offer->type, ['class' => 'form-control', 'id' => 'example-search-input']) !!}
-																<!-- <input class="form-control" type="search" value="How do I shoot web" id="example-search-input"> -->
-															</div>
-														</div>
-														<!-- <div class="form-group row">
-															<label for="example-tel-input" class="col-2 col-form-label">Celular</label>
-															<div class="col-10">
-																<input class="form-control" name="phone" type="tel" value="{{ old('phone') }}" id="example-tel-input">
+																<input class="form-control" required name="server_client" type="text" value="{{$setting->server_client}}" id="server_client">
 															</div>
 														</div>
 														<div class="form-group row">
-															<label for="example-email-input" class="col-2 col-form-label">Email</label>
+															<label for="example-date-input" class="col-2 col-form-label">Comisión %</label>
 															<div class="col-10">
-																<input class="form-control" name="phone" type="email" value="{{ old('email') }}" id="example-email-input">
-															</div>
-														</div> -->
-														<div class="form-group row">
-															<label for="example-datetime-local-input" class="col-2 col-form-label">Fecha Inicio</label>
-															<div class="col-10">
-																<input class="form-control" name="date_ini" type="date" value="{{$offer->date_ini}}" id="example-datetime-local-input">
-															</div>
-														</div>
-														<div class="form-group row">
-															<label for="example-date-input" class="col-2 col-form-label">Fecha Fin</label>
-															<div class="col-10">
-																<input class="form-control" name="date_end" type="date" value="{{$offer->date_end}}" id="example-date-input">
-															</div>
-														</div>
-														<div class="form-group row">
-															<label for="example-date-input" class="col-2 col-form-label">Fecha Explira</label>
-															<div class="col-10">
-																<input class="form-control" name="date_expire" type="date" value="{{$offer->date_expire}}" id="example-date-input">
-															</div>
-														</div>
-														<div class="form-group row">
-															<label for="example-date-input" class="col-2 col-form-label">Precio a Pagar</label>
-															<div class="col-10">
-																<input class="form-control" name="price_pay" type="text" value="{{$offer->price_pay}}" id="example-date-input">
-															</div>
-														</div>
-														<div class="form-group row">
-															<label for="example-date-input" class="col-2 col-form-label">Monto a Recargar</label>
-															<div class="col-10">
-																<input class="form-control" name="recharge_amount" type="text" value="{{$offer->recharge_amount}}" id="example-date-input">
-															</div>
-														</div>
-														<div class="form-group row">
-															<label for="example-date-input" class="col-2 col-form-label">Descripción de Oferta</label>
-															<div class="col-10">
-																<input class="form-control" name="receive" type="text" value="{{$offer->receive}}" id="example-date-input">
+																<input class="form-control" name="commission" required type="text" value="{{$setting->commission}}" id="example-commission">
 															</div>
 														</div>
 													</div>
