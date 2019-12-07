@@ -128,7 +128,7 @@
               <!--begin:: Widgets/Daily Sales-->
               <div class="kt-portlet kt-portlet--height-fluid">
                 <div class="kt-widget14">
-                  <div class="kt-widget14__header kt-margin-b-30">
+                  <div class="kt-widget14__header">
                     <h3 class="kt-widget14__title">
                       Recargas por mes
                     </h3>
@@ -618,7 +618,7 @@
                 var chartData = {
                     labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
                     datasets: [{
-                        //label: 'Dataset 1',
+                        label: 'Con Ofertas',
                         backgroundColor: KTApp.getStateColor('success'),
                         data: [
                             <?php
@@ -628,7 +628,7 @@
                             ?>
                         ]
                     }, {
-                        //label: 'Dataset 2',
+                        label: 'Sin Ofertas',
                         backgroundColor: '#f3f3fb',
                         // backgroundColor: KTApp.getStateColor('brand'),
                         data: [
@@ -656,7 +656,8 @@
                             caretPadding: 5
                         },
                         legend: {
-                            display: false
+                            display: true,
+                            position: 'bottom',
                         },
                         responsive: true,
                         maintainAspectRatio: false,
