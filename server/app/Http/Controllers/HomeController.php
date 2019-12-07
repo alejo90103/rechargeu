@@ -3,7 +3,7 @@
 # @Date:   21-11-2019
 # @Email:  ian@codeals.es
 # @Last modified by:   Codeals
-# @Last modified time: 06-12-2019
+# @Last modified time: 07-12-2019
 # @Copyright: Codeals
 
 namespace App\Http\Controllers;
@@ -252,8 +252,80 @@ class HomeController extends Controller
                       ->where('offers.ads', '=', 0)
                       ->get());
 
-        // ganancias generales
+        // ganancias generales y por mes
         $year[2] = Recharge::join('contact_recharges', 'contact_recharges.recharge_id', '=', 'recharges.id')
+                    ->where('recharges.status', '=', 'Accepted')
+                    ->where('contact_recharges.is_deleted', '=', 0)
+                    ->sum('recharges.price_pay');
+
+        $year[5][0] = Recharge::join('contact_recharges', 'contact_recharges.recharge_id', '=', 'recharges.id')
+                    ->where('recharges.created_at', 'like', $date_year.'-01-'.'%')
+                    ->where('recharges.status', '=', 'Accepted')
+                    ->where('contact_recharges.is_deleted', '=', 0)
+                    ->sum('recharges.price_pay');
+
+        $year[5][1] = Recharge::join('contact_recharges', 'contact_recharges.recharge_id', '=', 'recharges.id')
+                    ->where('recharges.created_at', 'like', $date_year.'-02-'.'%')
+                    ->where('recharges.status', '=', 'Accepted')
+                    ->where('contact_recharges.is_deleted', '=', 0)
+                    ->sum('recharges.price_pay');
+
+        $year[5][2] = Recharge::join('contact_recharges', 'contact_recharges.recharge_id', '=', 'recharges.id')
+                    ->where('recharges.created_at', 'like', $date_year.'-03-'.'%')
+                    ->where('recharges.status', '=', 'Accepted')
+                    ->where('contact_recharges.is_deleted', '=', 0)
+                    ->sum('recharges.price_pay');
+
+        $year[5][3] = Recharge::join('contact_recharges', 'contact_recharges.recharge_id', '=', 'recharges.id')
+                    ->where('recharges.created_at', 'like', $date_year.'-04-'.'%')
+                    ->where('recharges.status', '=', 'Accepted')
+                    ->where('contact_recharges.is_deleted', '=', 0)
+                    ->sum('recharges.price_pay');
+
+        $year[5][4] = Recharge::join('contact_recharges', 'contact_recharges.recharge_id', '=', 'recharges.id')
+                    ->where('recharges.created_at', 'like', $date_year.'-05-'.'%')
+                    ->where('recharges.status', '=', 'Accepted')
+                    ->where('contact_recharges.is_deleted', '=', 0)
+                    ->sum('recharges.price_pay');
+
+        $year[5][5] = Recharge::join('contact_recharges', 'contact_recharges.recharge_id', '=', 'recharges.id')
+                    ->where('recharges.created_at', 'like', $date_year.'-06-'.'%')
+                    ->where('recharges.status', '=', 'Accepted')
+                    ->where('contact_recharges.is_deleted', '=', 0)
+                    ->sum('recharges.price_pay');
+
+        $year[5][6] = Recharge::join('contact_recharges', 'contact_recharges.recharge_id', '=', 'recharges.id')
+                    ->where('recharges.created_at', 'like', $date_year.'-07-'.'%')
+                    ->where('recharges.status', '=', 'Accepted')
+                    ->where('contact_recharges.is_deleted', '=', 0)
+                    ->sum('recharges.price_pay');
+
+        $year[5][7] = Recharge::join('contact_recharges', 'contact_recharges.recharge_id', '=', 'recharges.id')
+                    ->where('recharges.created_at', 'like', $date_year.'-08-'.'%')
+                    ->where('recharges.status', '=', 'Accepted')
+                    ->where('contact_recharges.is_deleted', '=', 0)
+                    ->sum('recharges.price_pay');
+
+        $year[5][8] = Recharge::join('contact_recharges', 'contact_recharges.recharge_id', '=', 'recharges.id')
+                    ->where('recharges.created_at', 'like', $date_year.'-09-'.'%')
+                    ->where('recharges.status', '=', 'Accepted')
+                    ->where('contact_recharges.is_deleted', '=', 0)
+                    ->sum('recharges.price_pay');
+
+        $year[5][9] = Recharge::join('contact_recharges', 'contact_recharges.recharge_id', '=', 'recharges.id')
+                    ->where('recharges.created_at', 'like', $date_year.'-10-'.'%')
+                    ->where('recharges.status', '=', 'Accepted')
+                    ->where('contact_recharges.is_deleted', '=', 0)
+                    ->sum('recharges.price_pay');
+
+        $year[5][10] = Recharge::join('contact_recharges', 'contact_recharges.recharge_id', '=', 'recharges.id')
+                    ->where('recharges.created_at', 'like', $date_year.'-11-'.'%')
+                    ->where('recharges.status', '=', 'Accepted')
+                    ->where('contact_recharges.is_deleted', '=', 0)
+                    ->sum('recharges.price_pay');
+
+        $year[5][11] = Recharge::join('contact_recharges', 'contact_recharges.recharge_id', '=', 'recharges.id')
+                    ->where('recharges.created_at', 'like', $date_year.'-12-'.'%')
                     ->where('recharges.status', '=', 'Accepted')
                     ->where('contact_recharges.is_deleted', '=', 0)
                     ->sum('recharges.price_pay');

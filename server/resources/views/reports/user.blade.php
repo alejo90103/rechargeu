@@ -3,7 +3,7 @@
 # @Date:   05-12-2019
 # @Email:  ian@codeals.es
 # @Last modified by:   Codeals
-# @Last modified time: 05-12-2019
+# @Last modified time: 07-12-2019
 # @Copyright: Codeals
 -->
 
@@ -82,22 +82,13 @@ License: You must have a valid license purchased only from themeforest(the above
         <div class="kt-container ">
 			<div class="kt-subheader__main">
 				<h3 class="kt-subheader__title">
-					RowGroup Examples </h3>
+					Recargas por Cliente </h3>
 				<span class="kt-subheader__separator kt-hidden"></span>
 				<div class="kt-subheader__breadcrumbs">
-					<a href="#" class="kt-subheader__breadcrumbs-home"><i class="flaticon2-shelter"></i></a>
+					<a href="{{ route('/') }}" class="kt-subheader__breadcrumbs-home"><i class="flaticon2-shelter"></i></a>
 					<span class="kt-subheader__breadcrumbs-separator"></span>
 					<a href="" class="kt-subheader__breadcrumbs-link">
-						Crud </a>
-					<span class="kt-subheader__breadcrumbs-separator"></span>
-					<a href="" class="kt-subheader__breadcrumbs-link">
-						Datatables.net </a>
-					<span class="kt-subheader__breadcrumbs-separator"></span>
-					<a href="" class="kt-subheader__breadcrumbs-link">
-						Extensions </a>
-					<span class="kt-subheader__breadcrumbs-separator"></span>
-					<a href="" class="kt-subheader__breadcrumbs-link">
-						RowGroup </a>
+						Dashboard </a>
 
 					<!-- <span class="kt-subheader__breadcrumbs-link kt-subheader__breadcrumbs-link--active">Active link</span> -->
 				</div>
@@ -245,10 +236,10 @@ License: You must have a valid license purchased only from themeforest(the above
 								</div>
 							</div>
 							&nbsp;
-							<a href="#" class="btn btn-brand btn-elevate btn-icon-sm">
+							<!-- <a href="#" class="btn btn-brand btn-elevate btn-icon-sm">
 								<i class="la la-plus"></i>
 								New Record
-							</a>
+							</a> -->
 						</div>
 					</div>
 				</div>

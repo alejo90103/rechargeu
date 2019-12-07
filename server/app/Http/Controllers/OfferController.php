@@ -3,7 +3,7 @@
 # @Date:   22-11-2019
 # @Email:  ian@codeals.es
 # @Last modified by:   Codeals
-# @Last modified time: 24-11-2019
+# @Last modified time: 07-12-2019
 # @Copyright: Codeals
 
 namespace App\Http\Controllers;
@@ -133,7 +133,7 @@ class OfferController extends Controller
     public function allOffer()
     {
         //  aqui se formo la cosa, redsys y recojo y dingconnect
-        $data = Offer::all();
+        $data = Offer::where('is_deleted', '=', 0)->get();
         return response(['data' => $data], 200);
     }
 

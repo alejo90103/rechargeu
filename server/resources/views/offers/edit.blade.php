@@ -3,7 +3,7 @@
 # @Date:   20-06-2019
 # @Email:  ian@codeals.es
 # @Last modified by:   Codeals
-# @Last modified time: 23-11-2019
+# @Last modified time: 07-12-2019
 # @Copyright: Codeals
 -->
 
@@ -53,17 +53,16 @@
               <div class="kt-subheader   kt-grid__item" id="kt_subheader">
                   <div class="kt-container ">
                       <div class="kt-subheader__main">
-
-                          <h3 class="kt-subheader__title">RowGroup Examples</h3>
-
-                          <span class="kt-subheader__separator kt-subheader__separator--v"></span>
-
-                          <span class="kt-subheader__desc">#XRS-45670</span>
-
-                          <a href="#" class="btn btn-label-primary btn-bold btn-icon-h kt-margin-l-10">
-                              Add New
-                          </a>
-                      </div>
+												<h3 class="kt-subheader__title">
+													Editar Oferta </h3>
+												<span class="kt-subheader__separator kt-hidden"></span>
+												<div class="kt-subheader__breadcrumbs">
+													<span class="kt-subheader__breadcrumbs-separator"></span>
+													<a href="{{ route('offers.index') }}" class="kt-subheader__breadcrumbs-link">
+														Listar Ofertas </a>
+													<!-- <span class="kt-subheader__breadcrumbs-link kt-subheader__breadcrumbs-link--active">Active link</span> -->
+												</div>
+											</div>
                       <div class="kt-subheader__toolbar">
                           <div class="kt-subheader__wrapper">
                               <a href="#" class="btn kt-subheader__btn-primary">
