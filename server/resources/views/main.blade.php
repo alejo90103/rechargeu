@@ -259,7 +259,7 @@
 
 
                       </div>
-                      <div class="kt-widget12__chart" style="height:450px;">
+                      <div class="kt-widget12__chart" style="height:200px;">
                           <!-- <canvas id="kt_chart_order_statistics"></canvas> -->
                         <canvas id="kt_chart_rechargePerMonth"></canvas>
                       </div>
@@ -273,7 +273,7 @@
               <div class="col-xl-4">
 
                 <!--begin:: Widgets/Inbound Bandwidth-->
-                <div class="kt-portlet kt-portlet--fit kt-portlet--head-noborder kt-portlet--height-fluid-half">
+                <div class="kt-portlet kt-portlet--fit kt-portlet--head-noborder ">
                   <div class="kt-portlet__head kt-portlet__space-x">
                     <div class="kt-portlet__head-label">
                       <h3 class="kt-portlet__head-title">
@@ -326,7 +326,7 @@
                         <span class="kt-widget20__number kt-font-brand">670+</span>
                         <span class="kt-widget20__desc">Successful transactions</span>
                       </div>
-                      <div class="kt-widget20__chart" style="height:130px;">
+                      <div class="kt-widget20__chart" style="height:180px;">
                         <canvas id="kt_chart_bandwidth1"></canvas>
                       </div>
                     </div>
@@ -334,10 +334,10 @@
                 </div>
 
                 <!--end:: Widgets/Inbound Bandwidth-->
-                <div class="kt-space-20"></div>
+                <!-- <div class="kt-space-20"></div> -->
 
                 <!--begin:: Widgets/Outbound Bandwidth-->
-                <div class="kt-portlet kt-portlet--fit kt-portlet--head-noborder kt-portlet--height-fluid-half">
+                <!-- <div class="kt-portlet kt-portlet--fit kt-portlet--head-noborder kt-portlet--height-fluid-half">
                   <div class="kt-portlet__head kt-portlet__space-x">
                     <div class="kt-portlet__head-label">
                       <h3 class="kt-portlet__head-title">
@@ -395,7 +395,7 @@
                       </div>
                     </div>
                   </div>
-                </div>
+                </div> -->
 
                 <!--end:: Widgets/Outbound Bandwidth-->
               </div>
@@ -668,7 +668,7 @@
                                 stacked: true
                             }],
                             yAxes: [{
-                                display: true,
+                                display: false,
                                 stacked: true,
                                 gridLines: true
                             }]
