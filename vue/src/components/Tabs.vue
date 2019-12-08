@@ -17,8 +17,8 @@ export default {
     return {
       type: 'cell',
       cell: {
-        name: 'Alejandro',
-        phone: '52709490',
+        name: '',
+        phone: '',
         offer_id: '',
         call: 'rechargeCell'
       },

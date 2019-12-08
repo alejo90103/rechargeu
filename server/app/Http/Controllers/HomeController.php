@@ -53,18 +53,18 @@ class HomeController extends Controller
     public static function dashboardChart($date_year)
     {
 
-        $year[0][0] = count(DB::table('recharges')->where('created_at', 'like', $date_year.'-01-'.'%')->get());
-        $year[0][1] = count(DB::table('recharges')->where('created_at', 'like', $date_year.'-02-'.'%')->get());
-        $year[0][2] = count(DB::table('recharges')->where('created_at', 'like', $date_year.'-03-'.'%')->get());
-        $year[0][3] = count(DB::table('recharges')->where('created_at', 'like', $date_year.'-04-'.'%')->get());
-        $year[0][4] = count(DB::table('recharges')->where('created_at', 'like', $date_year.'-05-'.'%')->get());
-        $year[0][5] = count(DB::table('recharges')->where('created_at', 'like', $date_year.'-06-'.'%')->get());
-        $year[0][6] = count(DB::table('recharges')->where('created_at', 'like', $date_year.'-07-'.'%')->get());
-        $year[0][7] = count(DB::table('recharges')->where('created_at', 'like', $date_year.'-08-'.'%')->get());
-        $year[0][8] = count(DB::table('recharges')->where('created_at', 'like', $date_year.'-09-'.'%')->get());
-        $year[0][9] = count(DB::table('recharges')->where('created_at', 'like', $date_year.'-10-'.'%')->get());
-        $year[0][10] = count(DB::table('recharges')->where('created_at', 'like', $date_year.'-11-'.'%')->get());
-        $year[0][11] = count(DB::table('recharges')->where('created_at', 'like', $date_year.'-12-'.'%')->get());
+        $year[0][0] = count(DB::table('recharges')->where('status', '=', 'Accepted')->where('created_at', 'like', $date_year.'-01-'.'%')->get());
+        $year[0][1] = count(DB::table('recharges')->where('status', '=', 'Accepted')->where('created_at', 'like', $date_year.'-02-'.'%')->get());
+        $year[0][2] = count(DB::table('recharges')->where('status', '=', 'Accepted')->where('created_at', 'like', $date_year.'-03-'.'%')->get());
+        $year[0][3] = count(DB::table('recharges')->where('status', '=', 'Accepted')->where('created_at', 'like', $date_year.'-04-'.'%')->get());
+        $year[0][4] = count(DB::table('recharges')->where('status', '=', 'Accepted')->where('created_at', 'like', $date_year.'-05-'.'%')->get());
+        $year[0][5] = count(DB::table('recharges')->where('status', '=', 'Accepted')->where('created_at', 'like', $date_year.'-06-'.'%')->get());
+        $year[0][6] = count(DB::table('recharges')->where('status', '=', 'Accepted')->where('created_at', 'like', $date_year.'-07-'.'%')->get());
+        $year[0][7] = count(DB::table('recharges')->where('status', '=', 'Accepted')->where('created_at', 'like', $date_year.'-08-'.'%')->get());
+        $year[0][8] = count(DB::table('recharges')->where('status', '=', 'Accepted')->where('created_at', 'like', $date_year.'-09-'.'%')->get());
+        $year[0][9] = count(DB::table('recharges')->where('status', '=', 'Accepted')->where('created_at', 'like', $date_year.'-10-'.'%')->get());
+        $year[0][10] = count(DB::table('recharges')->where('status', '=', 'Accepted')->where('created_at', 'like', $date_year.'-11-'.'%')->get());
+        $year[0][11] = count(DB::table('recharges')->where('status', '=', 'Accepted')->where('created_at', 'like', $date_year.'-12-'.'%')->get());
 
 
         // $year[1][0] = count(DB::table('recharges')->where('created_at', 'like', $date_year.'-01-'.'%')->where('is_engine', '=', 1)->get());

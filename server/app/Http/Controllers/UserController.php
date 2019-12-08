@@ -180,9 +180,14 @@ class UserController extends Controller
     {
         $data = $request->all();
 
+        $user = User::where('email', '=', $request->input('email'))->first();
+
+        if ($user) return response(['data' => 'Este usuario ya existe'], 430);
+
+
         $data['password'] = Hash::make($request->input('password'));
         $data['admin'] = 0;
-        $data['status'] = 0;
+        $data['status'] = 1;
 
         $user = User::create($data);
         $newUser = User::where('id', $user->id)->first();
@@ -191,13 +196,13 @@ class UserController extends Controller
             return response(['data' => 'Something wrong :('], 500);
         }
 
-        $token = Token::create([
-            'user_id' => $newUser->id,
-            'token' => uniqid(),
-            'expire_at' => Carbon::now()->addHour(),
-        ]);
-
-        Mail::to($newUser)->send(new RegisterUser($token, $request));
+        // $token = Token::create([
+        //     'user_id' => $newUser->id,
+        //     'token' => uniqid(),
+        //     'expire_at' => Carbon::now()->addHour(),
+        // ]);
+        //
+        // Mail::to($newUser)->send(new RegisterUser($token, $request));
 
         return response(['data' => 'Email sent.'], 201);
     }

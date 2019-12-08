@@ -9,7 +9,7 @@
 
 <script>
 
-import {loginUrl, userUrl, getHeader} from './../config'
+import {loginUrl, registerUserUrl, userUrl, getHeader, apiClient} from './../config'
 import {clientId, clientSecret} from './../env'
 import {mapState} from 'vuex'
 
@@ -17,15 +17,16 @@ export default {
   data () {
     return {
       login: {
-        email: 'iankamisama@gmail.com',
-        password: '123123'
+        email: 'i',
+        password: ''
       },
       register: {
-        name: 'Alejandro',
-        email: 'alejo901003@hotmail.com',
-        password: '123456',
-        confirm: '123456'
-      }
+        name: '',
+        email: '',
+        password: '',
+        confirm: ''
+      },
+      loading: false
     }
   },
   computed: {
@@ -48,6 +49,7 @@ export default {
       }
 
       const authUser = {}
+      this.loading = true
       this.$http.post(loginUrl, postData)
         .then(response => {
           if (response.status === 200) {
@@ -62,25 +64,114 @@ export default {
                 authUser.name = response.body.name
                 window.localStorage.setItem('authUser', JSON.stringify(authUser))
                 this.$store.dispatch('setUserObject', authUser)
+                this.loading = false
                 $('#exampleModal').modal('hide')
                 console.log(this.rechargeStore.recharge.call)
                 this.$store.dispatch(this.rechargeStore.recharge.call)
                   .then(response => {
                     if (response.status === 201) {
-                      // this.$toastr.s('Recarga realizada correctamente')
                       this.$router.push({name: 'payment'})
                     } else {
                       this.$toastr.e('ERROR en la recarga :( ')
                       this.$router.push({name: 'dashboard'})
                     }
                   })
-                // this.$router.push({name: 'home'})
               })
+              .catch(response => {
+                window.localStorage.removeItem('authUser')
+                if (response.status === 404) {
+                  this.loading = false
+                  this.$toastr.e('Active la cuenta en su correo')
+                }
+              })
+          }
+        })
+        .catch(response => {
+          this.loading = false
+          if (response.status === 401) {
+            this.$toastr.e('Usuario o contraseña incorrecto')
           }
         })
     },
     handleRegisterFormSubmit () {
+      if (this.register.password !== this.register.confirm) {
+        this.$toastr.e('Contraseñas no coinciden')
+        return
+      }
 
+      var postDataRegister = {
+        name: this.register.name,
+        email: this.register.email,
+        password: this.register.password,
+        url: apiClient
+      }
+
+      this.loading = true
+      this.$http.post(registerUserUrl, postDataRegister)
+        .then(response => {
+          console.log('response', response)
+          this.$toastr.s('Ha sido registrado con éxito')
+
+          const postDataLogin = {
+            grant_type: 'password',
+            client_id: clientId,
+            client_secret: clientSecret,
+            username: this.register.email,
+            password: this.register.password,
+            scope: ''
+          }
+
+          const authUser = {}
+          this.$http.post(loginUrl, postDataLogin)
+            .then(response => {
+              if (response.status === 200) {
+                console.log('Oauth token', response)
+                authUser.access_token = response.data.access_token
+                authUser.refresh_token = response.data.refresh_token
+                window.localStorage.setItem('authUser', JSON.stringify(authUser))
+                this.$http.get(userUrl, {headers: getHeader()})
+                  .then(response => {
+                    console.log('user object', response)
+                    authUser.email = response.body.email
+                    authUser.name = response.body.name
+                    window.localStorage.setItem('authUser', JSON.stringify(authUser))
+                    this.$store.dispatch('setUserObject', authUser)
+                    this.loading = false
+                    $('#exampleModal').modal('hide')
+                    console.log(this.rechargeStore.recharge.call)
+                    this.$store.dispatch(this.rechargeStore.recharge.call)
+                      .then(response => {
+                        if (response.status === 201) {
+                          this.$router.push({name: 'payment'})
+                        } else {
+                          this.$toastr.e('ERROR en la recarga :( ')
+                          this.$router.push({name: 'dashboard'})
+                        }
+                      })
+                  })
+                  .catch(response => {
+                    window.localStorage.removeItem('authUser')
+                    if (response.status === 404) {
+                      this.loading = false
+                      this.$toastr.e('Active la cuenta en su correo')
+                    }
+                  })
+              }
+            })
+            .catch(response => {
+              this.loading = false
+              if (response.status === 401) {
+                this.$toastr.e('Usuario o contraseña incorrecto')
+              }
+            })
+        }).catch(response => {
+          this.loading = false
+          console.log('response', response)
+          if (response.status === 430) {
+            this.$toastr.e('Este usuario ya existe')
+          }
+          // this.$toastr.e(`${response.data}`)
+        })
     }
   }
 }
@@ -163,7 +254,7 @@ export default {
                            <router-link :to="{name: 'register-user'}" class="register">Register</router-link>
                         </div> -->
                         <div class="footer text-center">
-                          <div @click="handleLoginFormSubmit" class="btn btn-primary  btn-lg">Iniciar Sesión</div>
+                          <div @click="handleLoginFormSubmit" class="btn btn-primary btn-link btn-wd btn-lg"><i v-show="loading" class="fa fa-circle-o-notch mr-1" style="font-size: inherit; vertical-align: unset;"></i>Iniciar Sesión</div>
                         </div>
                       </form>
                     </div>
@@ -214,8 +305,9 @@ export default {
                             <input type="password" v-model="register.confirm" class="form-control" placeholder="Confirmar Contraseña">
                           </div>
                         </div>
+
                         <div class="footer text-center">
-                          <div @click="handleRegisterFormSubmit" class="btn btn-primary btn-link btn-wd btn-lg">Registrarse</div>
+                          <div @click="handleRegisterFormSubmit" class="btn btn-primary btn-link btn-wd btn-lg"><i v-show="loading" class="fa fa-circle-o-notch mr-1" style="font-size: inherit; vertical-align: unset;"></i>Registrarse</div>
                         </div>
                       </form>
                     </div>

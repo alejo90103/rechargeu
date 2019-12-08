@@ -24,8 +24,8 @@ export default {
       clientFacebook: clientFacebook,
       login: {
         name: '',
-        email: 'iankamisama@gmail.com',
-        password: '123456'
+        email: '',
+        password: ''
       },
       params: {
         client_id: clientGoogle
@@ -156,7 +156,7 @@ export default {
               <form class="form" >
                 <div class="card-header card-header-primary text-center">
                   <h4 class="card-title">Login</h4>
-                  <pre>{{isConnected}}</pre>
+                  <!-- <pre>{{isConnected}}</pre> -->
                   <div class="social-line">
                     <a href="#pablo" class="btn btn-just-icon btn-link">
                       <i class="fa fa-facebook-square"></i>

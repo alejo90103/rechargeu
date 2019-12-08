@@ -26,7 +26,7 @@ export default {
     }
   },
   created () {
-    this.$store.dispatch('setTopMenu', false)
+    this.$store.dispatch('setTopMenu', true)
     this.$store.dispatch('setBanner', false)
   },
   computed: {

@@ -16,10 +16,10 @@ export default {
   data () {
     return {
       user: {
-        name: 'Alejandro',
-        email: 'alejo901003@hotmail.com',
-        password: '123123',
-        confirm_password: '123123'
+        name: '',
+        email: '',
+        password: '',
+        confirm_password: ''
       },
       loading: false
     }
@@ -42,12 +42,14 @@ export default {
       this.$http.post(registerUserUrl, postData).then(response => {
         console.log('response', response)
         this.loading = false
-        this.$toastr.s('Le enviamos un correo para que active su cuenta')
+        this.$toastr.s('Ha sido registrado con éxito')
         this.$router.push({name: 'login'})
       }).catch(response => {
         this.loading = false
         console.log('response', response)
-        this.$toastr.e(`${response.data}`)
+        if (response.status === 430) {
+          this.$toastr.e('Este usuario ya existe')
+        }
       })
     }
   }
