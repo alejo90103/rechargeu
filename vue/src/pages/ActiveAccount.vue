@@ -56,7 +56,9 @@ export default {
 }
 </script>
 
+<!--
 <style lang="sass">
   .ResetPassword__Wrapper
     margin-top: 50px
 </style>
+-->
