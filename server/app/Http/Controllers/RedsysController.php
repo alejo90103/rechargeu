@@ -49,9 +49,9 @@ class RedsysController extends Controller
     		$moneda="978";
     		$trans="0";
 
-            $url="http://127.0.0.1:8000/api/response-redsys/response/".$payment->token;
-  			$urlOK="http://127.0.0.1:8000/api/response-redsys/ok/".$payment->token;
-  			$urlKO="http://127.0.0.1:8000/api/response-redsys/ko/".$payment->token;
+        $url="https://adminrecharge.codeals.es/api/response-redsys/response/".$payment->token;
+  			$urlOK="https://adminrecharge.codeals.es/api/response-redsys/ok/".$payment->token;
+  			$urlKO="https://adminrecharge.codeals.es/api/response-redsys/ko/".$payment->token;
 
     		//estos dos valores los vamos cambiando en cada ejemplo
             $ids = rand(10,1000);
@@ -116,14 +116,16 @@ class RedsysController extends Controller
           $recharge->save();
           $payment->is_payment = 1;
           $payment->save();
-          $urlBack = Setting::first()->server_client;
-    			return Redirect::to($urlBack."dashboard/success");
+          // $urlBack = Setting::first()->server_client;
+    			// return Redirect::to($urlBack."dashboard/success");
+    			return Redirect::to("http://localhost:8080/dashboard/success");
         } else {
           //
           $recharge->status = "Denied";
           $recharge->save();
-          $urlBack = Setting::first()->server_client;
-          return Redirect::to($urlBack."dashboard/failedDing");
+          // $urlBack = Setting::first()->server_client;
+          // return Redirect::to($urlBack."dashboard/failedDing");
+          return Redirect::to("http://localhost:8080/dashboard/failedDing");
         }
     }
 
@@ -137,8 +139,9 @@ class RedsysController extends Controller
         $recharge->status = "Cancel";
         $recharge->save();
 
-        $urlBack = Setting::first()->server_client;
-        return Redirect::to($urlBack."dashboard/failed");
+        // $urlBack = Setting::first()->server_client;
+        // return Redirect::to($urlBack."dashboard/failed");
+        return Redirect::to("http://localhost:8080/dashboard/failed");
     }
 
     // Send a transfer to an account
