@@ -122,7 +122,7 @@ export default {
 
                     <hr class="my-4">
 
-                    <div class="row center" style="display: -webkit-box">
+                    <div class="row center">
                       <b-badge variant="success"><h2 style="margin-top: 10px;"> <strong> Total: {{ rechargeStore.purchaseInfo.amount }} € </strong> </h2></b-badge>
                     </div>
 
@@ -138,7 +138,7 @@ export default {
                       <p style="color: rgba(0, 0, 0, 0.87);">Acepta los <a href="#" v-b-modal.modal-scrollable >términos y condiciones</a></p>
                     </b-form-checkbox>
 
-                    <div class="row center" style="display: -webkit-box">
+                    <div class="row center">
                       <div v-if="loading">
                         <b-button variant="primary" disabled @click="handleCard" href="#"><i v-show="loading" class="fa fa-circle-o-notch mr-1" style="font-size: inherit; vertical-align: unset;"></i><i class="fa fa-credit-card" style="margin-right: 5px;"></i><strong>Tarjeta</strong></b-button>
                       </div>
