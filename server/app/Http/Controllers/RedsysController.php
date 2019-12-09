@@ -13,6 +13,7 @@ use App\Offer;
 use App\Payment;
 use App\Recharge;
 use App\ContactRecharge;
+use App\Setting;
 use App\Http\Controllers\RedsysAPI;
 use Illuminate\Support\Facades\Redirect;
 
@@ -115,12 +116,14 @@ class RedsysController extends Controller
           $recharge->save();
           $payment->is_payment = 1;
           $payment->save();
-    			return Redirect::to("http://localhost:8080/dashboard/success");
+          $urlBack = Setting::first()->server_client;
+    			return Redirect::to($urlBack."dashboard/success");
         } else {
           //
           $recharge->status = "Denied";
           $recharge->save();
-          return Redirect::to("http://localhost:8080/dashboard/failedDing");
+          $urlBack = Setting::first()->server_client;
+          return Redirect::to($urlBack."dashboard/failedDing");
         }
     }
 
@@ -134,7 +137,8 @@ class RedsysController extends Controller
         $recharge->status = "Cancel";
         $recharge->save();
 
-        return Redirect::to("http://localhost:8080/dashboard/failed");
+        $urlBack = Setting::first()->server_client;
+        return Redirect::to($urlBack."dashboard/failed");
     }
 
     // Send a transfer to an account
