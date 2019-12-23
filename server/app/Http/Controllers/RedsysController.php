@@ -54,7 +54,7 @@ class RedsysController extends Controller
   			$urlKO="https://adminrecharge.codeals.es/api/response-redsys/ko/".$payment->token;
 
     		//estos dos valores los vamos cambiando en cada ejemplo
-            $ids = rand(10,1000);
+        $ids = rand(10,1000);
     		$id=$payment->id.'-'.$ids;//el valor que le damos en cada ejemplo
 
     		$amount=floor($amount * 100);//el valor que le damos en cada ejemplo

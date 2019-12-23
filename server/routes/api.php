@@ -36,6 +36,12 @@ Route::post('response-redsys/response/{token}', 'RedsysController@response');
 Route::post('response-redsys/ok/{token}', 'RedsysController@responseOk');
 Route::get('response-redsys/ko/{token}', 'RedsysController@responseKo');
 
+// Después de realizar el pago Paypal redirecciona a esta ruta
+Route::get('payment/status/{token}', array(
+	'as' => 'payment.status',
+	'uses' => 'PaypalController@getPaymentStatus',
+));
+
 Route::middleware('auth:api')->get('/user', function (Request $request) {
 	if ($request->user()->status == 1) {
 		return $request->user();
@@ -63,7 +69,13 @@ Route::group(['prefix' => 'v1', 'middleware' => 'auth:api'], function () {
     Route::post('contact-delete', 'ContactController@deleteContact');
 
     /*paymant url*/
-    Route::post('pay-paypal', 'PaypalController@index');
+    Route::post('pay-paypal', 'PaypalController@postPayment');
     Route::post('pay-redsys', 'RedsysController@index');
+
+    // PayPal
+    // Route::post('payment', array(
+    // 	'as' => 'payment',
+    // 	'uses' => 'PaypalController@postPayment',
+    // ));
 
 });

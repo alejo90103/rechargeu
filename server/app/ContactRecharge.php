@@ -99,8 +99,13 @@ class ContactRecharge extends Model
         return User::where('id', $this->user_id)->first();
     }
 
-    public function getOfferAttribute()
+    public function getRechargeAttribute()
     {
-        return Offer::where('id', $this->user_id)->first();
+        return Recharge::where('id', $this->recharge_id)->first();
+    }
+
+    public function getContactAttribute()
+    {
+        return Contact::where('id', $this->contact_id)->first();
     }
 }

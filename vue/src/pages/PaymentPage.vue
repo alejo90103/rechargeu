@@ -22,7 +22,8 @@ export default {
       formClass: 'hidden',
       okOnly: true,
       loading: false,
-      redsys
+      redsys,
+      paypalUrl: ''
     }
   },
   created () {
@@ -71,8 +72,13 @@ export default {
       this.$store.dispatch('setPayPalPayment', this.rechargeStore.purchaseInfo.recharge_id)
         .then(response => {
           if (response.status === 200) {
-            this.$toastr.s('Recarga realizada correctamente PAYPAL')
+            // this.$toastr.s('Recarga realizada correctamente PAYPAL')
             // this.$router.push({name: 'payment'})
+            this.paypalUrl = response.data.data
+            console.log(this.paypalUrl)
+            setTimeout(() => {
+              // this.$refs.formPaypal.submit()
+            }, 1000)
           } else {
             this.$toastr.e('ERROR en la recarga :( ')
           }
@@ -146,7 +152,9 @@ export default {
                         <b-button variant="primary" @click="handleCard" href="#"><i v-show="loading" class="fa fa-circle-o-notch mr-1" style="font-size: inherit; vertical-align: unset;"></i><i class="fa fa-credit-card" style="margin-right: 5px;"></i><strong>Tarjeta</strong></b-button>
                       </div>
 
-                      <!-- <b-button variant="primary" @click="handlePayPal" href="#"><i class="fa fa-paypal" style="margin-right: 5px;"></i><strong>PayPal</strong></b-button> -->
+                      <form ref="formPaypal" :action="paypalUrl" method="post">
+                        <b-button variant="primary" @click="handlePayPal" href="#"><i class="fa fa-paypal" style="margin-right: 5px;"></i><strong>PayPal</strong></b-button>
+                      </form>
                     </div>
                   </b-jumbotron>
                 </div>
