@@ -186,7 +186,6 @@ export default {
 
 <template>
   <div>
-    <Top-Menu></Top-Menu>
     <div class="page-header header-filter clear-filter purple-filter trans" data-parallax="true" :style="{'background-image': 'url(' + require('./../assets/material/img/bg2.jpg') + ')'}" style="transform: translate3d(0px, 0px, 0px); height: 20vh;">
     </div>
     <div class="main main-raised" id="dashboard-wrapper">
@@ -196,62 +195,6 @@ export default {
           <!-- User Interface controls -->
           <b-button variant="primary" v-b-modal.addModal style="float: right; margin-bottom: 25px;">Agregar</b-button>
           <b-row>
-            <!-- <b-col lg="6" class="my-1">
-              <b-form-group
-                label="Sort"
-                label-cols-sm="3"
-                label-align-sm="right"
-                label-size="sm"
-                label-for="sortBySelect"
-                class="mb-0"
-              >
-                <b-input-group size="sm">
-                  <b-form-select v-model="sortBy" id="sortBySelect" :options="sortOptions" class="w-75">
-                    <template v-slot:first>
-                      <option value="">none</option>
-                    </template>
-                  </b-form-select>
-                  <b-form-select v-model="sortDesc" size="sm" :disabled="!sortBy" class="w-25">
-                    <option :value="false">Asc</option>
-                    <option :value="true">Desc</option>
-                  </b-form-select>
-                </b-input-group>
-              </b-form-group>
-            </b-col> -->
-
-            <!-- <b-col lg="6" class="my-1">
-              <b-form-group
-                label="Initial sort"
-                label-cols-sm="3"
-                label-align-sm="right"
-                label-size="sm"
-                label-for="initialSortSelect"
-                class="mb-0"
-              >
-                <b-form-select
-                  v-model="sortDirection"
-                  id="initialSortSelect"
-                  size="sm"
-                  :options="['asc', 'desc', 'last']"
-                ></b-form-select>
-              </b-form-group>
-            </b-col> -->
-
-            <!-- <b-col lg="6" class="my-1">
-              <b-form-group
-                label="Filter On"
-                label-cols-sm="3"
-                label-align-sm="right"
-                label-size="sm"
-                description="Leave all unchecked to filter on all data"
-                class="mb-0">
-                <b-form-checkbox-group v-model="filterOn" class="mt-1">
-                  <b-form-checkbox value="name">Name</b-form-checkbox>
-                  <b-form-checkbox value="age">Age</b-form-checkbox>
-                  <b-form-checkbox value="isActive">Active</b-form-checkbox>
-                </b-form-checkbox-group>
-              </b-form-group>
-            </b-col> -->
 
             <b-col sm="6" md="2" class="my-1">
               <b-form-group
@@ -289,51 +232,54 @@ export default {
           </b-row>
 
           <!-- Main table element -->
-          <b-table
-            id = "table-transition-example"
-            ref="selectableTable"
-            show-empty
-            striped
-            stacked="md"
-            :hover="hover"
-            :bordered = "bordered"
-            :head-variant="headVariant"
-            :items="contactStore.contacts"
-            :fields="fields"
-            :current-page="currentPage"
-            :per-page="perPage"
-            :filter="filter"
-            :filterIncludedFields="filterOn"
-            :sort-by.sync="sortBy"
-            :sort-desc.sync="sortDesc"
-            :sort-direction="sortDirection"
-            sort-icon-left
-            :tbody-transition-props="transProps"
-            primary-key="nonmbre"
-            @filtered="onFiltered"
-          >
+          <div class="table-responsive-sm">
+            <b-table
+              id = "table-transition-example"
+              ref="selectableTable"
+              show-empty
+              striped
+              small
+              stacked="sm"
+              :hover="hover"
+              :bordered = "bordered"
+              :head-variant="headVariant"
+              :items="contactStore.contacts"
+              :fields="fields"
+              :current-page="currentPage"
+              :per-page="perPage"
+              :filter="filter"
+              :filterIncludedFields="filterOn"
+              :sort-by.sync="sortBy"
+              :sort-desc.sync="sortDesc"
+              :sort-direction="sortDirection"
+              sort-icon-left
+              :tbody-transition-props="transProps"
+              primary-key="nonmbre"
+              @filtered="onFiltered"
+            >
 
-            <template v-slot:cell(actions)="row">
-              <!-- <b-button variant="success" size="sm" @click="showRechargeModal(row.item)" class="mr-1">
-                Recargar
-              </b-button> -->
-              <b-button size="sm" @click="showEditModal(row.item)" variant="info" >
-                Editar
-              </b-button>
-              <b-button variant="danger" size="sm" @click="handleDelete(row.item)" class="mr-1">
-                Eliminar
-              </b-button>
-            </template>
+              <template v-slot:cell(actions)="row">
+                <!-- <b-button variant="success" size="sm" @click="showRechargeModal(row.item)" class="mr-1">
+                  Recargar
+                </b-button> -->
+                <b-button size="sm" @click="showEditModal(row.item)" variant="info" >
+                  Editar
+                </b-button>
+                <b-button variant="danger" size="sm" @click="handleDelete(row.item)" class="mr-1">
+                  Eliminar
+                </b-button>
+              </template>
 
-            <template v-slot:row-details="row">
-              <b-card>
-                <ul>
-                  <li v-for="(value, key) in row.item" :key="key">{{ key }}: {{ value }}</li>
-                </ul>
-              </b-card>
-            </template>
+              <template v-slot:row-details="row">
+                <b-card>
+                  <ul>
+                    <li v-for="(value, key) in row.item" :key="key">{{ key }}: {{ value }}</li>
+                  </ul>
+                </b-card>
+              </template>
 
-          </b-table>
+            </b-table>
+        </div>
 
           <!-- <b-button size="sm" @click="selectAllRows">Marcar Todos</b-button>
           <b-button size="sm" @click="clearSelected">Desmarcar</b-button> -->

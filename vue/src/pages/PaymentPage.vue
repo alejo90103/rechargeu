@@ -181,35 +181,35 @@ export default {
           </div>
         </template>
       </b-modal>
-    </div>
-    <footer class="footer">
-      <div class="container">
-        <nav class="float-left">
-          <ul>
-            <li>
-              <a href="https://codeals.es">
-                Codeals
-              </a>
-            </li>
-            <li>
-              <a href="https://codeals.es/#about">
-                About Us
-              </a>
-            </li>
-            <li>
-              <a href="https://blog.codeals.es">
-                Blog
-              </a>
-            </li>
-          </ul>
-        </nav>
-        <div class="copyright float-right">
-          &copy;
-          2019, made with <i class="material-icons">favorite</i> by
-          <a href="https://codeals.es" target="_blank">Codeals</a> We put your idea in the cloud.
+      <footer class="footer" style="z-index: 10">
+        <div class="container">
+          <nav class="float-left">
+            <ul>
+              <li>
+                <a href="https://codeals.es">
+                  Codeals
+                </a>
+              </li>
+              <li>
+                <a href="https://codeals.es/#about">
+                  About Us
+                </a>
+              </li>
+              <li>
+                <a href="https://blog.codeals.es">
+                  Blog
+                </a>
+              </li>
+            </ul>
+          </nav>
+          <div class="copyright float-right">
+            &copy;
+            2019, made with <i class="material-icons">favorite</i> by
+            <a href="https://codeals.es" target="_blank">Codeals</a> We put your idea in the cloud.
+          </div>
         </div>
-      </div>
-    </footer>
+      </footer>
+    </div>
   </div>
 </template>
 

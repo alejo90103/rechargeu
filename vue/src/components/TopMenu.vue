@@ -49,10 +49,10 @@ export default {
       <div class="collapse navbar-collapse">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <router-link class="nav-link" :to="{name: 'dashboard'}"><i class="material-icons">home</i> Inicio</router-link>
+            <router-link class="nav-link menu-link" :to="{name: 'dashboard'}"><i class="material-icons">home</i> Inicio</router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" :to="{name: 'contact'}"><i class="material-icons">perm_contact_calendar</i> Contactos</router-link>
+            <router-link class="nav-link menu-link" :to="{name: 'contact'}"><i class="material-icons">perm_contact_calendar</i> Contactos</router-link>
           </li>
           <!-- <li class="nav-item">
             <router-link class="nav-link" :to="{name: 'my-pms'}"><i class="material-icons">email</i> Private Messages</router-link>
@@ -63,8 +63,8 @@ export default {
             </a>
             <div class="dropdown-menu dropdown-with-icons">
               <!-- <router-link class="dropdown-item"><i class="material-icons">apps</i> Recargar ofertas</router-link> -->
-              <router-link :to="{name: 'recharge-contact'}" class="dropdown-item"><i class="material-icons">account_box</i> Recargar Contactos</router-link>
-              <router-link :to="{name: 'recharge-list'}" class="dropdown-item"><i class="material-icons">format_list_bulleted</i> Recargas Realizadas</router-link>
+              <router-link :to="{name: 'recharge-contact'}" class="dropdown-item menu-link"><i class="material-icons">account_box</i> Recargar Contactos</router-link>
+              <router-link :to="{name: 'recharge-list'}" class="dropdown-item menu-link"><i class="material-icons">format_list_bulleted</i> Recargas Realizadas</router-link>
             </div>
           </li>
         </ul>
@@ -72,17 +72,17 @@ export default {
           <!-- <chat-notification></chat-notification> -->
           <!-- <pm-notification></pm-notification> -->
           <li class="nav-item">
-            <a class="nav-link" rel="tooltip" title="" data-placement="bottom" href="#" target="_blank" data-original-title="Follow us on Twitter">
+            <a class="nav-link menu-link" rel="tooltip" title="" data-placement="bottom" href="#" target="_blank" data-original-title="Follow us on Twitter">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" rel="tooltip" title="" data-placement="bottom" href="#" target="_blank" data-original-title="Like us on Facebook">
+            <a class="nav-link menu-link" rel="tooltip" title="" data-placement="bottom" href="#" target="_blank" data-original-title="Like us on Facebook">
               <i class="fa fa-facebook-square"></i>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" rel="tooltip" title="" data-placement="bottom" href="#" target="_blank" data-original-title="Follow us on Instagram">
+            <a class="nav-link menu-link" rel="tooltip" title="" data-placement="bottom" href="#" target="_blank" data-original-title="Follow us on Instagram">
               <i class="fa fa-instagram"></i>
             </a>
           </li>
@@ -91,10 +91,10 @@ export default {
               <i class="material-icons">face</i> {{userStore.authUser.name}}
             </a>
             <div class="dropdown-menu dropdown-with-icons">
-              <a href="/reset-password" class="dropdown-item">
+              <a href="/reset-password" class="dropdown-item menu-link">
                 <i class="material-icons">vpn_key</i> Cambiar Contraseña
               </a>
-              <a v-on:click="handleLogout()" class="dropdown-item logout">
+              <a v-on:click="handleLogout()" class="dropdown-item logout menu-link">
                 <i class="material-icons"> logout </i> Logout
               </a>
             </div>

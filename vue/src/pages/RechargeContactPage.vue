@@ -275,7 +275,6 @@ export default {
 
 <template>
   <div>
-    <Top-Menu></Top-Menu>
     <div class="page-header header-filter clear-filter purple-filter trans" data-parallax="true" :style="{'background-image': 'url(' + require('./../assets/material/img/bg2.jpg') + ')'}" style="transform: translate3d(0px, 0px, 0px); height: 20vh;">
     </div>
     <div class="main main-raised" id="dashboard-wrapper">
@@ -406,67 +405,69 @@ export default {
                         </b-row>
 
                         <!-- Main table element -->
-                        <b-table
-                          id = "table-phone"
-                          ref="selectableTablePhone"
-                          show-empty
-                          striped
-                          stacked="md"
-                          :hover="hoverPhone"
-                          :bordered = "borderedPhone"
-                          :head-variant="headVariantPhone"
-                          :items="listPhone"
-                          :fields="fieldsPhone"
-                          :current-page="currentPagePhone"
-                          :per-page="perPagePhone"
-                          :filter="filterPhone"
-                          :filterIncludedFields="filterOnPhone"
-                          :sort-by.sync="sortByPhone"
-                          :sort-desc.sync="sortDescPhone"
-                          :sort-direction="sortDirectionPhone"
-                          sort-icon-left
-                          selectable
-                          :tbody-transition-props="transPropsPhone"
-                          primary-key="nonmbre"
-                          :select-mode="multiPhone"
-                          @filtered="onFilteredPhone"
-                          @row-selected="onRowSelectedPhone"
-                        >
-                          <!-- <template v-slot:cell(name)="row">
-                            {{ row.name }}
-                          </template> -->
+                        <div class="table-responsive-sm">
+                          <b-table
+                            id = "table-phone"
+                            ref="selectableTablePhone"
+                            show-empty
+                            striped
+                            stacked="md"
+                            :hover="hoverPhone"
+                            :bordered = "borderedPhone"
+                            :head-variant="headVariantPhone"
+                            :items="listPhone"
+                            :fields="fieldsPhone"
+                            :current-page="currentPagePhone"
+                            :per-page="perPagePhone"
+                            :filter="filterPhone"
+                            :filterIncludedFields="filterOnPhone"
+                            :sort-by.sync="sortByPhone"
+                            :sort-desc.sync="sortDescPhone"
+                            :sort-direction="sortDirectionPhone"
+                            sort-icon-left
+                            selectable
+                            :tbody-transition-props="transPropsPhone"
+                            primary-key="nonmbre"
+                            :select-mode="multiPhone"
+                            @filtered="onFilteredPhone"
+                            @row-selected="onRowSelectedPhone"
+                          >
+                            <!-- <template v-slot:cell(name)="row">
+                              {{ row.name }}
+                            </template> -->
 
-                          <template v-slot:head(selectedPhone)>
-                            <!-- <bu aria-hidden="true" @click="selectAllRows">&check;</span> -->
-                            <b-button size="sm" @click="selectAllRowsPhone"><i class="material-icons">check_circle</i></b-button>
-                          </template>
-
-                          <template v-slot:cell(selectedPhone)="{ rowSelected }">
-                            <template v-if="rowSelected">
-                              <span aria-hidden="true">&check;</span>
-                              <span class="sr-only">Selected</span>
+                            <template v-slot:head(selectedPhone)>
+                              <!-- <bu aria-hidden="true" @click="selectAllRows">&check;</span> -->
+                              <b-button size="sm" @click="selectAllRowsPhone"><i class="material-icons">check_circle</i></b-button>
                             </template>
-                            <template v-else>
-                              <span aria-hidden="true">&nbsp;</span>
-                              <span class="sr-only">Not selected</span>
+
+                            <template v-slot:cell(selectedPhone)="{ rowSelected }">
+                              <template v-if="rowSelected">
+                                <span aria-hidden="true">&check;</span>
+                                <span class="sr-only">Selected</span>
+                              </template>
+                              <template v-else>
+                                <span aria-hidden="true">&nbsp;</span>
+                                <span class="sr-only">Not selected</span>
+                              </template>
                             </template>
-                          </template>
 
-                          <template v-slot:cell(actions)="row">
-                            <b-button variant="success" size="md" @click="showRechargePhoneModal(row.item)" class="mr-1 bold">
-                              <i class="material-icons bold">sentiment_satisfied_alt</i>    Recargame
-                            </b-button>
-                          </template>
+                            <template v-slot:cell(actions)="row">
+                              <b-button variant="success" size="md" @click="showRechargePhoneModal(row.item)" class="mr-1 bold">
+                                <i class="material-icons bold">sentiment_satisfied_alt</i>    Recargame
+                              </b-button>
+                            </template>
 
-                          <template v-slot:row-details="row">
-                            <b-card>
-                              <ul>
-                                <li v-for="(value, key) in row.item" :key="key">{{ key }}: {{ value }}</li>
-                              </ul>
-                            </b-card>
-                          </template>
+                            <template v-slot:row-details="row">
+                              <b-card>
+                                <ul>
+                                  <li v-for="(value, key) in row.item" :key="key">{{ key }}: {{ value }}</li>
+                                </ul>
+                              </b-card>
+                            </template>
 
-                        </b-table>
+                          </b-table>
+                        </div>
 
                         <p class="row ml-1">
                           <b-button v-if='selectedPhone.length > 0' @click="showMultiRechargePhoneModal()" class="btn btn-success btn-lg bold" ><i class="material-icons bold">sentiment_satisfied_alt</i>    Recargame</b-button>

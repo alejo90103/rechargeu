@@ -183,7 +183,6 @@ export default {
 
 <template>
   <div>
-    <Top-Menu></Top-Menu>
     <div class="page-header header-filter clear-filter purple-filter trans" data-parallax="true" :style="{'background-image': 'url(' + require('./../assets/material/img/bg2.jpg') + ')'}" style="transform: translate3d(0px, 0px, 0px); height: 20vh;">
     </div>
     <div class="main main-raised" id="dashboard-wrapper">
@@ -227,48 +226,50 @@ export default {
           </b-row>
 
           <!-- Main table element -->
-          <b-table
-            id = "table-transition-example"
-            ref="selectableTable"
-            show-empty
-            striped
-            stacked="md"
-            :hover="hover"
-            :bordered = "bordered"
-            :head-variant="headVariant"
-            :items="rechargeStore.rechargeList"
-            :fields="fields"
-            :current-page="currentPage"
-            :per-page="perPage"
-            :filter="filter"
-            :filterIncludedFields="filterOn"
-            :sort-by.sync="sortBy"
-            :sort-desc.sync="sortDesc"
-            :sort-direction="sortDirection"
-            sort-icon-left
-            :tbody-transition-props="transProps"
-            primary-key="nonmbre"
-            @filtered="onFiltered"
-          >
+          <div class="table-responsive-sm">
+            <b-table
+              id = "table-transition-example"
+              ref="selectableTable"
+              show-empty
+              striped
+              stacked="md"
+              :hover="hover"
+              :bordered = "bordered"
+              :head-variant="headVariant"
+              :items="rechargeStore.rechargeList"
+              :fields="fields"
+              :current-page="currentPage"
+              :per-page="perPage"
+              :filter="filter"
+              :filterIncludedFields="filterOn"
+              :sort-by.sync="sortBy"
+              :sort-desc.sync="sortDesc"
+              :sort-direction="sortDirection"
+              sort-icon-left
+              :tbody-transition-props="transProps"
+              primary-key="nonmbre"
+              @filtered="onFiltered"
+            >
 
-            <template v-slot:cell(actions)="row">
-              <b-button size="sm" @click="showEditModal(row.item)" variant="info" >
-                Editar
-              </b-button>
-              <b-button variant="danger" size="sm" @click="handleDelete(row.item)" class="mr-1">
-                Eliminar
-              </b-button>
-            </template>
+              <template v-slot:cell(actions)="row">
+                <b-button size="sm" @click="showEditModal(row.item)" variant="info" >
+                  Editar
+                </b-button>
+                <b-button variant="danger" size="sm" @click="handleDelete(row.item)" class="mr-1">
+                  Eliminar
+                </b-button>
+              </template>
 
-            <template v-slot:row-details="row">
-              <b-card>
-                <ul>
-                  <li v-for="(value, key) in row.item" :key="key">{{ key }}: {{ value }}</li>
-                </ul>
-              </b-card>
-            </template>
+              <template v-slot:row-details="row">
+                <b-card>
+                  <ul>
+                    <li v-for="(value, key) in row.item" :key="key">{{ key }}: {{ value }}</li>
+                  </ul>
+                </b-card>
+              </template>
 
-          </b-table>
+            </b-table>
+          </div>
 
           <b-row>
             <b-col sm="12" md="12" class="my-1 center">
