@@ -79,11 +79,11 @@ export default {
                   <h2 class="card-title" style="color: #9c27b0; font-size: 28px">{{ offer.receive }}</h2>
                   <hr style="color: #0056b2;" />
                   <div class="row" style="display: -webkit-inline-box;">
-                    <div class="col-sm-1" style="display: contents;">
-                      <i class="material-icons col-md-1" style="margin-top: 0.625rem; max-width: 0; color:#9c27b0"> check_circle </i>
+                    <div class="col-md-1" style="display: contents;">
+                      <i class="material-icons col-md-2" style="margin-top: 0.625rem; max-width: 0; color:#9c27b0"> check_circle </i>
                     </div>
-                    <div class="col-sm-12">
-                      <h6  class="card-title col-md-11" style="text-align: left">{{ offer.receive }} de bonificación, a consumir antes del {{ offer.date_expire }}</h6>
+                    <div class="col-md-10">
+                      <h6  class="card-title" style="text-align: left">{{ offer.receive }} de bonificación, a consumir antes del {{ offer.date_expire }}</h6>
                     </div>
                   </div>
                   <div v-if="moment(now).isBetween(offer.date_ini, offer.date_end, null, '[]')" class="col-sm-12 mt-3">

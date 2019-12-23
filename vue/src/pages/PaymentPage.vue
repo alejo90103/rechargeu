@@ -75,9 +75,9 @@ export default {
             // this.$toastr.s('Recarga realizada correctamente PAYPAL')
             // this.$router.push({name: 'payment'})
             this.paypalUrl = response.data.data
-            console.log(this.paypalUrl)
+            // console.log(this.paypalUrl)
             setTimeout(() => {
-              // this.$refs.formPaypal.submit()
+              this.$refs.formPaypal.submit()
             }, 1000)
           } else {
             this.$toastr.e('ERROR en la recarga :( ')
