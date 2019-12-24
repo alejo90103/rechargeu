@@ -54,7 +54,7 @@ class PaypalController extends BaseController
 
 			$subtotal = $offer->price_pay * count($contactRecharges);
 
-			$payment = PaymentMethod::create([
+			$paymentMethod = PaymentMethod::create([
 					'recharge_id' => $recharge->id,
 					'user_id' => $request->user()->id,
 					'token' => uniqid(),
@@ -75,11 +75,11 @@ class PaypalController extends BaseController
 			->setCurrency($currency)
 			->setDescription("Recargar Cell Cubacel")
 			->setQuantity(1)
-			->setPrice(20);
+			->setPrice($subtotal);
 			//----------
 
 			$items[] = $item;
-			$subtotal = 1 * 20;
+			// $subtotal = 1 * 20;
 
 			// items paypal
 			// $item = new Item();
@@ -109,16 +109,14 @@ class PaypalController extends BaseController
 				->setDescription('Recharge Contacts');
 
 			$redirect_urls = new RedirectUrls();
-			$redirect_urls->setReturnUrl(\URL::route('payment.status'))
-				->setCancelUrl(\URL::route('payment.status'));
+			$redirect_urls->setReturnUrl(\URL::route('payment.status', $paymentMethod->token))
+				->setCancelUrl(\URL::route('payment.status', $paymentMethod->token));
 
 			$payment = new Payment();
 			$payment->setIntent('Sale')
 				->setPayer($payer)
 				->setRedirectUrls($redirect_urls)
 				->setTransactions(array($transaction));
-
-			// return response(['data' => $payment], 200);
 
 			try {
 				$payment->create($this->_api_context);
@@ -141,6 +139,8 @@ class PaypalController extends BaseController
 
 			// add payment ID to session
 			// \Session::put('paypal_payment_id', $payment->getId());
+			$paymentMethod->paypal_payment_id = $payment->getId();
+			$paymentMethod->save();
 
 			if(isset($redirect_url)) {
 				// redirect to paypal
@@ -149,17 +149,23 @@ class PaypalController extends BaseController
 				return response(['data' => $redirect_url], 200);
 			}
 
-			return response(['data' => 'Err'], 500);
+			$recharge->status = "Cancel";
+			$recharge->save();
+
+			return Redirect::to("http://localhost:8080/dashboard/failed");
 
 			// return \Redirect::route('/')
 			// 	->with('error', 'Ups! Error desconocido.');
-
 	}
 
-	public function getPaymentStatus(Request $request)
+	public function getPaymentStatus($tokenPay, Request $request)
 	{
 		// Get the payment ID before session clear
 		// $payment_id = \Session::get('paypal_payment_id');
+		$paymentBack = PaymentMethod::where('token', '=', $tokenPay)->first();
+		$recharge = Recharge::where('id', $paymentBack->recharge_id)->first();
+
+		// return response(['data' => $paymentBack], 200);
 
 		// clear the session payment ID
 		// \Session::forget('paypal_payment_id');
@@ -169,11 +175,17 @@ class PaypalController extends BaseController
 
 		//if (empty(\Input::get('PayerID')) || empty(\Input::get('token'))) {
 		if (empty($payerId) || empty($token)) {
-			return \Redirect::route('home')
-				->with('message', 'Hubo un problema al intentar pagar con Paypal');
+
+				$recharge->status = "Cancel";
+				$recharge->save();
+
+				return Redirect::to("http://localhost:8080/dashboard/failed");
+
+			// return \Redirect::route('home')
+			// 	->with('message', 'Hubo un problema al intentar pagar con Paypal');
 		}
 
-		$payment = Payment::get($payment_id, $this->_api_context);
+		$payment = Payment::get($paymentBack->paypal_payment_id, $this->_api_context);
 
 		// PaymentExecution object includes information necessary
 		// to execute a PayPal account payment.
@@ -195,16 +207,105 @@ class PaypalController extends BaseController
 			// Enviar correo a admin
 			// Redireccionar
 
+			$offer = Offer::where('id', $recharge->offer_id)->first();
+			$contactRecharges = ContactRecharge::where('recharge_id', $paymentBack->recharge_id)->get();
+
+			$now = Date('Y-m-d');
+
+			if($now < $offer->date_ini && $offer->ads == 1) {
+					$recharge->status = 'Scheduled';
+					$recharge->save();
+
+					// programacion success
+					return Redirect::to("http://localhost:8080/dashboard/success");
+			}
+
+			// call ding
+			foreach ($contactRecharges as $contactRecharge) {
+					if ($recharge->type == "Cell") {
+							$status = $this->dingSendTransfer($contactRecharge->phone, $recharge->recharge_amount, $contactRecharge->id, "CU_CU_TopUp");
+					} else {
+							$status = $this->dingSendTransfer($contactRecharge->email, $recharge->recharge_amount, $contactRecharge->id, "CU_NU_TopUp");
+					}
+			}
+
+			if ($status == true) {
+				//
+				$recharge->status = "Accepted";
+				$recharge->save();
+				$paymentBack->is_payment = 1;
+				$paymentBack->save();
+				// $urlBack = Setting::first()->server_client;
+				// return Redirect::to($urlBack."dashboard/success");
+				return Redirect::to("http://localhost:8080/dashboard/success");
+			} else {
+				//
+				$recharge->status = "Denied";
+				$recharge->save();
+				// $urlBack = Setting::first()->server_client;
+				// return Redirect::to($urlBack."dashboard/failedDing");
+				return Redirect::to("http://localhost:8080/dashboard/failedDing");
+			}
+
 			// $this->saveOrder(\Session::get('cart'));
 
 			// \Session::forget('cart');
 
 
-			return \Redirect::route('home')
-				->with('message', 'Compra realizada de forma correcta');
+			// return \Redirect::route('home')
+			// 	->with('message', 'Compra realizada de forma correcta');
 		}
-		return \Redirect::route('home')
-			->with('message', 'La compra fue cancelada');
+
+		return Redirect::to("http://localhost:8080/dashboard/failed");
+		// return \Redirect::route('home')
+		// 	->with('message', 'La compra fue cancelada');
+	}
+
+	// Send a transfer to an account
+	function dingSendTransfer($telefono, $cantidad, $idFef, $SkuCode)
+	{
+			$url = "https://api.dingconnect.com/api/V1/SendTransfer";
+			$header = array(
+					"Content-Type: application/json",
+					"api_key: 55NhaAwAtfu6VeuEGjiSZU" // secret api ding
+			);
+
+			// para hacer transferencia requerido
+			// SkuCode						//ej: CU_CU_TopUp (CUBA)
+			// SendValue					// send value dinero a porner
+			// ValidateOnly				// true
+			// DistributorRef			// esto es un numero de referencia deberia ser autoincrementar
+			// AccountNumber			// cuenta telefonica a la cual se le hace la transferencia
+
+			$dataTransf = array('SkuCode' => $SkuCode, 'SendValue' => $cantidad, 'ValidateOnly' => false, 'DistributorRef' => $idFef, 'AccountNumber' => $telefono);
+
+			$somoPost = json_encode($dataTransf);
+			// echo $url;
+			$api = curl_init();
+			curl_setopt($api,CURLOPT_URL,$url);
+			curl_setopt($api,CURLOPT_CUSTOMREQUEST, "POST");
+			curl_setopt($api,CURLOPT_HTTPHEADER,$header);
+			curl_setopt($api, CURLOPT_POSTFIELDS, $somoPost);
+			curl_setopt($api,CURLOPT_RETURNTRANSFER, true);
+			$apiResult = curl_exec($api);
+			$apiCurlError = curl_error($api);
+			$status = curl_getinfo($api, CURLINFO_HTTP_CODE);
+			if( ! $apiResult)
+			{
+					trigger_error(curl_error($api));
+			}
+			curl_close($api);
+
+			// Convert JSON string to Array
+			$someArray = json_decode($apiResult, true);
+			//
+
+			if ($someArray["ResultCode"] == 1 || $someArray["ResultCode"] == 2) {
+				return true;
+
+			} else {
+				return false;
+			}
 	}
 
 }

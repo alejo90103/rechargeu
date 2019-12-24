@@ -35,7 +35,7 @@ class CreateRechargesTable extends Migration
             $table->date('date_recharge');
             $table->float('price_pay', 8, 2);
             $table->float('recharge_amount', 8, 2);
-            $table->enum('status', ['Waiting', 'Cancel', 'Accepted', 'Denied'])->defatul('Waiting');
+            $table->enum('status', ['Waiting', 'Cancel', 'Accepted', 'Denied', 'Scheduled'])->defatul('Waiting');
             $table->boolean('is_deleted')->default(0);
             $table->timestamps();
         });

@@ -32,6 +32,7 @@ class CreatePaymentsTable extends Migration
                   ->on('users')
                   ->onDelete('cascade');
             $table->string('token');
+            $table->string('paypal_payment_id')->nullable();
             $table->enum('method', ['Redsys', 'Paypal'])->defatul('Redsys');
             $table->float('amount', 8, 2);
             $table->boolean('is_payment')->default(0);

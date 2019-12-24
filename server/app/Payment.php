@@ -38,6 +38,7 @@ class Payment extends Model
         'token',
         'amount',
         'method',
+        'paypal_payment_id',
         'is_payment'
     ];
 

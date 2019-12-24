@@ -31,10 +31,10 @@ Route::get('payment', array(
 ));
 
 // Después de realizar el pago Paypal redirecciona a esta ruta
-Route::get('payment/status', array(
-	'as' => 'payment.status',
-	'uses' => 'PaypalController@getPaymentStatus',
-));
+// Route::get('payment/status', array(
+// 	'as' => 'payment.status',
+// 	'uses' => 'PaypalController@getPaymentStatus',
+// ));
 
 // Route::get('offers', 'OfferController@index')->name('offers');
 
