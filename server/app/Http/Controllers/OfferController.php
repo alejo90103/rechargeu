@@ -133,7 +133,10 @@ class OfferController extends Controller
     public function allOffer()
     {
         //  aqui se formo la cosa, redsys y recojo y dingconnect
-        $data = Offer::where('is_deleted', '=', 0)->get();
+        $NOW = date('Y-m-d');
+        $data = Offer::where('is_deleted', '=', 0)
+                    ->where('date_end', '>=', $NOW)
+                    ->get();
         return response(['data' => $data], 200);
     }
 

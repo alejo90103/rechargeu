@@ -29,6 +29,7 @@ import ResetPassword from './pages/ResetPassword'
 import DashboardPage from './pages/DashboardPage'
 import ContactPage from './pages/ContactPage'
 import RechargeContactPage from './pages/RechargeContactPage'
+import SchedulePage from './pages/SchedulePage'
 import PaymentPage from './pages/PaymentPage'
 // import PaymentResultPage from './pages/PaymentResultPage'
 import RechargeList from './pages/RechargeList'
@@ -82,6 +83,7 @@ const routes = [
   {path: '/recharge-contact', component: RechargeContactPage, name: 'recharge-contact', meta: { requiresAuth: true }},
   {path: '/payment', component: PaymentPage, name: 'payment', meta: { requiresAuth: true }},
   {path: '/recharge-list', component: RechargeList, name: 'recharge-list', meta: { requiresAuth: true }},
+  {path: '/schedule', component: SchedulePage, name: 'schedule'},
 
   // payment
   {path: '/dashboard/:paymentResult', component: DashboardPage, name: 'dashboard', meta: { requiresAuth: true }}

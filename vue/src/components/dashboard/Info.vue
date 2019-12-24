@@ -90,7 +90,7 @@ export default {
                     <button type="button" class="btn btn-success btn-lg bold"><i class="material-icons bold">sentiment_satisfied_alt</i>    Recargame</button>
                   </div>
                   <div v-else class="col-sm-12 mt-3">
-                    <button type="button" class="btn btn-warning btn-lg bold" style="opacity: 1" disabled><i class="material-icons bold">sentiment_dissatisfied</i>    Proximamente</button>
+                    <router-link :to="{name: 'schedule'}" class="btn btn-warning btn-lg bold"><i class="material-icons bold">sentiment_satisfied_alt</i>    Programar</router-link>
                   </div>
                 </div>
               </div>

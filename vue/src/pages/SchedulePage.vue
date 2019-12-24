@@ -1,218 +1,228 @@
 <!--
 @Author: alejandro
-@Date:   2019-11-26T03:35:13+01:00
+@Date:   2019-12-24T01:40:52+01:00
 @Email:  alejo901003@hotmail.com
 @Last modified by:   alejandro
-@Last modified time: 2019-11-27T03:09:52+01:00
+@Last modified time: 2019-12-24T01:42:39+01:00
 -->
 
-<script type="text/javascript">
-
+<script>
 import {mapState} from 'vuex'
-import { redsys } from './../config'
+import {apiDomain} from './../../config'
+import moment from 'moment'
 
 export default {
-  name: 'App',
   data () {
     return {
-      status: 'not_accepted',
-      ds_SignatureVersion: '',
-      ds_MerchantParameters: '',
-      ds_Signature: '',
-      formClass: 'hidden',
-      okOnly: true,
-      loading: false,
-      redsys,
-      paypalUrl: ''
+      type: 'cell',
+      cell: {
+        name: '',
+        phone: '',
+        offer_id: '',
+        call: 'rechargeCell'
+      },
+      nauta: {
+        name: '',
+        email: '',
+        offer_id: '',
+        call: 'rechargeNauta'
+      },
+      server: apiDomain,
+      now: moment(new Date()).format('YYYY/MM/DD'),
+      moment
     }
   },
   created () {
-    this.$store.dispatch('setTopMenu', true)
     this.$store.dispatch('setBanner', false)
+    this.$store.dispatch('getContactList')
+  },
+  updated () {
+    $('.selectpicker').selectpicker('refresh')
+    $('.bootstrap-select').css({
+      'padding': '0px',
+      'margin': '0px'
+    })
   },
   computed: {
     ...mapState({
       userStore: state => state.userStore,
-      rechargeStore: state => state.rechargeStore
+      rechargeStore: state => state.rechargeStore,
+      offerStore: state => state.offerStore
     })
   },
   methods: {
-    start () {
-      if (this.rechargeStore.purchaseInfo.amount === undefined) {
-        this.$store.dispatch('setTopMenu', true)
-        this.$router.push({name: 'dashboard'})
+    changeRecharge (val) {
+      this.type = val
+    },
+    handleSubmit () {
+      if (this.type === 'cell') {
+        if (!this.cell.name) {
+          this.$toastr.e('Debe ingresar un nombre')
+          return
+        } else if (!this.cell.phone) {
+          this.$toastr.e('Debe ingresar un número')
+          return
+        } else if (!this.cell.offer_id) {
+          this.$toastr.e('Debe selecionar una oferta')
+          return
+        }
+        if (!this.validateNumber(this.cell.phone)) {
+          this.$toastr.e('Número invalido')
+          return
+        }
+        this.$store.dispatch('setRecharge', this.cell)
+      } else {
+        if (!this.nauta.name) {
+          this.$toastr.e('Debe ingresar un nombre')
+          return
+        } else if (!this.nauta.email) {
+          this.$toastr.e('Debe ingresar un correo')
+          return
+        } else if (!this.nauta.offer_id) {
+          this.$toastr.e('Debe selecionar una oferta')
+          return
+        }
+        if (!this.validateEmail(this.nauta.email)) {
+          this.$toastr.e('Email invalido')
+          return
+        }
+        this.$store.dispatch('setRecharge', this.nauta)
+      }
+      if (this.userStore.authUser === null) {
+        console.log('no logueado')
+        console.log('show popup')
+        $('#exampleModal').modal('show')
+        $('.modal-backdrop').css('opacity', '1')
+      } else {
+        this.$store.dispatch(this.rechargeStore.recharge.call)
+          .then(response => {
+            if (response.status === 201) {
+              // this.$toastr.s('Recarga realizada correctamente')
+              this.$router.push({name: 'payment'})
+            } else {
+              this.$toastr.e('ERROR en la recarga :( ')
+              this.$router.push({name: 'dashboard'})
+            }
+          })
       }
     },
-    handleCard () {
-      if (this.status === 'not_accepted') {
-        this.$toastr.e('Debes aceptar los términos y condiciones')
-        return
-      }
-      this.loading = true
-      this.$store.dispatch('setRedsysPayment', this.rechargeStore.purchaseInfo.recharge_id)
-        .then(response => {
-          if (response.status === 200) {
-            this.ds_SignatureVersion = response.body.data.version
-            this.ds_MerchantParameters = response.body.data.params
-            this.ds_Signature = response.body.data.signature
-            setTimeout(() => {
-              this.$refs.form.submit()
-            }, 1000)
-          } else {
-            this.loading = false
-            this.$toastr.e('ERROR en la recarga :( ')
-          }
-        })
+    validateEmail (email) {
+      var regularExp = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+@nauta.(?:com|co).cu$/
+      return regularExp.test(email)
     },
-    handlePayPal () {
-      if (this.status === 'not_accepted') {
-        this.$toastr.e('Debes aceptar los términos y condiciones')
-        return
-      }
-      this.loading = true
-      this.$store.dispatch('setPayPalPayment', this.rechargeStore.purchaseInfo.recharge_id)
-        .then(response => {
-          if (response.status === 200) {
-            // this.$toastr.s('Recarga realizada correctamente PAYPAL')
-            // this.$router.push({name: 'payment'})
-            this.paypalUrl = response.data.data
-            // console.log(this.paypalUrl)
-            setTimeout(() => {
-              this.$refs.formPaypal.submit()
-            }, 1000)
-          } else {
-            this.loading = false
-            this.$toastr.e('ERROR en la recarga :( ')
-          }
-        })
+    validateNumber (phone) {
+      var regularExp = /^([0-9]{8})$/
+      return regularExp.test(phone)
     }
-  },
-  destroy () {
-    this.$store.dispatch('setTopMenu', true)
   }
 }
 </script>
+
 <template>
-  <div v-bind='start()' class="login-page sidebar-collapse">
-    <div class="page-header header-filter clear-filter purple-filter trans" :style="{'background-image': 'url(' + require('./../assets/material/img/bg2.jpg') + ')'}" style="transform: translate3d(0px, 0px, 0px);">
+  <div class="login-page sidebar-collapse">
+    <div class="page-header header-filter clear-filter purple-filter trans" data-parallax="true" :style="{'background-image': 'url(' + require('./../assets/material/img/bg2.jpg') + ')'}" style="transform: translate3d(0px, 0px, 0px);">
       <div class="container">
         <div class="row">
-          <div hidden>
-            <form ref="form" :action="redsys" method="post">
-              <input name="Ds_SignatureVersion" v-model="ds_SignatureVersion">
-              <input name="Ds_MerchantParameters" v-model="ds_MerchantParameters">
-              <input name="Ds_Signature" v-model="ds_Signature">
-            </form>
-          </div>
-          <div class="col-lg-8 col-md-8 ml-auto mr-auto">
-            <div class="card card-login">
-              <div class="card-header card-header-primary text-center">
-                <h4 class="card-title">Resumen de Pago</h4>
-              </div>
-              <div class="card-body" style="padding: 0.9375rem 1.875rem;">
-                <div>
-                  <b-jumbotron style="padding: 1rem;">
-                    <template v-slot:header>Hola {{ userStore.authUser.name }}</template>
-
-                    <template v-slot:lead>
-                      Vas a realizar <strong> {{rechargeStore.purchaseInfo.count}} </strong>  {{ parseInt(rechargeStore.purchaseInfo.count) > 1 ? 'recargas' : 'recarga'}} de tipo <strong> {{rechargeStore.purchaseInfo.type === 'Cell' ? 'Móvil' : 'Nauta'}} </strong>.
-                      <br>
-                    </template>
-
-                    <hr class="my-4">
-
-                    <div class="row center">
-                      <b-badge variant="success"><h2 style="margin-top: 10px;"> <strong> Total: {{ rechargeStore.purchaseInfo.amount }} € </strong> </h2></b-badge>
-                    </div>
-
-                    <hr class="my-4">
-
-                    <b-form-checkbox
-                      id="checkbox-1"
-                      v-model="status"
-                      name="checkbox-1"
-                      value='accepted'
-                      unchecked-value='not_accepted'
-                    >
-                      <p style="color: rgba(0, 0, 0, 0.87);">Acepta los <a href="#" v-b-modal.modal-scrollable >términos y condiciones</a></p>
-                    </b-form-checkbox>
-
-                    <div class="row center">
-                      <!-- <div v-if="loading">
-                        <b-button variant="primary" disabled @click="handleCard" href="#"><i v-show="loading" class="fa fa-circle-o-notch mr-1" style="font-size: inherit; vertical-align: unset;"></i><i class="fa fa-credit-card" style="margin-right: 5px;"></i><strong>Tarjeta</strong></b-button>
+          <div class="col-md-5 ml-auto mr-auto">
+            <div class="brand">
+              <div id="nav-tabs">
+                <div class="row">
+                  <div class="col-md-12">
+                    <!-- <pre>{{rechargeStore}}</pre> -->
+                    <!-- Tabs with icons on Card -->
+                    <div class="card card-nav-tabs">
+                      <div class="card-header card-header-primary center">
+                        <div class="nav-tabs-navigation">
+                          <div class="nav-tabs-wrapper">
+                            <ul class="nav nav-tabs" data-tabs="tabs">
+                              <li class="nav-item">
+                                <a class="nav-link active" v-on:click="changeRecharge('cell')" href="#cell" data-toggle="tab">
+                                  <i class="material-icons">phone_iphone</i> Móvil
+                                </a>
+                              </li>
+                              <!-- <li class="nav-item">
+                                <a class="nav-link" v-on:click="changeRecharge('nauta')" href="#nauta" data-toggle="tab">
+                                  <i class="material-icons">wifi</i> Nauta
+                                </a>
+                              </li> -->
+                            </ul>
+                          </div>
+                        </div>
                       </div>
-                      <div v-else>
-                        <b-button variant="primary" @click="handleCard" href="#"><i v-show="loading" class="fa fa-circle-o-notch mr-1" style="font-size: inherit; vertical-align: unset;"></i><i class="fa fa-credit-card" style="margin-right: 5px;"></i><strong>Tarjeta</strong></b-button>
-                      </div> -->
-
-                      <form ref="formPaypal" :action="paypalUrl" method="post">
-                        <div v-if="loading">
-                            <b-button variant="primary" disabled @click="handlePayPal" href="#"><i v-show="loading" class="fa fa-circle-o-notch mr-1" style="font-size: inherit; vertical-align: unset;"></i><i class="fa fa-paypal" style="margin-right: 5px;"></i><strong>PayPal</strong></b-button>
+                      <div class="card-body ">
+                        <div class="tab-content text-center">
+                          <div  class="tab-pane active" id="cell">
+                            <div class="form-row">
+                              <div class="form-group col-md-12" style="padding-top: 0px;">
+                                <div class="input-group-prepend row">
+                                  <div class="input-group-text col-md-2" style="color: #000; font-weight: 200; font-size: 25px;">ABC</div>
+                                  <input type="text" v-model="cell.name" style="font-size: 25px; text-align: center; font-weight: 200; height: auto;" class="form-control col-md-10" placeholder="Nombre">
+                                </div>
+                              </div>
+                              <div class="form-group col-md-12" style="padding-top: 0px;">
+                                <div class="input-group-prepend row">
+                                  <div class="input-group-text col-md-2" style="color: #000; font-weight: 200; font-size: 25px;">+53</div>
+                                  <input type="number" v-model="cell.phone" style="font-size: 25px; text-align: center; font-weight: 200; height: auto;" class="form-control col-md-10" placeholder="Teléfono">
+                                </div>
+                              </div>
+                              <div class="form-group col-md-12">
+                                <div class="input-group-prepend row">
+                                  <div class="input-group-text col-md-2" style="color: #000; font-weight: 200; font-size: 25px; padding-left: 10px">€</div>
+                                  <select v-model="cell.offer_id" style="margin: 0; font-size: 25px; text-align: center; font-weight: 200; height: auto; text-align-last: center" class="form-control col-md-10">
+                                    <option v-for="offer in offerStore.offers" v-if="offer.type === 'Cell' && !moment(now).isBetween(offer.date_ini, offer.date_end, null, '[]')" :data-content="offer.name + '<br> EXP: ' + offer.date_expire" :value="offer.id" :key="offer.id">
+                                      {{ offer.name }}
+                                    </option>
+                                  </select>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="tab-pane" id="nauta">
+                            <div class="form-row">
+                              <div class="form-group col-md-12" style="padding-top: 0px;">
+                                <div class="input-group-prepend row">
+                                  <div class="input-group-text col-md-2" style="color: #000; font-weight: 200; font-size: 25px;">ABC</div>
+                                  <input type="text" v-model="nauta.name" style="font-size: 25px; text-align: center; font-weight: 200; height: auto;" class="form-control col-md-10" placeholder="Nombre">
+                                </div>
+                              </div>
+                              <div class="form-group col-md-12" style="padding-top: 0px;">
+                                <div class="input-group-prepend row">
+                                  <div class="input-group-text col-md-2" style="color: #000; font-weight: 200; font-size: 25px; padding-left: 10px">@</div>
+                                  <input type="email" v-model="nauta.email" style="font-size: 25px; text-align: center; font-weight: 200; height: auto;" class="form-control col-md-10" placeholder="Nauta">
+                                </div>
+                              </div>
+                              <div class="form-group col-md-12">
+                                <div class="input-group-prepend row">
+                                  <div class="input-group-text col-md-2" style="color: #000; font-weight: 200; font-size: 25px; padding-left: 10px">€</div>
+                                  <select v-model="nauta.offer_id" style="font-size: 25px; text-align: center; font-weight: 200; height: auto; text-align-last: center" class="form-control col-md-10">
+                                    <!-- <option selected>Oferta</option> -->
+                                    <option v-for="offer in offerStore.offers" v-if="offer.type === 'Nauta' && !moment(now).isBetween(offer.date_ini, offer.date_end, null, '[]')" :value="offer.id" :key="offer.id">
+                                      {{ offer.name }}
+                                    </option>
+                                  </select>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <button type="button" v-on:click="handleSubmit()" class="btn btn-warning btn-lg bold"><i class="material-icons bold">sentiment_satisfied_alt</i>    Programar</button>
                         </div>
-                        <div v-else>
-                            <b-button variant="primary" @click="handlePayPal" href="#"><i v-show="loading" class="fa fa-circle-o-notch mr-1" style="font-size: inherit; vertical-align: unset;"></i><i class="fa fa-paypal" style="margin-right: 5px;"></i><strong>PayPal</strong></b-button>
-                        </div>
-                      </form>
-
+                      </div>
                     </div>
-                  </b-jumbotron>
+                    <!-- End Tabs with icons on Card -->
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
+        <!-- <ModalRegister v-if="showModal" @close="close"></ModalRegister> -->
+        <!-- <ModalRegister @close="close"></ModalRegister> -->
       </div>
-      <b-modal
-        id="modal-scrollable"
-        title="BootstrapVue"
-        :ok-only="okOnly"
-        ok-title="Cerrar"
-      >
-        <template v-slot:modal-header="">
-          <h5>Términos y Condiciones</h5>
-        </template>
-
-        <template v-slot:default="">
-          <div class="" style="max-height: 350px; overflow: scroll;">
-            <p class="my-4" v-for="i in 20" :key="i">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </p>
-          </div>
-        </template>
-      </b-modal>
-      <footer class="footer" style="z-index: 10">
-        <div class="container">
-          <nav class="float-left">
-            <ul>
-              <li>
-                <a href="https://codeals.es">
-                  Codeals
-                </a>
-              </li>
-              <li>
-                <a href="https://codeals.es/#about">
-                  About Us
-                </a>
-              </li>
-              <li>
-                <a href="https://blog.codeals.es">
-                  Blog
-                </a>
-              </li>
-            </ul>
-          </nav>
-          <div class="copyright float-right">
-            &copy;
-            2019, made with <i class="material-icons">favorite</i> by
-            <a href="https://codeals.es" target="_blank">Codeals</a> We put your idea in the cloud.
-          </div>
-        </div>
-      </footer>
     </div>
   </div>
 </template>
 
-<style lang="css">
+<style lang="css" scoped>
   /* <!-- CSS Files --> */
   /* <!-- CSS Just for demo purpose, don't include it in your project --> */
   /*
@@ -230,6 +240,12 @@ export default {
    */
 
   /*     brand Colors              */
+
+  .center {
+    align-items: center;
+    flex-direction: column;
+    display: flex;
+  }
 
   .carousel.carousel-full-nagivation .left {
     /* cursor: url("../../img/arrow-left.png"), url("../../img/arrow-left.cur"), default !important; */
