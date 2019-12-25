@@ -8,6 +8,8 @@
  */
 
 import Vue from 'vue'
+import moment from 'moment'
+
 import {
   offerList
   // rechargeCell,
@@ -16,18 +18,39 @@ import {
 
 const state = {
   offers: []
-  // recharge: {
-  //   id: '',
-  //   type: '',
-  //   offer_id: {},
-  //   price_pay: '',
-  //   phone: '',
-  //   email: ''
-  // }
 }
 
 const getters = {
-
+  getCellOffersSchedule (state) {
+    let list = state.offers
+    let now = moment(new Date()).format('YYYY/MM/DD')
+    return list.filter(function (offer) {
+      if (offer.type === 'Cell' && !moment(now).isBetween(offer.date_ini, offer.date_end, null, '[]')) {
+        return true
+      }
+      return false
+    })
+  },
+  getCellOffers (state) {
+    let list = state.offers
+    let now = moment(new Date()).format('YYYY/MM/DD')
+    return list.filter(function (offer) {
+      if (offer.type === 'Cell' && moment(now).isBetween(offer.date_ini, offer.date_end, null, '[]')) {
+        return true
+      }
+      return false
+    })
+  },
+  getNautaOffers (state) {
+    let list = state.offers
+    let now = moment(new Date()).format('YYYY/MM/DD')
+    return list.filter(function (offer) {
+      if (offer.type === 'Nauta' && moment(now).isBetween(offer.date_ini, offer.date_end, null, '[]')) {
+        return true
+      }
+      return false
+    })
+  }
 }
 
 const mutations = {
@@ -46,23 +69,6 @@ const actions = {
         }
       })
   }
-  // rechargeCell: ({commit}) => {
-  //   let postData = state.recharge
-  //   return Vue.http.post(rechargeCell, postData, {headers: getHeader()})
-  //     .then(response => {
-  //       Vue.$logger('info', 'rechargecell response', response)
-  //       // commit('SAVE_ADD_CAR', response.body.data)
-  //       return response
-  //     })
-  // },
-  // rechargeNauta: ({commit}) => {
-  //   let postData = state.recharge
-  //   return Vue.http.post(rechargeNauta, postData, {headers: getHeader()})
-  //     .then(response => {
-  //       Vue.$logger('info', 'rechargeNauta response', response)
-  //       // commit('SAVE_ADD_CAR', response.body.data)
-  //     })
-  // }
 }
 
 export default {

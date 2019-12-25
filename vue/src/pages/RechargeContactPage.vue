@@ -39,7 +39,7 @@ export default {
         //   sortByFormatted: true,
         //   filterByFormatted: true
         // },
-        { key: 'actions', label: 'Actions' }
+        { key: 'actions', label: 'Acciones' }
       ],
       fieldsEmail: [
         { key: 'selectedEmail', label: '✓' },
@@ -105,6 +105,8 @@ export default {
         offer_id: '',
         call: 'rechargeNauta'
       },
+      choose_offer_cell: '',
+      choose_offer_nauta: '',
       multiRechargeOffer: ''
     }
   },
@@ -116,7 +118,9 @@ export default {
     }),
     ...mapGetters({
       listEmail: 'getEmailList',
-      listPhone: 'getPhoneList'
+      listPhone: 'getPhoneList',
+      optionsCell: 'getCellOffers',
+      optionsNauta: 'getNautaOffers'
     }),
     sortOptionsEmail () {
       // Create an options list from our fields
@@ -169,16 +173,18 @@ export default {
     },
     handleRecharge () {
       if (this.type === 'cell') {
-        if (!this.cell.offer_id) {
+        if (!this.choose_offer_cell.id) {
           this.$toastr.e('Debe selecionar una oferta')
           return
         }
+        this.cell.offer_id = this.choose_offer_cell.id
         this.$store.dispatch('setRecharge', this.cell)
       } else {
-        if (!this.nauta.offer_id) {
+        if (!this.choose_offer_nauta.id) {
           this.$toastr.e('Debe selecionar una oferta')
           return
         }
+        this.nauta.offer_id = this.choose_offer_nauta.id
         this.$store.dispatch('setRecharge', this.nauta)
       }
       this.$store.dispatch(this.rechargeStore.recharge.call)
@@ -196,7 +202,7 @@ export default {
     handleMultiRecharge () {
       let call = ''
       let contacts = []
-      if (!this.multiRechargeOffer) {
+      if (!this.multiRechargeOffer.id) {
         this.$toastr.e('Debe selecionar una oferta')
         return
       }
@@ -207,7 +213,7 @@ export default {
         call = 'multiRechargeNauta'
         contacts = this.selectedEmail
       }
-      let data = {contacts: contacts, offer: this.multiRechargeOffer}
+      let data = {contacts: contacts, offer: this.multiRechargeOffer.id}
       this.$store.dispatch(call, data)
         .then(response => {
           if (response.status === 201) {
@@ -670,7 +676,7 @@ export default {
           </div>
 
           <!-- Info modal -->
-          <b-modal id="rechargeModal" ref="rechargeModal" ok-only @hide="resetInfoModal" hide-footer hide-header>
+          <b-modal id="rechargeModal" size="lg" ref="rechargeModal" ok-only @hide="resetInfoModal" hide-footer hide-header>
             <!-- <template v-slot:modal-title >
             </template> -->
             <div class="card-header card-header-primary text-center mb-5" style="background-color: #9c27b0; border-radius: 3px;">
@@ -688,16 +694,52 @@ export default {
                           <div class="form-group col-md-12">
                             <div class="input-group-prepend">
                               <div class="input-group-text" style="color: #000; font-weight: 200; font-size: 25px; margin-left: 10px; width: 40px">€</div>
-                              <select v-if="type === 'cell'" v-model="cell.offer_id" style="font-size: 25px; text-align: center; font-weight: 200; height: auto; text-align-last: center" class="form-control">
+                              <div class="col-md-10 material-select" v-if="type === 'cell'">
+                                <multiselect v-model="choose_offer_cell" placeholder="Seleccione una oferta" :allowEmpty="false" label="name" track-by="name" :option-height="104" :options="optionsCell" :show-labels="false">
+                                  <template slot="singleLabel" slot-scope="props">
+                                    <div class="option__desc">
+                                      <span class="option__title" style="font-size: 25px;">{{props.option.name}}</span>
+                                      <br>
+                                      <span class="option__small" style="font-size: 18px;">{{props.option.date_expire}}</span>
+                                    </div>
+                                  </template>
+                                  <template slot="option" slot-scope="props">
+                                    <div class="option__desc">
+                                      <span class="option__title">{{props.option.name}}</span>
+                                      <br>
+                                      <span class="option__small">{{props.option.date_expire}}</span>
+                                    </div>
+                                  </template>
+                                </multiselect>
+                              </div>
+                              <div class="col-md-10 material-select" v-if="type === 'nauta'">
+                                <multiselect v-model="choose_offer_nauta" placeholder="Seleccione una oferta" :allowEmpty="false" label="name" track-by="name" :option-height="104" :options="optionsNauta" :show-labels="false">
+                                  <template slot="singleLabel" slot-scope="props">
+                                    <div class="option__desc">
+                                      <span class="option__title" style="font-size: 25px;">{{props.option.name}}</span>
+                                      <br>
+                                      <span class="option__small" style="font-size: 18px;">{{props.option.date_expire}}</span>
+                                    </div>
+                                  </template>
+                                  <template slot="option" slot-scope="props">
+                                    <div class="option__desc">
+                                      <span class="option__title">{{props.option.name}}</span>
+                                      <br>
+                                      <span class="option__small">{{props.option.date_expire}}</span>
+                                    </div>
+                                  </template>
+                                </multiselect>
+                              </div>
+                              <!-- <select v-if="type === 'cell'" v-model="cell.offer_id" style="font-size: 25px; text-align: center; font-weight: 200; height: auto; text-align-last: center" class="form-control">
                                 <option v-for="offer in offerStore.offers" v-if="offer.type === 'Cell' && moment(now).isBetween(offer.date_ini, offer.date_end, null, '[]')" :value="offer.id" :key="offer.id">
                                   {{ offer.name }}
                                 </option>
-                              </select>
-                              <select v-if="type === 'nauta'" v-model="nauta.offer_id" style="font-size: 25px; text-align: center; font-weight: 200; height: auto; text-align-last: center" class="form-control">
+                              </select> -->
+                              <!-- <select v-if="type === 'nauta'" v-model="nauta.offer_id" style="font-size: 25px; text-align: center; font-weight: 200; height: auto; text-align-last: center" class="form-control">
                                 <option v-for="offer in offerStore.offers" v-if="offer.type === 'Nauta' && moment(now).isBetween(offer.date_ini, offer.date_end, null, '[]')" :value="offer.id" :key="offer.id">
                                   {{ offer.name }}
                                 </option>
-                              </select>
+                              </select> -->
                             </div>
                           </div>
                         </div>
@@ -714,7 +756,7 @@ export default {
           </b-modal>
 
           <!-- Multi Recharge Modal -->
-          <b-modal id="rechargeMultiModal" ref="rechargeMultiModal" ok-only @hide="resetMultiModal" hide-footer hide-header>
+          <b-modal id="rechargeMultiModal" size="lg" ref="rechargeMultiModal" ok-only @hide="resetMultiModal" hide-footer hide-header>
             <!-- <template v-slot:modal-title >
             </template> -->
             <div class="card-header card-header-primary text-center mb-5" style="background-color: #9c27b0; border-radius: 3px;">
@@ -732,7 +774,43 @@ export default {
                           <div class="form-group col-md-12">
                             <div class="input-group-prepend">
                               <div class="input-group-text" style="color: #000; font-weight: 200; font-size: 25px; margin-left: 10px; width: 40px">€</div>
-                              <select v-if="type === 'cell'" v-model="multiRechargeOffer" style="font-size: 25px; text-align: center; font-weight: 200; height: auto; text-align-last: center" class="form-control">
+                              <div class="col-md-10 material-select" v-if="type === 'cell'">
+                                <multiselect v-model="multiRechargeOffer" placeholder="Seleccione una oferta" :allowEmpty="false" label="name" track-by="name" :option-height="104" :options="optionsCell" :show-labels="false">
+                                  <template slot="singleLabel" slot-scope="props">
+                                    <div class="option__desc">
+                                      <span class="option__title" style="font-size: 25px;">{{props.option.name}}</span>
+                                      <br>
+                                      <span class="option__small" style="font-size: 18px;">{{props.option.date_expire}}</span>
+                                    </div>
+                                  </template>
+                                  <template slot="option" slot-scope="props">
+                                    <div class="option__desc">
+                                      <span class="option__title">{{props.option.name}}</span>
+                                      <br>
+                                      <span class="option__small">{{props.option.date_expire}}</span>
+                                    </div>
+                                  </template>
+                                </multiselect>
+                              </div>
+                              <div class="col-md-10 material-select" v-if="type === 'nauta'">
+                                <multiselect v-model="multiRechargeOffer" placeholder="Seleccione una oferta" :allowEmpty="false" label="name" track-by="name" :option-height="104" :options="optionsNauta" :show-labels="false">
+                                  <template slot="singleLabel" slot-scope="props">
+                                    <div class="option__desc">
+                                      <span class="option__title" style="font-size: 25px;">{{props.option.name}}</span>
+                                      <br>
+                                      <span class="option__small" style="font-size: 18px;">{{props.option.date_expire}}</span>
+                                    </div>
+                                  </template>
+                                  <template slot="option" slot-scope="props">
+                                    <div class="option__desc">
+                                      <span class="option__title">{{props.option.name}}</span>
+                                      <br>
+                                      <span class="option__small">{{props.option.date_expire}}</span>
+                                    </div>
+                                  </template>
+                                </multiselect>
+                              </div>
+                              <!-- <select v-if="type === 'cell'" v-model="multiRechargeOffer" style="font-size: 25px; text-align: center; font-weight: 200; height: auto; text-align-last: center" class="form-control">
                                 <option v-for="offer in offerStore.offers" v-if="offer.type === 'Cell' && moment(now).isBetween(offer.date_ini, offer.date_end, null, '[]')" :value="offer.id" :key="offer.id">
                                   {{ offer.name }}
                                 </option>
@@ -741,7 +819,7 @@ export default {
                                 <option v-for="offer in offerStore.offers" v-if="offer.type === 'Nauta' && moment(now).isBetween(offer.date_ini, offer.date_end, null, '[]')" :value="offer.id" :key="offer.id">
                                   {{ offer.name }}
                                 </option>
-                              </select>
+                              </select> -->
                             </div>
                           </div>
                         </div>
@@ -765,6 +843,9 @@ export default {
 </template>
 
 <style lang="css" scoped>
+  .material-select {
+    background-image: linear-gradient(to top, rgba(210, 210, 210, 0) 1px, rgba(156, 39, 176, 0) 2px), linear-gradient(to top, #d2d2d2 1px, rgba(210, 210, 210, 0) 1px);
+  }
 
   table#table-transition-example .flip-list-move {
     transition: transform 1s;

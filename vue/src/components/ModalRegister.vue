@@ -17,7 +17,7 @@ export default {
   data () {
     return {
       login: {
-        email: 'i',
+        email: '',
         password: ''
       },
       register: {

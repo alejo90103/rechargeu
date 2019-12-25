@@ -1,5 +1,4 @@
 $(document).ready(function() {
-    $('.selectpicker').selectpicker()
     $(document).on('click', '.menu-link', function() {
       $toggle = $('.navbar-toggler');
 

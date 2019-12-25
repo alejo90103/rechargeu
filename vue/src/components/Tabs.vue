@@ -8,7 +8,7 @@
 -->
 
 <script>
-import {mapState} from 'vuex'
+import {mapState, mapGetters} from 'vuex'
 import {apiDomain} from './../../config'
 import moment from 'moment'
 
@@ -28,19 +28,22 @@ export default {
         offer_id: '',
         call: 'rechargeNauta'
       },
+      choose_offer_cell: '',
+      choose_offer_nauta: '',
       server: apiDomain,
       now: moment(new Date()).format('YYYY/MM/DD'),
       moment
     }
   },
-  // components: {
-  //   ModalRegister
-  // },
   computed: {
     ...mapState({
       userStore: state => state.userStore,
       rechargeStore: state => state.rechargeStore,
       offerStore: state => state.offerStore
+    }),
+    ...mapGetters({
+      optionsCell: 'getCellOffers',
+      optionsNauta: 'getNautaOffers'
     })
   },
   methods: {
@@ -55,7 +58,7 @@ export default {
         } else if (!this.cell.phone) {
           this.$toastr.e('Debe ingresar un número')
           return
-        } else if (!this.cell.offer_id) {
+        } else if (!this.choose_offer_cell.id) {
           this.$toastr.e('Debe selecionar una oferta')
           return
         }
@@ -63,6 +66,7 @@ export default {
           this.$toastr.e('Número invalido')
           return
         }
+        this.cell.offer_id = this.choose_offer_cell.id
         this.$store.dispatch('setRecharge', this.cell)
       } else {
         if (!this.nauta.name) {
@@ -71,7 +75,7 @@ export default {
         } else if (!this.nauta.email) {
           this.$toastr.e('Debe ingresar un correo')
           return
-        } else if (!this.nauta.offer_id) {
+        } else if (!this.choose_offer_nauta.id) {
           this.$toastr.e('Debe selecionar una oferta')
           return
         }
@@ -79,6 +83,7 @@ export default {
           this.$toastr.e('Email invalido')
           return
         }
+        this.nauta.offer_id = this.choose_offer_nauta.id
         this.$store.dispatch('setRecharge', this.nauta)
       }
       if (this.userStore.authUser === null) {
@@ -119,7 +124,6 @@ export default {
           <div id="nav-tabs">
             <div class="row">
               <div class="col-md-12">
-                <!-- <pre>{{rechargeStore}}</pre> -->
                 <!-- Tabs with icons on Card -->
                 <div class="card card-nav-tabs">
                   <div class="card-header card-header-primary center">
@@ -159,12 +163,29 @@ export default {
                           <div class="form-group col-md-12">
                             <div class="input-group-prepend row">
                               <div class="input-group-text col-md-2" style="color: #000; font-weight: 200; font-size: 25px; padding-left: 10px">€</div>
-                              <select v-model="cell.offer_id" style="font-size: 25px; text-align: center; font-weight: 200; height: auto; text-align-last: center" class="form-control col-md-10">
-                                <!-- <option selected>Oferta</option> -->
-                                <option v-for="offer in offerStore.offers" v-if="offer.type === 'Cell' && moment(now).isBetween(offer.date_ini, offer.date_end, null, '[]')" :value="offer.id" :key="offer.id">
+                              <div class="col-md-10 material-select">
+                                <multiselect v-model="choose_offer_cell" placeholder="Seleccione una oferta" :allowEmpty="false" label="name" track-by="name" :option-height="104" :options="optionsCell" :show-labels="false">
+                                  <template slot="singleLabel" slot-scope="props">
+                                    <div class="option__desc">
+                                      <span class="option__title" style="font-size: 25px;">{{props.option.name}}</span>
+                                      <br>
+                                      <span class="option__small" style="font-size: 18px;">{{props.option.date_expire}}</span>
+                                    </div>
+                                  </template>
+                                  <template slot="option" slot-scope="props">
+                                    <div class="option__desc">
+                                      <span class="option__title">{{props.option.name}}</span>
+                                      <br>
+                                      <span class="option__small">{{props.option.date_expire}}</span>
+                                    </div>
+                                  </template>
+                                </multiselect>
+                              </div>
+                              <!-- <select v-model="cell.offer_id" style="margin: 0; font-size: 25px; text-align: center; font-weight: 200; height: auto; text-align-last: center" class="form-control col-md-10 selectpicker_cell">
+                                <option v-for="offer in offerStore.offers" v-if="offer.type === 'Cell' && moment(now).isBetween(offer.date_ini, offer.date_end, null, '[]')" :data-content="offer.name + '<br> EXP: ' + offer.date_expire" :value="offer.id" :key="offer.id">
                                   {{ offer.name }}
                                 </option>
-                              </select>
+                              </select> -->
                             </div>
                           </div>
                         </div>
@@ -186,12 +207,29 @@ export default {
                           <div class="form-group col-md-12">
                             <div class="input-group-prepend row">
                               <div class="input-group-text col-md-2" style="color: #000; font-weight: 200; font-size: 25px; padding-left: 10px">€</div>
-                              <select v-model="nauta.offer_id" style="font-size: 25px; text-align: center; font-weight: 200; height: auto; text-align-last: center" class="form-control col-md-10">
-                                <!-- <option selected>Oferta</option> -->
+                              <div class="col-md-10 material-select">
+                                <multiselect v-model="choose_offer_nauta" placeholder="Seleccione una oferta" :allowEmpty="false" label="name" track-by="name" :option-height="104" :options="optionsNauta" :show-labels="false">
+                                  <template slot="singleLabel" slot-scope="props">
+                                    <div class="option__desc">
+                                      <span class="option__title" style="font-size: 25px;">{{props.option.name}}</span>
+                                      <br>
+                                      <span class="option__small" style="font-size: 18px;">{{props.option.date_expire}}</span>
+                                    </div>
+                                  </template>
+                                  <template slot="option" slot-scope="props">
+                                    <div class="option__desc">
+                                      <span class="option__title">{{props.option.name}}</span>
+                                      <br>
+                                      <span class="option__small">{{props.option.date_expire}}</span>
+                                    </div>
+                                  </template>
+                                </multiselect>
+                              </div>
+                              <!-- <select v-model="nauta.offer_id" style="font-size: 25px; text-align: center; font-weight: 200; height: auto; text-align-last: center" class="form-control col-md-10">
                                 <option v-for="offer in offerStore.offers" v-if="offer.type === 'Nauta' && moment(now).isBetween(offer.date_ini, offer.date_end, null, '[]')" :value="offer.id" :key="offer.id">
                                   {{ offer.name }}
                                 </option>
-                              </select>
+                              </select> -->
                             </div>
                           </div>
                         </div>
@@ -213,6 +251,9 @@ export default {
 </template>
 
 <style lang="css" scoped>
+  .material-select {
+    background-image: linear-gradient(to top, rgba(210, 210, 210, 0) 1px, rgba(156, 39, 176, 0) 2px), linear-gradient(to top, #d2d2d2 1px, rgba(210, 210, 210, 0) 1px);
+  }
   .center {
     align-items: center;
     flex-direction: column;

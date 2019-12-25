@@ -84,6 +84,7 @@ export default {
   </div>
 </template>
 
+<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
 <style lang="sass">
   /* // @import './assets/css/bootstrap.css' */
   // @import './assets/css/bootstrap.min.css'
