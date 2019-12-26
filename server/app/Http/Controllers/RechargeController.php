@@ -230,4 +230,90 @@ class RechargeController extends Controller
 
         return $response;
     }
+
+    public function startScheduled()
+    {
+        $today = Date('Y-m-d');
+        $offers = Offer::where('date_ini', '=', $today)
+                    ->where('is_deleted', '=', 0);
+                    ->get();
+
+        foreach ($offers as $offer) {
+
+            $rechargeScheduleds = Recharge::where('offer_id', '=', $offer->id)
+                                    ->where('status', '=', 'Scheduled')
+                                    ->get();
+
+            if (!$rechargeScheduleds->isEmpty()) {
+              $this->_updateScheduled($rechargeScheduleds);
+            }
+        }
+    }
+
+    public function _updateScheduled($rechargeScheduleds)
+    {
+        foreach ($rechargeScheduleds as $recharge) {
+
+            $contactRecharges = ContactRecharge::where('recharge_id', $recharge->id)->get();
+
+            // call ding
+            foreach ($contactRecharges as $contactRecharge) {
+                if ($recharge->type == "Cell") {
+                    $status = $this->dingSendTransfer($contactRecharge->phone, $recharge->recharge_amount, $contactRecharge->id, "CU_CU_TopUp");
+                } else {
+                    $status = $this->dingSendTransfer($contactRecharge->email, $recharge->recharge_amount, $contactRecharge->id, "CU_NU_TopUp");
+                }
+            }
+
+            $recharge->status = "Accepted";
+            $recharge->save();
+        }
+    }
+
+    // Send a transfer to an account
+  	function dingSendTransfer($telefono, $cantidad, $idFef, $SkuCode)
+  	{
+  			$url = "https://api.dingconnect.com/api/V1/SendTransfer";
+  			$header = array(
+  					"Content-Type: application/json",
+  					"api_key: ".env('API_DING', '55NhaAwAtfu6VeuEGjiSZU') // secret api ding
+  			);
+
+  			// para hacer transferencia requerido
+  			// SkuCode						//ej: CU_CU_TopUp (CUBA)
+  			// SendValue					// send value dinero a porner
+  			// ValidateOnly				// true
+  			// DistributorRef			// esto es un numero de referencia deberia ser autoincrementar
+  			// AccountNumber			// cuenta telefonica a la cual se le hace la transferencia
+
+  			$dataTransf = array('SkuCode' => $SkuCode, 'SendValue' => $cantidad, 'ValidateOnly' => false, 'DistributorRef' => $idFef, 'AccountNumber' => $telefono);
+
+  			$somoPost = json_encode($dataTransf);
+  			// echo $url;
+  			$api = curl_init();
+  			curl_setopt($api,CURLOPT_URL,$url);
+  			curl_setopt($api,CURLOPT_CUSTOMREQUEST, "POST");
+  			curl_setopt($api,CURLOPT_HTTPHEADER,$header);
+  			curl_setopt($api, CURLOPT_POSTFIELDS, $somoPost);
+  			curl_setopt($api,CURLOPT_RETURNTRANSFER, true);
+  			$apiResult = curl_exec($api);
+  			$apiCurlError = curl_error($api);
+  			$status = curl_getinfo($api, CURLINFO_HTTP_CODE);
+  			if( ! $apiResult)
+  			{
+  					trigger_error(curl_error($api));
+  			}
+  			curl_close($api);
+
+  			// Convert JSON string to Array
+  			$someArray = json_decode($apiResult, true);
+  			//
+
+  			if ($someArray["ResultCode"] == 1 || $someArray["ResultCode"] == 2) {
+  				return true;
+
+  			} else {
+  				return false;
+  			}
+  	}
 }
