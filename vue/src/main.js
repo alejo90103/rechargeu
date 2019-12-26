@@ -33,6 +33,7 @@ import SchedulePage from './pages/SchedulePage'
 import PaymentPage from './pages/PaymentPage'
 // import PaymentResultPage from './pages/PaymentResultPage'
 import RechargeList from './pages/RechargeList'
+import TermsPage from './pages/TermsPage'
 
 // import ChatPage from './pages/ChatPage'
 
@@ -84,6 +85,7 @@ const routes = [
   {path: '/payment', component: PaymentPage, name: 'payment', meta: { requiresAuth: true }},
   {path: '/recharge-list', component: RechargeList, name: 'recharge-list', meta: { requiresAuth: true }},
   {path: '/schedule', component: SchedulePage, name: 'schedule'},
+  {path: '/terms', component: TermsPage, name: 'terms'},
 
   // payment
   {path: '/dashboard/:paymentResult', component: DashboardPage, name: 'dashboard', meta: { requiresAuth: true }}

@@ -20,11 +20,11 @@ export default {
   data () {
     return {
       fields: [
-        // { key: 'user.name', label: 'Nombre', sortable: true, sortDirection: 'desc' },
-        // { key: 'phone', label: 'Teléfono', sortable: true, class: 'text-center' },
-        // { key: 'email', label: 'Correo', sortable: true, class: 'text-center' },
-        { key: 'offer.name', label: 'Oferta', sortable: true, class: 'text-center' },
+        { key: 'contact.name', label: 'Nombre', sortable: true, sortDirection: 'desc' },
         { key: 'type', label: 'Tipo', sortable: true, class: 'text-center' },
+        { key: 'contact.phone', label: 'Teléfono', sortable: true, class: 'text-center' },
+        { key: 'contact.email', label: 'Correo', sortable: true, class: 'text-center' },
+        { key: 'recharge.offer.name', label: 'Oferta', sortable: true, class: 'text-center' },
         { key: 'price_pay', label: 'Precio', sortable: true, class: 'text-center' },
         { key: 'status', label: 'Estado', sortable: true, class: 'text-center' },
         { key: 'date_recharge', label: 'Fecha', sortable: true, class: 'text-center' }
@@ -182,7 +182,6 @@ export default {
     <div class="main main-raised" id="dashboard-wrapper">
       <div class="section section-basic">
         <b-container fluid>
-          <pre>{{rechargeStore.rechargeList}}</pre>
           <b-row>
 
             <b-col sm="6" md="2" class="my-1">

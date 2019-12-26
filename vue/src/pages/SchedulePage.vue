@@ -239,6 +239,24 @@ export default {
         <!-- <ModalRegister v-if="showModal" @close="close"></ModalRegister> -->
         <!-- <ModalRegister @close="close"></ModalRegister> -->
       </div>
+      <footer class="footer" style="z-index: 10">
+        <div class="container">
+          <nav class="float-left">
+            <ul>
+              <li>
+                <a href="/terms">
+                  Términos y Condiciones
+                </a>
+              </li>
+            </ul>
+          </nav>
+          <div class="copyright float-right">
+            &copy;
+            Hecho con <i class="fa fa-heart heart"></i>
+            <!-- por <a href="http://codeals.es">Codeals</a>. <router-link :to="{name: 'home'}">Recargame.</router-link> -->
+          </div>
+        </div>
+      </footer>
     </div>
   </div>
 </template>

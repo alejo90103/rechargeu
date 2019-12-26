@@ -184,27 +184,15 @@ export default {
         <div class="container">
           <nav class="float-left">
             <ul>
-              <li>
-                <a href="https://codeals.es">
-                  Codeals
-                </a>
-              </li>
-              <li>
-                <a href="https://codeals.es/#about">
-                  About Us
-                </a>
-              </li>
-              <li>
-                <a href="https://blog.codeals.es">
-                  Blog
-                </a>
-              </li>
+              <a href="/terms">
+                Términos y Condiciones
+              </a>
             </ul>
           </nav>
           <div class="copyright float-right">
             &copy;
-            2019, made with <i class="material-icons">favorite</i> by
-            <a href="https://codeals.es" target="_blank">Codeals</a> We put your idea in the cloud.
+            Hecho con <i class="fa fa-heart heart"></i>
+            <!-- por <a href="http://codeals.es">Codeals</a>. <router-link :to="{name: 'home'}">Recargame.</router-link> -->
           </div>
         </div>
       </footer>

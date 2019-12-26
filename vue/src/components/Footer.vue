@@ -12,25 +12,16 @@
       <nav class="float-left">
         <ul>
           <li>
-            <a href="http://codeals.es">
-              Codeals
-            </a>
-          </li>
-          <li>
-            <a href="http://codeals.es/#about">
-              About Us
-            </a>
-          </li>
-          <li>
-            <a href="http://blog.codeals.es">
-              Blog
+            <a href="/terms">
+              Términos y Condiciones
             </a>
           </li>
         </ul>
       </nav>
       <div class="copyright float-right">
         &copy;
-        Hecho con <i class="fa fa-heart heart"></i> por <a href="http://codeals.es">Codeals</a>. <router-link :to="{name: 'home'}">Recargame.</router-link>
+        Hecho con <i class="fa fa-heart heart"></i>
+        <!-- por <a href="http://codeals.es">Codeals</a>. <router-link :to="{name: 'home'}">Recargame.</router-link> -->
       </div>
     </div>
   </footer>

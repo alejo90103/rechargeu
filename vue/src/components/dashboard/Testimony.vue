@@ -19,14 +19,12 @@ export default {}
           <i class="fa fa-twitter"></i> Twitter
         </h5> -->
         <h4 class="card-title">
-          <a href="#pablo">&quot;You Don&apos;t Have to Sacrifice Joy to Build a Fabulous Business and Life&quot;</a>
+          &quot;Excelente sitio, las recargas llegan al momento&quot;
         </h4>
         <div class="card-stats">
           <div class="author">
-            <a href="#pablo">
-             <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=334&q=80&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D" alt="..." class="avatar img-raised">
-             <span>Ian Fuentes</span>
-            </a>
+             <img src="/static/template/material/assets/img/test1.jpg" alt="Testimonio 1" class="avatar img-raised">
+             <span>Pedro González</span>
           </div>
          <!-- <div class="stats ml-auto">
             <i class="material-icons">favorite</i> 2.4K &#xB7;
@@ -41,14 +39,12 @@ export default {}
           <i class="fa fa-twitter"></i> Twitter
         </h5> -->
         <h4 class="card-title">
-          <a href="#pablo">&quot;You Don&apos;t Have to Sacrifice Joy to Build a Fabulous Business and Life&quot;</a>
+          &quot;Muy contenta con el servicio siempre recargo por aquí&quot;
         </h4>
         <div class="card-stats">
           <div class="author">
-            <a href="#pablo">
-             <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=334&q=80&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D" alt="..." class="avatar img-raised">
-             <span>Liliana Juez</span>
-            </a>
+             <img src="/static/template/material/assets/img/test2.jpg" alt="Testimonio 2" class="avatar img-raised">
+             <span>Jennifer Arrieta</span>
           </div>
          <!-- <div class="stats ml-auto">
             <i class="material-icons">favorite</i> 2.4K &#xB7;
@@ -63,14 +59,12 @@ export default {}
           <i class="fa fa-twitter"></i> Twitter
         </h5> -->
         <h4 class="card-title">
-          <a href="#pablo">&quot;You Don&apos;t Have to Sacrifice Joy to Build a Fabulous Business and Life&quot;</a>
+          &quot;Recomiendo este sitio para realizar las recargas, muy conforme&quot;
         </h4>
         <div class="card-stats">
           <div class="author">
-            <a href="#pablo">
-             <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=334&q=80&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D" alt="..." class="avatar img-raised">
-             <span>Alejandro Herrera</span>
-            </a>
+             <img src="/static/template/material/assets/img/test3.jpg" alt="Testimonio 3" class="avatar img-raised">
+             <span>Alexis Domínguez</span>
           </div>
          <!-- <div class="stats ml-auto">
             <i class="material-icons">favorite</i> 2.4K &#xB7;

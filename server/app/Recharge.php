@@ -117,6 +117,6 @@ class Recharge extends Model
 
       public function getOfferAttribute()
       {
-          return Offer::where('id', $this->user_id)->first();
+          return Offer::where('id', $this->offer_id)->first();
       }
   }

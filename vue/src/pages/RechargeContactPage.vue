@@ -700,14 +700,14 @@ export default {
                                     <div class="option__desc">
                                       <span class="option__title" style="font-size: 25px;">{{props.option.name}}</span>
                                       <br>
-                                      <span class="option__small" style="font-size: 18px;">{{props.option.date_expire}}</span>
+                                      <span class="option__small" style="font-size: 18px;">{{props.option.receive}}</span>
                                     </div>
                                   </template>
                                   <template slot="option" slot-scope="props">
                                     <div class="option__desc">
                                       <span class="option__title">{{props.option.name}}</span>
                                       <br>
-                                      <span class="option__small">{{props.option.date_expire}}</span>
+                                      <span class="option__small">{{props.option.receive}}</span>
                                     </div>
                                   </template>
                                 </multiselect>
@@ -718,14 +718,14 @@ export default {
                                     <div class="option__desc">
                                       <span class="option__title" style="font-size: 25px;">{{props.option.name}}</span>
                                       <br>
-                                      <span class="option__small" style="font-size: 18px;">{{props.option.date_expire}}</span>
+                                      <span class="option__small" style="font-size: 18px;">{{props.option.receive}}</span>
                                     </div>
                                   </template>
                                   <template slot="option" slot-scope="props">
                                     <div class="option__desc">
                                       <span class="option__title">{{props.option.name}}</span>
                                       <br>
-                                      <span class="option__small">{{props.option.date_expire}}</span>
+                                      <span class="option__small">{{props.option.receive}}</span>
                                     </div>
                                   </template>
                                 </multiselect>
@@ -780,14 +780,14 @@ export default {
                                     <div class="option__desc">
                                       <span class="option__title" style="font-size: 25px;">{{props.option.name}}</span>
                                       <br>
-                                      <span class="option__small" style="font-size: 18px;">{{props.option.date_expire}}</span>
+                                      <span class="option__small" style="font-size: 18px;">{{props.option.receive}}</span>
                                     </div>
                                   </template>
                                   <template slot="option" slot-scope="props">
                                     <div class="option__desc">
                                       <span class="option__title">{{props.option.name}}</span>
                                       <br>
-                                      <span class="option__small">{{props.option.date_expire}}</span>
+                                      <span class="option__small">{{props.option.receive}}</span>
                                     </div>
                                   </template>
                                 </multiselect>
@@ -798,14 +798,14 @@ export default {
                                     <div class="option__desc">
                                       <span class="option__title" style="font-size: 25px;">{{props.option.name}}</span>
                                       <br>
-                                      <span class="option__small" style="font-size: 18px;">{{props.option.date_expire}}</span>
+                                      <span class="option__small" style="font-size: 18px;">{{props.option.receive}}</span>
                                     </div>
                                   </template>
                                   <template slot="option" slot-scope="props">
                                     <div class="option__desc">
                                       <span class="option__title">{{props.option.name}}</span>
                                       <br>
-                                      <span class="option__small">{{props.option.date_expire}}</span>
+                                      <span class="option__small">{{props.option.receive}}</span>
                                     </div>
                                   </template>
                                 </multiselect>

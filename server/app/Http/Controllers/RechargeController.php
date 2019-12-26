@@ -102,7 +102,10 @@ class RechargeController extends Controller
     //  Recharge list
     public function getRechargeList(Request $request)
     {
-        return response(['data' => Recharge::where('user_id', $request->user()->id)->where('is_deleted', 0)->get()], 200);
+        return response(['data' => ContactRecharge::join('recharges', 'recharges.id', '=', 'contact_recharges.recharge_id')
+                    ->where('recharges.user_id', $request->user()->id)
+                    ->where('recharges.is_deleted', 0)
+                    ->get()], 200);
 
     }
 

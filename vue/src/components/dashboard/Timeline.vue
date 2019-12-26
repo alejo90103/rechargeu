@@ -18,7 +18,7 @@ export default {}
             <ol class="ps-timeline">
                 <li>
                     <div class="img-handler-top">
-                        <img src="https://www.physology.co.uk/wp-content/uploads/2016/02/ps-elem_03.png" alt=""/>
+                        <img src="/static/template/material/assets/img/escribe.png" alt=""/>
                     </div>
                     <div class="ps-bot img-handler-bot">
                         <p>Escribe el número o el correo a recargar</p>
@@ -27,7 +27,7 @@ export default {}
                 </li>
                 <li>
                     <div class="img-handler-bot">
-                        <img src="https://www.physology.co.uk/wp-content/uploads/2016/02/ps-elem_13.png" alt=""/>
+                        <img src="/static/template/material/assets/img/identificate.png" alt=""/>
                     </div>
                     <div class="ps-top img-handler-bot">
                         <p>Identifícate en el sistema</p>
@@ -36,7 +36,7 @@ export default {}
                 </li>
                 <li>
                     <div class="img-handler-top">
-                        <img src="https://www.physology.co.uk/wp-content/uploads/2016/02/ps-elem_05.png" alt=""/>
+                        <img src="/static/template/material/assets/img/pay.png" alt=""/>
                     </div>
                     <div class="ps-bot img-handler-bot">
                         <p>Realiza el pago</p>
@@ -45,7 +45,7 @@ export default {}
                 </li>
                 <li>
                     <div class="img-handler-bot">
-                        <img src="https://www.physology.co.uk/wp-content/uploads/2016/02/ps-elem_10.png" alt=""/>
+                        <img src="/static/template/material/assets/img/exito.png" alt=""/>
                     </div>
                     <div class="ps-top img-handler-bot">
                         <p>Recarga realizada con éxito</p>
