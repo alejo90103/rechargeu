@@ -152,7 +152,8 @@ class PaypalController extends BaseController
 			$recharge->status = "Cancel";
 			$recharge->save();
 
-			return Redirect::to("http://localhost:8080/dashboard/failed");
+			return Redirect::to(env('APP_CLIENT', 'cubarecargame.com').'/dashboard/failed');
+			// return Redirect::to("http://localhost:8080/dashboard/failed");
 
 			// return \Redirect::route('/')
 			// 	->with('error', 'Ups! Error desconocido.');
@@ -179,7 +180,8 @@ class PaypalController extends BaseController
 				$recharge->status = "Cancel";
 				$recharge->save();
 
-				return Redirect::to("http://localhost:8080/dashboard/failed");
+				return Redirect::to(env('APP_CLIENT', 'cubarecargame.com').'/dashboard/failed');
+				// return Redirect::to("http://localhost:8080/dashboard/failed");
 
 			// return \Redirect::route('home')
 			// 	->with('message', 'Hubo un problema al intentar pagar con Paypal');
@@ -217,7 +219,8 @@ class PaypalController extends BaseController
 					$recharge->save();
 
 					// programacion success
-					return Redirect::to("http://localhost:8080/dashboard/success");
+					return Redirect::to(env('APP_CLIENT', 'cubarecargame.com').'/dashboard/success');
+					// return Redirect::to("http://localhost:8080/dashboard/success");
 			}
 
 			// call ding
@@ -237,14 +240,16 @@ class PaypalController extends BaseController
 				$paymentBack->save();
 				// $urlBack = Setting::first()->server_client;
 				// return Redirect::to($urlBack."dashboard/success");
-				return Redirect::to("http://localhost:8080/dashboard/success");
+				return Redirect::to(env('APP_CLIENT', 'cubarecargame.com').'/dashboard/success');
+				// return Redirect::to("http://localhost:8080/dashboard/success");
 			} else {
 				//
 				$recharge->status = "Denied";
 				$recharge->save();
 				// $urlBack = Setting::first()->server_client;
 				// return Redirect::to($urlBack."dashboard/failedDing");
-				return Redirect::to("http://localhost:8080/dashboard/failedDing");
+				return Redirect::to(env('APP_CLIENT', 'cubarecargame.com').'/dashboard/failedDing');
+				// return Redirect::to("http://localhost:8080/dashboard/failedDing");
 			}
 
 			// $this->saveOrder(\Session::get('cart'));
@@ -256,7 +261,8 @@ class PaypalController extends BaseController
 			// 	->with('message', 'Compra realizada de forma correcta');
 		}
 
-		return Redirect::to("http://localhost:8080/dashboard/failed");
+		return Redirect::to(env('APP_CLIENT', 'cubarecargame.com').'/dashboard/failed');
+		// return Redirect::to("http://localhost:8080/dashboard/failed");
 		// return \Redirect::route('home')
 		// 	->with('message', 'La compra fue cancelada');
 	}
@@ -267,7 +273,7 @@ class PaypalController extends BaseController
 			$url = "https://api.dingconnect.com/api/V1/SendTransfer";
 			$header = array(
 					"Content-Type: application/json",
-					"api_key: 55NhaAwAtfu6VeuEGjiSZU" // secret api ding
+					"api_key: ".env('API_DING', '55NhaAwAtfu6VeuEGjiSZU') // secret api ding
 			);
 
 			// para hacer transferencia requerido
