@@ -7,8 +7,8 @@
  * @Copyright: Codeals
  */
 
-export const apiClient = 'http://localhost:8080/'
-export const apiDomain = 'http://localhost:8000/'
+export const apiClient = 'https://cubarecargame.com/'
+export const apiDomain = 'https://admin.cubarecargame.com/index.php/'
 export const loginUrl = apiDomain + 'oauth/token'
 export const userUrl = apiDomain + 'api/user'
 export const forgotPassword = apiDomain + 'api/forgot-password'

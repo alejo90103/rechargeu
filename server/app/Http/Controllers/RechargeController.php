@@ -235,7 +235,7 @@ class RechargeController extends Controller
     {
         $today = Date('Y-m-d');
         $offers = Offer::where('date_ini', '=', $today)
-                    ->where('is_deleted', '=', 0);
+                    ->where('is_deleted', '=', 0)
                     ->get();
 
         foreach ($offers as $offer) {

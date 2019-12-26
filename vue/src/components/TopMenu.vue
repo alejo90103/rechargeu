@@ -73,7 +73,7 @@ export default {
             </a>
           </li> -->
           <li class="nav-item">
-            <a class="nav-link menu-link" rel="tooltip" title="" data-placement="bottom" href="#" target="_blank" data-original-title="Siguenos en Facebook">
+            <a class="nav-link menu-link" rel="tooltip" title="" data-placement="bottom" href="https://www.facebook.com/cubarecargame" target="_blank" data-original-title="Síguenos en Facebook">
               <i class="fa fa-facebook-square"></i>
             </a>
           </li>
@@ -83,7 +83,7 @@ export default {
             </a>
           </li> -->
           <li class="dropdown nav-item">
-            <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+            <a href="https://www.facebook.com/cubarecargame" class="dropdown-toggle nav-link" data-toggle="dropdown">
               <i class="material-icons">face</i> {{userStore.authUser.name}}
             </a>
             <div class="dropdown-menu dropdown-with-icons">
@@ -117,7 +117,7 @@ export default {
             </a>
           </li> -->
           <li class="nav-item">
-            <a class="nav-link" rel="tooltip" title="" data-placement="bottom" href="#" target="_blank" data-original-title="Siguenos en Facebook">
+            <a class="nav-link" rel="tooltip" title="" data-placement="bottom" href="#" target="_blank" data-original-title="Síguenos en Facebook">
               <i class="fa fa-facebook-square"></i>
             </a>
           </li>
