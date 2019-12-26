@@ -158,12 +158,12 @@ export default {
                   <h4 class="card-title">Login</h4>
                   <!-- <pre>{{isConnected}}</pre> -->
                   <div class="social-line">
-                    <a href="#pablo" class="btn btn-just-icon btn-link">
+                    <!-- <a href="#pablo" class="btn btn-just-icon btn-link">
                       <i class="fa fa-facebook-square"></i>
                     </a>
                     <a href="#pablo" class="btn btn-just-icon btn-link">
                       <i class="fa fa-google-plus"></i>
-                    </a>
+                    </a> -->
                     <!-- <Facebook-Login class="button"
                       :appId="clientFacebook"
                       @login="onLogin"
@@ -229,8 +229,9 @@ export default {
           </nav>
           <div class="copyright float-right">
             &copy;
-            Hecho con <i class="fa fa-heart heart"></i>
-            <!-- por <a href="http://codeals.es">Codeals</a>. <router-link :to="{name: 'home'}">Recargame.</router-link> -->
+            Todos los derechos reservados.
+            <!-- <i class="fa fa-heart heart"></i> por <a href="http://codeals.es">Codeals</a>.  -->
+            <router-link :to="{name: 'dashboard'}">Cuba Recargame.</router-link>
           </div>
         </div>
       </footer>

@@ -191,8 +191,9 @@ export default {
           </nav>
           <div class="copyright float-right">
             &copy;
-            Hecho con <i class="fa fa-heart heart"></i>
-            <!-- por <a href="http://codeals.es">Codeals</a>. <router-link :to="{name: 'home'}">Recargame.</router-link> -->
+            Todos los derechos reservados.
+            <!-- <i class="fa fa-heart heart"></i> por <a href="http://codeals.es">Codeals</a>.  -->
+            <router-link :to="{name: 'dashboard'}">Cuba Recargame.</router-link>
           </div>
         </div>
       </footer>
@@ -5855,11 +5856,11 @@ export default {
     }
   }
 
-  @media (min-width: 992px) {
+  /* @media (min-width: 992px) {
     .modal-md {
       max-width: 1184px;
     }
-  }
+  } */
 
   .tooltip {
     position: absolute;

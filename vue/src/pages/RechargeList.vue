@@ -60,9 +60,14 @@ export default {
       mode: 'add'
     }
   },
+  watch: {
+    rechargeStore: function () {
+      this.totalRows = this.rechargeStore.length
+    }
+  },
   computed: {
     ...mapState({
-      rechargeStore: state => state.rechargeStore
+      rechargeStore: state => state.rechargeStore.rechargeList
     }),
     sortOptions () {
       // Create an options list from our fields
@@ -75,7 +80,7 @@ export default {
   },
   mounted () {
     // Set the initial number of contacts
-    this.totalRows = this.rechargeStore.rechargeList.length
+    this.totalRows = this.rechargeStore.length
   },
   components: {
     TopMenu,
@@ -230,7 +235,7 @@ export default {
               :hover="hover"
               :bordered = "bordered"
               :head-variant="headVariant"
-              :items="rechargeStore.rechargeList"
+              :items="rechargeStore"
               :fields="fields"
               :current-page="currentPage"
               :per-page="perPage"

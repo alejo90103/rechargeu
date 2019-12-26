@@ -68,7 +68,7 @@ export default {
       totalEmailRows: 1,
       currentPagePhone: 1,
       perPagePhone: 10,
-      pageOptionsPhone: [10, 15, 20],
+      pageOptionsPhone: [10, 10, 15, 20],
       sortByPhone: '',
       sortDescPhone: false,
       sortDirectionPhone: 'asc',
@@ -108,6 +108,14 @@ export default {
       choose_offer_cell: '',
       choose_offer_nauta: '',
       multiRechargeOffer: ''
+    }
+  },
+  watch: {
+    listPhone: function () {
+      this.totalPhoneRows = this.listPhone.length
+    },
+    listEmail: function () {
+      this.totalEmailRows = this.listEmail.length
     }
   },
   computed: {
@@ -676,7 +684,7 @@ export default {
           </div>
 
           <!-- Info modal -->
-          <b-modal id="rechargeModal" size="lg" ref="rechargeModal" ok-only @hide="resetInfoModal" hide-footer hide-header>
+          <b-modal id="rechargeModal" size="md" ref="rechargeModal" ok-only @hide="resetInfoModal" hide-footer hide-header>
             <!-- <template v-slot:modal-title >
             </template> -->
             <div class="card-header card-header-primary text-center mb-5" style="background-color: #9c27b0; border-radius: 3px;">
@@ -756,7 +764,7 @@ export default {
           </b-modal>
 
           <!-- Multi Recharge Modal -->
-          <b-modal id="rechargeMultiModal" size="lg" ref="rechargeMultiModal" ok-only @hide="resetMultiModal" hide-footer hide-header>
+          <b-modal id="rechargeMultiModal" size="md" ref="rechargeMultiModal" ok-only @hide="resetMultiModal" hide-footer hide-header>
             <!-- <template v-slot:modal-title >
             </template> -->
             <div class="card-header card-header-primary text-center mb-5" style="background-color: #9c27b0; border-radius: 3px;">

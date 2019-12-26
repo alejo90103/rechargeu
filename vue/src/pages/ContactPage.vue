@@ -18,6 +18,11 @@ export default {
     this.$store.dispatch('setBanner', false)
     this.$store.dispatch('getContactList')
   },
+  watch: {
+    contactStore: function () {
+      this.totalRows = this.contactStore.length
+    }
+  },
   data () {
     return {
       fields: [
@@ -69,7 +74,7 @@ export default {
   },
   computed: {
     ...mapState({
-      contactStore: state => state.contactStore,
+      contactStore: state => state.contactStore.contacts,
       rechargeStore: state => state.rechargeStore,
       offerStore: state => state.offerStore
     }),
@@ -243,7 +248,7 @@ export default {
               :hover="hover"
               :bordered = "bordered"
               :head-variant="headVariant"
-              :items="contactStore.contacts"
+              :items="contactStore"
               :fields="fields"
               :current-page="currentPage"
               :per-page="perPage"

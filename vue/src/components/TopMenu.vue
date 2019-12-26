@@ -34,10 +34,8 @@ export default {
 <template>
   <nav v-if="userStore.authUser !== null && userStore.authUser.access_token" class="navbar navbar-transparent navbar-color-on-scroll fixed-top navbar-expand-lg" color-on-scroll="100" id="sectionsNav">
     <div class="container">
-      <div class="navbar-translate" style="margin-left: 12%">
-        <a class="navbar-brand" href="http://localhost:8080/dashboard">
-          Recargame
-        </a>
+      <div class="navbar-translate" style="margin-left: 0%">
+        <a class="navbar-brand" href="/dashboard">Cuba Recargame</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
           <span class="sr-only">Toggle navigation</span>
           <span class="navbar-toggler-icon"></span>
@@ -69,33 +67,29 @@ export default {
           </li>
         </ul>
         <ul class="navbar-nav ml-auto">
-          <!-- <chat-notification></chat-notification> -->
-          <!-- <pm-notification></pm-notification> -->
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link menu-link" rel="tooltip" title="" data-placement="bottom" href="#" target="_blank" data-original-title="Follow us on Twitter">
               <i class="fa fa-twitter"></i>
             </a>
-          </li>
+          </li> -->
           <li class="nav-item">
-            <a class="nav-link menu-link" rel="tooltip" title="" data-placement="bottom" href="#" target="_blank" data-original-title="Like us on Facebook">
+            <a class="nav-link menu-link" rel="tooltip" title="" data-placement="bottom" href="#" target="_blank" data-original-title="Siguenos en Facebook">
               <i class="fa fa-facebook-square"></i>
             </a>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link menu-link" rel="tooltip" title="" data-placement="bottom" href="#" target="_blank" data-original-title="Follow us on Instagram">
               <i class="fa fa-instagram"></i>
             </a>
-          </li>
+          </li> -->
           <li class="dropdown nav-item">
             <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
               <i class="material-icons">face</i> {{userStore.authUser.name}}
             </a>
             <div class="dropdown-menu dropdown-with-icons">
-              <a href="/reset-password" class="dropdown-item menu-link">
-                <i class="material-icons">vpn_key</i> Cambiar Contraseña
-              </a>
+              <router-link class="dropdown-item menu-link" :to="{name: 'reset-password'}"><i class="material-icons">vpn_key</i> Cambiar Contraseña</router-link>
               <a v-on:click="handleLogout()" class="dropdown-item logout menu-link">
-                <i class="material-icons"> logout </i> Logout
+                <i class="material-icons"> logout </i> Salir
               </a>
             </div>
           </li>
@@ -107,8 +101,7 @@ export default {
   <nav v-else='' class="navbar navbar-transparent navbar-color-on-scroll fixed-top navbar-expand-lg" color-on-scroll="100" id="sectionsNav">
     <div class="container">
       <div class="navbar-translate">
-        <a class="navbar-brand" href="http://localhost:8080">
-          Recargame </a>
+        <a class="navbar-brand" href="/dashboard">Cuba Recargame </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
           <span class="sr-only">Toggle navigation</span>
           <span class="navbar-toggler-icon"></span>
@@ -118,21 +111,21 @@ export default {
       </div>
       <div class="collapse navbar-collapse">
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link" rel="tooltip" title="" data-placement="bottom" href="#" target="_blank" data-original-title="Follow us on Twitter">
               <i class="fa fa-twitter"></i>
             </a>
-          </li>
+          </li> -->
           <li class="nav-item">
-            <a class="nav-link" rel="tooltip" title="" data-placement="bottom" href="#" target="_blank" data-original-title="Like us on Facebook">
+            <a class="nav-link" rel="tooltip" title="" data-placement="bottom" href="#" target="_blank" data-original-title="Siguenos en Facebook">
               <i class="fa fa-facebook-square"></i>
             </a>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link" rel="tooltip" title="" data-placement="bottom" href="#" target="_blank" data-original-title="Follow us on Instagram">
               <i class="fa fa-instagram"></i>
             </a>
-          </li>
+          </li> -->
           <li class="dropdown nav-item">
             <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
               <i class="material-icons">face</i> Iniciar Sesión
