@@ -339,6 +339,8 @@ class HomeController extends Controller
                         ->where('status', '=', 'Denied')->count();
         $year[3]["waiting"] = ContactRecharge::join('recharges', 'recharges.id', '=', 'contact_recharges.recharge_id')
                         ->where('status', '=', 'Waiting')->count();
+        $year[3]["scheduled"] = ContactRecharge::join('recharges', 'recharges.id', '=', 'contact_recharges.recharge_id')
+                        ->where('status', '=', 'Scheduled')->count();
 
         // ganancias generales por tipo de recarga
         $year[4]["Cell"] = Offer::join('recharges', 'recharges.offer_id', '=', 'offers.id')

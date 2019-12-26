@@ -710,13 +710,18 @@
                         {
                             label: "Pending",
                             value: <?php echo $getRecharges[3]["waiting"]; ?>
+                        },
+                        {
+                            label: "Scheduled",
+                            value: <?php echo $getRecharges[3]["scheduled"]; ?>
                         }
                     ],
                     colors: [
                         KTApp.getStateColor('success'),
                         KTApp.getStateColor('danger'),
                         KTApp.getStateColor('warning'),
-                        KTApp.getStateColor('brand')
+                        KTApp.getStateColor('brand'),
+                        KTApp.getStateColor('info')
                     ],
                 });
             }
