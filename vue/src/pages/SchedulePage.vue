@@ -244,9 +244,7 @@ export default {
           <nav class="float-left">
             <ul>
               <li>
-                <a href="/terms">
-                  Términos y Condiciones
-                </a>
+                <router-link :to="{name: 'terms'}">Términos y Condiciones</router-link>
               </li>
             </ul>
           </nav>
@@ -5927,11 +5925,11 @@ export default {
     }
   }
 
-  @media (min-width: 992px) {
+  /* @media (min-width: 992px) {
     .modal-md {
       max-width: 1184px;
     }
-  }
+  } */
 
   .tooltip {
     position: absolute;

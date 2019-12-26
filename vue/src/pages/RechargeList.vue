@@ -5995,11 +5995,11 @@ export default {
     }
   }
 
-  @media (min-width: 992px) {
+  /* @media (min-width: 992px) {
     .modal-md {
       max-width: 1184px;
     }
-  }
+  } */
 
   .tooltip {
     position: absolute;

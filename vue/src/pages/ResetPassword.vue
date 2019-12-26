@@ -53,9 +53,9 @@
       <div class="container">
         <nav class="float-left">
           <ul>
-            <a href="/terms">
-              Términos y Condiciones
-            </a>
+            <li>
+              <router-link :to="{name: 'terms'}">Términos y Condiciones</router-link>
+            </li>
           </ul>
         </nav>
         <div class="copyright float-right">

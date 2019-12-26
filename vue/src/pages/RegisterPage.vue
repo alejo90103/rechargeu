@@ -118,9 +118,7 @@ export default {
           <nav class="float-left">
             <ul>
               <li>
-                <a href="/terms">
-                  Términos y Condiciones
-                </a>
+                <router-link :to="{name: 'terms'}">Términos y Condiciones</router-link>
               </li>
             </ul>
           </nav>
