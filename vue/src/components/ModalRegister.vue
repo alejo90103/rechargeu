@@ -210,7 +210,7 @@ export default {
                       <form class="form" v-on:submit.prevent="handleLoginFormSubmit()" style="background-color: transparent">
                         <div class="card-header card-header-primary text-center">
                           <h4 class="card-title">Iniciar Sesión</h4>
-                          <div class="social-line">
+                          <!-- <div class="social-line">
                             <a href="#pablo" class="btn btn-just-icon btn-link">
                               <i class="fa fa-facebook-square"></i>
                             </a>
@@ -220,7 +220,7 @@ export default {
                             <a href="#pablo" class="btn btn-just-icon btn-link">
                               <i class="fa fa-google-plus"></i>
                             </a>
-                          </div>
+                          </div> -->
                         </div>
                         <!-- <p class="description text-center">Or Be Classical</p> -->
                         <div class="card-body">
