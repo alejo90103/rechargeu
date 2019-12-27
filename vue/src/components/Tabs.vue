@@ -46,6 +46,12 @@ export default {
       optionsNauta: 'getNautaOffers'
     })
   },
+  mounted () {
+    this.$root.$on('loadOffer', (offer) => {
+      this.choose_offer_cell = offer
+      window.scrollTo({top: 0, left: 0, behavior: 'smooth'})
+    })
+  },
   methods: {
     changeRecharge (val) {
       this.type = val

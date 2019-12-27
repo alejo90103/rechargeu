@@ -45,6 +45,9 @@ export default {
       } else {
         this.col = ''
       }
+    },
+    recharge: function (offer) {
+      this.$root.$emit('loadOffer', offer)
     }
   }
 }
@@ -87,7 +90,7 @@ export default {
                     </div>
                   </div>
                   <div v-if="moment(now).isBetween(offer.date_ini, offer.date_end, null, '[]')" class="col-sm-12 mt-3">
-                    <button type="button" class="btn btn-success btn-lg bold"><i class="material-icons bold">sentiment_satisfied_alt</i>    Recargame</button>
+                    <button type="button" v-on:click="recharge(offer)" class="btn btn-success btn-lg bold"><i class="material-icons bold">sentiment_satisfied_alt</i>    Recargame</button>
                   </div>
                   <div v-else class="col-sm-12 mt-3">
                     <router-link :to="{name: 'schedule'}" class="btn btn-warning btn-lg bold"><i class="material-icons bold">sentiment_satisfied_alt</i>    Programar</router-link>

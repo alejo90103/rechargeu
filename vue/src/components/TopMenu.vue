@@ -35,7 +35,7 @@ export default {
   <nav v-if="userStore.authUser !== null && userStore.authUser.access_token" class="navbar navbar-transparent navbar-color-on-scroll fixed-top navbar-expand-lg" color-on-scroll="100" id="sectionsNav">
     <div class="container">
       <div class="navbar-translate" style="margin-left: 0%">
-        <router-link :to="{name: 'dashboard'}" class="navbar-brand">Cuba Recargame</router-link>
+        <router-link :to="{name: 'dashboard'}" class="navbar-brand"><h4>Cuba Recargame</h4></router-link>
         <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
           <span class="sr-only">Toggle navigation</span>
           <span class="navbar-toggler-icon"></span>
@@ -101,7 +101,7 @@ export default {
   <nav v-else='' class="navbar navbar-transparent navbar-color-on-scroll fixed-top navbar-expand-lg" color-on-scroll="100" id="sectionsNav">
     <div class="container">
       <div class="navbar-translate">
-        <router-link :to="{name: 'dashboard'}" class="navbar-brand">Cuba Recargame</router-link>
+        <router-link :to="{name: 'dashboard'}" class="navbar-brand"><h4>Cuba Recargame</h4></router-link>
         <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
           <span class="sr-only">Toggle navigation</span>
           <span class="navbar-toggler-icon"></span>

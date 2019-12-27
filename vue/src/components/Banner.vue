@@ -8,7 +8,7 @@
 -->
 <template>
   <div class="page-header header-filter clear-filter purple-filter trans" data-parallax="true" :style="{'background-image': 'url(' + require('./../assets/material/img/bg2.jpg') + ')'}" style="transform: translate3d(0px, 0px, 0px);">
-    <Tabs></Tabs>
+    <Tabs ref="tab"></Tabs>
   </div>
 </template>
 

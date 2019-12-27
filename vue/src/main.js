@@ -34,6 +34,7 @@ import PaymentPage from './pages/PaymentPage'
 // import PaymentResultPage from './pages/PaymentResultPage'
 import RechargeList from './pages/RechargeList'
 import TermsPage from './pages/TermsPage'
+import Tabs from './components/Tabs'
 
 // import ChatPage from './pages/ChatPage'
 
@@ -61,6 +62,7 @@ Vue.use(Toastr)
 Vue.use(BootstrapVue)
 
 Vue.component('multiselect', Multiselect)
+Vue.component('tab', Tabs)
 // Vue.use(VueSocketio, 'http://localhost:8890')
 // Vue.use(VueSocketio, 'http://socketserver.com:1923');
 
