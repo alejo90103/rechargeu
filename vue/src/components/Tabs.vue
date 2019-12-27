@@ -49,6 +49,8 @@ export default {
   mounted () {
     this.$root.$on('loadOffer', (offer) => {
       this.choose_offer_cell = offer
+      this.type = 'cell'
+      this.$refs['cell'].click()
       window.scrollTo({top: 0, left: 0, behavior: 'smooth'})
     })
   },
@@ -137,7 +139,7 @@ export default {
                       <div class="nav-tabs-wrapper">
                         <ul class="nav nav-tabs" data-tabs="tabs">
                           <li class="nav-item">
-                            <a class="nav-link active" v-on:click="changeRecharge('cell')" href="#cell" data-toggle="tab">
+                            <a class="nav-link active" ref='cell' v-on:click="changeRecharge('cell')" href="#cell" data-toggle="tab">
                               <i class="material-icons">phone_iphone</i> Móvil
                             </a>
                           </li>
