@@ -134,9 +134,22 @@ class OfferController extends Controller
     {
         //  aqui se formo la cosa, redsys y recojo y dingconnect
         $NOW = date('Y-m-d');
+
+        $data = Offer::where('is_deleted', '=', 0)
+                    ->where('date_ini', '<=', $NOW)
+                    ->where('date_end', '>=', $NOW)
+                    ->where('type', '=', 'Cell')
+                    ->where('ads', '=', 1)
+                    ->get();
+
+        if (!$data->isEmpty()) {
+            return response(['data' => $data], 200);
+        }
+
         $data = Offer::where('is_deleted', '=', 0)
                     ->where('date_end', '>=', $NOW)
                     ->get();
+
         return response(['data' => $data], 200);
     }
 
