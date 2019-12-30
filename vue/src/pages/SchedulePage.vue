@@ -30,8 +30,7 @@ export default {
       choose_offer: '',
       server: apiDomain,
       now: moment(new Date()).format('YYYY/MM/DD'),
-      moment,
-      value: { title: 'Explorer', desc: 'Discovering new species!', img: 'static/posters/creatures.png' }
+      moment
     }
   },
   computed: {
@@ -55,42 +54,40 @@ export default {
     handleSubmit () {
       if (this.type === 'cell') {
         if (!this.cell.name) {
-          this.$toastr.e('Debe ingresar un nombre')
+          this.$toastr.e(this.$i18n.t('notifications.validations.name'))
           return
         } else if (!this.cell.phone) {
-          this.$toastr.e('Debe ingresar un número')
+          this.$toastr.e(this.$i18n.t('notifications.validations.number'))
           return
         } else if (!this.choose_offer.id) {
-          this.$toastr.e('Debe selecionar una oferta')
+          this.$toastr.e(this.$i18n.t('notifications.validations.offer'))
           return
         }
         if (!this.validateNumber(this.cell.phone)) {
-          this.$toastr.e('Número invalido')
+          this.$toastr.e(this.$i18n.t('notifications.validations.error_number'))
           return
         }
         this.cell.offer_id = this.choose_offer.id
         this.$store.dispatch('setRecharge', this.cell)
       } else {
         if (!this.nauta.name) {
-          this.$toastr.e('Debe ingresar un nombre')
+          this.$toastr.e(this.$i18n.t('notifications.validations.name'))
           return
         } else if (!this.nauta.email) {
-          this.$toastr.e('Debe ingresar un correo')
+          this.$toastr.e(this.$i18n.t('notifications.validations.email'))
           return
         } else if (!this.choose_offer.id) {
-          this.$toastr.e('Debe selecionar una oferta')
+          this.$toastr.e(this.$i18n.t('notifications.validations.offer'))
           return
         }
         if (!this.validateEmail(this.nauta.email)) {
-          this.$toastr.e('Email invalido')
+          this.$toastr.e(this.$i18n.t('notifications.validations.error_email'))
           return
         }
         this.nauta.offer_id = this.choose_offer.id
         this.$store.dispatch('setRecharge', this.nauta)
       }
       if (this.userStore.authUser === null) {
-        console.log('no logueado')
-        console.log('show popup')
         $('#exampleModal').modal('show')
         $('.modal-backdrop').css('opacity', '1')
       } else {
@@ -140,7 +137,7 @@ export default {
                             <ul class="nav nav-tabs" data-tabs="tabs">
                               <li class="nav-item">
                                 <a class="nav-link active" v-on:click="changeRecharge('cell')" href="#cell" data-toggle="tab">
-                                  <i class="material-icons">phone_iphone</i> Móvil
+                                  <i class="material-icons">phone_iphone</i> {{$t('schedule.cell')}}
                                 </a>
                               </li>
                               <!-- <li class="nav-item">
@@ -159,13 +156,13 @@ export default {
                               <div class="form-group col-md-12" style="padding-top: 0px;">
                                 <div class="input-group-prepend row">
                                   <div class="input-group-text col-md-2" style="color: #000; font-weight: 200; font-size: 25px;">ABC</div>
-                                  <input type="text" v-model="cell.name" style="font-size: 25px; text-align: center; font-weight: 200; height: auto;" class="form-control col-md-10" placeholder="Nombre">
+                                  <input type="text" v-model="cell.name" style="font-size: 25px; text-align: center; font-weight: 200; height: auto;" class="form-control col-md-10" :placeholder="$t('schedule.name')">
                                 </div>
                               </div>
                               <div class="form-group col-md-12" style="padding-top: 0px;">
                                 <div class="input-group-prepend row">
                                   <div class="input-group-text col-md-2" style="color: #000; font-weight: 200; font-size: 25px;">+53</div>
-                                  <input type="number" v-model="cell.phone" style="font-size: 25px; text-align: center; font-weight: 200; height: auto;" class="form-control col-md-10" placeholder="Teléfono">
+                                  <input type="number" v-model="cell.phone" style="font-size: 25px; text-align: center; font-weight: 200; height: auto;" class="form-control col-md-10" :placeholder="$t('schedule.phone')">
                                 </div>
                               </div>
                               <!-- <pre>{{choose_offer}}</pre> -->
@@ -173,7 +170,7 @@ export default {
                                 <div class="input-group-prepend row">
                                   <div class="input-group-text col-md-2" style="color: #000; font-weight: 200; font-size: 25px; padding-left: 10px">€</div>
                                   <div class="col-md-10 material-select">
-                                    <multiselect v-model="choose_offer" :allowEmpty="false" placeholder="Seleccione una oferta" label="name" track-by="name" :option-height="104" :options="optionsCell" :custom-label="customLabel" :show-labels="false">
+                                    <multiselect v-model="choose_offer" :allowEmpty="false" :placeholder="$t('schedule.offer')" label="name" track-by="name" :option-height="104" :options="optionsCell" :custom-label="customLabel" :show-labels="false">
                                       <template slot="singleLabel" slot-scope="props">
                                         <div class="option__desc">
                                           <span class="option__title" style="font-size: 25px;">{{props.option.name}}</span>
@@ -204,13 +201,13 @@ export default {
                               <div class="form-group col-md-12" style="padding-top: 0px;">
                                 <div class="input-group-prepend row">
                                   <div class="input-group-text col-md-2" style="color: #000; font-weight: 200; font-size: 25px;">ABC</div>
-                                  <input type="text" v-model="nauta.name" style="font-size: 25px; text-align: center; font-weight: 200; height: auto;" class="form-control col-md-10" placeholder="Nombre">
+                                  <input type="text" v-model="nauta.name" style="font-size: 25px; text-align: center; font-weight: 200; height: auto;" class="form-control col-md-10" :placeholder="$t('schedule.name')">
                                 </div>
                               </div>
                               <div class="form-group col-md-12" style="padding-top: 0px;">
                                 <div class="input-group-prepend row">
                                   <div class="input-group-text col-md-2" style="color: #000; font-weight: 200; font-size: 25px; padding-left: 10px">@</div>
-                                  <input type="email" v-model="nauta.email" style="font-size: 25px; text-align: center; font-weight: 200; height: auto;" class="form-control col-md-10" placeholder="Nauta">
+                                  <input type="email" v-model="nauta.email" style="font-size: 25px; text-align: center; font-weight: 200; height: auto;" class="form-control col-md-10" :placeholder="$t('schedule.nauta')">
                                 </div>
                               </div>
                               <div class="form-group col-md-12">
@@ -225,7 +222,7 @@ export default {
                               </div>
                             </div>
                           </div>
-                          <button type="button" v-on:click="handleSubmit()" class="btn btn-warning btn-lg bold"><i class="material-icons bold">sentiment_satisfied_alt</i>    Programar</button>
+                          <button type="button" v-on:click="handleSubmit()" class="btn btn-warning btn-lg bold"><i class="material-icons bold">sentiment_satisfied_alt</i>    {{$t('schedule.schedule')}}</button>
                         </div>
                       </div>
                     </div>
@@ -244,15 +241,15 @@ export default {
           <nav class="float-left">
             <ul>
               <li>
-                <router-link :to="{name: 'terms'}">Términos y Condiciones</router-link>
+                <router-link :to="{name: 'terms'}">{{$t('footer.terms')}}</router-link>
               </li>
             </ul>
           </nav>
           <div class="copyright float-right">
             &copy;
-            Todos los derechos reservados.
+            {{$t('footer.copyright')}}
             <!-- <i class="fa fa-heart heart"></i> por <a href="http://codeals.es">Codeals</a>.  -->
-            <router-link :to="{name: 'dashboard'}">Cuba Recargame.</router-link>
+            <router-link :to="{name: 'dashboard'}">{{$t('app.title')}}</router-link>
           </div>
         </div>
       </footer>

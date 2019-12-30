@@ -7,60 +7,6 @@
 @Copyright: Codeals
 -->
 
-<template>
-  <div v-bind="isLogin()" class="login-page sidebar-collapse">
-
-    <!-- <div class="page-header header-filter" style="background-image: url('./../assets/material/img/bg7.jpg'); background-size: cover; background-position: top center;"> -->
-    <div class="page-header header-filter" :style="{'background-image': 'url(' + require('./../assets/img/98b20f06654c5e64c8602ddf3f31c6fd.jpg') + ')'}">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-4 col-md-6 ml-auto mr-auto">
-            <div class="card card-login">
-              <form class="" style="min-height: 250px" v-on:submit.prevent="handleForgotPasswordSubmit()">
-                <div class="card-header card-header-primary text-center">
-                  <h4 class="card-title">Restablecer Contraseña</h4>
-                </div>
-                <!-- <p class="description text-center">Or Be Classical</p> -->
-                <div class="card-body">
-                  <!-- <p class="description text-center">Or Be Classical</p> -->
-                  <div class="input-group">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text">
-                        <i class="material-icons">mail</i>
-                      </span>
-                    </div>
-                    <input type="email" v-model="email" class="form-control" placeholder="Correo">
-                  </div>
-                </div>
-                <div class="footer text-center">
-                  <div @click="handleForgotPasswordSubmit" class="btn btn-primary btn-link btn-wd btn-lg"><i v-show="loading" class="fa fa-circle-o-notch mr-1" style="font-size: inherit; vertical-align: unset;"></i>Enviar Correo</div>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-      <footer class="footer" style="z-index: 10">
-        <div class="container">
-          <nav class="float-left">
-            <ul>
-              <li>
-                <router-link :to="{name: 'terms'}">Términos y Condiciones</router-link>
-              </li>
-            </ul>
-          </nav>
-          <div class="copyright float-right">
-            &copy;
-            Todos los derechos reservados.
-            <!-- <i class="fa fa-heart heart"></i> por <a href="http://codeals.es">Codeals</a>.  -->
-            <router-link :to="{name: 'dashboard'}">Cuba Recargame.</router-link>
-          </div>
-        </div>
-      </footer>
-    </div>
-  </div>
-</template>
-
 <script>
 import {forgotPassword, apiClient} from './../config'
 import {mapState} from 'vuex'
@@ -94,7 +40,7 @@ export default {
       this.$http.post(forgotPassword, postData).then(response => {
         console.log('response', response)
         this.loading = false
-        this.$toastr.s('Le enviamos un correo para cambiar su contraseña')
+        this.$toastr.s(this.$i18n.t('notifications.send_email'))
         this.$router.push({name: 'login'})
       }).catch(response => {
         this.loading = false
@@ -104,6 +50,60 @@ export default {
   }
 }
 </script>
+
+<template>
+  <div v-bind="isLogin()" class="login-page sidebar-collapse">
+
+    <!-- <div class="page-header header-filter" style="background-image: url('./../assets/material/img/bg7.jpg'); background-size: cover; background-position: top center;"> -->
+    <div class="page-header header-filter" :style="{'background-image': 'url(' + require('./../assets/img/98b20f06654c5e64c8602ddf3f31c6fd.jpg') + ')'}">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-4 col-md-6 ml-auto mr-auto">
+            <div class="card card-login">
+              <form class="" style="min-height: 250px" v-on:submit.prevent="handleForgotPasswordSubmit()">
+                <div class="card-header card-header-primary text-center">
+                  <h4 class="card-title">{{$t('forgot_password.restore_password')}}</h4>
+                </div>
+                <!-- <p class="description text-center">Or Be Classical</p> -->
+                <div class="card-body">
+                  <!-- <p class="description text-center">Or Be Classical</p> -->
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="material-icons">mail</i>
+                      </span>
+                    </div>
+                    <input type="email" v-model="email" class="form-control" :placeholder="$t('forgot_password.email')">
+                  </div>
+                </div>
+                <div class="footer text-center">
+                  <div @click="handleForgotPasswordSubmit" class="btn btn-primary btn-link btn-wd btn-lg"><i v-show="loading" class="fa fa-circle-o-notch mr-1" style="font-size: inherit; vertical-align: unset;"></i>{{$t('forgot_password.send_email')}}</div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="footer" style="z-index: 10">
+        <div class="container">
+          <nav class="float-left">
+            <ul>
+              <li>
+                <router-link :to="{name: 'terms'}">{{$t('footer.terms')}}</router-link>
+              </li>
+            </ul>
+          </nav>
+          <div class="copyright float-right">
+            &copy;
+            {{$t('footer.copyright')}}
+            <!-- <i class="fa fa-heart heart"></i> por <a href="http://codeals.es">Codeals</a>.  -->
+            <router-link :to="{name: 'dashboard'}">{{$t('app.title')}}</router-link>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </div>
+</template>
 
 <style lang="css">
   /* <!-- CSS Files --> */

@@ -19,7 +19,7 @@ export default {}
           <i class="fa fa-twitter"></i> Twitter
         </h5> -->
         <h4 class="card-title">
-          &quot;Excelente sitio, las recargas llegan al momento&quot;
+          &quot;{{$t('dashboard.testimony.testimony_1')}}&quot;
         </h4>
         <div class="card-stats">
           <div class="author">
@@ -39,7 +39,7 @@ export default {}
           <i class="fa fa-twitter"></i> Twitter
         </h5> -->
         <h4 class="card-title">
-          &quot;Muy contenta con el servicio siempre recargo por aquí&quot;
+          &quot;{{$t('dashboard.testimony.testimony_2')}}&quot;
         </h4>
         <div class="card-stats">
           <div class="author">
@@ -59,7 +59,7 @@ export default {}
           <i class="fa fa-twitter"></i> Twitter
         </h5> -->
         <h4 class="card-title">
-          &quot;Recomiendo este sitio para realizar las recargas, muy conforme&quot;
+          &quot;{{$t('dashboard.testimony.testimony_3')}}&quot;
         </h4>
         <div class="card-stats">
           <div class="author">

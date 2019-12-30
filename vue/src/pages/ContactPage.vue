@@ -26,10 +26,10 @@ export default {
   data () {
     return {
       fields: [
-        { key: 'name', label: 'Nombre', sortable: true, sortDirection: 'desc' },
-        { key: 'phone', label: 'Teléfono', sortable: true, class: 'text-center' },
-        { key: 'email', label: 'Correo', sortable: true, class: 'text-center' },
-        { key: 'created_at', label: 'Creado', sortable: true, class: 'text-center' },
+        { key: 'name', label: this.$i18n.t('contact.fields.name'), sortable: true, sortDirection: 'desc' },
+        { key: 'phone', label: this.$i18n.t('contact.fields.phone'), sortable: true, class: 'text-center' },
+        { key: 'email', label: this.$i18n.t('contact.fields.email'), sortable: true, class: 'text-center' },
+        { key: 'created_at', label: this.$i18n.t('contact.fields.created'), sortable: true, class: 'text-center' },
         // {
         //   key: 'isActive',
         //   label: 'is Active',
@@ -40,7 +40,7 @@ export default {
         //   sortByFormatted: true,
         //   filterByFormatted: true
         // },
-        { key: 'actions', label: 'Actions' }
+        { key: 'actions', label: this.$i18n.t('contact.fields.actions') }
       ],
       transProps: {
         name: 'flip-list'
@@ -121,17 +121,17 @@ export default {
     },
     handleAdd (button) {
       if (!this.contact.name) {
-        this.$toastr.e('Debe ingresar un nombre')
+        this.$toastr.e(this.$i18n.t('notifications.validations.name'))
         return
       } else if (!this.contact.phone) {
-        this.$toastr.e('Debe ingresar un teléfono')
+        this.$toastr.e(this.$i18n.t('notifications.validations.number'))
         return
       } else if (!this.validateNumber(this.contact.phone)) {
-        this.$toastr.e('Número invalido')
+        this.$toastr.e(this.$i18n.t('notifications.validations.error_number'))
         return
       } else if (this.contact.email) {
         if (!this.validateEmail(this.contact.email)) {
-          this.$toastr.e('Correo invalido')
+          this.$toastr.e(this.$i18n.t('notifications.validations.error_email'))
           return
         }
       }
@@ -143,17 +143,17 @@ export default {
       // this.infoModal.title = `Row index: ${index}`
       // this.infoModal.content = JSON.stringify(item, null, 2)
       if (!this.contact.name) {
-        this.$toastr.e('Debe ingresar un nombre')
+        this.$toastr.e(this.$i18n.t('notifications.validations.name'))
         return
       } else if (!this.contact.phone) {
-        this.$toastr.e('Debe ingresar un teléfono')
+        this.$toastr.e(this.$i18n.t('notifications.validations.number'))
         return
       } else if (!this.validateNumber(this.contact.phone)) {
-        this.$toastr.e('Número invalido')
+        this.$toastr.e(this.$i18n.t('notifications.validations.error_number'))
         return
       } else if (this.contact.email) {
         if (!this.validateEmail(this.contact.email)) {
-          this.$toastr.e('Correo invalido')
+          this.$toastr.e(this.$i18n.t('notifications.validations.error_email'))
           return
         }
       }
@@ -198,12 +198,12 @@ export default {
         <b-container fluid>
           <!-- <pre>{{ contactStore }}</pre> -->
           <!-- User Interface controls -->
-          <b-button variant="primary" v-b-modal.addModal style="float: right; margin-bottom: 25px;">Agregar</b-button>
+          <b-button variant="primary" v-b-modal.addModal style="float: right; margin-bottom: 25px;">{{$t('contact.add')}}</b-button>
           <b-row>
 
             <b-col sm="6" md="2" class="my-1">
               <b-form-group
-                label="Mostrar"
+                :label="$t('contact.show')"
                 label-cols-sm="6"
                 label-cols-md="4"
                 label-cols-lg="4"
@@ -227,10 +227,10 @@ export default {
                     v-model="filter"
                     type="search"
                     id="filterInput"
-                    placeholder="Buscar"
+                    :placeholder="$t('contact.search')"
                   ></b-form-input>
                   <b-input-group-append>
-                    <b-button :disabled="!filter" @click="filter = ''">Limpiar</b-button>
+                    <b-button :disabled="!filter" @click="filter = ''">{{$t('contact.clear')}}</b-button>
                   </b-input-group-append>
                 </b-input-group>
             </b-col>
@@ -259,7 +259,7 @@ export default {
               :sort-direction="sortDirection"
               sort-icon-left
               :tbody-transition-props="transProps"
-              primary-key="nonmbre"
+              primary-key="created_at"
               @filtered="onFiltered"
             >
 
@@ -268,10 +268,10 @@ export default {
                   Recargar
                 </b-button> -->
                 <b-button size="sm" @click="showEditModal(row.item)" variant="info" >
-                  Editar
+                  {{$t('contact.edit')}}
                 </b-button>
                 <b-button variant="danger" size="sm" @click="handleDelete(row.item)" class="mr-1">
-                  Eliminar
+                  {{$t('contact.delete')}}
                 </b-button>
               </template>
 
@@ -307,7 +307,7 @@ export default {
             <!-- <template v-slot:modal-title >
             </template> -->
             <div class="card-header card-header-primary text-center mb-5" style="background-color: #9c27b0; border-radius: 3px;">
-              <h4 class="card-title" style="color: white">Nuevo Contacto</h4>
+              <h4 class="card-title" style="color: white">{{$t('contact.new')}}</h4>
             </div>
 
             <b-container fluid>
@@ -349,8 +349,8 @@ export default {
                   required
                 ></b-form-input>
               </b-form-group>
-              <b-button class="mt-2" v-if='this.mode === "add"' variant="success" style="float: right;" @click="handleAdd">Agregar</b-button>
-              <b-button class="mt-2" v-if='this.mode === "edit"' variant="info" style="float: right;" @click="handleEdit">Modificar</b-button>
+              <b-button class="mt-2" v-if='this.mode === "add"' variant="success" style="float: right;" @click="handleAdd">{{$t('contact.add')}}</b-button>
+              <b-button class="mt-2" v-if='this.mode === "edit"' variant="info" style="float: right;" @click="handleEdit">{{$t('contact.edit')}}</b-button>
             </b-container>
 
           </b-modal>

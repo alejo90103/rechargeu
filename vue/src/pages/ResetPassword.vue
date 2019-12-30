@@ -7,68 +7,6 @@
 @Copyright: Codeals
 -->
 
-<template>
-  <div class="login-page sidebar-collapse">
-
-    <!-- <div class="page-header header-filter" style="background-image: url('./../assets/material/img/bg7.jpg'); background-size: cover; background-position: top center;"> -->
-    <div class="page-header header-filter clear-filter purple-filter trans" :style="{'background-image': 'url(' + require('./../assets/material/img/bg2.jpg') + ')'}" style="transform: translate3d(0px, 0px, 0px);">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-4 col-md-6 ml-auto mr-auto">
-            <div class="card card-login">
-              <form class="" style="min-height: 250px">
-                <div class="card-header card-header-primary text-center">
-                  <h4 class="card-title">Cambiar Contraseña</h4>
-                </div>
-                <!-- <p class="description text-center">Or Be Classical</p> -->
-                <div class="card-body">
-                  <div class="input-group">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text">
-                        <i class="material-icons">lock_outline</i>
-                      </span>
-                    </div>
-                    <input type="password" v-model="password" class="form-control" placeholder="Contraseña">
-                  </div>
-                  <div class="input-group">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text">
-                        <i class="material-icons">lock_outline</i>
-                      </span>
-                    </div>
-                    <input type="password" v-model="confirmPassword" class="form-control" placeholder="Confirmar Contraseña">
-                  </div>
-                  <div class="footer text-center">
-                    <div v-if="token !== undefined" @click="handleResetPasswordSubmit" class="btn btn-primary btn-link btn-wd btn-lg"><i v-show="loadingConfirm" class="fa fa-circle-o-notch mr-1" style="font-size: inherit; vertical-align: unset;"></i>Confirmar</div>
-                    <div v-if="token === undefined" @click="handleChangePasswordSubmit" class="btn btn-primary btn-link btn-wd btn-lg"><i v-show="loadingChange" class="fa fa-circle-o-notch mr-1" style="font-size: inherit; vertical-align: unset;"></i>Cambiar</div>
-                  </div>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <footer class="footer" style="z-index: 10">
-      <div class="container">
-        <nav class="float-left">
-          <ul>
-            <li>
-              <router-link :to="{name: 'terms'}">Términos y Condiciones</router-link>
-            </li>
-          </ul>
-        </nav>
-        <div class="copyright float-right">
-          &copy;
-          Todos los derechos reservados.
-          <!-- <i class="fa fa-heart heart"></i> por <a href="http://codeals.es">Codeals</a>.  -->
-          <router-link :to="{name: 'dashboard'}">Cuba Recargame.</router-link>
-        </div>
-      </div>
-    </footer>
-  </div>
-</template>
-
 <script>
 import {resetPassword, changePassword, getHeader} from './../config'
 
@@ -88,7 +26,7 @@ export default {
   methods: {
     handleResetPasswordSubmit () {
       if (this.password !== this.confirmPassword) {
-        this.$toastr.e('Contraseñas no coinciden')
+        this.$toastr.e(this.$i18n.t('notifications.password_not_match'))
         return
       }
 
@@ -104,23 +42,23 @@ export default {
           console.log('response', response)
           if (response.status === 200) {
             this.loadingConfirm = false
-            this.$toastr.s('Su contraseña se ha sido cambiada')
+            this.$toastr.s(this.$i18n.t('notifications.password_change'))
             this.$router.push({name: 'login'})
           }
         })
         .catch(response => {
           this.loadingConfirm = false
           if (response.status === 433) {
-            this.$toastr.e('La cocontraseña debe tener un mínimo de 6 caracteres')
+            this.$toastr.e(this.$i18n.t('notifications.validations.password'))
           } else if (response.status === 403) {
-            this.$toastr.e('Token incorrecto')
+            this.$toastr.e(this.$i18n.t('notifications.validations.error_token'))
           }
           console.log('response', response)
         })
     },
     handleChangePasswordSubmit () {
       if (this.password !== this.confirmPassword) {
-        this.$toastr.e('Contraseñas no coinciden')
+        this.$toastr.e(this.$i18n.t('notifications.password_not_match'))
         return
       }
 
@@ -134,7 +72,7 @@ export default {
           console.log('response', response)
           if (response.status === 200) {
             this.loadingChange = false
-            this.$toastr.s('Su contraseña se ha sido cambiada')
+            this.$toastr.s(this.$i18n.t('notifications.password_change'))
             this.$router.push({name: 'dashboard'})
           }
         })
@@ -146,6 +84,68 @@ export default {
   }
 }
 </script>
+
+<template>
+  <div class="login-page sidebar-collapse">
+
+    <!-- <div class="page-header header-filter" style="background-image: url('./../assets/material/img/bg7.jpg'); background-size: cover; background-position: top center;"> -->
+    <div class="page-header header-filter clear-filter purple-filter trans" :style="{'background-image': 'url(' + require('./../assets/material/img/bg2.jpg') + ')'}" style="transform: translate3d(0px, 0px, 0px);">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-4 col-md-6 ml-auto mr-auto">
+            <div class="card card-login">
+              <form class="" style="min-height: 250px">
+                <div class="card-header card-header-primary text-center">
+                  <h4 class="card-title">{{$t('reset_password.title')}}</h4>
+                </div>
+                <!-- <p class="description text-center">Or Be Classical</p> -->
+                <div class="card-body">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="material-icons">lock_outline</i>
+                      </span>
+                    </div>
+                    <input type="password" v-model="password" class="form-control" :placeholder="$t('reset_password.password')">
+                  </div>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="material-icons">lock_outline</i>
+                      </span>
+                    </div>
+                    <input type="password" v-model="confirmPassword" class="form-control" :placeholder="$t('reset_password.confirm_password')">
+                  </div>
+                  <div class="footer text-center">
+                    <div v-if="token !== undefined" @click="handleResetPasswordSubmit" class="btn btn-primary btn-link btn-wd btn-lg"><i v-show="loadingConfirm" class="fa fa-circle-o-notch mr-1" style="font-size: inherit; vertical-align: unset;"></i>{{$t('reset_password.confirm')}}</div>
+                    <div v-if="token === undefined" @click="handleChangePasswordSubmit" class="btn btn-primary btn-link btn-wd btn-lg"><i v-show="loadingChange" class="fa fa-circle-o-notch mr-1" style="font-size: inherit; vertical-align: unset;"></i>{{$t('reset_password.change')}}</div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer class="footer" style="z-index: 10">
+      <div class="container">
+        <nav class="float-left">
+          <ul>
+            <li>
+              <router-link :to="{name: 'terms'}">{{$t('footer.terms')}}</router-link>
+            </li>
+          </ul>
+        </nav>
+        <div class="copyright float-right">
+          &copy;
+          {{$t('footer.copyright')}}
+          <!-- <i class="fa fa-heart heart"></i> por <a href="http://codeals.es">Codeals</a>.  -->
+          <router-link :to="{name: 'dashboard'}">{{$t('app.title')}}</router-link>
+        </div>
+      </div>
+    </footer>
+  </div>
+</template>
 
 <style lang="css">
   /* <!-- CSS Files --> */

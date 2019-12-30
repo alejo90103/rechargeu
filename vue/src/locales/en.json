@@ -1,0 +1,189 @@
+{
+  "app": {
+    "title": "Cuba Recargame",
+    "locales": {
+      "spanish": "Spanish",
+      "english": "English"
+    },
+    "recharge_me": "Recharge me"
+  },
+  "notifications": {
+    "password_not_match": "Passwords do not match",
+    "success_signin": "You have been registered successfully",
+    "error_already_exist": "This user already exists",
+    "active_account": "Activate the account in your email",
+    "error_user_password": "Username or password is incorrect",
+    "success_pay": "Payment completed successfully",
+    "error_pay": "Payment failed",
+    "error_provider": "Recharge provider failed",
+    "send_email": "We send you an email to change your password",
+    "terms": "You must agree to terms and conditions",
+    "password_change": "Su contraseña se ha sido cambiada",
+    "validations": {
+      "name": "You must enter a name",
+      "number": "You must enter a number",
+      "email": "You must enter an email",
+      "offer": "You must select an offer",
+      "password": "La contraseña debe tener un mínimo de 6 caracteres",
+      "error_number": "Invalid number",
+      "error_email": "Invalid email",
+      "error_token": "Token incorrecto"
+    }
+  },
+  "menu": {
+    "home": "Home",
+    "contact": "Contact",
+    "recharge": "Recharge",
+    "submenu_recharge": {
+      "recharge_contacts": "Contacts Recharge",
+      "recharges_mades": "Mades Recharge"
+    },
+    "submenu_settings": {
+      "change_password": "Change Password",
+      "logout": "Logout"
+    },
+    "login": "Login",
+    "submenu_login": {
+      "login": "Login",
+      "signin": "Sign In"
+    },
+    "social_medias": {
+      "facebook": "Follow us Facebook"
+    },
+    "submenu_locales": "Lenguages"
+  },
+  "login": {
+    "title": "Login",
+    "email": "Email",
+    "password": "Password",
+    "forgot_password": "¿Forgot Password?",
+    "signin": "Sign In",
+    "login": "Login"
+  },
+  "register": {
+    "title": "Register",
+    "name": "Name",
+    "email": "Email",
+    "password": "Password",
+    "confirm_password": "Confirm Password",
+    "register": "Register"
+  },
+  "footer": {
+    "terms": "Terms and Conditions",
+    "copyright": "All rights reserved."
+  },
+  "dashboard": {
+    "info": {
+      "cell": "Cell",
+      "nauta": "Nauta",
+      "pay": "Pay",
+      "recived": "Receives",
+      "recived_description": "bonus, to consume before",
+      "schedule": "Schedule"
+    },
+    "tabs": {
+      "cell": "Cell",
+      "nauta": "Nauta",
+      "name": "Name",
+      "number": "Number",
+      "offer_placeholder": "Select an offer"
+    },
+    "timeline": {
+      "step_1": "Enter the number or email to recharge",
+      "step_2": "Identify yourself in the system",
+      "step_3": "Make the payment",
+      "step_4": "Recharge done successfully"
+    },
+    "testimony": {
+      "testimony_1": "Excellent site, recharges arrive at the moment",
+      "testimony_2": "Very happy with the service always recharge here",
+      "testimony_3": "I recommend this site to recharge, very compliant"
+    }
+  },
+  "contact": {
+    "add": "Add",
+    "edit": "Edit",
+    "delete": "Delete",
+    "show": "Show",
+    "search": "Search",
+    "clear": "Clear",
+    "new": "New Contact",
+    "fields": {
+      "name": "Name",
+      "phone": "Phone",
+      "email": "Email",
+      "created": "Created",
+      "actions": "Actions"
+    }
+  },
+  "forgot_password": {
+    "restore_password": "Restore Password",
+    "email": "Email",
+    "send_email": "Send Email"
+  },
+  "payment": {
+    "title": "Payment Summary",
+    "hello": "Hello",
+    "do": "You are going to make",
+    "recharge": "recharge | recharges",
+    "cell": "Cell",
+    "type": "of type",
+    "total": "Total:",
+    "accept": "Accept the",
+    "terms": {
+      "title": "Terms and Conditions",
+      "text": "terms and conditions"
+    },
+    "credit_card": "Credit Card",
+    "paypal": "PayPal",
+    "close": "Close"
+  },
+  "contact_recharge": {
+    "cell": "Cell",
+    "nauta": "Nauta",
+    "show": "Show",
+    "clear": "Clear",
+    "search": "Search",
+    "offer": "Select an offer",
+    "fields": {
+      "name": "Name",
+      "phone": "Phone",
+      "email": "Email",
+      "created": "Created",
+      "actions": "Actions"
+    }
+  },
+  "recharge_list": {
+    "show": "Show",
+    "clear": "Clear",
+    "search": "Search",
+    "fields": {
+      "name": "Name",
+      "type": "Type",
+      "phone": "Phone",
+      "email": "Email",
+      "offer": "Offer",
+      "price": "Price",
+      "status": "Status",
+      "date": "Date"
+    }
+  },
+  "reset_password": {
+    "title": "Reset Password",
+    "password": "Password",
+    "confirm_password": "Confirm Password",
+    "confirm": "Confirm",
+    "change": "Change"
+  },
+  "schedule": {
+    "cell": "Cell",
+    "nauta": "Nauta",
+    "name": "Name",
+    "phone": "Phone",
+    "offer": "Select an offer",
+    "schedule": "Schedule"
+  },
+  "terms": {
+    "title": "Terms and Conditions"
+  }
+}

@@ -29,11 +29,11 @@ export default {
     checkPaymentStatus () {
       if (this.$route.params.paymentResult !== undefined) {
         if (this.$route.params.paymentResult === 'success') {
-          this.$toastr.s('Pago completado con éxito')
+          this.$toastr.s(this.$i18n.t('notifications.success_pay'))
         } else if (this.$route.params.paymentResult === 'failed') {
-          this.$toastr.e('No se realizó el pago')
+          this.$toastr.e(this.$i18n.t('notifications.error_pay'))
         } else if (this.$route.params.paymentResult === 'failedDing') {
-          this.$toastr.e('Falló el proveedor de recargas')
+          this.$toastr.e(this.$i18n.t('notifications.error_provider'))
         }
       }
     }

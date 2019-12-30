@@ -27,7 +27,7 @@ export default {
           <div class="col-lg-12 col-md-12 ml-auto mr-auto">
             <div class="card card-login">
               <div class="card-header card-header-primary text-center">
-                <h4 class="card-title">Términos y Condiciones</h4>
+                <h4 class="card-title">{{$t('terms.title')}}</h4>
               </div>
               <div class="card-body" style="padding: 0.9375rem 1.875rem;">
                 <div style="position:relative; max-height: calc(100vh - 20rem); overflow-y:scroll;">
@@ -43,15 +43,15 @@ export default {
           <nav class="float-left">
             <ul>
               <li>
-                <router-link :to="{name: 'terms'}">Términos y Condiciones</router-link>
+                <router-link :to="{name: 'terms'}">{{$t('footer.terms')}}</router-link>
               </li>
             </ul>
           </nav>
           <div class="copyright float-right">
             &copy;
-            Todos los derechos reservados.
+            {{$t('footer.copyright')}}
             <!-- <i class="fa fa-heart heart"></i> por <a href="http://codeals.es">Codeals</a>.  -->
-            <router-link :to="{name: 'dashboard'}">Cuba Recargame.</router-link>
+            <router-link :to="{name: 'dashboard'}">{{$t('app.title')}}</router-link>
           </div>
         </div>
       </footer>

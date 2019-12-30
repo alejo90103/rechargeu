@@ -1,0 +1,189 @@
+{
+  "app": {
+    "title": "Cuba Recargame",
+    "locales": {
+      "spanish": "Español",
+      "english": "Inglés"
+    },
+    "recharge_me": "Recargame"
+  },
+  "notifications": {
+    "password_not_match": "Contraseñas no coinciden",
+    "success_signin": "Ha sido registrado con éxito",
+    "error_already_exist": "Este usuario ya existe",
+    "active_account": "Active la cuenta en su correo",
+    "error_user_password": "Usuario o contraseña incorrecto",
+    "success_pay": "Pago completado con éxito",
+    "error_pay": "No se realizó el pago",
+    "error_provider": "Falló el proveedor de recargas",
+    "send_email": "Le enviamos un correo para cambiar su contraseña",
+    "terms": "Debes aceptar los términos y condiciones",
+    "password_change": "Su contraseña se ha sido cambiada",
+    "validations": {
+      "name": "Debe ingresar un nombre",
+      "number": "Debe ingresar un número",
+      "email": "Debe ingresar un correo",
+      "offer": "Debe selecionar una oferta",
+      "password": "La contraseña debe tener un mínimo de 6 caracteres",
+      "error_number": "Número incorrecto",
+      "error_email": "Email incorrecto",
+      "error_token": "Token incorrecto"
+    }
+  },
+  "menu": {
+    "home": "Inicio",
+    "contact": "Contactos",
+    "recharge": "Recargas",
+    "submenu_recharge": {
+      "recharge_contacts": "Recargar Contactos",
+      "recharges_mades": "Recargas Realizadas"
+    },
+    "submenu_settings": {
+      "change_password": "Cambiar Contraseña",
+      "logout": "Salir"
+    },
+    "login": "Iniciar Sesión",
+    "submenu_login": {
+      "login": "Iniciar Sesión",
+      "signin": "Registrarse"
+    },
+    "social_medias": {
+      "facebook": "Síguenos en Facebook"
+    },
+    "submenu_locales": "Lenguajes"
+  },
+  "login": {
+    "title": "Iniciar Sesión",
+    "email": "Correo",
+    "password": "Contraseña",
+    "forgot_password": "¿Olvidaste tu contraseña?",
+    "signin": "Registrarte",
+    "login": "Iniciar Sesión"
+  },
+  "register": {
+    "title": "Registrarse",
+    "name": "Nombre",
+    "email": "Correo",
+    "password": "Contraseña",
+    "confirm_password": "Confirmar Contraseña",
+    "register": "Registrarse"
+  },
+  "footer": {
+    "terms": "Términos y Condiciones",
+    "copyright": "Todos los derechos reservados."
+  },
+  "dashboard": {
+    "info": {
+      "cell": "Móvil",
+      "nauta": "Nauta",
+      "pay": "Paga",
+      "recived": "Recibe",
+      "recived_description": "de bonificación, a consumir antes del",
+      "schedule": "Programar"
+    },
+    "tabs": {
+      "cell": "Móvil",
+      "nauta": "Nauta",
+      "name": "Nombre",
+      "number": "Número",
+      "offer_placeholder": "Seleccione una oferta"
+    },
+    "timeline": {
+      "step_1": "Escribe el número o el correo a recargar",
+      "step_2": "Identifícate en el sistema",
+      "step_3": "Realiza el pago",
+      "step_4": "Recarga realizada con éxito"
+    },
+    "testimony": {
+      "testimony_1": "Excelente sitio, las recargas llegan al momento",
+      "testimony_2": "Muy contenta con el servicio siempre recargo por aquí",
+      "testimony_3": "Recomiendo este sitio para realizar las recargas, muy conforme"
+    }
+  },
+  "contact": {
+    "add": "Agregar",
+    "edit": "Modificar",
+    "delete": "Eliminar",
+    "show": "Mostrar",
+    "search": "Buscar",
+    "clear": "Limpiar",
+    "new": "Nuevo Contacto",
+    "fields": {
+      "name": "Nombre",
+      "phone": "Télefono",
+      "email": "Correo",
+      "created": "Creado",
+      "actions": "Acciones"
+    }
+  },
+  "forgot_password": {
+    "restore_password": "Restablecer Contraseña",
+    "email": "Correo",
+    "send_email": "Enviar Correo"
+  },
+  "payment": {
+    "title": "Resumen de Pago",
+    "hello": "Hola",
+    "do": "Vas a realizar",
+    "recharge": "recarga | recargas",
+    "cell": "Móvil",
+    "type": "de tipo",
+    "total": "Total:",
+    "accept": "Acepta los",
+    "terms": {
+      "title": "Términos y Condiciones",
+      "text": "términos y condiciones"
+    },
+    "credit_card": "Tarjeta",
+    "paypal": "PayPal",
+    "close": "Cerrar"
+  },
+  "contact_recharge": {
+    "cell": "Móvil",
+    "nauta": "Nauta",
+    "show": "Mostrar",
+    "clear": "Limpiar",
+    "search": "Buscar",
+    "offer": "Selecione una Oferta",
+    "fields": {
+      "name": "Nombre",
+      "phone": "Télefono",
+      "email": "Correo",
+      "created": "Creado",
+      "actions": "Acciones"
+    }
+  },
+  "recharge_list": {
+    "show": "Mostrar",
+    "clear": "Limpiar",
+    "search": "Buscar",
+    "fields": {
+      "name": "Nombre",
+      "type": "Tipo",
+      "phone": "Télefono",
+      "email": "Correo",
+      "offer": "Oferta",
+      "price": "Precio",
+      "status": "Estado",
+      "Date": "Fecha"
+    }
+  },
+  "reset_password": {
+    "title": "Cambiar Contraseña",
+    "password": "Contraseña",
+    "confirm_password": "Confirmar Contraseña",
+    "confirm": "Confirmar",
+    "change": "Cambiar"
+  },
+  "schedule": {
+    "cell": "Móvil",
+    "nauta": "Nauta",
+    "name": "Nombre",
+    "phone": "Télefono",
+    "offer": "Seleccione una oferta",
+    "schedule": "Programar"
+  },
+  "terms": {
+    "title": "Términos y Condiciones"
+  }
+}
