@@ -97,10 +97,10 @@ export default {
               <!-- <router-link class="dropdown-item menu-link" :to="{name: 'reset-password'}"><i class="material-icons">vpn_key</i> {{ $t('menu.locales.spanish') }}</router-link>
               <router-link class="dropdown-item menu-link" :to="{name: 'reset-password'}"><i class="material-icons">vpn_key</i> {{ $t('menu.locales.english') }}</router-link> -->
               <a v-on:click="changeLocale('es')" class="dropdown-item logout menu-link">
-                <i class="material-icons"> logout </i> {{ $t('app.locales.spanish') }}
+                <i class="material-icons"> flag </i> {{ $t('app.locales.spanish') }}
               </a>
               <a v-on:click="changeLocale('en')" class="dropdown-item logout menu-link">
-                <i class="material-icons"> logout </i> {{ $t('app.locales.english') }}
+                <i class="material-icons"> flag </i> {{ $t('app.locales.english') }}
               </a>
             </div>
           </li>
@@ -159,10 +159,10 @@ export default {
               <!-- <router-link class="dropdown-item menu-link" :to="{name: 'reset-password'}"><i class="material-icons">vpn_key</i> {{ $t('menu.locales.spanish') }}</router-link>
               <router-link class="dropdown-item menu-link" :to="{name: 'reset-password'}"><i class="material-icons">vpn_key</i> {{ $t('menu.locales.english') }}</router-link> -->
               <a v-on:click="changeLocale('es')" class="dropdown-item logout menu-link">
-                <i class="material-icons"> logout </i> {{ $t('app.locales.spanish') }}
+                <i class="material-icons"> flag </i> {{ $t('app.locales.spanish') }}
               </a>
               <a v-on:click="changeLocale('en')" class="dropdown-item logout menu-link">
-                <i class="material-icons"> logout </i> {{ $t('app.locales.english') }}
+                <i class="material-icons"> flag </i> {{ $t('app.locales.english') }}
               </a>
             </div>
           </li>

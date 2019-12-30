@@ -17,6 +17,9 @@ function loadLocaleMessages () {
 }
 
 let lang = 'es'
+if (navigator.language === 'en-EN' || navigator.userLanguage === 'en-EN') {
+  lang = 'en'
+}
 if (typeof (Storage) !== 'undefined') {
   if (window.localStorage.getItem('lang') != null) {
     lang = window.localStorage.getItem('lang')
