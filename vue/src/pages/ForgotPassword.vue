@@ -37,15 +37,19 @@ export default {
         url: apiClient
       }
       this.loading = true
-      this.$http.post(forgotPassword, postData).then(response => {
-        console.log('response', response)
-        this.loading = false
-        this.$toastr.s(this.$i18n.t('notifications.send_email'))
-        this.$router.push({name: 'login'})
-      }).catch(response => {
-        this.loading = false
-        console.log('response', response)
-      })
+      this.$http.post(forgotPassword, postData)
+        .then(response => {
+          console.log('response', response)
+          this.loading = false
+          this.$toastr.s(this.$i18n.t('notifications.send_email'))
+          this.$router.push({name: 'login'})
+        }).catch(response => {
+          this.loading = false
+          if (response.status === 403) {
+            this.$toastr.e(this.$i18n.t('notifications.email_not_exist'))
+          }
+          console.log('response', response)
+        })
     }
   }
 }

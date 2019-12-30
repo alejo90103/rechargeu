@@ -19,12 +19,13 @@
     "send_email": "We send you an email to change your password",
     "terms": "You must agree to terms and conditions",
     "password_change": "Su contraseña se ha sido cambiada",
+    "email_not_exist": "There is no user with that email",
     "validations": {
       "name": "You must enter a name",
       "number": "You must enter a number",
       "email": "You must enter an email",
       "offer": "You must select an offer",
-      "password": "La contraseña debe tener un mínimo de 6 caracteres",
+      "password": "The password must have a minimum of 6 characters",
       "error_number": "Invalid number",
       "error_email": "Invalid email",
       "error_token": "Token incorrecto"

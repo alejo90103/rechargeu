@@ -19,6 +19,7 @@
     "send_email": "Le enviamos un correo para cambiar su contraseña",
     "terms": "Debes aceptar los términos y condiciones",
     "password_change": "Su contraseña se ha sido cambiada",
+    "email_not_exist": "No existe ningun usuario con ese correo",
     "validations": {
       "name": "Debe ingresar un nombre",
       "number": "Debe ingresar un número",
