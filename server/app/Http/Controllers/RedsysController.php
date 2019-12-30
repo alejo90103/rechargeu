@@ -14,6 +14,7 @@ use App\Payment;
 use App\Recharge;
 use App\ContactRecharge;
 use App\Setting;
+use App\User;
 use App\Http\Controllers\RedsysAPI;
 use Illuminate\Support\Facades\Redirect;
 
@@ -101,8 +102,14 @@ class RedsysController extends Controller
         $recharge = Recharge::where('id', $payment->recharge_id)->first();
         $contactRecharges = ContactRecharge::where('recharge_id', $payment->recharge_id)->get();
 
+        $user = User::find($recharge->user_id);
+
         // call ding
         foreach ($contactRecharges as $contactRecharge) {
+
+            $user->accumulated += $recharge->price_pay * 0.01;
+  					$user->save();
+
             if ($recharge->type == "Cell") {
                 $status = $this->dingSendTransfer($contactRecharge->phone, $recharge->recharge_amount, $contactRecharge->id, "CU_CU_TopUp");
             } else {

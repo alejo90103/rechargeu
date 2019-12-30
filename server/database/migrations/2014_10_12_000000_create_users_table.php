@@ -28,6 +28,7 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->boolean('admin')->default(0);
             $table->boolean('status')->default(0);
+            $table->boolean('accumulated')->nullable();
             $table->timestamps();
         });
     }

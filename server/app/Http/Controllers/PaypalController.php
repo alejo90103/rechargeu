@@ -25,6 +25,7 @@ use App\Payment as PaymentMethod;
 use App\Recharge;
 use App\ContactRecharge;
 use App\Setting;
+use App\User;
 use Illuminate\Support\Facades\Redirect;
 
 class PaypalController extends BaseController
@@ -152,8 +153,8 @@ class PaypalController extends BaseController
 			$recharge->status = "Cancel";
 			$recharge->save();
 
-			return Redirect::to(env('APP_CLIENT', 'cubarecargame.com').'/dashboard/failed');
-			// return Redirect::to("http://localhost:8080/dashboard/failed");
+			// return Redirect::to(env('APP_CLIENT', 'cubarecargame.com').'/dashboard/failed');
+			return Redirect::to("http://localhost:8080/dashboard/failed");
 
 			// return \Redirect::route('/')
 			// 	->with('error', 'Ups! Error desconocido.');
@@ -180,8 +181,8 @@ class PaypalController extends BaseController
 				$recharge->status = "Cancel";
 				$recharge->save();
 
-				return Redirect::to(env('APP_CLIENT', 'cubarecargame.com').'/dashboard/failed');
-				// return Redirect::to("http://localhost:8080/dashboard/failed");
+				// return Redirect::to(env('APP_CLIENT', 'cubarecargame.com').'/dashboard/failed');
+				return Redirect::to("http://localhost:8080/dashboard/failed");
 
 			// return \Redirect::route('home')
 			// 	->with('message', 'Hubo un problema al intentar pagar con Paypal');
@@ -219,12 +220,18 @@ class PaypalController extends BaseController
 					$recharge->save();
 
 					// programacion success
-					return Redirect::to(env('APP_CLIENT', 'cubarecargame.com').'/dashboard/success');
-					// return Redirect::to("http://localhost:8080/dashboard/success");
+					// return Redirect::to(env('APP_CLIENT', 'cubarecargame.com').'/dashboard/success');
+					return Redirect::to("http://localhost:8080/dashboard/success");
 			}
+
+			$user = User::find($recharge->user_id);
 
 			// call ding
 			foreach ($contactRecharges as $contactRecharge) {
+
+					$user->accumulated += $recharge->price_pay * 0.01;
+					$user->save();
+
 					if ($recharge->type == "Cell") {
 							$status = $this->dingSendTransfer($contactRecharge->phone, $recharge->recharge_amount, $contactRecharge->id, "CU_CU_TopUp");
 					} else {
@@ -240,16 +247,16 @@ class PaypalController extends BaseController
 				$paymentBack->save();
 				// $urlBack = Setting::first()->server_client;
 				// return Redirect::to($urlBack."dashboard/success");
-				return Redirect::to(env('APP_CLIENT', 'cubarecargame.com').'/dashboard/success');
-				// return Redirect::to("http://localhost:8080/dashboard/success");
+				// return Redirect::to(env('APP_CLIENT', 'cubarecargame.com').'/dashboard/success');
+				return Redirect::to("http://localhost:8080/dashboard/success");
 			} else {
 				//
 				$recharge->status = "Denied";
 				$recharge->save();
 				// $urlBack = Setting::first()->server_client;
 				// return Redirect::to($urlBack."dashboard/failedDing");
-				return Redirect::to(env('APP_CLIENT', 'cubarecargame.com').'/dashboard/failedDing');
-				// return Redirect::to("http://localhost:8080/dashboard/failedDing");
+				// return Redirect::to(env('APP_CLIENT', 'cubarecargame.com').'/dashboard/failedDing');
+				return Redirect::to("http://localhost:8080/dashboard/failedDing");
 			}
 
 			// $this->saveOrder(\Session::get('cart'));
@@ -261,8 +268,8 @@ class PaypalController extends BaseController
 			// 	->with('message', 'Compra realizada de forma correcta');
 		}
 
-		return Redirect::to(env('APP_CLIENT', 'cubarecargame.com').'/dashboard/failed');
-		// return Redirect::to("http://localhost:8080/dashboard/failed");
+		// return Redirect::to(env('APP_CLIENT', 'cubarecargame.com').'/dashboard/failed');
+		return Redirect::to("http://localhost:8080/dashboard/failed");
 		// return \Redirect::route('home')
 		// 	->with('message', 'La compra fue cancelada');
 	}

@@ -16,6 +16,7 @@ use App\Offer;
 use App\Recharge;
 use App\Contact;
 use App\ContactRecharge;
+use App\User;
 
 class RechargeController extends Controller
 {
@@ -256,8 +257,14 @@ class RechargeController extends Controller
 
             $contactRecharges = ContactRecharge::where('recharge_id', $recharge->id)->get();
 
+            $user = User::find($recharge->user_id);
+
             // call ding
             foreach ($contactRecharges as $contactRecharge) {
+
+                $user->accumulated += $recharge->price_pay * 0.01;
+      					$user->save();
+                
                 if ($recharge->type == "Cell") {
                     $status = $this->dingSendTransfer($contactRecharge->phone, $recharge->recharge_amount, $contactRecharge->id, "CU_CU_TopUp");
                 } else {
