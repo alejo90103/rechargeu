@@ -237,11 +237,12 @@ class UserController extends Controller
     public function forgotPassword(Request $request)
     {
         $users = User::where('email', $request->input('email'))->get();
-        $user = $users[0];
 
-        if (!$user) {
+        if ($users->isEmpty()) {
             return response(['data' => 'Check if the email is correct'], 403);
         }
+
+        $user = $users[0];
 
         $token = Token::create([
             'user_id' => $user->id,
