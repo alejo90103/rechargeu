@@ -12,15 +12,15 @@
       <nav class="float-left">
         <ul>
           <li>
-            <router-link :to="{name: 'terms'}">Términos y Condiciones</router-link>
+            <router-link :to="{name: 'terms'}">{{$t('footer.terms')}}</router-link>
           </li>
         </ul>
       </nav>
       <div class="copyright float-right">
         &copy;
-        Todos los derechos reservados.
+        {{$t('footer.copyright')}}
         <!-- <i class="fa fa-heart heart"></i> por <a href="http://codeals.es">Codeals</a>.  -->
-        <router-link :to="{name: 'dashboard'}">Cuba Recargame.</router-link>
+        <router-link :to="{name: 'dashboard'}">{{$t('app.title')}}</router-link>
       </div>
     </div>
   </footer>

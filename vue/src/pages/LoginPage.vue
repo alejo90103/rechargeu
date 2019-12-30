@@ -91,7 +91,7 @@ export default {
                 window.localStorage.removeItem('authUser')
                 if (response.status === 404) {
                   this.loading = false
-                  this.$toastr.e('Active la cuenta en su correo')
+                  this.$toastr.e(this.$i18n.t('notifications.active_account'))
                 }
               })
           }
@@ -99,7 +99,7 @@ export default {
         .catch(response => {
           this.loading = false
           if (response.status === 401) {
-            this.$toastr.e('Usuario o contraseña incorrecto')
+            this.$toastr.e(this.$i18n.t('notifications.error_user_password'))
           }
         })
     },
@@ -155,7 +155,7 @@ export default {
             <div class="card card-login">
               <form class="form" >
                 <div class="card-header card-header-primary text-center">
-                  <h4 class="card-title">Login</h4>
+                  <h4 class="card-title">{{ $t('login.title') }}</h4>
                   <!-- <pre>{{isConnected}}</pre> -->
                   <div class="social-line">
                     <!-- <a href="#pablo" class="btn btn-just-icon btn-link">
@@ -191,7 +191,7 @@ export default {
                         <i class="material-icons">mail</i>
                       </span>
                     </div>
-                    <input type="email" v-model="login.email" class="form-control" placeholder="Correo">
+                    <input type="email" v-model="login.email" class="form-control" :placeholder="$t('login.email')">
                   </div>
                   <div class="input-group">
                     <div class="input-group-prepend">
@@ -199,17 +199,17 @@ export default {
                         <i class="material-icons">lock_outline</i>
                       </span>
                     </div>
-                    <input type="password" v-model="login.password" class="form-control" placeholder="Contraseña">
+                    <input type="password" v-model="login.password" class="form-control" :placeholder="$t('login.password')">
                   </div>
                 </div>
                 <div class="">
-                   <router-link :to="{name: 'forgot-password'}" class="forgot-password">¿Olvidaste tu contraseña?</router-link>
-                   <router-link :to="{name: 'register-user'}" class="register">Registrarte</router-link>
+                   <router-link :to="{name: 'forgot-password'}" class="forgot-password">{{$t('login.forgot_password')}}</router-link>
+                   <router-link :to="{name: 'register-user'}" class="register">{{$t('login.signin')}}</router-link>
                 </div>
                 <div class="footer text-center">
                   <b-spinner style="width: 3rem; height: 3rem;" label="Large Spinner"></b-spinner>
                   <b-spinner style="width: 3rem; height: 3rem;" label="Large Spinner" type="grow"></b-spinner>
-                  <div @click="handleLoginFormSubmit" class="btn btn-primary btn-link btn-wd btn-lg"><i v-show="loading" class="fa fa-circle-o-notch mr-1" style="font-size: inherit; vertical-align: unset;"></i>Iniciar</div>
+                  <div @click="handleLoginFormSubmit" class="btn btn-primary btn-link btn-wd btn-lg"><i v-show="loading" class="fa fa-circle-o-notch mr-1" style="font-size: inherit; vertical-align: unset;"></i>{{$t('login.login')}}</div>
                 </div>
               </form>
             </div>
@@ -221,15 +221,15 @@ export default {
           <nav class="float-left">
             <ul>
               <li>
-                <router-link :to="{name: 'terms'}">Términos y Condiciones</router-link>
+                <router-link :to="{name: 'terms'}">{{$t('footer.terms')}}</router-link>
               </li>
             </ul>
           </nav>
           <div class="copyright float-right">
             &copy;
-            Todos los derechos reservados.
+            {{$t('footer.copyright')}}
             <!-- <i class="fa fa-heart heart"></i> por <a href="http://codeals.es">Codeals</a>.  -->
-            <router-link :to="{name: 'dashboard'}">Cuba Recargame.</router-link>
+            <router-link :to="{name: 'dashboard'}">{{$t('app.title')}}</router-link>
           </div>
         </div>
       </footer>

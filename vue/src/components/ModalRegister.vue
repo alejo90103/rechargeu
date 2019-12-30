@@ -81,7 +81,7 @@ export default {
                 window.localStorage.removeItem('authUser')
                 if (response.status === 404) {
                   this.loading = false
-                  this.$toastr.e('Active la cuenta en su correo')
+                  this.$toastr.e(this.$i18n.t('notifications.active_account'))
                 }
               })
           }
@@ -89,13 +89,13 @@ export default {
         .catch(response => {
           this.loading = false
           if (response.status === 401) {
-            this.$toastr.e('Usuario o contraseña incorrecto')
+            this.$toastr.e(this.$i18n.t('notifications.error_user_password'))
           }
         })
     },
     handleRegisterFormSubmit () {
       if (this.register.password !== this.register.confirm) {
-        this.$toastr.e('Contraseñas no coinciden')
+        this.$toastr.e(this.$i18n.t('notifications.password_not_match'))
         return
       }
 
@@ -110,7 +110,7 @@ export default {
       this.$http.post(registerUserUrl, postDataRegister)
         .then(response => {
           console.log('response', response)
-          this.$toastr.s('Ha sido registrado con éxito')
+          this.$toastr.s(this.$i18n.t('notifications.success_signin'))
 
           const postDataLogin = {
             grant_type: 'password',
@@ -153,7 +153,7 @@ export default {
                     window.localStorage.removeItem('authUser')
                     if (response.status === 404) {
                       this.loading = false
-                      this.$toastr.e('Active la cuenta en su correo')
+                      this.$toastr.e(this.$i18n.t('notifications.active_account'))
                     }
                   })
               }
@@ -161,14 +161,14 @@ export default {
             .catch(response => {
               this.loading = false
               if (response.status === 401) {
-                this.$toastr.e('Usuario o contraseña incorrecto')
+                this.$toastr.e(this.$i18n.t('notifications.error_user_password'))
               }
             })
         }).catch(response => {
           this.loading = false
           console.log('response', response)
           if (response.status === 430) {
-            this.$toastr.e('Este usuario ya existe')
+            this.$toastr.e(this.$i18n.t('notifications.error_already_exist'))
           }
           // this.$toastr.e(`${response.data}`)
         })
@@ -193,12 +193,12 @@ export default {
           <ul class="nav nav-pills nav-pills-primary" role="tablist">
             <li class="nav-item">
               <a class="nav-link active pills" data-toggle="tab" href="#link1" role="tablist" aria-expanded="true" style="border-radius: 3px;">
-                Iniciar Sesión
+                {{$t('login.login')}}
               </a>
             </li>
             <li class="nav-item">
               <a class="nav-link pills" data-toggle="tab" href="#link2" role="tablist" aria-expanded="false" style="border-radius: 3px;">
-                Registrarse
+                {{$t('register.register')}}
               </a>
             </li>
           </ul>
@@ -209,7 +209,7 @@ export default {
                     <div class="card card-login" style="margin-bottom: 0px">
                       <form class="form" v-on:submit.prevent="handleLoginFormSubmit()" style="background-color: transparent">
                         <div class="card-header card-header-primary text-center">
-                          <h4 class="card-title">Iniciar Sesión</h4>
+                          <h4 class="card-title">{{$t('login.title')}}</h4>
                           <!-- <div class="social-line">
                             <a href="#pablo" class="btn btn-just-icon btn-link">
                               <i class="fa fa-facebook-square"></i>
@@ -238,7 +238,7 @@ export default {
                                 <i class="material-icons">mail</i>
                               </span>
                             </div>
-                            <input type="email" v-model="login.email" class="form-control" placeholder="Email...">
+                            <input type="email" v-model="login.email" class="form-control" :placeholder="$t('login.email')">
                           </div>
                           <div class="input-group">
                             <div class="input-group-prepend">
@@ -246,7 +246,7 @@ export default {
                                 <i class="material-icons">lock_outline</i>
                               </span>
                             </div>
-                            <input type="password" v-model="login.password" class="form-control" placeholder="Password...">
+                            <input type="password" v-model="login.password" class="form-control" :placeholder="$t('login.password')">
                           </div>
                         </div>
                         <!-- <div class="">
@@ -254,7 +254,7 @@ export default {
                            <router-link :to="{name: 'register-user'}" class="register">Register</router-link>
                         </div> -->
                         <div class="footer text-center">
-                          <div @click="handleLoginFormSubmit" class="btn btn-primary btn-link btn-wd btn-lg"><i v-show="loading" class="fa fa-circle-o-notch mr-1" style="font-size: inherit; vertical-align: unset;"></i>Iniciar Sesión</div>
+                          <div @click="handleLoginFormSubmit" class="btn btn-primary btn-link btn-wd btn-lg"><i v-show="loading" class="fa fa-circle-o-notch mr-1" style="font-size: inherit; vertical-align: unset;"></i>{{$t('login.login')}}</div>
                         </div>
                       </form>
                     </div>
@@ -267,7 +267,7 @@ export default {
                     <div class="card card-login" style="margin-bottom: 0px">
                       <form class="form" v-on:submit.prevent="handleRegisterFormSubmit()">
                         <div class="card-header card-header-primary text-center">
-                          <h4 class="card-title">Register</h4>
+                          <h4 class="card-title">{{$t('register.title')}}</h4>
                         </div>
                         <!-- <p class="description text-center">Or Be Classical</p> -->
                         <div class="card-body">
@@ -278,7 +278,7 @@ export default {
                                 <i class="material-icons">face</i>
                               </span>
                             </div>
-                            <input type="email" v-model="register.name" class="form-control" placeholder="Nombre">
+                            <input type="email" v-model="register.name" class="form-control" :placeholder="$t('register.name')">
                           </div>
                           <div class="input-group">
                             <div class="input-group-prepend">
@@ -286,7 +286,7 @@ export default {
                                 <i class="material-icons">mail</i>
                               </span>
                             </div>
-                            <input type="email" v-model="register.email" class="form-control" placeholder="Correo">
+                            <input type="email" v-model="register.email" class="form-control" :placeholder="$t('register.email')">
                           </div>
                           <div class="input-group">
                             <div class="input-group-prepend">
@@ -294,7 +294,7 @@ export default {
                                 <i class="material-icons">lock_outline</i>
                               </span>
                             </div>
-                            <input type="password" v-model="register.password" class="form-control" placeholder="Contraseña">
+                            <input type="password" v-model="register.password" class="form-control" :placeholder="$t('register.password')">
                           </div>
                           <div class="input-group">
                             <div class="input-group-prepend">
@@ -302,12 +302,12 @@ export default {
                                 <i class="material-icons">lock_outline</i>
                               </span>
                             </div>
-                            <input type="password" v-model="register.confirm" class="form-control" placeholder="Confirmar Contraseña">
+                            <input type="password" v-model="register.confirm" class="form-control" :placeholder="$t('register.confirm_password')">
                           </div>
                         </div>
 
                         <div class="footer text-center">
-                          <div @click="handleRegisterFormSubmit" class="btn btn-primary btn-link btn-wd btn-lg"><i v-show="loading" class="fa fa-circle-o-notch mr-1" style="font-size: inherit; vertical-align: unset;"></i>Registrarse</div>
+                          <div @click="handleRegisterFormSubmit" class="btn btn-primary btn-link btn-wd btn-lg"><i v-show="loading" class="fa fa-circle-o-notch mr-1" style="font-size: inherit; vertical-align: unset;"></i>{{$t('register.register')}}</div>
                         </div>
                       </form>
                     </div>

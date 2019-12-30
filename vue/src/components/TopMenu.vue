@@ -26,6 +26,10 @@ export default {
       this.$store.dispatch('clearAuthUser')
       window.localStorage.removeItem('authUser')
       this.$router.push({name: 'home'})
+    },
+    changeLocale (lang) {
+      this.$i18n.locale = lang
+      window.localStorage.setItem('lang', lang)
     }
   }
 }
@@ -34,8 +38,8 @@ export default {
 <template>
   <nav v-if="userStore.authUser !== null && userStore.authUser.access_token" class="navbar navbar-transparent navbar-color-on-scroll fixed-top navbar-expand-lg" color-on-scroll="100" id="sectionsNav">
     <div class="container">
-      <div class="navbar-translate" style="margin-left: 0%">
-        <router-link :to="{name: 'dashboard'}" class="navbar-brand"><h4 style="margin-top: 0px;">Cuba Recargame</h4></router-link>
+      <div class="navbar-translate" style="margin-left: 5%">
+        <router-link :to="{name: 'dashboard'}" class="navbar-brand"><h4 style="margin-top: 0px;">{{ $t('app.title') }}</h4></router-link>
         <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
           <span class="sr-only">Toggle navigation</span>
           <span class="navbar-toggler-icon"></span>
@@ -47,22 +51,22 @@ export default {
       <div class="collapse navbar-collapse">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <router-link class="nav-link menu-link" :to="{name: 'dashboard'}"><i class="material-icons">home</i> Inicio</router-link>
+            <router-link class="nav-link menu-link" :to="{name: 'dashboard'}"><i class="material-icons">home</i> {{ $t('menu.home') }}</router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link menu-link" :to="{name: 'contact'}"><i class="material-icons">perm_contact_calendar</i> Contactos</router-link>
+            <router-link class="nav-link menu-link" :to="{name: 'contact'}"><i class="material-icons">perm_contact_calendar</i> {{ $t('menu.contact') }}</router-link>
           </li>
           <!-- <li class="nav-item">
             <router-link class="nav-link" :to="{name: 'my-pms'}"><i class="material-icons">email</i> Private Messages</router-link>
           </li> -->
           <li class="dropdown nav-item">
             <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-              <i class="material-icons">attach_money</i> Recarga
+              <i class="material-icons">attach_money</i> {{ $t('menu.recharge') }}
             </a>
             <div class="dropdown-menu dropdown-with-icons">
               <!-- <router-link class="dropdown-item"><i class="material-icons">apps</i> Recargar ofertas</router-link> -->
-              <router-link :to="{name: 'recharge-contact'}" class="dropdown-item menu-link"><i class="material-icons">account_box</i> Recargar Contactos</router-link>
-              <router-link :to="{name: 'recharge-list'}" class="dropdown-item menu-link"><i class="material-icons">format_list_bulleted</i> Recargas Realizadas</router-link>
+              <router-link :to="{name: 'recharge-contact'}" class="dropdown-item menu-link"><i class="material-icons">account_box</i> {{ $t('menu.submenu_recharge.recharge_contacts') }} </router-link>
+              <router-link :to="{name: 'recharge-list'}" class="dropdown-item menu-link"><i class="material-icons">format_list_bulleted</i> {{ $t('menu.submenu_recharge.recharges_mades') }} </router-link>
             </div>
           </li>
         </ul>
@@ -73,7 +77,7 @@ export default {
             </a>
           </li> -->
           <li class="nav-item">
-            <a class="nav-link menu-link" rel="tooltip" title="" data-placement="bottom" href="https://www.facebook.com/cubarecargame" target="_blank" data-original-title="Síguenos en Facebook">
+            <a class="nav-link menu-link" rel="tooltip" title="" data-placement="bottom" href="https://www.facebook.com/cubarecargame" target="_blank" :data-original-title=" $t('menu.social_medias.facebook') ">
               <i class="fa fa-facebook-square"></i>
             </a>
           </li>
@@ -83,13 +87,31 @@ export default {
             </a>
           </li> -->
           <li class="dropdown nav-item">
+            <!-- <a href="https://www.facebook.com/cubarecargame" class="dropdown-toggle nav-link" data-toggle="dropdown">
+              <i class="material-icons">face</i> {{userStore.authUser.name}}
+            </a> -->
+            <a href="https://www.facebook.com/cubarecargame" class="dropdown-toggle nav-link" data-toggle="dropdown">
+              <i class="material-icons">flag</i> {{ this.$i18n.locale }}
+            </a>
+            <div class="dropdown-menu dropdown-with-icons">
+              <!-- <router-link class="dropdown-item menu-link" :to="{name: 'reset-password'}"><i class="material-icons">vpn_key</i> {{ $t('menu.locales.spanish') }}</router-link>
+              <router-link class="dropdown-item menu-link" :to="{name: 'reset-password'}"><i class="material-icons">vpn_key</i> {{ $t('menu.locales.english') }}</router-link> -->
+              <a v-on:click="changeLocale('es')" class="dropdown-item logout menu-link">
+                <i class="material-icons"> logout </i> {{ $t('app.locales.spanish') }}
+              </a>
+              <a v-on:click="changeLocale('en')" class="dropdown-item logout menu-link">
+                <i class="material-icons"> logout </i> {{ $t('app.locales.english') }}
+              </a>
+            </div>
+          </li>
+          <li class="dropdown nav-item">
             <a href="https://www.facebook.com/cubarecargame" class="dropdown-toggle nav-link" data-toggle="dropdown">
               <i class="material-icons">face</i> {{userStore.authUser.name}}
             </a>
             <div class="dropdown-menu dropdown-with-icons">
-              <router-link class="dropdown-item menu-link" :to="{name: 'reset-password'}"><i class="material-icons">vpn_key</i> Cambiar Contraseña</router-link>
+              <router-link class="dropdown-item menu-link" :to="{name: 'reset-password'}"><i class="material-icons">vpn_key</i> {{ $t('menu.submenu_settings.change_password') }}</router-link>
               <a v-on:click="handleLogout()" class="dropdown-item logout menu-link">
-                <i class="material-icons"> logout </i> Salir
+                <i class="material-icons"> logout </i> {{ $t('menu.submenu_settings.logout') }}
               </a>
             </div>
           </li>
@@ -101,7 +123,7 @@ export default {
   <nav v-else='' class="navbar navbar-transparent navbar-color-on-scroll fixed-top navbar-expand-lg" color-on-scroll="100" id="sectionsNav">
     <div class="container">
       <div class="navbar-translate">
-        <router-link :to="{name: 'dashboard'}" class="navbar-brand"><h4 style="margin-top: 0px;">Cuba Recargame</h4></router-link>
+        <router-link :to="{name: 'dashboard'}" class="navbar-brand"><h4 style="margin-top: 0px;">{{ $t('app.title') }}</h4></router-link>
         <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
           <span class="sr-only">Toggle navigation</span>
           <span class="navbar-toggler-icon"></span>
@@ -117,7 +139,7 @@ export default {
             </a>
           </li> -->
           <li class="nav-item">
-            <a class="nav-link" rel="tooltip" title="" data-placement="bottom" href="#" target="_blank" data-original-title="Síguenos en Facebook">
+            <a class="nav-link" rel="tooltip" title="" data-placement="bottom" href="#" target="_blank" :data-original-title="$t('menu.social_medias.facebook')">
               <i class="fa fa-facebook-square"></i>
             </a>
           </li>
@@ -127,12 +149,30 @@ export default {
             </a>
           </li> -->
           <li class="dropdown nav-item">
-            <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-              <i class="material-icons">face</i> Iniciar Sesión
+            <!-- <a href="https://www.facebook.com/cubarecargame" class="dropdown-toggle nav-link" data-toggle="dropdown">
+              <i class="material-icons">face</i> {{userStore.authUser.name}}
+            </a> -->
+            <a href="https://www.facebook.com/cubarecargame" class="dropdown-toggle nav-link" data-toggle="dropdown">
+              <i class="material-icons">flag</i> {{ this.$i18n.locale }}
             </a>
             <div class="dropdown-menu dropdown-with-icons">
-              <router-link class="dropdown-item" :to="{name: 'login'}"><i class="material-icons">face</i>Iniciar Sesión</router-link>
-              <router-link class="dropdown-item" :to="{name: 'register-user'}"><i class="material-icons">fingerprint</i>Registrarse</router-link>
+              <!-- <router-link class="dropdown-item menu-link" :to="{name: 'reset-password'}"><i class="material-icons">vpn_key</i> {{ $t('menu.locales.spanish') }}</router-link>
+              <router-link class="dropdown-item menu-link" :to="{name: 'reset-password'}"><i class="material-icons">vpn_key</i> {{ $t('menu.locales.english') }}</router-link> -->
+              <a v-on:click="changeLocale('es')" class="dropdown-item logout menu-link">
+                <i class="material-icons"> logout </i> {{ $t('app.locales.spanish') }}
+              </a>
+              <a v-on:click="changeLocale('en')" class="dropdown-item logout menu-link">
+                <i class="material-icons"> logout </i> {{ $t('app.locales.english') }}
+              </a>
+            </div>
+          </li>
+          <li class="dropdown nav-item">
+            <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+              <i class="material-icons">face</i> {{ $t('menu.login') }}
+            </a>
+            <div class="dropdown-menu dropdown-with-icons">
+              <router-link class="dropdown-item" :to="{name: 'login'}"><i class="material-icons">face</i>{{ $t('menu.submenu_login.login') }}</router-link>
+              <router-link class="dropdown-item" :to="{name: 'register-user'}"><i class="material-icons">fingerprint</i>{{ $t('menu.submenu_login.signin') }}</router-link>
             </div>
           </li>
         </ul>

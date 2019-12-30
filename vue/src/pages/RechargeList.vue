@@ -20,14 +20,14 @@ export default {
   data () {
     return {
       fields: [
-        { key: 'contact.name', label: 'Nombre', sortable: true, sortDirection: 'desc' },
-        { key: 'type', label: 'Tipo', sortable: true, class: 'text-center' },
-        { key: 'contact.phone', label: 'Teléfono', sortable: true, class: 'text-center' },
-        { key: 'contact.email', label: 'Correo', sortable: true, class: 'text-center' },
-        { key: 'recharge.offer.name', label: 'Oferta', sortable: true, class: 'text-center' },
-        { key: 'price_pay', label: 'Precio', sortable: true, class: 'text-center' },
-        { key: 'status', label: 'Estado', sortable: true, class: 'text-center' },
-        { key: 'date_recharge', label: 'Fecha', sortable: true, class: 'text-center' }
+        { key: 'contact.name', label: this.$i18n.t('recharge_list.fields.name'), sortable: true, sortDirection: 'desc' },
+        { key: 'type', label: this.$i18n.t('recharge_list.fields.type'), sortable: true, class: 'text-center' },
+        { key: 'contact.phone', label: this.$i18n.t('recharge_list.fields.phone'), sortable: true, class: 'text-center' },
+        { key: 'contact.email', label: this.$i18n.t('recharge_list.fields.email'), sortable: true, class: 'text-center' },
+        { key: 'recharge.offer.name', label: this.$i18n.t('recharge_list.fields.offer'), sortable: true, class: 'text-center' },
+        { key: 'price_pay', label: this.$i18n.t('recharge_list.fields.price'), sortable: true, class: 'text-center' },
+        { key: 'status', label: this.$i18n.t('recharge_list.fields.status'), sortable: true, class: 'text-center' },
+        { key: 'date_recharge', label: this.$i18n.t('recharge_list.fields.date'), sortable: true, class: 'text-center' }
         // { key: 'actions', label: 'Acciones' }
       ],
       transProps: {
@@ -90,91 +90,10 @@ export default {
   //   this.$store.dispatch('setBanner', true)
   // },
   methods: {
-    validateEmail (email) {
-      var regularExp = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+@nauta.(?:com|co).cu$/
-      return regularExp.test(email)
-    },
-    validateNumber (number) {
-      var regularExp = /^([0-9]{8})$/
-      return regularExp.test(number)
-    },
-    showEditModal (item) {
-      this.mode = 'edit'
-      this.contact.name = item.name
-      this.contact.phone = item.phone
-      this.contact.email = item.email
-      this.contact.id = item.id
-      this.$refs['addModal'].show()
-    },
-    handleDelete (item, index, button) {
-      console.log(item)
-      this.$store.dispatch('deleteContact', item.id)
-    },
-    handleAdd (button) {
-      if (!this.contact.name) {
-        this.$toastr.e('Debe ingresar un nombre')
-        return
-      } else if (!this.contact.phone) {
-        this.$toastr.e('Debe ingresar un teléfono')
-        return
-      } else if (!this.validateNumber(this.contact.phone)) {
-        this.$toastr.e('Número invalido')
-        return
-      } else if (this.contact.email) {
-        if (!this.validateEmail(this.contact.email)) {
-          this.$toastr.e('Correo invalido')
-          return
-        }
-      }
-      this.contact.id = ''
-      this.$store.dispatch('addContact', this.contact)
-      this.$refs['addModal'].hide()
-    },
-    handleEdit (button) {
-      // this.infoModal.title = `Row index: ${index}`
-      // this.infoModal.content = JSON.stringify(item, null, 2)
-      if (!this.contact.name) {
-        this.$toastr.e('Debe ingresar un nombre')
-        return
-      } else if (!this.contact.phone) {
-        this.$toastr.e('Debe ingresar un teléfono')
-        return
-      } else if (!this.validateNumber(this.contact.phone)) {
-        this.$toastr.e('Número invalido')
-        return
-      } else if (this.contact.email) {
-        if (!this.validateEmail(this.contact.email)) {
-          this.$toastr.e('Correo invalido')
-          return
-        }
-      }
-      this.$store.dispatch('updateContact', this.contact)
-      this.$refs['addModal'].hide()
-    },
-    resetInfoModal () {
-      this.contact.name = ''
-      this.contact.phone = ''
-      this.contact.email = ''
-      this.mode = 'add'
-    },
     onFiltered (filteredRecharge) {
       // Trigger pagination to update the number of buttons/pages due to filtering
       this.totalRows = filteredRecharge.length
       this.currentPage = 1
-    },
-    onRowSelected (items) {
-      this.selected = items
-    },
-    selectAllRows () {
-      if (this.selected.length === 0) {
-        this.$refs.selectableTable.selectAllRows()
-      } else {
-        this.selected = []
-        this.$refs.selectableTable.clearSelected()
-      }
-    },
-    clearSelected () {
-      this.$refs.selectableTable.clearSelected()
     }
   }
 }
@@ -191,7 +110,7 @@ export default {
 
             <b-col sm="6" md="2" class="my-1">
               <b-form-group
-                label="Mostrar"
+                :label="$t('recharge_list.show')"
                 label-cols-sm="6"
                 label-cols-md="4"
                 label-cols-lg="4"
@@ -215,10 +134,10 @@ export default {
                     v-model="filter"
                     type="search"
                     id="filterInput"
-                    placeholder="Buscar"
+                    :placeholder="$t('recharge_list.search')"
                   ></b-form-input>
                   <b-input-group-append>
-                    <b-button :disabled="!filter" @click="filter = ''">Limpiar</b-button>
+                    <b-button :disabled="!filter" @click="filter = ''">{{$t('recharge_list.clear')}}</b-button>
                   </b-input-group-append>
                 </b-input-group>
             </b-col>
@@ -246,18 +165,9 @@ export default {
               :sort-direction="sortDirection"
               sort-icon-left
               :tbody-transition-props="transProps"
-              primary-key="nonmbre"
+              primary-key="nombre"
               @filtered="onFiltered"
             >
-
-              <template v-slot:cell(actions)="row">
-                <b-button size="sm" @click="showEditModal(row.item)" variant="info" >
-                  Editar
-                </b-button>
-                <b-button variant="danger" size="sm" @click="handleDelete(row.item)" class="mr-1">
-                  Eliminar
-                </b-button>
-              </template>
 
               <template v-slot:row-details="row">
                 <b-card>
@@ -283,55 +193,6 @@ export default {
             </b-col>
           </b-row>
 
-          <!-- Add/Edit modal -->
-          <b-modal id="addModal" ref="addModal" ok-only @hide="resetInfoModal" hide-footer hide-header>
-            <div class="card-header card-header-primary text-center mb-5" style="background-color: #9c27b0; border-radius: 3px;">
-              <h4 class="card-title" style="color: white">Nuevo Contacto</h4>
-            </div>
-
-            <b-container fluid>
-              <b-form-group
-                label="Nombre"
-                label-for="name-input"
-                invalid-feedback="Name is required"
-              >
-                <b-form-input
-                  id="name-input"
-                  v-model="contact.name"
-                  type="text"
-                  required
-                ></b-form-input>
-              </b-form-group>
-
-              <b-form-group
-                label="Teléfono"
-                label-for="phone-input"
-                invalid-feedback="Name is required"
-              >
-                <b-form-input
-                  id="phone-input"
-                  v-model="contact.phone"
-                  type="number"
-                  required
-                ></b-form-input>
-              </b-form-group>
-
-              <b-form-group
-                label="Correo"
-                label-for="email-input"
-                invalid-feedback="Name is required"
-              >
-                <b-form-input
-                  id="email-input"
-                  v-model="contact.email"
-                  type="email"
-                  required
-                ></b-form-input>
-              </b-form-group>
-              <b-button class="mt-2" v-if='this.mode === "add"' variant="success" style="float: right;" @click="handleAdd">Agregar</b-button>
-              <b-button class="mt-2" v-if='this.mode === "edit"' variant="info" style="float: right;" @click="handleEdit">Modificar</b-button>
-            </b-container>
-          </b-modal>
         </b-container>
       </div>
     </div>

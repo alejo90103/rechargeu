@@ -21,7 +21,7 @@ export default {}
                         <img src="/static/template/material/assets/img/escribe.png" alt=""/>
                     </div>
                     <div class="ps-bot img-handler-bot">
-                        <p>Escribe el número o el correo a recargar</p>
+                        <p>{{$t('dashboard.timeline.step_1')}}</p>
                     </div>
                     <span class="ps-sp-top">1</span>
                 </li>
@@ -30,7 +30,7 @@ export default {}
                         <img src="/static/template/material/assets/img/identificate.png" alt=""/>
                     </div>
                     <div class="ps-top img-handler-bot">
-                        <p>Identifícate en el sistema</p>
+                        <p>{{$t('dashboard.timeline.step_2')}}</p>
                     </div>
                     <span class="ps-sp-bot">2</span>
                 </li>
@@ -39,7 +39,7 @@ export default {}
                         <img src="/static/template/material/assets/img/pay.png" alt=""/>
                     </div>
                     <div class="ps-bot img-handler-bot">
-                        <p>Realiza el pago</p>
+                        <p>{{$t('dashboard.timeline.step_3')}}</p>
                     </div>
                     <span class="ps-sp-top">3</span>
                 </li>
@@ -48,7 +48,7 @@ export default {}
                         <img src="/static/template/material/assets/img/exito.png" alt=""/>
                     </div>
                     <div class="ps-top img-handler-bot">
-                        <p>Recarga realizada con éxito</p>
+                        <p>{{$t('dashboard.timeline.step_4')}}</p>
                     </div>
                     <span class="ps-sp-bot">4</span>
                 </li>

@@ -61,12 +61,12 @@ export default {
           <!-- color-classes: "nav-pills-primary", "nav-pills-info", "nav-pills-success", "nav-pills-warning","nav-pills-danger" -->
           <li class="nav-item">
             <a class="nav-link active" href="#cell-info" role="tab" data-toggle="tab">
-              <i class="material-icons">phone_iphone</i> Móvil
+              <i class="material-icons">phone_iphone</i> {{$t('dashboard.info.cell')}}
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#nauta-info" role="tab" data-toggle="tab">
-              <i class="material-icons">wifi</i> Nauta
+              <i class="material-icons">wifi</i> {{$t('dashboard.info.nauta')}}
             </a>
           </li>
         </ul>
@@ -75,10 +75,10 @@ export default {
             <div v-if="offerStore.offers.length > 0" class="row">
               <div class="card text-center col-md-4" :style="col" v-for="offer in offerStore.offers" v-if="offer.type === 'Cell' && offer.ads === 1" :key="offer.id" style="float: none; margin-bottom: 10px; box-shadow: none">
                 <div class="card-body shadow">
-                  <h4 class="card-title">Paga</h4>
+                  <h4 class="card-title">{{$t('dashboard.info.pay')}}</h4>
                   <h2 class="card-title" style="color: #9c27b0; font-size: 28px">{{ offer.price_pay }} €</h2>
                   <hr style="color: #0056b2;" />
-                  <h4 class="card-title">Recibe</h4>
+                  <h4 class="card-title">{{$t('dashboard.info.recived')}}</h4>
                   <h2 class="card-title" style="color: #9c27b0; font-size: 28px">{{ offer.receive }}</h2>
                   <hr style="color: #0056b2;" />
                   <div class="row" style="display: -webkit-inline-box;">
@@ -86,14 +86,14 @@ export default {
                       <i class="material-icons col-md-2" style="margin-top: 0.625rem; max-width: 0; color:#9c27b0"> check_circle </i>
                     </div>
                     <div class="col-md-10">
-                      <h6  class="card-title" style="text-align: left">{{ offer.receive }} de bonificación, a consumir antes del {{ offer.date_expire }}</h6>
+                      <h6  class="card-title" style="text-align: left">{{ offer.receive }} {{$t('dashboard.info.recived_description')}} {{ offer.date_expire }}</h6>
                     </div>
                   </div>
                   <div v-if="moment(now).isBetween(offer.date_ini, offer.date_end, null, '[]')" class="col-sm-12 mt-3">
-                    <button type="button" v-on:click="recharge(offer)" class="btn btn-success btn-lg bold"><i class="material-icons bold">sentiment_satisfied_alt</i>    Recargame</button>
+                    <button type="button" v-on:click="recharge(offer)" class="btn btn-success btn-lg bold"><i class="material-icons bold">sentiment_satisfied_alt</i>    {{$t('app.recharge_me')}}</button>
                   </div>
                   <div v-else class="col-sm-12 mt-3">
-                    <router-link :to="{name: 'schedule'}" class="btn btn-warning btn-lg bold"><i class="material-icons bold">sentiment_satisfied_alt</i>    Programar</router-link>
+                    <router-link :to="{name: 'schedule'}" class="btn btn-warning btn-lg bold"><i class="material-icons bold">sentiment_satisfied_alt</i>    {{$t('dashboard.info.schedule')}}</router-link>
                   </div>
                 </div>
               </div>

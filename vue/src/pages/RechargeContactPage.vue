@@ -26,9 +26,9 @@ export default {
       moment,
       fieldsPhone: [
         { key: 'selectedPhone', label: '✓' },
-        { key: 'name', label: 'Nombre', sortable: true, sortDirection: 'desc' },
-        { key: 'phone', label: 'Teléfono', sortable: true, class: 'text-center' },
-        { key: 'created_at', label: 'Creado', sortable: true, class: 'text-center' },
+        { key: 'name', label: this.$i18n.t('contact.fields.name'), sortable: true, sortDirection: 'desc' },
+        { key: 'phone', label: this.$i18n.t('contact.fields.phone'), sortable: true, class: 'text-center' },
+        { key: 'created_at', label: this.$i18n.t('contact.fields.created'), sortable: true, class: 'text-center' },
         // {
         //   key: 'isActive',
         //   label: 'is Active',
@@ -39,13 +39,13 @@ export default {
         //   sortByFormatted: true,
         //   filterByFormatted: true
         // },
-        { key: 'actions', label: 'Acciones' }
+        { key: 'actions', label: this.$i18n.t('contact.fields.actions') }
       ],
       fieldsEmail: [
         { key: 'selectedEmail', label: '✓' },
-        { key: 'name', label: 'Nombre', sortable: true, sortDirection: 'desc' },
-        { key: 'email', label: 'Correo', sortable: true, class: 'text-center' },
-        { key: 'created_at', label: 'Creado', sortable: true, class: 'text-center' },
+        { key: 'name', label: this.$i18n.t('contact.fields.name'), sortable: true, sortDirection: 'desc' },
+        { key: 'email', label: this.$i18n.t('contact.fields.email'), sortable: true, class: 'text-center' },
+        { key: 'created_at', label: this.$i18n.t('contact.fields.created'), sortable: true, class: 'text-center' },
         // {
         //   key: 'isActive',
         //   label: 'is Active',
@@ -56,7 +56,7 @@ export default {
         //   sortByFormatted: true,
         //   filterByFormatted: true
         // },
-        { key: 'actions', label: 'Actions' }
+        { key: 'actions', label: this.$i18n.t('contact.fields.actions') }
       ],
       transPropsPhone: {
         name: 'flip-list'
@@ -182,14 +182,14 @@ export default {
     handleRecharge () {
       if (this.type === 'cell') {
         if (!this.choose_offer_cell.id) {
-          this.$toastr.e('Debe selecionar una oferta')
+          this.$toastr.e(this.$i18n.t('notifications.validations.offer'))
           return
         }
         this.cell.offer_id = this.choose_offer_cell.id
         this.$store.dispatch('setRecharge', this.cell)
       } else {
         if (!this.choose_offer_nauta.id) {
-          this.$toastr.e('Debe selecionar una oferta')
+          this.$toastr.e(this.$i18n.t('notifications.validations.offer'))
           return
         }
         this.nauta.offer_id = this.choose_offer_nauta.id
@@ -211,7 +211,7 @@ export default {
       let call = ''
       let contacts = []
       if (!this.multiRechargeOffer.id) {
-        this.$toastr.e('Debe selecionar una oferta')
+        this.$toastr.e(this.$i18n.t('notifications.validations.offer'))
         return
       }
       if (this.type === 'cell') {
@@ -310,12 +310,12 @@ export default {
                         <ul class="nav nav-tabs" data-tabs="tabs">
                           <li class="nav-item">
                             <a class="nav-link active" v-on:click="changeRecharge('cell')" href="#cell" data-toggle="tab">
-                              <i class="material-icons">phone_iphone</i> Móvil
+                              <i class="material-icons">phone_iphone</i> {{$t('contact_recharge.cell')}}
                             </a>
                           </li>
                           <li class="nav-item">
                             <a class="nav-link" v-on:click="changeRecharge('nauta')" href="#nauta" data-toggle="tab">
-                              <i class="material-icons">wifi</i> Nauta
+                              <i class="material-icons">wifi</i> {{$t('contact_recharge.nauta')}}
                             </a>
                           </li>
                         </ul>
@@ -385,7 +385,7 @@ export default {
 
                           <b-col sm="6" md="2" class="my-1">
                             <b-form-group
-                              label="Mostrar"
+                              :label="$t('contact_recharge.show')"
                               label-cols-sm="6"
                               label-cols-md="4"
                               label-cols-lg="4"
@@ -409,10 +409,10 @@ export default {
                                   v-model="filterPhone"
                                   type="search"
                                   id="filterInput"
-                                  placeholder="Buscar"
+                                  :placeholder="$t('contact_recharge.search')"
                                 ></b-form-input>
                                 <b-input-group-append>
-                                  <b-button :disabled="!filterPhone" @click="filterPhone = ''">Limpiar</b-button>
+                                  <b-button :disabled="!filterPhone" @click="filterPhone = ''">{{$t('contact_recharge.clear')}}</b-button>
                                 </b-input-group-append>
                               </b-input-group>
                           </b-col>
@@ -441,7 +441,7 @@ export default {
                             sort-icon-left
                             selectable
                             :tbody-transition-props="transPropsPhone"
-                            primary-key="nonmbre"
+                            primary-key="nombre"
                             :select-mode="multiPhone"
                             @filtered="onFilteredPhone"
                             @row-selected="onRowSelectedPhone"
@@ -468,7 +468,7 @@ export default {
 
                             <template v-slot:cell(actions)="row">
                               <b-button variant="success" size="md" @click="showRechargePhoneModal(row.item)" class="mr-1 bold">
-                                <i class="material-icons bold">sentiment_satisfied_alt</i>    Recargame
+                                <i class="material-icons bold">sentiment_satisfied_alt</i>    {{$t('app.recharge_me')}}
                               </b-button>
                             </template>
 
@@ -484,7 +484,7 @@ export default {
                         </div>
 
                         <p class="row ml-1">
-                          <b-button v-if='selectedPhone.length > 0' @click="showMultiRechargePhoneModal()" class="btn btn-success btn-lg bold" ><i class="material-icons bold">sentiment_satisfied_alt</i>    Recargame</b-button>
+                          <b-button v-if='selectedPhone.length > 0' @click="showMultiRechargePhoneModal()" class="btn btn-success btn-lg bold" ><i class="material-icons bold">sentiment_satisfied_alt</i>    {{$t('app.recharge_me')}}</b-button>
                         </p>
 
                         <b-row>
@@ -561,7 +561,7 @@ export default {
 
                           <b-col sm="6" md="2" class="my-1">
                             <b-form-group
-                              label="Mostrar"
+                              :label="$t('contact_recharge.show')"
                               label-cols-sm="6"
                               label-cols-md="4"
                               label-cols-lg="4"
@@ -585,10 +585,10 @@ export default {
                                   v-model="filterEmail"
                                   type="search"
                                   id="filterInput"
-                                  placeholder="Buscar"
+                                  :placeholder="$t('contact_recharge.search')"
                                 ></b-form-input>
                                 <b-input-group-append>
-                                  <b-button :disabled="!filterEmail" @click="filterEmail = ''">Limpiar</b-button>
+                                  <b-button :disabled="!filterEmail" @click="filterEmail = ''">{{$t('contact_recharge.clear')}}</b-button>
                                 </b-input-group-append>
                               </b-input-group>
                           </b-col>
@@ -616,7 +616,7 @@ export default {
                           sort-icon-left
                           selectable
                           :tbody-transition-props="transPropsEmail"
-                          primary-key="nonmbre"
+                          primary-key="nombre"
                           :select-mode="multiEmail"
                           @filtered="onFilteredEmail"
                           @row-selected="onRowSelectedEmail"
@@ -643,7 +643,7 @@ export default {
 
                           <template v-slot:cell(actions)="row">
                             <b-button variant="success" size="md" @click="showRechargeNautaModal(row.item)" class="mr-1 bold">
-                              <i class="material-icons bold">sentiment_satisfied_alt</i>    Recargame
+                              <i class="material-icons bold">sentiment_satisfied_alt</i>   {{$t('app.recharge_me')}}
                             </b-button>
                           </template>
 
@@ -658,7 +658,7 @@ export default {
                         </b-table>
 
                         <p class="row ml-1">
-                          <b-button v-if='selectedEmail.length > 0' @click="showMultiRechargeEmailModal()" class="btn btn-success btn-lg bold" ><i class="material-icons bold">sentiment_satisfied_alt</i>    Recargame</b-button>
+                          <b-button v-if='selectedEmail.length > 0' @click="showMultiRechargeEmailModal()" class="btn btn-success btn-lg bold" ><i class="material-icons bold">sentiment_satisfied_alt</i>    {{$t('app.recharge_me')}}</b-button>
                         </p>
 
                         <b-row>
@@ -688,7 +688,7 @@ export default {
             <!-- <template v-slot:modal-title >
             </template> -->
             <div class="card-header card-header-primary text-center mb-5" style="background-color: #9c27b0; border-radius: 3px;">
-              <h4 class="card-title" style="color: white">Selecione una Oferta</h4>
+              <h4 class="card-title" style="color: white">{{$t('contact_recharge.offer')}}</h4>
             </div>
             <b-container fluid>
               <div id="nav-tabs">
@@ -703,7 +703,7 @@ export default {
                             <div class="input-group-prepend">
                               <div class="input-group-text" style="color: #000; font-weight: 200; font-size: 25px; margin-left: 10px; width: 40px">€</div>
                               <div class="col-md-10 material-select" v-if="type === 'cell'">
-                                <multiselect v-model="choose_offer_cell" placeholder="Seleccione una oferta" :allowEmpty="false" label="name" track-by="name" :option-height="104" :options="optionsCell" :show-labels="false">
+                                <multiselect v-model="choose_offer_cell" :placeholder="$t('contact_recharge.offer')" :allowEmpty="false" label="name" track-by="name" :option-height="104" :options="optionsCell" :show-labels="false">
                                   <template slot="singleLabel" slot-scope="props">
                                     <div class="option__desc">
                                       <span class="option__title" style="font-size: 25px;">{{props.option.name}}</span>
@@ -721,7 +721,7 @@ export default {
                                 </multiselect>
                               </div>
                               <div class="col-md-10 material-select" v-if="type === 'nauta'">
-                                <multiselect v-model="choose_offer_nauta" placeholder="Seleccione una oferta" :allowEmpty="false" label="name" track-by="name" :option-height="104" :options="optionsNauta" :show-labels="false">
+                                <multiselect v-model="choose_offer_nauta" :placeholder="$t('contact_recharge.offer')" :allowEmpty="false" label="name" track-by="name" :option-height="104" :options="optionsNauta" :show-labels="false">
                                   <template slot="singleLabel" slot-scope="props">
                                     <div class="option__desc">
                                       <span class="option__title" style="font-size: 25px;">{{props.option.name}}</span>
@@ -758,7 +758,7 @@ export default {
                 </div>
               </div>
 
-              <b-button class="mt-2 bold" variant="success" style="float: right;" @click="handleRecharge"><i class="material-icons bold">sentiment_satisfied_alt</i>    Recargame</b-button>
+              <b-button class="mt-2 bold" variant="success" style="float: right;" @click="handleRecharge"><i class="material-icons bold">sentiment_satisfied_alt</i>    {{$t('app.recharge_me')}}</b-button>
             </b-container>
 
           </b-modal>
@@ -768,7 +768,7 @@ export default {
             <!-- <template v-slot:modal-title >
             </template> -->
             <div class="card-header card-header-primary text-center mb-5" style="background-color: #9c27b0; border-radius: 3px;">
-              <h4 class="card-title" style="color: white">Selecione una Oferta</h4>
+              <h4 class="card-title" style="color: white">{{$t('contact_recharge.offer')}}</h4>
             </div>
             <b-container fluid>
               <div id="nav-tabs">
@@ -783,7 +783,7 @@ export default {
                             <div class="input-group-prepend">
                               <div class="input-group-text" style="color: #000; font-weight: 200; font-size: 25px; margin-left: 10px; width: 40px">€</div>
                               <div class="col-md-10 material-select" v-if="type === 'cell'">
-                                <multiselect v-model="multiRechargeOffer" placeholder="Seleccione una oferta" :allowEmpty="false" label="name" track-by="name" :option-height="104" :options="optionsCell" :show-labels="false">
+                                <multiselect v-model="multiRechargeOffer" :placeholder="$t('contact_recharge.offer')" :allowEmpty="false" label="name" track-by="name" :option-height="104" :options="optionsCell" :show-labels="false">
                                   <template slot="singleLabel" slot-scope="props">
                                     <div class="option__desc">
                                       <span class="option__title" style="font-size: 25px;">{{props.option.name}}</span>
@@ -801,7 +801,7 @@ export default {
                                 </multiselect>
                               </div>
                               <div class="col-md-10 material-select" v-if="type === 'nauta'">
-                                <multiselect v-model="multiRechargeOffer" placeholder="Seleccione una oferta" :allowEmpty="false" label="name" track-by="name" :option-height="104" :options="optionsNauta" :show-labels="false">
+                                <multiselect v-model="multiRechargeOffer" :placeholder="$t('contact_recharge.offer')" :allowEmpty="false" label="name" track-by="name" :option-height="104" :options="optionsNauta" :show-labels="false">
                                   <template slot="singleLabel" slot-scope="props">
                                     <div class="option__desc">
                                       <span class="option__title" style="font-size: 25px;">{{props.option.name}}</span>
@@ -838,7 +838,7 @@ export default {
                 </div>
               </div>
 
-              <b-button class="mt-2 price_pay bold" variant="success" style="float: right;" @click="handleMultiRecharge"><i class="material-icons bold">sentiment_satisfied_alt</i>    Recargame</b-button>
+              <b-button class="mt-2 price_pay bold" variant="success" style="float: right;" @click="handleMultiRecharge"><i class="material-icons bold">sentiment_satisfied_alt</i>    {{$t('app.recharge_me')}}</b-button>
             </b-container>
 
           </b-modal>

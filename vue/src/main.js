@@ -15,6 +15,7 @@ import VueResource from 'vue-resource'
 import Multiselect from 'vue-multiselect'
 import Toastr from 'vue-toastr'
 import BootstrapVue from 'bootstrap-vue'
+import i18n from './i18n'
 
 // import VueSocketio from 'vue-socketio'
 import store from './store'
@@ -145,5 +146,5 @@ Vue.http.interceptors.push((request, next) => {
 
 //
 new Vue({
-  router, store
+  router, store, i18n
 }).$mount('#app')

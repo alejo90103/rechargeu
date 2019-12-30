@@ -45,7 +45,7 @@ export default {
     },
     handleCard () {
       if (this.status === 'not_accepted') {
-        this.$toastr.e('Debes aceptar los términos y condiciones')
+        this.$toastr.e(this.$i18n.t('notifications.terms'))
         return
       }
       this.loading = true
@@ -66,7 +66,7 @@ export default {
     },
     handlePayPal () {
       if (this.status === 'not_accepted') {
-        this.$toastr.e('Debes aceptar los términos y condiciones')
+        this.$toastr.e(this.$i18n.t('notifications.terms'))
         return
       }
       this.loading = true
@@ -107,22 +107,22 @@ export default {
           <div class="col-lg-8 col-md-8 ml-auto mr-auto">
             <div class="card card-login">
               <div class="card-header card-header-primary text-center">
-                <h4 class="card-title">Resumen de Pago</h4>
+                <h4 class="card-title">{{$t('payment.title')}}</h4>
               </div>
               <div class="card-body" style="padding: 0.9375rem 1.875rem;">
                 <div>
                   <b-jumbotron style="padding: 1rem;">
-                    <template v-slot:header>Hola {{ userStore.authUser.name }}</template>
+                    <template v-slot:header>{{$t('payment.hello')}} {{ userStore.authUser.name }}</template>
 
                     <template v-slot:lead>
-                      Vas a realizar <strong> {{rechargeStore.purchaseInfo.count}} </strong>  {{ parseInt(rechargeStore.purchaseInfo.count) > 1 ? 'recargas' : 'recarga'}} de tipo <strong> {{rechargeStore.purchaseInfo.type === 'Cell' ? 'Móvil' : 'Nauta'}} </strong>.
+                      {{$t('payment.do')}} <strong> {{rechargeStore.purchaseInfo.count}} </strong>  {{ parseInt(rechargeStore.purchaseInfo.count) > 1 ? $tc('payment.recharge', 2) : $tc('payment.recharge', 1)}} {{$t('payment.type')}} <strong> {{rechargeStore.purchaseInfo.type === 'Cell' ? $t('payment.cell') : 'Nauta'}} </strong>.
                       <br>
                     </template>
 
                     <hr class="my-4">
 
                     <div class="row center">
-                      <b-badge variant="success"><h2 style="margin-top: 10px;"> <strong> Total: {{ rechargeStore.purchaseInfo.amount }} € </strong> </h2></b-badge>
+                      <b-badge variant="success"><h2 style="margin-top: 10px;"> <strong> {{$t('payment.total')}} {{ rechargeStore.purchaseInfo.amount }} € </strong> </h2></b-badge>
                     </div>
 
                     <hr class="my-4">
@@ -134,7 +134,7 @@ export default {
                       value='accepted'
                       unchecked-value='not_accepted'
                     >
-                      <p style="color: rgba(0, 0, 0, 0.87);">Acepta los <a href="#" v-b-modal.modal-scrollable >términos y condiciones</a></p>
+                      <p style="color: rgba(0, 0, 0, 0.87);">{{$t('payment.accept')}} <a href="#" v-b-modal.modal-scrollable >{{$t('payment.terms.text')}}</a></p>
                     </b-form-checkbox>
 
                     <div class="row center">
@@ -147,10 +147,10 @@ export default {
 
                       <form ref="formPaypal" :action="paypalUrl" method="post">
                         <div v-if="loading">
-                            <b-button variant="primary" disabled @click="handlePayPal" href="#"><i v-show="loading" class="fa fa-circle-o-notch mr-1" style="font-size: inherit; vertical-align: unset;"></i><i class="fa fa-paypal" style="margin-right: 5px;"></i><strong>PayPal</strong></b-button>
+                            <b-button variant="primary" disabled @click="handlePayPal" href="#"><i v-show="loading" class="fa fa-circle-o-notch mr-1" style="font-size: inherit; vertical-align: unset;"></i><i class="fa fa-paypal" style="margin-right: 5px;"></i><strong>{{$t('payment.paypal')}}</strong></b-button>
                         </div>
                         <div v-else>
-                            <b-button variant="primary" @click="handlePayPal" href="#"><i v-show="loading" class="fa fa-circle-o-notch mr-1" style="font-size: inherit; vertical-align: unset;"></i><i class="fa fa-paypal" style="margin-right: 5px;"></i><strong>PayPal</strong></b-button>
+                            <b-button variant="primary" @click="handlePayPal" href="#"><i v-show="loading" class="fa fa-circle-o-notch mr-1" style="font-size: inherit; vertical-align: unset;"></i><i class="fa fa-paypal" style="margin-right: 5px;"></i><strong>{{$t('payment.paypal')}}</strong></b-button>
                         </div>
                       </form>
 
@@ -166,10 +166,10 @@ export default {
         id="modal-scrollable"
         title="BootstrapVue"
         :ok-only="okOnly"
-        ok-title="Cerrar"
+        :ok-title="$t('payment.close')"
       >
         <template v-slot:modal-header="">
-          <h5>Términos y Condiciones</h5>
+          <h5>{{$t('payment.terms.title')}}</h5>
         </template>
 
         <template v-slot:default="">
@@ -185,15 +185,15 @@ export default {
           <nav class="float-left">
             <ul>
               <li>
-                <router-link :to="{name: 'terms'}">Términos y Condiciones</router-link>
+                <router-link :to="{name: 'terms'}">{{$t('footer.terms')}}</router-link>
               </li>
             </ul>
           </nav>
           <div class="copyright float-right">
             &copy;
-            Todos los derechos reservados.
+            {{$t('footer.copyright')}}
             <!-- <i class="fa fa-heart heart"></i> por <a href="http://codeals.es">Codeals</a>.  -->
-            <router-link :to="{name: 'dashboard'}">Cuba Recargame.</router-link>
+            <router-link :to="{name: 'dashboard'}">{{$t('app.title')}}</router-link>
           </div>
         </div>
       </footer>

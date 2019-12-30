@@ -27,7 +27,7 @@ export default {
   methods: {
     handleFormSubmit () {
       if (this.user.password !== this.user.confirm_password) {
-        this.$toastr.e('Contraseñas no coinciden')
+        this.$toastr.e(this.$i18n.t('notifications.password_not_match'))
         return
       }
 
@@ -42,13 +42,13 @@ export default {
       this.$http.post(registerUserUrl, postData).then(response => {
         console.log('response', response)
         this.loading = false
-        this.$toastr.s('Ha sido registrado con éxito')
+        this.$toastr.s(this.$i18n.t('notifications.success_signin'))
         this.$router.push({name: 'login'})
       }).catch(response => {
         this.loading = false
         console.log('response', response)
         if (response.status === 430) {
-          this.$toastr.e('Este usuario ya existe')
+          this.$toastr.e(this.$i18n.t('notifications.error_already_exist'))
         }
       })
     }
@@ -67,7 +67,7 @@ export default {
             <div class="card card-login">
               <form class="form" v-on:submit.prevent="handleFormSubmit()">
                 <div class="card-header card-header-primary text-center">
-                  <h4 class="card-title">Register</h4>
+                  <h4 class="card-title">{{$t('register.title')}}</h4>
                 </div>
                 <!-- <p class="description text-center">Or Be Classical</p> -->
                 <div class="card-body">
@@ -78,7 +78,7 @@ export default {
                         <i class="material-icons">face</i>
                       </span>
                     </div>
-                    <input type="email" v-model="user.name" class="form-control" placeholder="Nombre">
+                    <input type="name" v-model="user.name" class="form-control" :placeholder="$t('register.name')">
                   </div>
                   <div class="input-group">
                     <div class="input-group-prepend">
@@ -86,7 +86,7 @@ export default {
                         <i class="material-icons">mail</i>
                       </span>
                     </div>
-                    <input type="email" v-model="user.email" class="form-control" placeholder="Correo">
+                    <input type="email" v-model="user.email" class="form-control" :placeholder="$t('register.email')">
                   </div>
                   <div class="input-group">
                     <div class="input-group-prepend">
@@ -94,7 +94,7 @@ export default {
                         <i class="material-icons">lock_outline</i>
                       </span>
                     </div>
-                    <input type="password" v-model="user.password" class="form-control" placeholder="Contraseña">
+                    <input type="password" v-model="user.password" class="form-control" :placeholder="$t('register.password')">
                   </div>
                   <div class="input-group">
                     <div class="input-group-prepend">
@@ -102,11 +102,11 @@ export default {
                         <i class="material-icons">lock_outline</i>
                       </span>
                     </div>
-                    <input type="password" v-model="user.confirm_password" class="form-control" placeholder="Confirmar Contraseña">
+                    <input type="password" v-model="user.confirm_password" class="form-control" :placeholder="$t('register.confirm_password')">
                   </div>
                 </div>
                 <div class="footer text-center">
-                  <div @click="handleFormSubmit" class="btn btn-primary btn-link btn-wd btn-lg"><i v-show="loading" class="fa fa-circle-o-notch mr-1" style="font-size: inherit; vertical-align: unset;"></i>Registrarse</div>
+                  <div @click="handleFormSubmit" class="btn btn-primary btn-link btn-wd btn-lg"><i v-show="loading" class="fa fa-circle-o-notch mr-1" style="font-size: inherit; vertical-align: unset;"></i>{{$t('register.register')}}</div>
                 </div>
               </form>
             </div>
@@ -118,15 +118,15 @@ export default {
           <nav class="float-left">
             <ul>
               <li>
-                <router-link :to="{name: 'terms'}">Términos y Condiciones</router-link>
+                <router-link :to="{name: 'terms'}">{{$t('footer.terms')}}</router-link>
               </li>
             </ul>
           </nav>
           <div class="copyright float-right">
             &copy;
-            Todos los derechos reservados.
+            {{$t('footer.copyright')}}
             <!-- <i class="fa fa-heart heart"></i> por <a href="http://codeals.es">Codeals</a>.  -->
-            <router-link :to="{name: 'dashboard'}">Cuba Recargame.</router-link>
+            <router-link :to="{name: 'dashboard'}">{{$t('app.title')}}</router-link>
           </div>
         </div>
       </footer>
