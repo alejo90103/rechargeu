@@ -17,14 +17,14 @@ function loadLocaleMessages () {
 }
 
 let lang = 'es'
-if (navigator.language === 'en-EN' || navigator.userLanguage === 'en-EN') {
+if (navigator.language === 'en' || navigator.userLanguage === 'en' || navigator.language === 'en-EN' || navigator.userLanguage === 'en-EN') {
   lang = 'en'
 }
 if (typeof (Storage) !== 'undefined') {
   if (window.localStorage.getItem('lang') != null) {
     lang = window.localStorage.getItem('lang')
   } else {
-    window.localStorage.setItem('lang', 'es')
+    window.localStorage.setItem('lang', lang)
   }
 } else {
   // LocalStorage no soportado en este navegador
