@@ -40,8 +40,10 @@ export default {
     }
 
     this.$store.dispatch('getOfferList')
+
   }
 }
+
 </script>
 
 <template>

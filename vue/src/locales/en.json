@@ -2,10 +2,12 @@
   "app": {
     "title": "Cuba Recargame",
     "locales": {
-      "spanish": "Spanish",
+      "spanish": "Español",
       "english": "English"
     },
-    "recharge_me": "Recharge me"
+    "recharge_me": "Recharge me",
+    "cookie": "This web site uses cookies for a better experience. We will assume that you agree with this, but you can choose not to participate if you wish.",
+    "more_info": "More Info"
   },
   "notifications": {
     "password_not_match": "Passwords do not match",
@@ -186,5 +188,10 @@
   },
   "terms": {
     "title": "Terms and Conditions"
+  },
+  "cookie": {
+    "title": "Privacy and Cookies Policy",
+    "cancel": "Cancel",
+    "accept": "Accept"
   }
 }

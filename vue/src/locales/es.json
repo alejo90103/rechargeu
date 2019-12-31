@@ -3,9 +3,11 @@
     "title": "Cuba Recargame",
     "locales": {
       "spanish": "Español",
-      "english": "Inglés"
+      "english": "English"
     },
-    "recharge_me": "Recargame"
+    "recharge_me": "Recargame",
+    "cookie": "Este sitio web utiliza cookies para mejorar su experiencia. Asumiremos que está de acuerdo con esto, pero puede optar por no participar si lo desea.",
+    "more_info": "Más Info"
   },
   "notifications": {
     "password_not_match": "Contraseñas no coinciden",
@@ -43,7 +45,7 @@
       "change_password": "Cambiar Contraseña",
       "logout": "Salir"
     },
-    "login": "Iniciar Sesión",
+    "login": "Entrar",
     "submenu_login": {
       "login": "Iniciar Sesión",
       "signin": "Registrarse"
@@ -186,5 +188,10 @@
   },
   "terms": {
     "title": "Términos y Condiciones"
+  },
+  "cookie": {
+    "title": "Privacidad y Política de Cookies",
+    "cancel": "Cancelar",
+    "accept": "Aceptar"
   }
 }

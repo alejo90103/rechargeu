@@ -15,6 +15,11 @@
 
 /*     brand Colors              */
 
+.modal-cookie {
+  margin: 0px !important;
+  max-width: none !important;
+}
+
 .carousel.carousel-full-nagivation .left {
   cursor: url("../../img/arrow-left.png"), url("../../img/arrow-left.cur"), default !important;
 }
@@ -17318,7 +17323,7 @@ footer .pull-center {
 
 .index-page .page-header {
   height: 90vh;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 .index-page .brand {

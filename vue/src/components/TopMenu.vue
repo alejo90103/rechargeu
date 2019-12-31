@@ -12,6 +12,18 @@
 // import ChatNotificationDropdown from './chat/ChatNotificationDropdown'
 import {mapState} from 'vuex'
 export default {
+  data () {
+    return {
+      'locale': 'spanish'
+    }
+  },
+  mounted () {
+    if (this.$i18n.locale === 'es') {
+      this.locale = this.$i18n.t('app.locales.english')
+    } else {
+      this.locale = this.$i18n.t('app.locales.spanish')
+    }
+  },
   components: {
     // 'pm-notification': PrivateMessageNotificationDropdown
     // 'chat-notification': ChatNotificationDropdown
@@ -27,9 +39,16 @@ export default {
       window.localStorage.removeItem('authUser')
       this.$router.push({name: 'home'})
     },
-    changeLocale (lang) {
-      this.$i18n.locale = lang
-      window.localStorage.setItem('lang', lang)
+    changeLocale () {
+      if (this.$i18n.locale === 'es') {
+        this.$i18n.locale = 'en'
+        this.locale = this.$i18n.t('app.locales.spanish')
+        window.localStorage.setItem('lang', 'en')
+      } else {
+        this.$i18n.locale = 'es'
+        this.locale = this.$i18n.t('app.locales.english')
+        window.localStorage.setItem('lang', 'es')
+      }
     }
   }
 }
@@ -86,23 +105,10 @@ export default {
               <i class="fa fa-instagram"></i>
             </a>
           </li> -->
-          <li class="dropdown nav-item">
-            <!-- <a href="https://www.facebook.com/cubarecargame" class="dropdown-toggle nav-link" data-toggle="dropdown">
-              <i class="material-icons">face</i> {{userStore.authUser.name}}
-            </a> -->
-            <a href="https://www.facebook.com/cubarecargame" class="dropdown-toggle nav-link" data-toggle="dropdown">
-              <i class="material-icons">flag</i> {{ this.$i18n.locale }}
+          <li class="nav-item">
+            <a v-on:click="changeLocale()" class="nav-link" href="#">
+              <i class="material-icons"> flag </i> {{ locale }}
             </a>
-            <div class="dropdown-menu dropdown-with-icons">
-              <!-- <router-link class="dropdown-item menu-link" :to="{name: 'reset-password'}"><i class="material-icons">vpn_key</i> {{ $t('menu.locales.spanish') }}</router-link>
-              <router-link class="dropdown-item menu-link" :to="{name: 'reset-password'}"><i class="material-icons">vpn_key</i> {{ $t('menu.locales.english') }}</router-link> -->
-              <a v-on:click="changeLocale('es')" class="dropdown-item logout menu-link">
-                <i class="material-icons"> flag </i> {{ $t('app.locales.spanish') }}
-              </a>
-              <a v-on:click="changeLocale('en')" class="dropdown-item logout menu-link">
-                <i class="material-icons"> flag </i> {{ $t('app.locales.english') }}
-              </a>
-            </div>
           </li>
           <li class="dropdown nav-item">
             <a href="https://www.facebook.com/cubarecargame" class="dropdown-toggle nav-link" data-toggle="dropdown">
@@ -139,7 +145,7 @@ export default {
             </a>
           </li> -->
           <li class="nav-item">
-            <a class="nav-link" rel="tooltip" title="" data-placement="bottom" href="#" target="_blank" :data-original-title="$t('menu.social_medias.facebook')">
+            <a class="nav-link" rel="tooltip" title="" data-placement="bottom" href="https://www.facebook.com/cubarecargame" target="_blank" :data-original-title="$t('menu.social_medias.facebook')">
               <i class="fa fa-facebook-square"></i>
             </a>
           </li>
@@ -148,23 +154,10 @@ export default {
               <i class="fa fa-instagram"></i>
             </a>
           </li> -->
-          <li class="dropdown nav-item">
-            <!-- <a href="https://www.facebook.com/cubarecargame" class="dropdown-toggle nav-link" data-toggle="dropdown">
-              <i class="material-icons">face</i> {{userStore.authUser.name}}
-            </a> -->
-            <a href="https://www.facebook.com/cubarecargame" class="dropdown-toggle nav-link" data-toggle="dropdown">
-              <i class="material-icons">flag</i> {{ this.$i18n.locale }}
+          <li class="nav-item">
+            <a v-on:click="changeLocale()" class="nav-link" href="#">
+              <i class="material-icons"> flag </i> {{ locale }}
             </a>
-            <div class="dropdown-menu dropdown-with-icons">
-              <!-- <router-link class="dropdown-item menu-link" :to="{name: 'reset-password'}"><i class="material-icons">vpn_key</i> {{ $t('menu.locales.spanish') }}</router-link>
-              <router-link class="dropdown-item menu-link" :to="{name: 'reset-password'}"><i class="material-icons">vpn_key</i> {{ $t('menu.locales.english') }}</router-link> -->
-              <a v-on:click="changeLocale('es')" class="dropdown-item logout menu-link">
-                <i class="material-icons"> flag </i> {{ $t('app.locales.spanish') }}
-              </a>
-              <a v-on:click="changeLocale('en')" class="dropdown-item logout menu-link">
-                <i class="material-icons"> flag </i> {{ $t('app.locales.english') }}
-              </a>
-            </div>
           </li>
           <li class="dropdown nav-item">
             <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
