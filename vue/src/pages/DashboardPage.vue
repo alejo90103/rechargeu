@@ -46,9 +46,9 @@ export default {
       const h = this.$createElement
       // More complex structure
       const messageVNode = h('p', { class: ['text-center'] }, [
-          this.$i18n.t('app.cookie'),
-          h('div', {class: ['d-inline'], domProps: { innerHTML: '<a href="/cookie"> '+this.$i18n.t('app.more_info')+'<a>' } }, '')
-        ])
+        this.$i18n.t('app.cookie'),
+        h('div', {class: ['d-inline'], domProps: {innerHTML: '<a href="/cookie">' + this.$i18n.t('app.more_info') + '<a>'}}, '')
+      ])
       this.$bvModal.msgBoxOk(messageVNode, {
         title: this.$i18n.t('cookie.title'),
         size: 'xl',

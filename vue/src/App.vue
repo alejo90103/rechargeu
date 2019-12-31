@@ -40,7 +40,6 @@ export default {
     }
 
     this.$store.dispatch('getOfferList')
-
   }
 }
 
