@@ -4,7 +4,7 @@
 # @Date:   21-11-2019
 # @Email:  ian@codeals.es
 # @Last modified by:   Codeals
-# @Last modified time: 22-11-2019
+# @Last modified time: 31-12-2019
 # @Copyright: Codeals
 -->
 
@@ -76,7 +76,7 @@
 		<div id="kt_header_mobile" class="kt-header-mobile  kt-header-mobile--fixed ">
 			<div class="kt-header-mobile__logo">
 				<a href="demo2/index.html">
-					<img alt="Logo" src="./assets/media/logos/logo-2-sm.png" />
+					<img alt="Logo" src="{{ asset('assets/assets/media/logos/logo-2-sm.png') }}" />
 				</a>
 			</div>
 			<div class="kt-header-mobile__toolbar">

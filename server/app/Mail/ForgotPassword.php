@@ -1,4 +1,10 @@
 <?php
+# @Author: Codeals
+# @Date:   21-11-2019
+# @Email:  ian@codeals.es
+# @Last modified by:   Codeals
+# @Last modified time: 31-12-2019
+# @Copyright: Codeals
 
 namespace App\Mail;
 
@@ -36,7 +42,7 @@ class ForgotPassword extends Mailable
     {
         $url = $this->request->input('url');
 
-        return $this->from('iankamisama@gmail.com')
+        return $this->from('soporte@cubarecargame.com')
             ->view('mails.forgot-password')
             ->with('token', $this->token)
             ->with('url', $url)

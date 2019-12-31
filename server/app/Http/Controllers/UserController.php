@@ -2,8 +2,8 @@
 # @Author: Codeals
 # @Date:   05-08-2019
 # @Email:  ian@codeals.es
-# @Last modified by:   alejandro
-# @Last modified time: 2019-11-25T22:31:29+01:00
+# @Last modified by:   Codeals
+# @Last modified time: 31-12-2019
 # @Copyright: Codeals
 
 namespace App\Http\Controllers;
@@ -11,6 +11,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests;
 use App\Mail\ForgotPassword;
 use App\Mail\RegisterUser;
+use App\Mail\WelcomeUser;
 use App\Token;
 use App\User;
 use Carbon\Carbon;
@@ -203,6 +204,8 @@ class UserController extends Controller
         // ]);
         //
         // Mail::to($newUser)->send(new RegisterUser($token, $request));
+
+        Mail::to($newUser)->send(new WelcomeUser($request));
 
         return response(['data' => 'Email sent.'], 201);
     }
