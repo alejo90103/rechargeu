@@ -3,7 +3,7 @@
 @Date:   11-08-2019
 @Email:  ian@codeals.es
 @Last modified by:   Codeals
-@Last modified time: 31-12-2019
+@Last modified time: 02-01-2020
 @Copyright: Codeals
 -->
 
@@ -129,7 +129,7 @@ export default {
   <nav v-else='' class="navbar navbar-transparent navbar-color-on-scroll fixed-top navbar-expand-lg" color-on-scroll="100" id="sectionsNav">
     <div class="container">
       <div class="navbar-translate">
-        <router-link :to="{name: 'dashboard'}" class="navbar-brand"><h4 style="margin-top: 0px;"><img src="./../assets/material/img/favicon35x.png" alt="icon"> {{ $t('app.title') }}</h4></router-link>
+        <router-link :to="{name: 'dashboard'}" class="navbar-brand"><h4 style="margin-top: 0px;"><img title="Cuba Recargame" src="./../assets/material/img/cubarecargame35x.png" alt="icon"> {{ $t('app.title') }}</h4></router-link>
         <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
           <span class="sr-only">Toggle navigation</span>
           <span class="navbar-toggler-icon"></span>

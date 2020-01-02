@@ -3,14 +3,14 @@
  * @Date:   05-08-2019
  * @Email:  ian@codeals.es
  * @Last modified by:   Codeals
- * @Last modified time: 31-12-2019
+ * @Last modified time: 02-01-2020
  * @Copyright: Codeals
  */
 
-// export const apiClient = 'https://cubarecargame.com/'
-// export const apiDomain = 'https://admin.cubarecargame.com/index.php/'
-export const apiClient = 'http://localhost/'
-export const apiDomain = 'http://localhost:8000/'
+export const apiClient = 'https://cubarecargame.com/'
+export const apiDomain = 'https://admin.cubarecargame.com/index.php/'
+// export const apiClient = 'http://localhost/'
+// export const apiDomain = 'http://localhost:8000/'
 export const loginUrl = apiDomain + 'oauth/token'
 export const userUrl = apiDomain + 'api/user'
 export const forgotPassword = apiDomain + 'api/forgot-password'
