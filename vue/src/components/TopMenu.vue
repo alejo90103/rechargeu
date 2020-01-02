@@ -55,7 +55,7 @@ export default {
 </script>
 
 <template>
-  <nav v-if="userStore.authUser !== null && userStore.authUser.access_token" class="navbar navbar-transparent navbar-color-on-scroll fixed-top navbar-expand-lg" color-on-scroll="100" id="sectionsNav">
+  <nav v-if="userStore.authUser !== null && userStore.authUser.access_token" class="navbar navbar-transparent navbar-color-on-scroll fixed-top navbar-expand-lg" color-on-scroll="10" id="sectionsNav">
     <div class="container">
       <div class="navbar-translate" style="margin-left: 5%">
         <router-link :to="{name: 'dashboard'}" class="navbar-brand"><h4 style="margin-top: 0px;">{{ $t('app.title') }}</h4></router-link>

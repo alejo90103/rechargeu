@@ -123,7 +123,7 @@ export default {
 </script>
 
 <template>
-  <div class="container">
+  <div class="container" style="z-index: 5;">
     <div class="row">
       <div class="col-md-5 ml-auto mr-auto">
         <div class="brand">
@@ -170,7 +170,7 @@ export default {
                             <div class="input-group-prepend row">
                               <div class="input-group-text col-md-2" style="color: #000; font-weight: 200; font-size: 25px; padding-left: 10px">€</div>
                               <div class="col-md-10 material-select">
-                                <multiselect v-model="choose_offer_cell" openDirection='bottom' :max-height=170 :placeholder="$t('dashboard.tabs.offer_placeholder')" :allowEmpty="false" label="name" track-by="name" :option-height="104" :options="optionsCell" :show-labels="false">
+                                <multiselect v-model="choose_offer_cell" openDirection='bottom' :placeholder="$t('dashboard.tabs.offer_placeholder')" :allowEmpty="false" label="name" track-by="name" :option-height="104" :options="optionsCell" :show-labels="false">
                                   <template slot="singleLabel" slot-scope="props">
                                     <div class="option__desc">
                                       <span class="option__title" style="font-size: 25px;">{{props.option.name}}</span>
@@ -214,7 +214,7 @@ export default {
                             <div class="input-group-prepend row">
                               <div class="input-group-text col-md-2" style="color: #000; font-weight: 200; font-size: 25px; padding-left: 10px">€</div>
                               <div class="col-md-10 material-select">
-                                <multiselect v-model="choose_offer_nauta" openDirection='bottom' :max-height=170 :placeholder="$t('dashboard.tabs.offer_placeholder')" :allowEmpty="false" label="name" track-by="name" :option-height="104" :options="optionsNauta" :show-labels="false">
+                                <multiselect v-model="choose_offer_nauta" openDirection='bottom' :placeholder="$t('dashboard.tabs.offer_placeholder')" :allowEmpty="false" label="name" track-by="name" :option-height="104" :options="optionsNauta" :show-labels="false">
                                   <template slot="singleLabel" slot-scope="props">
                                     <div class="option__desc">
                                       <span class="option__title" style="font-size: 25px;">{{props.option.name}}</span>
