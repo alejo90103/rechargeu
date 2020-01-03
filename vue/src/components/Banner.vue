@@ -7,7 +7,7 @@
 @Copyright: Codeals
 -->
 <template>
-  <div class="page-header header-filter clear-filter purple-filter trans" data-parallax="true" :style="{'background-image': 'url(' + require('./../assets/material/img/bg2.jpg') + ')'}" >
+  <div class="page-header header-filter clear-filter purple-filter trans" data-parallax="false" :style="{'background-image': 'url(' + require('./../assets/material/img/bg2.jpg') + ')'}" >
     <Tabs ref="tab"></Tabs>
   </div>
 </template>

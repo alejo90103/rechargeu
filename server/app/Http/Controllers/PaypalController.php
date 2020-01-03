@@ -286,7 +286,7 @@ class PaypalController extends BaseController
 			$url = "https://api.dingconnect.com/api/V1/SendTransfer";
 			$header = array(
 					"Content-Type: application/json",
-					"api_key: ".env('API_DING', '55NhaAwAtfu6VeuEGjiSZU') // secret api ding
+					"api_key: ".env('API_DING', '0K4ixoSWSOy6Vd9I1IEWgf') // secret api ding
 			);
 
 			// para hacer transferencia requerido

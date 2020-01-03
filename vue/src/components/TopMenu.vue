@@ -55,10 +55,10 @@ export default {
 </script>
 
 <template>
-  <nav v-if="userStore.authUser !== null && userStore.authUser.access_token" class="navbar navbar-transparent navbar-color-on-scroll fixed-top navbar-expand-lg" color-on-scroll="10" id="sectionsNav">
+  <nav v-if="userStore.authUser !== null && userStore.authUser.access_token" class="navbar navbar-transparent navbar-color-on-scroll fixed-top navbar-expand-lg" color-on-scroll="5" id="sectionsNav">
     <div class="container">
       <div class="navbar-translate" style="margin-left: 5%">
-        <router-link :to="{name: 'dashboard'}" class="navbar-brand"><h4 style="margin-top: 0px;">{{ $t('app.title') }}</h4></router-link>
+        <router-link :to="{name: 'dashboard'}" class="navbar-brand"><h4 style="margin-top: 0px;" class="d-none d-sm-block">{{ $t('app.title') }}</h4></router-link>
         <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
           <span class="sr-only">Toggle navigation</span>
           <span class="navbar-toggler-icon"></span>
@@ -106,7 +106,7 @@ export default {
             </a>
           </li> -->
           <li class="nav-item">
-            <a v-on:click="changeLocale()" class="nav-link" href="#">
+            <a v-on:click="changeLocale()" class="nav-link menu-link" href="#">
               <i class="material-icons"> flag </i> {{ locale }}
             </a>
           </li>
@@ -126,10 +126,10 @@ export default {
 
     </div>
   </nav>
-  <nav v-else='' class="navbar navbar-transparent navbar-color-on-scroll fixed-top navbar-expand-lg" color-on-scroll="100" id="sectionsNav">
+  <nav v-else='' class="navbar navbar-transparent navbar-color-on-scroll fixed-top navbar-expand-lg" color-on-scroll="5" id="sectionsNav">
     <div class="container">
       <div class="navbar-translate">
-        <router-link :to="{name: 'dashboard'}" class="navbar-brand"><h4 style="margin-top: 0px;"><img title="Cuba Recargame" src="./../assets/material/img/cubarecargame35x.png" alt="icon"> {{ $t('app.title') }}</h4></router-link>
+        <router-link :to="{name: 'dashboard'}" class="navbar-brand"><h4 style="margin-top: 0px;" class="d-none d-sm-block">{{ $t('app.title') }}</h4></router-link>
         <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
           <span class="sr-only">Toggle navigation</span>
           <span class="navbar-toggler-icon"></span>
@@ -145,7 +145,7 @@ export default {
             </a>
           </li> -->
           <li class="nav-item">
-            <a class="nav-link" rel="tooltip" title="" data-placement="bottom" href="https://www.facebook.com/cubarecargame" target="_blank" :data-original-title="$t('menu.social_medias.facebook')">
+            <a class="nav-link menu-link" rel="tooltip" title="" data-placement="bottom" href="https://www.facebook.com/cubarecargame" target="_blank" :data-original-title="$t('menu.social_medias.facebook')">
               <i class="fa fa-facebook-square"></i>
             </a>
           </li>
@@ -155,7 +155,7 @@ export default {
             </a>
           </li> -->
           <li class="nav-item">
-            <a v-on:click="changeLocale()" class="nav-link" href="#">
+            <a v-on:click="changeLocale()" class="nav-link menu-link" href="#">
               <i class="material-icons"> flag </i> {{ locale }}
             </a>
           </li>
@@ -164,8 +164,8 @@ export default {
               <i class="material-icons">face</i> {{ $t('menu.login') }}
             </a>
             <div class="dropdown-menu dropdown-with-icons">
-              <router-link class="dropdown-item" :to="{name: 'login'}"><i class="material-icons">face</i>{{ $t('menu.submenu_login.login') }}</router-link>
-              <router-link class="dropdown-item" :to="{name: 'register-user'}"><i class="material-icons">fingerprint</i>{{ $t('menu.submenu_login.signin') }}</router-link>
+              <router-link class="dropdown-item menu-link" :to="{name: 'login'}"><i class="material-icons">face</i>{{ $t('menu.submenu_login.login') }}</router-link>
+              <router-link class="dropdown-item menu-link" :to="{name: 'register-user'}"><i class="material-icons">fingerprint</i>{{ $t('menu.submenu_login.signin') }}</router-link>
             </div>
           </li>
         </ul>
