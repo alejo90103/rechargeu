@@ -3,7 +3,7 @@
 # @Date:   20-11-2019
 # @Email:  ian@codeals.es
 # @Last modified by:   Codeals
-# @Last modified time: 21-11-2019
+# @Last modified time: 03-01-2020
 # @Copyright: Codeals
 
 use Illuminate\Support\Facades\Schema;
@@ -23,7 +23,7 @@ class CreateContactsTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('email')->nullable();
-            $table->string('phone');
+            $table->string('phone')->nullable();
             $table->bigInteger('user_id')->unsigned();
             $table->foreign('user_id')
                   ->references('id')

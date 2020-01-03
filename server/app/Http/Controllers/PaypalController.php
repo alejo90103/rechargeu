@@ -1,4 +1,10 @@
 <?php
+# @Author: Codeals
+# @Date:   26-11-2019
+# @Email:  ian@codeals.es
+# @Last modified by:   Codeals
+# @Last modified time: 03-01-2020
+# @Copyright: Codeals
 
 namespace App\Http\Controllers;
 
@@ -74,7 +80,7 @@ class PaypalController extends BaseController
 			$item = new Item();
 			$item->setName("Serv Recarga")
 			->setCurrency($currency)
-			->setDescription("Recargar Cell Cubacel")
+			->setDescription(" Servicio de Recargas Cubacel")
 			->setQuantity(1)
 			->setPrice($subtotal);
 			//----------
@@ -107,7 +113,7 @@ class PaypalController extends BaseController
 			$transaction = new Transaction();
 			$transaction->setAmount($amount)
 				->setItemList($item_list)
-				->setDescription('Recharge Contacts');
+				->setDescription('Servicios de recargas. Cuba Recargame');
 
 			$redirect_urls = new RedirectUrls();
 			$redirect_urls->setReturnUrl(\URL::route('payment.status', $paymentMethod->token))
@@ -153,8 +159,8 @@ class PaypalController extends BaseController
 			$recharge->status = "Cancel";
 			$recharge->save();
 
-			// return Redirect::to(env('APP_CLIENT', 'cubarecargame.com').'/dashboard/failed');
-			return Redirect::to("http://localhost:8080/dashboard/failed");
+			return Redirect::to(env('APP_CLIENT', 'cubarecargame.com').'/dashboard/failed');
+			// return Redirect::to("http://localhost:8080/dashboard/failed");
 
 			// return \Redirect::route('/')
 			// 	->with('error', 'Ups! Error desconocido.');
@@ -181,8 +187,8 @@ class PaypalController extends BaseController
 				$recharge->status = "Cancel";
 				$recharge->save();
 
-				// return Redirect::to(env('APP_CLIENT', 'cubarecargame.com').'/dashboard/failed');
-				return Redirect::to("http://localhost:8080/dashboard/failed");
+				return Redirect::to(env('APP_CLIENT', 'cubarecargame.com').'/dashboard/failed');
+				// return Redirect::to("http://localhost:8080/dashboard/failed");
 
 			// return \Redirect::route('home')
 			// 	->with('message', 'Hubo un problema al intentar pagar con Paypal');
@@ -220,8 +226,8 @@ class PaypalController extends BaseController
 					$recharge->save();
 
 					// programacion success
-					// return Redirect::to(env('APP_CLIENT', 'cubarecargame.com').'/dashboard/success');
-					return Redirect::to("http://localhost:8080/dashboard/success");
+					return Redirect::to(env('APP_CLIENT', 'cubarecargame.com').'/dashboard/success');
+					// return Redirect::to("http://localhost:8080/dashboard/success");
 			}
 
 			$user = User::find($recharge->user_id);
@@ -247,16 +253,16 @@ class PaypalController extends BaseController
 				$paymentBack->save();
 				// $urlBack = Setting::first()->server_client;
 				// return Redirect::to($urlBack."dashboard/success");
-				// return Redirect::to(env('APP_CLIENT', 'cubarecargame.com').'/dashboard/success');
-				return Redirect::to("http://localhost:8080/dashboard/success");
+				return Redirect::to(env('APP_CLIENT', 'cubarecargame.com').'/dashboard/success');
+				// return Redirect::to("http://localhost:8080/dashboard/success");
 			} else {
 				//
 				$recharge->status = "Denied";
 				$recharge->save();
 				// $urlBack = Setting::first()->server_client;
 				// return Redirect::to($urlBack."dashboard/failedDing");
-				// return Redirect::to(env('APP_CLIENT', 'cubarecargame.com').'/dashboard/failedDing');
-				return Redirect::to("http://localhost:8080/dashboard/failedDing");
+				return Redirect::to(env('APP_CLIENT', 'cubarecargame.com').'/dashboard/failedDing');
+				// return Redirect::to("http://localhost:8080/dashboard/failedDing");
 			}
 
 			// $this->saveOrder(\Session::get('cart'));
@@ -268,8 +274,8 @@ class PaypalController extends BaseController
 			// 	->with('message', 'Compra realizada de forma correcta');
 		}
 
-		// return Redirect::to(env('APP_CLIENT', 'cubarecargame.com').'/dashboard/failed');
-		return Redirect::to("http://localhost:8080/dashboard/failed");
+		return Redirect::to(env('APP_CLIENT', 'cubarecargame.com').'/dashboard/failed');
+		// return Redirect::to("http://localhost:8080/dashboard/failed");
 		// return \Redirect::route('home')
 		// 	->with('message', 'La compra fue cancelada');
 	}
