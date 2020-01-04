@@ -7,8 +7,8 @@
  * @Copyright: Codeals
  */
 
-export const apiClient = 'https://cubarecargame.com/'
-export const apiDomain = 'https://admin.cubarecargame.com/index.php/'
+export const apiClient = 'https://turecarguita.com/'
+export const apiDomain = 'https://admin.turecarguita.com/index.php/'
 // export const apiClient = 'http://localhost/'
 // export const apiDomain = 'http://localhost:8000/'
 export const loginUrl = apiDomain + 'oauth/token'

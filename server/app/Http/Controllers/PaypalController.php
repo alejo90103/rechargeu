@@ -159,7 +159,7 @@ class PaypalController extends BaseController
 			$recharge->status = "Cancel";
 			$recharge->save();
 
-			return Redirect::to(env('APP_CLIENT', 'cubarecargame.com').'/dashboard/failed');
+			return Redirect::to(env('APP_CLIENT', 'https://turecarguita.com').'/dashboard/failed');
 			// return Redirect::to("http://localhost:8080/dashboard/failed");
 
 			// return \Redirect::route('/')
@@ -187,7 +187,7 @@ class PaypalController extends BaseController
 				$recharge->status = "Cancel";
 				$recharge->save();
 
-				return Redirect::to(env('APP_CLIENT', 'cubarecargame.com').'/dashboard/failed');
+				return Redirect::to(env('APP_CLIENT', 'https://turecarguita.com').'/dashboard/failed');
 				// return Redirect::to("http://localhost:8080/dashboard/failed");
 
 			// return \Redirect::route('home')
@@ -226,7 +226,7 @@ class PaypalController extends BaseController
 					$recharge->save();
 
 					// programacion success
-					return Redirect::to(env('APP_CLIENT', 'cubarecargame.com').'/dashboard/success');
+					return Redirect::to(env('APP_CLIENT', 'https://turecarguita.com').'/dashboard/success');
 					// return Redirect::to("http://localhost:8080/dashboard/success");
 			}
 
@@ -253,7 +253,7 @@ class PaypalController extends BaseController
 				$paymentBack->save();
 				// $urlBack = Setting::first()->server_client;
 				// return Redirect::to($urlBack."dashboard/success");
-				return Redirect::to(env('APP_CLIENT', 'cubarecargame.com').'/dashboard/success');
+				return Redirect::to(env('APP_CLIENT', 'https://turecarguita.com').'/dashboard/success');
 				// return Redirect::to("http://localhost:8080/dashboard/success");
 			} else {
 				//
@@ -261,7 +261,7 @@ class PaypalController extends BaseController
 				$recharge->save();
 				// $urlBack = Setting::first()->server_client;
 				// return Redirect::to($urlBack."dashboard/failedDing");
-				return Redirect::to(env('APP_CLIENT', 'cubarecargame.com').'/dashboard/failedDing');
+				return Redirect::to(env('APP_CLIENT', 'https://turecarguita.com').'/dashboard/failedDing');
 				// return Redirect::to("http://localhost:8080/dashboard/failedDing");
 			}
 
@@ -274,7 +274,7 @@ class PaypalController extends BaseController
 			// 	->with('message', 'Compra realizada de forma correcta');
 		}
 
-		return Redirect::to(env('APP_CLIENT', 'cubarecargame.com').'/dashboard/failed');
+		return Redirect::to(env('APP_CLIENT', 'https://turecarguita.com').'/dashboard/failed');
 		// return Redirect::to("http://localhost:8080/dashboard/failed");
 		// return \Redirect::route('home')
 		// 	->with('message', 'La compra fue cancelada');

@@ -6,5 +6,5 @@
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteRule . /index.html [L]
   RewriteCond %{SERVER_PORT} !=443
-  RewriteRule ^(.*)$ https://cubarecargame.com/$1 [R=301,L]
+  RewriteRule ^(.*)$ https://turecarguita.com/$1 [R=301,L]
 </IfModule>

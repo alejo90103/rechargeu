@@ -2,8 +2,8 @@
 # @Author: Codeals
 # @Date:   26-11-2019
 # @Email:  ian@codeals.es
-# @Last modified by:   alejandro
-# @Last modified time: 2019-11-27T03:05:45+01:00
+# @Last modified by:   Codeals
+# @Last modified time: 03-01-2020
 # @Copyright: Codeals
 
 namespace App\Http\Controllers;
@@ -50,9 +50,9 @@ class RedsysController extends Controller
     		$moneda="978";
     		$trans="0";
 
-        $url="https://adminrecharge.codeals.es/api/response-redsys/response/".$payment->token;
-  			$urlOK="https://adminrecharge.codeals.es/api/response-redsys/ok/".$payment->token;
-  			$urlKO="https://adminrecharge.codeals.es/api/response-redsys/ko/".$payment->token;
+        $url="https://turecarguita.com/api/response-redsys/response/".$payment->token;
+  			$urlOK="https://turecarguita.com/api/response-redsys/ok/".$payment->token;
+  			$urlKO="https://turecarguita.com/api/response-redsys/ko/".$payment->token;
 
     		//estos dos valores los vamos cambiando en cada ejemplo
         $ids = rand(10,1000);
