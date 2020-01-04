@@ -37,7 +37,7 @@ return array(
     |
     */
 
-    'host' => 'smtp.ionos.com',
+    'host' => 'smtp.ionos.es',
 
     /*
     |--------------------------------------------------------------------------
@@ -62,7 +62,7 @@ return array(
     | used globally for all e-mails that are sent by your application.
     |
     */
- 'from' => array('address' => 'soporte@cubarecargame.es', 'name' => 'Cuba Recargame'),
+ 'from' => array('address' => 'soporte@turecarguita.com', 'name' => 'Tu Recarguita'),
 
 
     /*
@@ -88,7 +88,7 @@ return array(
     | connection. You may also set the "password" value below this one.
     |
     */
-     'username' => 'soporte@cubarecargame.com',
+     'username' => 'soporte@turecarguita.com',
  /*
     |--------------------------------------------------------------------------
     | SMTP Server Password

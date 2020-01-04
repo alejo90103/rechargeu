@@ -18,7 +18,7 @@
       <table width="60%" border="0" align="center">
         <tr>
           <td>
-            <h1>Gracias!!! por registrarte en CUBA REACARGAME :) !!! </h1>
+            <h1>Gracias!!! por registrarte en TU RECARGUITA :) !!! </h1>
 
           </td>
         </tr>
@@ -35,7 +35,7 @@
         </tr>
         <tr>
           <td>
-            <strong>Visitanos </strong><p>https://cubarecargame.com</p> <a href="https://www.facebook.com/cubarecargame/" target="_blank"><i class="fab fa-facebook-square"></i></a>
+            <strong>Visitanos </strong><p>https://turecarguita.com</p> <a href="https://www.facebook.com/turecarguita/" target="_blank"><i class="fab fa-facebook-square"></i></a>
           </td>
         </tr>
       </table>

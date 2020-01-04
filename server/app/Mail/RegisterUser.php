@@ -43,7 +43,7 @@ class RegisterUser extends Mailable
     {
         $url = $this->request->input('url');
 
-        return $this->from('soporte@cubarecargame.com')
+        return $this->from('soporte@turecarguita.com')
             ->view('mails.register-user')
             ->with('token', $this->token)
             ->with('url', $url)
