@@ -68,14 +68,14 @@
               <img alt="Logo" src="./assets/media/logos/logo-2-sm.png">
             </a>
             <div class="kt-footer__copyright">
-              2019&nbsp;&copy;&nbsp;
-              <a href="http://keenthemes.com/metronic" target="_blank">Keenthemes</a>
+              2020&nbsp;&copy;&nbsp;
+              <a href="https://codeals.es" target="_blank">Codeals</a>
             </div>
           </div>
           <div class="kt-footer__menu">
-            <a href="http://keenthemes.com/metronic" target="_blank">Licensi</a>
-            <a href="http://keenthemes.com/metronic" target="_blank">Team</a>
-            <a href="http://keenthemes.com/metronic" target="_blank">Contact</a>
+            <a href="https://codeals.es" target="_blank">Licensi</a>
+            <a href="https://codeals.es" target="_blank">Team</a>
+            <a href="https://codeals.es" target="_blank">Contact</a>
           </div>
         </div>
       </div>

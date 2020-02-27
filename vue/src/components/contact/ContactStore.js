@@ -89,7 +89,7 @@ const actions = {
     return Vue.http.post(addNewContact, postData, {headers: getHeader()})
       .then(response => {
         Vue.$logger('info', 'addContact response', response)
-        commit('SAVE_ADD_CONTACT', response.body.data)
+        commit('SET_CONTACT_LIST', response.body.data)
       })
   },
   updateContact: ({commit}, contact) => {

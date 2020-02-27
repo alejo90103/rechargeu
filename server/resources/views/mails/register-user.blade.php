@@ -6,7 +6,7 @@
 # @Copyright: Codeals
 -->
 
-<h1>Gracias!!! por registrarte en TU RECARGUITA </h1>
+<h1>Gracias!!! por registrarte en RechargeU </h1>
 
 <p>Gracias :) !!!. </p>
 <p>Activar tu cuenta </p>

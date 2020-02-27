@@ -30,6 +30,9 @@ Route::get('payment', array(
 	'uses' => 'PaypalController@postPayment',
 ));
 
+// start schedule
+Route::get('start/schedule', 'RechargeController@startScheduled')->name('start.schedule');
+
 // Después de realizar el pago Paypal redirecciona a esta ruta
 // Route::get('payment/status', array(
 // 	'as' => 'payment.status',
@@ -68,5 +71,9 @@ Route::group(['middleware' => 'admin'], function () {
   Route::get('settings/edit', 'SettingController@edit')->name('settings.edit');
   Route::put('settings/update/{id}', 'SettingController@update')->name('settings.update');
 
+	Route::resource('recharges', 'RechargeController')->names([
+  		'edit' => 'recharges.edit',
+  		'update' => 'recharges.update'
+	]);
 
 });

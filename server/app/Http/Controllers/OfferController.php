@@ -45,7 +45,18 @@ class OfferController extends Controller
      */
     public function store(Request $request)
     {
+        // update v2
         // $this->validate($request, Offer::rules());
+
+        $this->validate(request(), [
+          'name' => ['required'],
+          'date_ini' => ['required'],
+          'date_end' => ['required'],
+          'date_expire' => ['required'],
+          'receive' => ['required'],
+          'price_pay' => ['required', 'numeric', 'max:60'],
+          'recharge_amount' => ['required', 'numeric', 'min:10', 'max:60'],
+        ]);
 
         $data = $request->all();
         if (isset($request->ads) && $request->ads == 'on') {
@@ -95,7 +106,18 @@ class OfferController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request, Offer::rules(true, $id));
+        // update v2
+        // $this->validate($request, Offer::rules(true, $id));
+
+        $this->validate(request(), [
+          'name' => ['required'],
+          'date_ini' => ['required'],
+          'date_end' => ['required'],
+          'date_expire' => ['required'],
+          'receive' => ['required'],
+          'price_pay' => ['required', 'numeric', 'max:60'],
+          'recharge_amount' => ['required', 'numeric', 'min:10', 'max:60'],
+        ]);
 
         $data = $request->all();
 

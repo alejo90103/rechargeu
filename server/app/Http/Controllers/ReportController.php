@@ -23,9 +23,9 @@ class ReportController extends Controller
         $userRechanges = Recharge::join('offers', 'offers.id', '=', 'recharges.offer_id')
                           ->join('contact_recharges', 'contact_recharges.recharge_id', '=', 'recharges.id')
                           // ->join('contacts', 'contacts.id', '=', 'contact_recharges.contact_id')
-                          ->where('recharges.user_id', '=', Auth::id())
+                          // ->where('recharges.user_id', '=', Auth::id())
                           ->where('recharges.is_deleted', '=', 0)
-                          ->select(array('recharges.*', 'offers.*', 'contact_recharges.phone', 'contact_recharges.email'))
+                          ->select(array('recharges.*', 'offers.*', 'contact_recharges.phone', 'contact_recharges.email', 'contact_recharges.status as status_contact', 'recharges.created_at as done', 'contact_recharges.id as idRecharge'))
                           ->get();
 
         return view('reports.user', compact('userRechanges'));

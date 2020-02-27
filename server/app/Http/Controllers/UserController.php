@@ -55,7 +55,11 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, User::rules());
+        // $this->validate($request, User::rules());
+        $this->validate(request(), [
+          'name' => ['required'],
+          'email' => ['required', 'unique:users'],
+        ]);
 
         $data = $request->all();
 
@@ -103,6 +107,12 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // $this->validate($request, User::rules());
+        $this->validate(request(), [
+          'name' => ['required'],
+          'email' => ['required', 'unique:users'],
+        ]);
+
         $data = $request->all();
 
         $user = User::findOrFail($id);
@@ -205,7 +215,7 @@ class UserController extends Controller
         //
         // Mail::to($newUser)->send(new RegisterUser($token, $request));
 
-        Mail::to($newUser)->send(new WelcomeUser($request));
+        Mail::to($newUser->email)->send(new WelcomeUser($request));
 
         return response(['data' => 'Email sent.'], 201);
     }

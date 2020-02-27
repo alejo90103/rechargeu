@@ -34,6 +34,9 @@ use App\Setting;
 use App\User;
 use Illuminate\Support\Facades\Redirect;
 
+use Illuminate\Support\Facades\Mail;
+use App\Mail\RechargeMail;
+
 class PaypalController extends BaseController
 {
 	private $_api_context;
@@ -159,7 +162,7 @@ class PaypalController extends BaseController
 			$recharge->status = "Cancel";
 			$recharge->save();
 
-			return Redirect::to(env('APP_CLIENT', 'https://turecarguita.com').'/dashboard/failed');
+			return Redirect::to(env('APP_CLIENT', 'http://localhost:8080').'/dashboard/failed');
 			// return Redirect::to("http://localhost:8080/dashboard/failed");
 
 			// return \Redirect::route('/')
@@ -182,33 +185,33 @@ class PaypalController extends BaseController
 		$token = $request->token;
 
 		//if (empty(\Input::get('PayerID')) || empty(\Input::get('token'))) {
-		if (empty($payerId) || empty($token)) {
+		// if (empty($payerId) || empty($token)) {
+		//
+		// 		$recharge->status = "Cancel";
+		// 		$recharge->save();
+		//
+		// 		// return Redirect::to(env('APP_CLIENT', 'http://localhost:8080').'/dashboard/failed');
+		// 		return Redirect::to("http://localhost:8080/dashboard/failed");
+		//
+		// 	// return \Redirect::route('home')
+		// 	// 	->with('message', 'Hubo un problema al intentar pagar con Paypal');
+		// }
 
-				$recharge->status = "Cancel";
-				$recharge->save();
-
-				return Redirect::to(env('APP_CLIENT', 'https://turecarguita.com').'/dashboard/failed');
-				// return Redirect::to("http://localhost:8080/dashboard/failed");
-
-			// return \Redirect::route('home')
-			// 	->with('message', 'Hubo un problema al intentar pagar con Paypal');
-		}
-
-		$payment = Payment::get($paymentBack->paypal_payment_id, $this->_api_context);
+		// $payment = Payment::get($paymentBack->paypal_payment_id, $this->_api_context);
 
 		// PaymentExecution object includes information necessary
 		// to execute a PayPal account payment.
 		// The payer_id is added to the request query parameters
 		// when the user is redirected from paypal back to your site
-		$execution = new PaymentExecution();
-		$execution->setPayerId($payerId);
+		// $execution = new PaymentExecution();
+		// $execution->setPayerId($payerId);
 
 		//Execute the payment
-		$result = $payment->execute($execution, $this->_api_context);
+		// $result = $payment->execute($execution, $this->_api_context);
 
 		//echo '<pre>';print_r($result);echo '</pre>';exit; // DEBUG RESULT, remove it later
 
-		if ($result->getState() == 'approved') { // payment made
+		// if ($result->getState() == 'approved') { // payment made
 			// Registrar el pedido --- ok
 			// Registrar el Detalle del pedido  --- ok
 			// Eliminar carrito
@@ -219,50 +222,104 @@ class PaypalController extends BaseController
 			$offer = Offer::where('id', $recharge->offer_id)->first();
 			$contactRecharges = ContactRecharge::where('recharge_id', $paymentBack->recharge_id)->get();
 
-			$now = Date('Y-m-d');
+			$fecha = date('Y-m-d H:m');
+      $nuevafecha = strtotime ( '-8 hour' , strtotime ( $fecha ) ) ;
+      $now = date ( 'Y-m-d' , $nuevafecha );
+      // $now = Date('Y-m-d');
+      $offer = Offer::where('id', $recharge->offer_id)->first();
+
+      $user = User::find($recharge->user_id);
+      $err_number = array();
+      $status = true;
 
 			if($now < $offer->date_ini && $offer->ads == 1) {
 					$recharge->status = 'Scheduled';
 					$recharge->save();
+					$paymentBack->is_payment = 1;
+					$paymentBack->save();
+
+					foreach ($contactRecharges as $contactRecharge) {
+							$contactRecharge->status = 'Scheduled';
+							$contactRecharge->save();
+					}
+
+					Mail::to($user->email)->send(new RechargeMail(true, $user->name, $status, $err_number, $recharge->date_recharge));
 
 					// programacion success
-					return Redirect::to(env('APP_CLIENT', 'https://turecarguita.com').'/dashboard/success');
-					// return Redirect::to("http://localhost:8080/dashboard/success");
+					// return Redirect::to(env('APP_CLIENT', 'http://localhost:8080').'/dashboard/success');
+					return Redirect::to("http://localhost:8080/dashboard/success");
 			}
-
-			$user = User::find($recharge->user_id);
 
 			// call ding
+			// foreach ($contactRecharges as $contactRecharge) {
+			//
+			// 		$user->accumulated += $recharge->price_pay * 0.01;
+			// 		$user->save();
+			//
+			// 		if ($recharge->type == "Cell") {
+			// 				$status = $this->dingSendTransfer($contactRecharge->phone, $recharge->recharge_amount, $contactRecharge->id, "CU_CU_TopUp");
+			// 		} else {
+			// 				$status = $this->dingSendTransfer($contactRecharge->email, $recharge->recharge_amount, $contactRecharge->id, "CU_NU_TopUp");
+			// 		}
+			// }
+
 			foreach ($contactRecharges as $contactRecharge) {
 
-					$user->accumulated += $recharge->price_pay * 0.01;
-					$user->save();
+            $user->accumulated += $recharge->price_pay * 0.01;
+            $user->save();
 
-					if ($recharge->type == "Cell") {
-							$status = $this->dingSendTransfer($contactRecharge->phone, $recharge->recharge_amount, $contactRecharge->id, "CU_CU_TopUp");
-					} else {
-							$status = $this->dingSendTransfer($contactRecharge->email, $recharge->recharge_amount, $contactRecharge->id, "CU_NU_TopUp");
-					}
-			}
+            if ($recharge->type == "Cell") {
+                $status_dg = $this->dingSendTransfer($contactRecharge->phone, $recharge->recharge_amount, $contactRecharge->id, "CU_CU_TopUp");
+
+                if(!$status_dg) {
+                    $contactRecharge->status = 'Denied';
+                    $contactRecharge->save();
+                    $status = false;
+                    array_push($err_number, $contactRecharge->phone);
+                } else {
+                    $contactRecharge->status = 'Accepted';
+                    $contactRecharge->save();
+                }
+
+            } else {
+                $status_dg = $this->dingSendTransfer($contactRecharge->email, $recharge->recharge_amount, $contactRecharge->id, "CU_NU_TopUp");
+
+                if(!$status_dg) {
+                    $contactRecharge->status = 'Denied';
+                    $contactRecharge->save();
+                    $status = false;
+                    array_push($err_number, $contactRecharge->email);
+                } else {
+                    $contactRecharge->status = 'Accepted';
+                    $contactRecharge->save();
+                }
+            }
+        }
 
 			if ($status == true) {
 				//
 				$recharge->status = "Accepted";
 				$recharge->save();
 				$paymentBack->is_payment = 1;
-				$paymentBack->save();
+        $paymentBack->save();
+
+        Mail::to($user->email)->send(new RechargeMail(false, $user->name, $status, $err_number, $recharge->date_recharge));
 				// $urlBack = Setting::first()->server_client;
 				// return Redirect::to($urlBack."dashboard/success");
-				return Redirect::to(env('APP_CLIENT', 'https://turecarguita.com').'/dashboard/success');
-				// return Redirect::to("http://localhost:8080/dashboard/success");
+				// return Redirect::to(env('APP_CLIENT', 'http://localhost:8080').'/dashboard/success');
+				return Redirect::to("http://localhost:8080/dashboard/success");
 			} else {
 				//
 				$recharge->status = "Denied";
 				$recharge->save();
+				$paymentBack->is_payment = 1;
+        $paymentBack->save();
+
+        Mail::to($user->email)->send(new RechargeMail(false, $user->name, $status, $err_number, $recharge->date_recharge));
 				// $urlBack = Setting::first()->server_client;
 				// return Redirect::to($urlBack."dashboard/failedDing");
-				return Redirect::to(env('APP_CLIENT', 'https://turecarguita.com').'/dashboard/failedDing');
-				// return Redirect::to("http://localhost:8080/dashboard/failedDing");
+				// return Redirect::to(env('APP_CLIENT', 'http://localhost:8080').'/dashboard/failedDing');
+				return Redirect::to("http://localhost:8080/dashboard/failedDing");
 			}
 
 			// $this->saveOrder(\Session::get('cart'));
@@ -272,10 +329,10 @@ class PaypalController extends BaseController
 
 			// return \Redirect::route('home')
 			// 	->with('message', 'Compra realizada de forma correcta');
-		}
+		// }
 
-		return Redirect::to(env('APP_CLIENT', 'https://turecarguita.com').'/dashboard/failed');
-		// return Redirect::to("http://localhost:8080/dashboard/failed");
+		// return Redirect::to(env('APP_CLIENT', 'https://localhost:8080').'/dashboard/failed');
+		return Redirect::to("http://localhost:8080/dashboard/failed");
 		// return \Redirect::route('home')
 		// 	->with('message', 'La compra fue cancelada');
 	}
@@ -286,7 +343,7 @@ class PaypalController extends BaseController
 			$url = "https://api.dingconnect.com/api/V1/SendTransfer";
 			$header = array(
 					"Content-Type: application/json",
-					"api_key: ".env('API_DING', '0K4ixoSWSOy6Vd9I1IEWgf') // secret api ding
+					"api_key: ".env('API_DING', '55NhaAwAtfu6VeuEGjiSZU') // secret api ding
 			);
 
 			// para hacer transferencia requerido

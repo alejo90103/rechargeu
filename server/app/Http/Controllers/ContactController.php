@@ -132,11 +132,56 @@ class ContactController extends Controller
         $this->validate($request, Contact::rules());
         $data = $request->all();
 
-        $data['is_deleted'] = 0;
-        $data['user_id'] = $request->user()->id;
+        // return response(['data' =>  $request->user()->id], 201);
 
-        $contact = Contact::create($data);
-        $addData = Contact::where('id', $contact->id)->first();
+        // update v2
+        if($data['phone'] && $data['email']) {
+          $contact = Contact::where('user_id', $request->user()->id)
+          ->where('phone', $data['phone'])
+          ->first();
+
+          if(!$contact) {
+            $contact = Contact::where('user_id', $request->user()->id)
+            ->where('email', $data['email'])
+            ->first();
+          }
+        }
+        else if (!$data['phone'] && $data['email']) {
+          $contact = Contact::where('user_id', $request->user()->id)
+          ->where('email', $data['email'])
+          ->first();
+        }
+        else {
+          $contact = Contact::where('user_id', $request->user()->id)
+          ->where('phone', $data['phone'])
+          ->first();
+        }
+
+        if($contact) {
+            unset($data['id']);
+            $data['is_deleted'] = 0;
+            // $data['id'] = $contact->id;
+            // $data['name'] = $data['name'];
+            // $data['email'] = $data['email'];
+            // $data['phone'] = $data['phone'];
+            // $data['user_id'] = $request->user()->id;
+            $contact->update($data);
+        } else {
+
+            // $data['phone'] = $data['phone'];
+            // $data['name'] = $data['name'];
+            // $data['email'] = $data['email'];
+            $data['is_deleted'] = 0;
+            $data['user_id'] = $request->user()->id;
+
+            $contact = Contact::create($data);
+        }
+
+        // $data['is_deleted'] = 0;
+        // $data['user_id'] = $request->user()->id;
+
+        // $contact = Contact::create($data);
+        $addData = Contact::where('user_id', $request->user()->id)->get();
 
         return response(['data' => $addData], 201);
     }

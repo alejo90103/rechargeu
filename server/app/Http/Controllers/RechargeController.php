@@ -18,6 +18,9 @@ use App\Contact;
 use App\ContactRecharge;
 use App\User;
 
+use Illuminate\Support\Facades\Mail;
+use App\Mail\RechargeMail;
+
 class RechargeController extends Controller
 {
     /**
@@ -70,7 +73,10 @@ class RechargeController extends Controller
      */
     public function edit($id)
     {
-        //
+        $rechargeContact = ContactRecharge::findOrFail($id);
+
+        $status = array('Waiting' => 'Waiting', 'Cancel' => 'Cancel', 'Accepted' => 'Accepted', 'Denied' => 'Denied', 'Scheduled' => 'Scheduled');
+        return view('recharges.edit', compact('rechargeContact', 'status'));
     }
 
     /**
@@ -82,7 +88,16 @@ class RechargeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate(request(), [
+          'status' => ['required'],
+        ]);
+
+        $rechargeContact = ContactRecharge::findOrFail($id);
+        $rechargeContact->status = $request->input('status');
+
+        $rechargeContact->save();
+
+        return redirect()->route('reports.users')->with('msg', 'Recharga modificada con éxito');
     }
 
     /**
@@ -218,6 +233,7 @@ class RechargeController extends Controller
             $contactRecharge->user_id = $user_id;
             $type == 'Cell'? $contactRecharge->phone = $contact['phone'] : $contactRecharge->email = $contact['email'];
             $contactRecharge->message = '';
+            $contactRecharge['status'] = "Waiting";
             $contactRecharge->is_deleted = 0;
             $contactRecharge->save();
 
@@ -234,10 +250,21 @@ class RechargeController extends Controller
 
     public function startScheduled()
     {
-        $today = Date('Y-m-d');
-        $offers = Offer::where('date_ini', '=', $today)
-                    ->where('is_deleted', '=', 0)
-                    ->get();
+        // update v2
+        // $today = Date('Y-m-d');
+        // $offers = Offer::where('date_ini', '=', $today)
+        //             ->where('is_deleted', '=', 0)
+        //             ->get();
+
+        $fecha = date('Y-m-d H:m');
+        $nuevafecha = strtotime ( '-8 hour' , strtotime ( $fecha ) ) ;
+        $today = date ( 'Y-m-d' , $nuevafecha );
+        // $today = Date('Y-m-d');
+        $offers = Offer::where('date_ini', '<=', $today)
+        ->where('date_end', '>=', $today)
+        ->where('is_deleted', '=', 0)
+        ->where('ads', '=', 1)
+        ->get();
 
         foreach ($offers as $offer) {
 
@@ -253,27 +280,86 @@ class RechargeController extends Controller
 
     public function _updateScheduled($rechargeScheduleds)
     {
+        // foreach ($rechargeScheduleds as $recharge) {
+        //
+        //     $contactRecharges = ContactRecharge::where('recharge_id', $recharge->id)->get();
+        //
+        //     $user = User::find($recharge->user_id);
+        //
+        //     // call ding
+        //     foreach ($contactRecharges as $contactRecharge) {
+        //
+        //         $user->accumulated += $recharge->price_pay * 0.01;
+      	// 				$user->save();
+        //
+        //         if ($recharge->type == "Cell") {
+        //             $status = $this->dingSendTransfer($contactRecharge->phone, $recharge->recharge_amount, $contactRecharge->id, "CU_CU_TopUp");
+        //         } else {
+        //             $status = $this->dingSendTransfer($contactRecharge->email, $recharge->recharge_amount, $contactRecharge->id, "CU_NU_TopUp");
+        //         }
+        //     }
+        //
+        //     $recharge->status = "Accepted";
+        //     $recharge->save();
+        // }
+
+        // update v2
         foreach ($rechargeScheduleds as $recharge) {
 
             $contactRecharges = ContactRecharge::where('recharge_id', $recharge->id)->get();
 
             $user = User::find($recharge->user_id);
 
+            $err_number = array();
+            $status = true;
+
             // call ding
             foreach ($contactRecharges as $contactRecharge) {
 
                 $user->accumulated += $recharge->price_pay * 0.01;
-      					$user->save();
-                
+                $user->save();
+
                 if ($recharge->type == "Cell") {
-                    $status = $this->dingSendTransfer($contactRecharge->phone, $recharge->recharge_amount, $contactRecharge->id, "CU_CU_TopUp");
+                      $status_dg = $this->dingSendTransfer($contactRecharge->phone, $recharge->recharge_amount, $contactRecharge->id, "CU_CU_TopUp");
+
+                      if(!$status_dg) {
+                          $contactRecharge->status = 'Denied';
+                          $contactRecharge->save();
+                          $status = false;
+                          array_push($err_number, $contactRecharge->phone);
+                      } else {
+                          $contactRecharge->status = 'Accepted';
+                          $contactRecharge->save();
+                      }
+
                 } else {
-                    $status = $this->dingSendTransfer($contactRecharge->email, $recharge->recharge_amount, $contactRecharge->id, "CU_NU_TopUp");
+                    $status_dg = $this->dingSendTransfer($contactRecharge->email, $recharge->recharge_amount, $contactRecharge->id, "CU_NU_TopUp");
+
+                    if(!$status_dg) {
+                        $contactRecharge->status = 'Denied';
+                        $contactRecharge->save();
+                        $status = false;
+                        array_push($err_number, $contactRecharge->email);
+                    } else {
+                        $contactRecharge->status = 'Accepted';
+                        $contactRecharge->save();
+                    }
                 }
             }
 
-            $recharge->status = "Accepted";
-            $recharge->save();
+            if ($status == true) {
+                //
+                $recharge->status = "Accepted";
+                $recharge->save();
+
+                Mail::to($user->email)->send(new RechargeMail(false, $user->name, $status, $err_number, $recharge->date_recharge));
+            } else {
+                //
+                $recharge->status = "Denied";
+                $recharge->save();
+
+                Mail::to($user->email)->send(new RechargeMail(false, $user->name, $status, $err_number, $recharge->date_recharge));
+            }
         }
     }
 

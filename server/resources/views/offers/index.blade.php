@@ -162,9 +162,8 @@
             		<div class="alert alert-light alert-elevate" role="alert">
                     	<div class="alert-icon"><i class="flaticon-warning kt-font-brand"></i></div>
                     	<div class="alert-text">
-                    		RowGroup adds this ability to DataTables with the ability to customise the start and end grouping rows displayed in the DataTable, letting you integrate the summarised data to fit perfectly in with your site.
-                    		See official documentation <a class="kt-link kt-font-bold" href="https://datatables.net/extensions/rowgroup/" target="_blank">here</a>.
-                    	</div>
+                          Ofertas que se muestran a los clientes. Las ofertas marcadas con ads se activan sola en su tiempo de inicio y se desactivan solas tambien y el usuario podra programar recargas a estas.
+                      </div>
                     </div>
     				<div class="kt-portlet kt-portlet--mobile">
     					<div class="kt-portlet__head kt-portlet__head--lg">

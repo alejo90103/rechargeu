@@ -1,8 +1,8 @@
 <!-- # @Author: Codeals
 # @Date:   20-08-2019
 # @Email:  ian@codeals.es
-# @Last modified by:   Codeals
-# @Last modified time: 31-12-2019
+# @Last modified by:   alejandro
+# @Last modified time: 2020-01-19T03:02:01+01:00
 # @Copyright: Codeals
 -->
 
@@ -18,27 +18,37 @@
       <table width="60%" border="0" align="center">
         <tr>
           <td>
-            <h1>Gracias!!! por registrarte en RechargeU :) !!! </h1>
-
+            <h1>Hola {{$user}}, ¡¡¡Gracias por la recarga relizada!!! </h1>
           </td>
         </tr>
         <tr>
           <td>
+            @if (!$status)
               <table>
                 <tr>
-                  <td align="center">Le ofrecemos nuestros servicios de recargas movieles a sus familiares y amigos!!!</td>
-                  <td align="center">Recargas móviles a cuba. Las mejores ofertas, Cubacel, nauta, para tus familiares. Recargas dobles y triples. Servicio fácil, rápido y garantizado.</td>
-                  <td align="center">Empieza a disfrutar de nuestros servicios y siguenos</td>
+                  <td>Existio un error en la recarga del {{$date_recharge}} a continuación listado de recargas no realizadas</td>
                 </tr>
+                <tr>
+                  <td>Error de recarga en</td>
+                </tr>
+                @foreach ($err_number as $number)
+                  <tr>
+                    <td>{{$number}}</td>
+                  </tr>
+                @endforeach
               </table>
+            @elseif ($schedule)
+              <strong>Recarga(s) programadas con éxito el día {{$date_recharge}} </strong>
+            @else
+              <strong>Recarga(s) del {{$date_recharge}} realizadas con éxito </strong>
+            @endif
           </td>
         </tr>
         <tr>
           <td>
-            <strong>Visitanos </strong><p>https://localhost:8080</p> <a href="#" target="_blank"><i class="fab fa-facebook-square"></i></a>
+            <strong>Visitanos: </strong><p>https://codeals.es</p>
           </td>
         </tr>
       </table>
-
     </div>
 </div>

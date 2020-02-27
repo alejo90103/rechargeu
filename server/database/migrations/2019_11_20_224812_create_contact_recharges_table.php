@@ -37,6 +37,7 @@ class CreateContactRechargesTable extends Migration
                   ->on('users')
                   ->onDelete('cascade');
             // $table->bigInteger('contact_id')->nullable();
+            $table->enum('status', ['Waiting', 'Cancel', 'Accepted', 'Denied', 'Scheduled'])->defatul('Waiting');
             $table->string('message');
             $table->string('email')->nullable();
             $table->string('phone')->nullable();

@@ -19,22 +19,6 @@
 						<!-- begin:: Content -->
 						<div class="kt-content  kt-grid__item kt-grid__item--fluid" id="kt_content">
 
-							@if ($errors->any())
-                  <div class="alert alert-danger fade show" role="alert">
-        						<div class="alert-icon"><i class="flaticon2-cross"></i></div>
-        						<div class="alert-text">
-                      @foreach ($errors->all() as $err)
-              				 {{ $err }} </br>
-              				@endforeach
-                    </div>
-        						<div class="alert-close">
-        							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        								<span aria-hidden="true"><i class="la la-close"></i></span>
-        							</button>
-        						</div>
-        					</div>
-              @endif
-
               @if ($errors->any())
                   <div class="alert alert-danger fade show" role="alert">
         						<div class="alert-icon"><i class="flaticon2-cross"></i></div>
@@ -149,8 +133,7 @@
                   <div class="alert alert-light alert-elevate" role="alert">
                       <div class="alert-icon"><i class="flaticon-warning kt-font-brand"></i></div>
                       <div class="alert-text">
-                          RowGroup adds this ability to DataTables with the ability to customise the start and end grouping rows displayed in the DataTable, letting you integrate the summarised data to fit perfectly in with your site.
-                          See official documentation <a class="kt-link kt-font-bold" href="https://datatables.net/extensions/rowgroup/" target="_blank">here</a>.
+                          Ofertas que se muestran a los clientes. Las ofertas marcadas con ads se activan sola en su tiempo de inicio y se desactivan solas tambien y el usuario podra programar recargas a estas. <a class="kt-link kt-font-bold" href="#" target="_blank">here</a>.
                       </div>
                   </div>
                   <div class="kt-portlet kt-portlet--mobile">

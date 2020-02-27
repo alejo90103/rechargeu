@@ -35,22 +35,6 @@
         					</div>
               @endif
 
-              @if ($errors->any())
-                  <div class="alert alert-danger fade show" role="alert">
-        						<div class="alert-icon"><i class="flaticon2-cross"></i></div>
-        						<div class="alert-text">
-                      @foreach ($errors->all() as $err)
-              				 {{ $err }} </br>
-              				@endforeach
-                    </div>
-        						<div class="alert-close">
-        							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        								<span aria-hidden="true"><i class="la la-close"></i></span>
-        							</button>
-        						</div>
-        					</div>
-              @endif
-
               <div class="kt-subheader   kt-grid__item" id="kt_subheader">
                   <div class="kt-container ">
                       <div class="kt-subheader__main">

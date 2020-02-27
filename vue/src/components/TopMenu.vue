@@ -90,28 +90,28 @@ export default {
           </li>
         </ul>
         <ul class="navbar-nav ml-auto">
-          <!-- <li class="nav-item">
+          <li class="nav-item">
             <a class="nav-link menu-link" rel="tooltip" title="" data-placement="bottom" href="#" target="_blank" data-original-title="Follow us on Twitter">
               <i class="fa fa-twitter"></i>
             </a>
-          </li> -->
+          </li>
           <li class="nav-item">
-            <a class="nav-link menu-link" rel="tooltip" title="" data-placement="bottom" href="https://www.facebook.com/cubarecargame" target="_blank" :data-original-title=" $t('menu.social_medias.facebook') ">
+            <a class="nav-link menu-link" rel="tooltip" title="" data-placement="bottom" href="#" target="_blank" :data-original-title=" $t('menu.social_medias.facebook') ">
               <i class="fa fa-facebook-square"></i>
             </a>
           </li>
-          <!-- <li class="nav-item">
+          <li class="nav-item">
             <a class="nav-link menu-link" rel="tooltip" title="" data-placement="bottom" href="#" target="_blank" data-original-title="Follow us on Instagram">
               <i class="fa fa-instagram"></i>
             </a>
-          </li> -->
+          </li>
           <li class="nav-item">
             <a v-on:click="changeLocale()" class="nav-link menu-link" href="#">
               <i class="material-icons"> flag </i> {{ locale }}
             </a>
           </li>
           <li class="dropdown nav-item">
-            <a href="https://www.facebook.com/cubarecargame" class="dropdown-toggle nav-link" data-toggle="dropdown">
+            <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
               <i class="material-icons">face</i> {{userStore.authUser.name}}
             </a>
             <div class="dropdown-menu dropdown-with-icons">
@@ -139,21 +139,21 @@ export default {
       </div>
       <div class="collapse navbar-collapse">
         <ul class="navbar-nav ml-auto">
-          <!-- <li class="nav-item">
+          <li class="nav-item">
             <a class="nav-link" rel="tooltip" title="" data-placement="bottom" href="#" target="_blank" data-original-title="Follow us on Twitter">
               <i class="fa fa-twitter"></i>
             </a>
-          </li> -->
+          </li>
           <li class="nav-item">
-            <a class="nav-link menu-link" rel="tooltip" title="" data-placement="bottom" href="https://www.facebook.com/cubarecargame" target="_blank" :data-original-title="$t('menu.social_medias.facebook')">
+            <a class="nav-link menu-link" rel="tooltip" title="" data-placement="bottom" href="#" target="_blank" :data-original-title="$t('menu.social_medias.facebook')">
               <i class="fa fa-facebook-square"></i>
             </a>
           </li>
-          <!-- <li class="nav-item">
+          <li class="nav-item">
             <a class="nav-link" rel="tooltip" title="" data-placement="bottom" href="#" target="_blank" data-original-title="Follow us on Instagram">
               <i class="fa fa-instagram"></i>
             </a>
-          </li> -->
+          </li>
           <li class="nav-item">
             <a v-on:click="changeLocale()" class="nav-link menu-link" href="#">
               <i class="material-icons"> flag </i> {{ locale }}

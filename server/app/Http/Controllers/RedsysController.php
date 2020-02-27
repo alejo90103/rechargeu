@@ -50,9 +50,9 @@ class RedsysController extends Controller
     		$moneda="978";
     		$trans="0";
 
-        $url="https://turecarguita.com/api/response-redsys/response/".$payment->token;
-  			$urlOK="https://turecarguita.com/api/response-redsys/ok/".$payment->token;
-  			$urlKO="https://turecarguita.com/api/response-redsys/ko/".$payment->token;
+        $url="http://localhost:8080/api/response-redsys/response/".$payment->token;
+  			$urlOK="http://localhost:8080/api/response-redsys/ok/".$payment->token;
+  			$urlKO="http://localhost:8080/api/response-redsys/ko/".$payment->token;
 
     		//estos dos valores los vamos cambiando en cada ejemplo
         $ids = rand(10,1000);
@@ -99,43 +99,117 @@ class RedsysController extends Controller
     {
         $payment = Payment::where('token', $token)->first();
 
+        if(!$payment) {
+            return Redirect::to(env('APP_CLIENT', 'http://localhost:8080').'/dashboard/failedDing');
+        }
+
         $recharge = Recharge::where('id', $payment->recharge_id)->first();
         $contactRecharges = ContactRecharge::where('recharge_id', $payment->recharge_id)->get();
 
+        $fecha = date('Y-m-d H:m');
+        $nuevafecha = strtotime ( '-8 hour' , strtotime ( $fecha ) ) ;
+        $now = date ( 'Y-m-d' , $nuevafecha );
+        // $now = Date('Y-m-d');
+        $offer = Offer::where('id', $recharge->offer_id)->first();
+
         $user = User::find($recharge->user_id);
+        $err_number = array();
+        $status = true;
+
+        if($now < $offer->date_ini && $offer->ads == 1) {
+            $recharge->status = 'Scheduled';
+            $recharge->save();
+            $payment->is_payment = 1;
+            $payment->save();
+
+            foreach ($contactRecharges as $contactRecharge) {
+                $contactRecharge->status = 'Scheduled';
+                $contactRecharge->save();
+            }
+
+            Mail::to($user->email)->send(new RechargeMail(true, $user->name, $status, $err_number, $recharge->date_recharge));
+
+            // programacion success
+            // return redirect()->route('/')->with('msg', trans('user.controller.success_schedul'));
+            // return Redirect::to(env('APP_CLIENT', 'http://localhost:8080').'/dashboard/success_schedul');
+            return Redirect::to("http://localhost:8080/dashboard/success");
+        }
 
         // call ding
         foreach ($contactRecharges as $contactRecharge) {
 
             $user->accumulated += $recharge->price_pay * 0.01;
-  					$user->save();
+            $user->save();
 
             if ($recharge->type == "Cell") {
-                $status = $this->dingSendTransfer($contactRecharge->phone, $recharge->recharge_amount, $contactRecharge->id, "CU_CU_TopUp");
+                $status_dg = $this->dingSendTransfer($contactRecharge->phone, $recharge->recharge_amount, $contactRecharge->id, "CU_CU_TopUp");
+
+                if(!$status_dg) {
+                    $contactRecharge->status = 'Denied';
+                    $contactRecharge->save();
+                    $status = false;
+                    array_push($err_number, $contactRecharge->phone);
+                } else {
+                    $contactRecharge->status = 'Accepted';
+                    $contactRecharge->save();
+                }
+
             } else {
-                $status = $this->dingSendTransfer($contactRecharge->email, $recharge->recharge_amount, $contactRecharge->id, "CU_NU_TopUp");
+                $status_dg = $this->dingSendTransfer($contactRecharge->email, $recharge->recharge_amount, $contactRecharge->id, "CU_NU_TopUp");
+
+                if(!$status_dg) {
+                    $contactRecharge->status = 'Denied';
+                    $contactRecharge->save();
+                    $status = false;
+                    array_push($err_number, $contactRecharge->email);
+                } else {
+                    $contactRecharge->status = 'Accepted';
+                    $contactRecharge->save();
+                }
             }
         }
 
-        if ($status == true) {
-          //
-          $recharge->status = "Accepted";
-          $recharge->save();
-          $payment->is_payment = 1;
-          $payment->save();
-          // $urlBack = Setting::first()->server_client;
-    			// return Redirect::to($urlBack."dashboard/success");
+        // if ($status == true) {
+        //   //
+        //   $recharge->status = "Accepted";
+        //   $recharge->save();
+        //   $payment->is_payment = 1;
+        //   $payment->save();
+        //   // $urlBack = Setting::first()->server_client;
+    		// 	// return Redirect::to($urlBack."dashboard/success");
+        //
+    		// 	return Redirect::to(env('APP_CLIENT', 'http://localhost:8080').'/dashboard/success');
+    		// 	// return Redirect::to("http://localhost:8080/dashboard/success");
+        // } else {
+        //   //
+        //   $recharge->status = "Denied";
+        //   $recharge->save();
+        //   // $urlBack = Setting::first()->server_client;
+        //   // return Redirect::to($urlBack."dashboard/failedDing");
+        //   return Redirect::to(env('APP_CLIENT', 'http://localhost:8080').'/dashboard/failedDing');
+        //   // return Redirect::to("http://localhost:8080/dashboard/failedDing");
+        // }
 
-    			return Redirect::to(env('APP_CLIENT', 'cubarecargame.com').'/dashboard/success');
-    			// return Redirect::to("http://localhost:8080/dashboard/success");
+        if ($status == true) {
+            //
+            $recharge->status = "Accepted";
+            $recharge->save();
+            $payment->is_payment = 1;
+            $payment->save();
+
+            Mail::to($user->email)->send(new RechargeMail(false, $user->name, $status, $err_number, $recharge->date_recharge));
+
+            return Redirect::to(env('APP_CLIENT', 'http://localhost:8080').'/dashboard/success');
         } else {
-          //
-          $recharge->status = "Denied";
-          $recharge->save();
-          // $urlBack = Setting::first()->server_client;
-          // return Redirect::to($urlBack."dashboard/failedDing");
-          return Redirect::to(env('APP_CLIENT', 'cubarecargame.com').'/dashboard/failedDing');
-          // return Redirect::to("http://localhost:8080/dashboard/failedDing");
+            //
+            $recharge->status = "Denied";
+            $recharge->save();
+            $payment->is_payment = 1;
+            $payment->save();
+
+            Mail::to($user->email)->send(new RechargeMail(false, $user->name, $status, $err_number, $recharge->date_recharge));
+
+            return Redirect::to(env('APP_CLIENT', 'http://localhost:8080').'/dashboard/failedDing');
         }
     }
 
@@ -151,7 +225,7 @@ class RedsysController extends Controller
 
         // $urlBack = Setting::first()->server_client;
         // return Redirect::to($urlBack."dashboard/failed");
-        return Redirect::to(env('APP_CLIENT', 'cubarecargame.com').'/dashboard/failed');
+        return Redirect::to(env('APP_CLIENT', 'http://localhost:8080').'/dashboard/failed');
         // return Redirect::to("http://localhost:8080/dashboard/failed");
     }
 
@@ -161,7 +235,7 @@ class RedsysController extends Controller
   	    $url = "https://api.dingconnect.com/api/V1/SendTransfer";
         $header = array(
   					"Content-Type: application/json",
-  					"api_key: ".env('API_DING', '0K4ixoSWSOy6Vd9I1IEWgf') // secret api ding
+  					"api_key: ".env('API_DING', '55NhaAwAtfu6VeuEGjiSZU') // secret api ding
         );
 
         // para hacer transferencia requerido

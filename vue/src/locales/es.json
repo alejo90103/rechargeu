@@ -1,6 +1,6 @@
 {
   "app": {
-    "title": "Tu Recarguita",
+    "title": "RechargeU",
     "locales": {
       "spanish": "Español",
       "english": "English"
@@ -168,7 +168,7 @@
       "offer": "Oferta",
       "price": "Precio",
       "status": "Estado",
-      "Date": "Fecha"
+      "date": "Fecha"
     }
   },
   "reset_password": {

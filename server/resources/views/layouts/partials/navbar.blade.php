@@ -25,7 +25,7 @@
                   <img alt="Logo" src="./assets/media/logos/logo-2-sm.png" class="kt-header__brand-logo-sticky" />
                 </a>
               </div>
-              <div class="kt-header__brand-nav">
+              <!-- <div class="kt-header__brand-nav">
                 <div class="dropdown">
                   <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                     SAAS Customers
@@ -72,7 +72,7 @@
                     </ul>
                   </div>
                 </div>
-              </div>
+              </div> -->
             </div>
 
             <!-- end:: Brand -->
@@ -81,11 +81,10 @@
             <div class="kt-header__topbar">
 
               <!--begin: Search -->
-              <div class="kt-header__topbar-item kt-header__topbar-item--search dropdown kt-hidden-desktop" id="kt_quick_search_toggle">
+              <!-- <div class="kt-header__topbar-item kt-header__topbar-item--search dropdown kt-hidden-desktop" id="kt_quick_search_toggle">
                 <div class="kt-header__topbar-wrapper" data-toggle="dropdown" data-offset="10px,10px">
                   <span class="kt-header__topbar-icon">
 
-                    <!--<i class="flaticon2-search-1"></i>-->
                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon kt-svg-icon--info">
                       <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                         <rect id="bound" x="0" y="0" width="24" height="24" />
@@ -107,16 +106,15 @@
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> -->
 
               <!--end: Search -->
 
               <!--begin: My cart -->
-              <div class="kt-header__topbar-item dropdown">
+              <!-- <div class="kt-header__topbar-item dropdown">
                 <div class="kt-header__topbar-wrapper" data-toggle="dropdown" data-offset="10px,10px">
                   <span class="kt-header__topbar-icon">
 
-                    <!--<i class="flaticon2-shopping-cart-1"></i>-->
                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon kt-svg-icon--brand">
                       <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                         <rect id="bound" x="0" y="0" width="24" height="24" />
@@ -129,7 +127,6 @@
                 <div class="dropdown-menu dropdown-menu-fit dropdown-menu-right dropdown-menu-anim dropdown-menu-xl">
                   <form>
 
-                    <!-- begin:: Mycart -->
                     <div class="kt-mycart">
                       <div class="kt-mycart__head kt-head" style="background-image: url(./assets/media/misc/bg-1.jpg);">
                         <div class="kt-mycart__info">
@@ -249,19 +246,17 @@
                       </div>
                     </div>
 
-                    <!-- end:: Mycart -->
                   </form>
                 </div>
-              </div>
+              </div> -->
 
               <!--end: My cart-->
 
               <!--begin: Notifications -->
-              <div class="kt-header__topbar-item dropdown">
+              <!-- <div class="kt-header__topbar-item dropdown">
                 <div class="kt-header__topbar-wrapper" data-toggle="dropdown" data-offset="10px,10px">
                   <span class="kt-header__topbar-icon  kt-pulse kt-pulse--warning">
 
-                    <!--<i class="flaticon2-bell-alarm-symbol"></i>-->
                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon kt-svg-icon--warning">
                       <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                         <rect id="bound" x="0" y="0" width="24" height="24" />
@@ -274,7 +269,6 @@
                 <div class="dropdown-menu dropdown-menu-fit dropdown-menu-right dropdown-menu-anim dropdown-menu-xl">
                   <form>
 
-                    <!--begin: Head -->
                     <div class="kt-head kt-head--skin-dark kt-head--fit-x kt-head--fit-b" style="background-image: url(./assets/media/misc/bg-1.jpg)">
                       <h3 class="kt-head__title">
                         User Notifications
@@ -294,7 +288,6 @@
                       </ul>
                     </div>
 
-                    <!--end: Head -->
                     <div class="tab-content">
                       <div class="tab-pane active show" id="topbar_notifications_notifications" role="tabpanel">
                         <div class="kt-notification kt-margin-t-10 kt-margin-b-10 kt-scroll" data-scroll="true" data-height="300" data-mobile-height="200">
@@ -655,16 +648,15 @@
                     </div>
                   </form>
                 </div>
-              </div>
+              </div> -->
 
               <!--end: Notifications -->
 
               <!--begin: Quick actions -->
-              <div class="kt-header__topbar-item dropdown">
+              <!-- <div class="kt-header__topbar-item dropdown">
                 <div class="kt-header__topbar-wrapper" data-toggle="dropdown" data-offset="10px,10px">
                   <span class="kt-header__topbar-icon">
 
-                    <!--<i class="flaticon2-gear"></i>-->
                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon kt-svg-icon--success">
                       <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                         <rect id="bound" x="0" y="0" width="24" height="24" />
@@ -678,7 +670,6 @@
                 <div class="dropdown-menu dropdown-menu-fit dropdown-menu-right dropdown-menu-anim dropdown-menu-xl">
                   <form>
 
-                    <!--begin: Head -->
                     <div class="kt-head kt-head--skin-dark" style="background-image: url(./assets/media/misc/bg-1.jpg)">
                       <h3 class="kt-head__title">
                         User Quick Actions
@@ -687,9 +678,6 @@
                       </h3>
                     </div>
 
-                    <!--end: Head -->
-
-                    <!--begin: Grid Nav -->
                     <div class="kt-grid-nav kt-grid-nav--skin-light">
                       <div class="kt-grid-nav__row">
                         <a href="#" class="kt-grid-nav__item">
@@ -745,19 +733,17 @@
                       </div>
                     </div>
 
-                    <!--end: Grid Nav -->
                   </form>
                 </div>
-              </div>
+              </div> -->
 
               <!--end: Quick actions -->
 
               <!--begin: Quick panel -->
-              <div class="kt-header__topbar-item kt-header__topbar-item--quick-panel" data-toggle="kt-tooltip" title="Quick panel" data-placement="left">
+              <!-- <div class="kt-header__topbar-item kt-header__topbar-item--quick-panel" data-toggle="kt-tooltip" title="Quick panel" data-placement="left">
                 <div class="kt-header__topbar-wrapper">
                   <span class="kt-header__topbar-icon" id="kt_quick_panel_toggler_btn">
 
-                    <!--<i class="flaticon2-cube-1"></i>-->
                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon kt-svg-icon--danger">
                       <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                         <rect id="bound" x="0" y="0" width="24" height="24" />
@@ -766,7 +752,7 @@
                       </g>
                     </svg> </span>
                 </div>
-              </div>
+              </div> -->
 
               <!--end: Quick panel -->
 
