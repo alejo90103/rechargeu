@@ -162,7 +162,7 @@ class PaypalController extends BaseController
 			$recharge->status = "Cancel";
 			$recharge->save();
 
-			return Redirect::to(env('APP_CLIENT', 'http://localhost:8080').'/dashboard/failed');
+			return Redirect::to(env('APP_CLIENT', 'https://recharge.codeals.es').'/dashboard/failed');
 			// return Redirect::to("http://localhost:8080/dashboard/failed");
 
 			// return \Redirect::route('/')
@@ -184,34 +184,41 @@ class PaypalController extends BaseController
 		$payerId = $request->PayerID;
 		$token = $request->token;
 
-		//if (empty(\Input::get('PayerID')) || empty(\Input::get('token'))) {
-		// if (empty($payerId) || empty($token)) {
-		//
-		// 		$recharge->status = "Cancel";
-		// 		$recharge->save();
-		//
-		// 		// return Redirect::to(env('APP_CLIENT', 'http://localhost:8080').'/dashboard/failed');
-		// 		return Redirect::to("http://localhost:8080/dashboard/failed");
-		//
-		// 	// return \Redirect::route('home')
-		// 	// 	->with('message', 'Hubo un problema al intentar pagar con Paypal');
-		// }
+		// if (empty(\Input::get('PayerID')) || empty(\Input::get('token'))) {
+		if (empty($payerId) || empty($token)) {
 
-		// $payment = Payment::get($paymentBack->paypal_payment_id, $this->_api_context);
+				$contactRecharges = ContactRecharge::where('recharge_id', $recharge->id)->get();
+
+        foreach ($contactRecharges as $contactRecharge) {
+            $contactRecharge->status = 'Cancel';
+            $contactRecharge->save();
+        }
+
+				$recharge->status = "Cancel";
+				$recharge->save();
+
+				// return Redirect::to(env('APP_CLIENT', 'http://localhost:8080').'/dashboard/failed');
+				return Redirect::to("http://localhost:8080/dashboard/failed");
+
+			// return \Redirect::route('home')
+			// 	->with('message', 'Hubo un problema al intentar pagar con Paypal');
+		}
+
+		$payment = Payment::get($paymentBack->paypal_payment_id, $this->_api_context);
 
 		// PaymentExecution object includes information necessary
 		// to execute a PayPal account payment.
 		// The payer_id is added to the request query parameters
 		// when the user is redirected from paypal back to your site
-		// $execution = new PaymentExecution();
-		// $execution->setPayerId($payerId);
+		$execution = new PaymentExecution();
+		$execution->setPayerId($payerId);
 
 		//Execute the payment
-		// $result = $payment->execute($execution, $this->_api_context);
+		$result = $payment->execute($execution, $this->_api_context);
 
 		//echo '<pre>';print_r($result);echo '</pre>';exit; // DEBUG RESULT, remove it later
 
-		// if ($result->getState() == 'approved') { // payment made
+		if ($result->getState() == 'approved') { // payment made
 			// Registrar el pedido --- ok
 			// Registrar el Detalle del pedido  --- ok
 			// Eliminar carrito
@@ -246,55 +253,43 @@ class PaypalController extends BaseController
 					Mail::to($user->email)->send(new RechargeMail(true, $user->name, $status, $err_number, $recharge->date_recharge));
 
 					// programacion success
-					// return Redirect::to(env('APP_CLIENT', 'http://localhost:8080').'/dashboard/success');
-					return Redirect::to("http://localhost:8080/dashboard/success");
+					return Redirect::to(env('APP_CLIENT', 'https://recharge.codeals.es').'/dashboard/success');
+					// return Redirect::to("http://localhost:8080/dashboard/success");
 			}
 
 			// call ding
-			// foreach ($contactRecharges as $contactRecharge) {
-			//
-			// 		$user->accumulated += $recharge->price_pay * 0.01;
-			// 		$user->save();
-			//
-			// 		if ($recharge->type == "Cell") {
-			// 				$status = $this->dingSendTransfer($contactRecharge->phone, $recharge->recharge_amount, $contactRecharge->id, "CU_CU_TopUp");
-			// 		} else {
-			// 				$status = $this->dingSendTransfer($contactRecharge->email, $recharge->recharge_amount, $contactRecharge->id, "CU_NU_TopUp");
-			// 		}
-			// }
-
 			foreach ($contactRecharges as $contactRecharge) {
 
-            $user->accumulated += $recharge->price_pay * 0.01;
-            $user->save();
+          $user->accumulated += $recharge->price_pay * 0.01;
+          $user->save();
 
-            if ($recharge->type == "Cell") {
-                $status_dg = $this->dingSendTransfer($contactRecharge->phone, $recharge->recharge_amount, $contactRecharge->id, "CU_CU_TopUp");
+          if ($recharge->type == "Cell") {
+              $status_dg = $this->dingSendTransfer($contactRecharge->phone, $recharge->recharge_amount, $contactRecharge->id, "CU_CU_TopUp");
 
-                if(!$status_dg) {
-                    $contactRecharge->status = 'Denied';
-                    $contactRecharge->save();
-                    $status = false;
-                    array_push($err_number, $contactRecharge->phone);
-                } else {
-                    $contactRecharge->status = 'Accepted';
-                    $contactRecharge->save();
-                }
+              if(!$status_dg) {
+                  $contactRecharge->status = 'Denied';
+                  $contactRecharge->save();
+                  $status = false;
+                  array_push($err_number, $contactRecharge->phone);
+              } else {
+                  $contactRecharge->status = 'Accepted';
+                  $contactRecharge->save();
+              }
 
-            } else {
-                $status_dg = $this->dingSendTransfer($contactRecharge->email, $recharge->recharge_amount, $contactRecharge->id, "CU_NU_TopUp");
+          } else {
+              $status_dg = $this->dingSendTransfer($contactRecharge->email, $recharge->recharge_amount, $contactRecharge->id, "CU_NU_TopUp");
 
-                if(!$status_dg) {
-                    $contactRecharge->status = 'Denied';
-                    $contactRecharge->save();
-                    $status = false;
-                    array_push($err_number, $contactRecharge->email);
-                } else {
-                    $contactRecharge->status = 'Accepted';
-                    $contactRecharge->save();
-                }
-            }
-        }
+              if(!$status_dg) {
+                  $contactRecharge->status = 'Denied';
+                  $contactRecharge->save();
+                  $status = false;
+                  array_push($err_number, $contactRecharge->email);
+              } else {
+                  $contactRecharge->status = 'Accepted';
+                  $contactRecharge->save();
+              }
+          }
+      }
 
 			if ($status == true) {
 				//
@@ -306,8 +301,8 @@ class PaypalController extends BaseController
         Mail::to($user->email)->send(new RechargeMail(false, $user->name, $status, $err_number, $recharge->date_recharge));
 				// $urlBack = Setting::first()->server_client;
 				// return Redirect::to($urlBack."dashboard/success");
-				// return Redirect::to(env('APP_CLIENT', 'http://localhost:8080').'/dashboard/success');
-				return Redirect::to("http://localhost:8080/dashboard/success");
+				return Redirect::to(env('APP_CLIENT', 'https://recharge.codeals.es').'/dashboard/success');
+				// return Redirect::to("http://localhost:8080/dashboard/success");
 			} else {
 				//
 				$recharge->status = "Denied";
@@ -318,8 +313,8 @@ class PaypalController extends BaseController
         Mail::to($user->email)->send(new RechargeMail(false, $user->name, $status, $err_number, $recharge->date_recharge));
 				// $urlBack = Setting::first()->server_client;
 				// return Redirect::to($urlBack."dashboard/failedDing");
-				// return Redirect::to(env('APP_CLIENT', 'http://localhost:8080').'/dashboard/failedDing');
-				return Redirect::to("http://localhost:8080/dashboard/failedDing");
+				return Redirect::to(env('APP_CLIENT', 'https://recharge.codeals.es').'/dashboard/failedDing');
+				// return Redirect::to("http://localhost:8080/dashboard/failedDing");
 			}
 
 			// $this->saveOrder(\Session::get('cart'));
@@ -329,10 +324,10 @@ class PaypalController extends BaseController
 
 			// return \Redirect::route('home')
 			// 	->with('message', 'Compra realizada de forma correcta');
-		// }
+		}
 
-		// return Redirect::to(env('APP_CLIENT', 'https://localhost:8080').'/dashboard/failed');
-		return Redirect::to("http://localhost:8080/dashboard/failed");
+		return Redirect::to(env('APP_CLIENT', 'https://recharge.codeals.es').'/dashboard/failed');
+		// return Redirect::to("http://localhost:8080/dashboard/failed");
 		// return \Redirect::route('home')
 		// 	->with('message', 'La compra fue cancelada');
 	}

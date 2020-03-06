@@ -80,13 +80,13 @@
   													Listar Oferta </h3>
 
   											</div>
-                        <!-- <div class="kt-subheader__toolbar">
+                        <div class="kt-subheader__toolbar">
                             <div class="kt-subheader__wrapper">
-                                <a href="#" class="btn kt-subheader__btn-primary">
-                                    Actions &nbsp;
+                                <a href="{{route('offers.create')}}" class="btn kt-subheader__btn-primary">
+                                    Nueva Oferta &nbsp;
                                 </a>
 
-                                <a href="#" class="btn kt-subheader__btn-primary btn-icon">
+                                <!-- <a href="#" class="btn kt-subheader__btn-primary btn-icon">
                                     <i class="flaticon2-file"></i>
                                 </a>
 
@@ -100,9 +100,9 @@
 
                                 <a href="#" class="btn kt-subheader__btn-primary btn-icon">
                                     <i class="flaticon2-settings"></i>
-                                </a>
+                                </a> -->
 
-                                <div class="dropdown dropdown-inline" data-toggle="kt-tooltip" title="" data-placement="left" data-original-title="Quick actions">
+                                <!-- <div class="dropdown dropdown-inline" data-toggle="kt-tooltip" title="" data-placement="left" data-original-title="Quick actions">
                                     <a href="#" class="btn btn-icon" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon kt-svg-icon--success kt-svg-icon--md">
                                             <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -153,9 +153,9 @@
                                             </li>
                                         </ul>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
-                        </div> -->
+                        </div>
                     </div>
                 </div>
                 <div class="kt-container  kt-grid__item kt-grid__item--fluid">

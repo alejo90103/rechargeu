@@ -82,6 +82,13 @@
   													Listar Usuarios </h3>
 
   											</div>
+                        <div class="kt-subheader__toolbar">
+                            <div class="kt-subheader__wrapper">
+                                <a href="{{route('users.create')}}" class="btn kt-subheader__btn-primary">
+                                    Nuevo Usuario &nbsp;
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="kt-container  kt-grid__item kt-grid__item--fluid">

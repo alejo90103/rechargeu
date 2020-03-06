@@ -45,14 +45,18 @@ class RedsysController extends Controller
     		$miObj = new RedsysAPI();
 
     		// Valores de entrada que no hemos cmbiado para ningun ejemplo
-    		$fuc="049763097";
+    		$fuc="NUMERO DE COMERCIO";
     		$terminal="1";
     		$moneda="978";
     		$trans="0";
 
-        $url="http://localhost:8080/api/response-redsys/response/".$payment->token;
-  			$urlOK="http://localhost:8080/api/response-redsys/ok/".$payment->token;
-  			$urlKO="http://localhost:8080/api/response-redsys/ko/".$payment->token;
+        // $url="http://localhost:8080/api/response-redsys/response/".$payment->token;
+  			// $urlOK="http://localhost:8080/api/response-redsys/ok/".$payment->token;
+  			// $urlKO="http://localhost:8080/api/response-redsys/ko/".$payment->token;
+
+        $url="https://recharge.codeals.es/api/response-redsys/response/".$payment->token;
+  			$urlOK="https://recharge.codeals.es/api/response-redsys/ok/".$payment->token;
+  			$urlKO="https://recharge.codeals.es/api/response-redsys/ko/".$payment->token;
 
     		//estos dos valores los vamos cambiando en cada ejemplo
         $ids = rand(10,1000);
@@ -70,7 +74,7 @@ class RedsysController extends Controller
     		$miObj->setParameter("DS_MERCHANT_MERCHANTURL",$url);
     		$miObj->setParameter("DS_MERCHANT_URLOK",$urlOK);
     		$miObj->setParameter("DS_MERCHANT_URLKO",$urlKO);
-    		$miObj->setParameter("DS_MERCHANT_PRODUCTDESCRIPTION", 'Paquetes de empresas');
+    		$miObj->setParameter("DS_MERCHANT_PRODUCTDESCRIPTION", 'Recargas moviles');
 
     		//Datos de configuración
     		// $version="HMAC_SHA256_V1";
@@ -100,7 +104,7 @@ class RedsysController extends Controller
         $payment = Payment::where('token', $token)->first();
 
         if(!$payment) {
-            return Redirect::to(env('APP_CLIENT', 'http://localhost:8080').'/dashboard/failedDing');
+            return Redirect::to(env('APP_CLIENT', 'https://recharge.codeals.es').'/dashboard/failedDing');
         }
 
         $recharge = Recharge::where('id', $payment->recharge_id)->first();
@@ -131,8 +135,8 @@ class RedsysController extends Controller
 
             // programacion success
             // return redirect()->route('/')->with('msg', trans('user.controller.success_schedul'));
-            // return Redirect::to(env('APP_CLIENT', 'http://localhost:8080').'/dashboard/success_schedul');
-            return Redirect::to("http://localhost:8080/dashboard/success");
+            return Redirect::to(env('APP_CLIENT', 'https://recharge.codeals.es').'/dashboard/success_schedul');
+            // return Redirect::to("http://localhost:8080/dashboard/success");
         }
 
         // call ding
@@ -199,7 +203,7 @@ class RedsysController extends Controller
 
             Mail::to($user->email)->send(new RechargeMail(false, $user->name, $status, $err_number, $recharge->date_recharge));
 
-            return Redirect::to(env('APP_CLIENT', 'http://localhost:8080').'/dashboard/success');
+            return Redirect::to(env('APP_CLIENT', 'https://recharge.codeals.es').'/dashboard/success');
         } else {
             //
             $recharge->status = "Denied";
@@ -209,7 +213,7 @@ class RedsysController extends Controller
 
             Mail::to($user->email)->send(new RechargeMail(false, $user->name, $status, $err_number, $recharge->date_recharge));
 
-            return Redirect::to(env('APP_CLIENT', 'http://localhost:8080').'/dashboard/failedDing');
+            return Redirect::to(env('APP_CLIENT', 'https://recharge.codeals.es').'/dashboard/failedDing');
         }
     }
 
@@ -220,12 +224,19 @@ class RedsysController extends Controller
         $recharge = Recharge::where('id', $payment->recharge_id)->first();
         // $contactRecharges = ContactRecharge::where('recharge_id', $payment->recharge_id)->get();
 
+        $contactRecharges = ContactRecharge::where('recharge_id', $recharge->id)->get();
+
+        foreach ($contactRecharges as $contactRecharge) {
+            $contactRecharge->status = 'Cancel';
+            $contactRecharge->save();
+        }
+
         $recharge->status = "Cancel";
         $recharge->save();
 
         // $urlBack = Setting::first()->server_client;
         // return Redirect::to($urlBack."dashboard/failed");
-        return Redirect::to(env('APP_CLIENT', 'http://localhost:8080').'/dashboard/failed');
+        return Redirect::to(env('APP_CLIENT', 'https://recharge.codeals.es').'/dashboard/failed');
         // return Redirect::to("http://localhost:8080/dashboard/failed");
     }
 

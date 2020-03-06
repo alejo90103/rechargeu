@@ -7,10 +7,10 @@
  * @Copyright: Codeals
  */
 
-// export const apiClient = 'https://#/'
-// export const apiDomain = 'https://admin.#'
-export const apiClient = 'http://localhost:8080/'
-export const apiDomain = 'http://localhost:8000/'
+export const apiClient = 'https://recharge.codeals.es/'
+export const apiDomain = 'https://adminrecharge.codeals.es/'
+// export const apiClient = 'http://localhost:8080/'
+// export const apiDomain = 'http://localhost:8000/'
 export const loginUrl = apiDomain + 'oauth/token'
 export const userUrl = apiDomain + 'api/user'
 export const forgotPassword = apiDomain + 'api/forgot-password'
